@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="short_cut_button_enabled"
+        android:order="10"
+        android:persistent="false"
+        android:title="@string/set_194"
+        android:layout="@layout/element_preference_switch"/>
+
+    <Preference
+        android:key="album_art_enabled"
+        android:layout="@layout/element_preference_base"
+        android:order="20"
+        android:title="@string/set_010" />
+
+    <Preference
+        android:key="genre_card_enabled"
+        android:layout="@layout/element_preference_base"
+        android:order="30"
+        android:title="@string/set_085" />
+
+    <Preference
+        android:key="playlist_card_enabled"
+        android:layout="@layout/element_preference_base"
+        android:order="40"
+        android:title="@string/set_157" />
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="app_service_resident"
+        android:order="50"
+        android:persistent="false"
+        android:title="@string/set_393"
+        android:layout="@layout/element_preference_switch"/>
+</PreferenceScreen>

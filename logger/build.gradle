@@ -1,0 +1,53 @@
+apply plugin: 'com.android.library'
+apply from: '../constants.gradle'
+android {
+    compileSdkVersion project.ext.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion project.ext.minSdkVersion
+        targetSdkVersion project.ext.targetSdkVersion
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    if ( ! isGoogleStoreBuild() ) {
+        println("=== Logger: ON  ===")
+        api fileTree(dir: 'libs', include: ['logger-library.aar'])
+        api fileTree(dir: 'libs', include: ['logger-api.aar'])
+        implementation fileTree(dir: 'libs', include: ['logger-core.aar'])
+        lintChecks files("libs/logger-lint.jar")
+    } else {
+        println("=== Logger: OFF  ===")
+        api fileTree(dir: 'libs', include: ['logger-library-empty.aar'])
+        api fileTree(dir: 'libs', include: ['logger-api.aar'])
+    }
+}
+
+////// ソースプロジェクトをincludeする場合 ////////
+//dependencies {
+//    if ( ! isGoogleStoreBuild() ) {
+//        println("=== Logger: ON  ===")
+//        api project(":logger-library")
+//        lintChecks project(":logger-lint")
+//    } else {
+//        println("=== Logger: OFF  ===")
+//        api project(":logger-library-empty")
+//    }
+//}
+/////////////////////////////////////////////////
+
+
+boolean isGoogleStoreBuild() {
+//    if (rootProject.ext.useGoogleStoreFiles == null) {
+ //       throw new GradleException("変数の値が不正です. [useGoogleStoreFiles is null]")
+//    }
+
+    return true // rootProject.ext.useGoogleStoreFiles
+}

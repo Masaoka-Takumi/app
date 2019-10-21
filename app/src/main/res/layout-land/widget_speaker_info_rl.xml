@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/advanced_audio_setting_speaker_info_width_land"
+    android:layout_height="wrap_content"
+    android:duplicateParentState="true"
+    android:gravity="right">
+
+    <include
+        android:id="@+id/speakerInfoContainer"
+        layout="@layout/element_speaker_info_texts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true" />
+
+    <FrameLayout
+        android:id="@+id/rightSpeakerContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/speakerInfoContainer"
+        android:layout_marginLeft="@dimen/advanced_audio_setting_speaker_info_margin"
+        android:layout_marginTop="0dp"
+        android:layout_toRightOf="@+id/speakerInfoContainer"
+        android:duplicateParentState="true">
+
+        <RelativeLayout
+            android:id="@+id/speakerIcon"
+            android:layout_width="@dimen/advanced_audio_setting_speaker_icon_width"
+            android:layout_height="@dimen/advanced_audio_setting_speaker_icon_height"
+            android:duplicateParentState="true">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:scaleType="fitCenter"
+                android:alpha="0.5"
+                android:src="@drawable/p0205_spbtn_1nrm" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0207_spbtn_selectbase_1nrm" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0206_spbtn_select_1nrm" />
+        </RelativeLayout>
+    </FrameLayout>
+</RelativeLayout>

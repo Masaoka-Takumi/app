@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/setting_list_item_height"
+    android:gravity="center_vertical"
+    android:layoutDirection="ltr"
+    android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants">
+
+    <TextView
+        android:id="@android:id/text1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:drawablePadding="12dp"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-light"
+        android:gravity="left|center_vertical"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/source_app_setting_portrait_left_padding"
+        android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/text_color_state"
+        android:textSize="@dimen/element_list_item_single_title_text_size" />
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+        android:paddingRight="@dimen/source_app_setting_right_padding"
+        android:focusable="false"
+        android:clickable="false"
+        android:scaleX="1.2"
+        android:scaleY="1.2" />
+</LinearLayout>

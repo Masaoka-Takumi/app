@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/setting_list_item_height"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp">
+
+    <TextView
+        android:id="@+id/bd_address"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="left|center_vertical"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="#FFFFFF"
+        android:fontFamily="sans-serif-light"
+        android:textSize="26dp" />
+
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/bt_link_key"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:gravity="right|center_vertical"
+        android:maxLines="1"
+        android:textColor="#FFFFFF"
+        android:fontFamily="sans-serif-light"
+        android:alpha="0.6"
+        android:textSize="22sp"
+        autofit:minTextSize="12sp"/>
+</LinearLayout>

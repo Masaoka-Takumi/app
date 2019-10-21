@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="@string/key_initial_menu_display_language"
+        android:layout="@layout/element_preference_base"
+        android:order="10"
+        android:title="@string/set_110" />
+
+    <Preference
+        android:key="@string/key_initial_fm_step"
+        android:layout="@layout/element_preference_base"
+        android:order="20"
+        android:title="@string/set_074" />
+
+    <Preference
+        android:key="@string/key_initial_am_step"
+        android:layout="@layout/element_preference_base"
+        android:order="30"
+        android:title="@string/set_013" />
+
+    <Preference
+        android:key="@string/key_initial_rear_output_preout_output"
+        android:layout="@layout/element_preference_base"
+        android:order="40"
+        android:title="@string/set_181" />
+
+    <Preference
+        android:key="@string/key_initial_rear_output"
+        android:layout="@layout/element_preference_base"
+        android:order="50"
+        android:title="@string/set_182" />
+
+</PreferenceScreen>

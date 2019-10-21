@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/p1100_initial_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/agreement_background"
+        android:orientation="vertical">
+
+        <jp.pioneer.carsync.presentation.view.widget.CustomScrollView
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:fadingEdgeLength="40dip"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginBottom="15dp"
+            android:requiresFadingEdge="vertical">
+            <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="10"-->
+            <!--android:layout_marginLeft="30dp"-->
+            <!--android:layout_marginRight="30dp"-->
+            <!--android:layout_marginTop="30dp"-->
+            <!--android:layout_marginBottom="15dp">-->
+            <WebView
+                android:id="@+id/web_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <!--</RelativeLayout>-->
+
+        </jp.pioneer.carsync.presentation.view.widget.CustomScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:gravity="center">
+
+            <jp.pioneer.carsync.presentation.view.widget.CircleView
+                android:layout_width="9dp"
+                android:layout_height="9dp"
+                android:layout_marginRight="20dp"
+                android:alpha="0.25"/>
+
+            <jp.pioneer.carsync.presentation.view.widget.CircleView
+                android:layout_width="9dp"
+                android:layout_height="9dp"
+                android:layout_marginLeft="20dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/agree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/sta_005"
+                android:lines="1"
+                android:singleLine="true"
+                android:textAlignment="center"
+                android:textColor="@color/text_color_state"
+                android:textSize="@dimen/button_text_size"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

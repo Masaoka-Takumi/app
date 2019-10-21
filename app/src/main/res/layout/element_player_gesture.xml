@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p1000_gesture_base" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p1001_gesture_lightning"
+        android:tint="?attr/uiColor"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p1002_gesture_line" />
+    <ImageView
+        android:id="@+id/gesture_icon_base"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p1010_gesture_play"
+        android:tint="?attr/uiColor"/>
+    <ImageView
+        android:id="@+id/gesture_icon"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p1011_gesture_play_h" />
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/gesture_text"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:layout_gravity="center_vertical"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:fontFamily="sans-serif-light"
+        android:textColor="?attr/uiColor"
+        android:gravity="center"
+        android:textSize="38sp"
+        autofit:minTextSize="16sp"
+        android:text=""
+        />
+</FrameLayout>

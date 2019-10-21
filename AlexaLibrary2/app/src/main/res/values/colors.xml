@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <color name="home_large_shadow_color">#BF000000</color>
+        <color name="home_large_base_color">#FF181818</color>
+        <color name="map_base_color">#0B5717</color>
+        <color name="map_detail_contents_background">#505050</color>
+        <color name="map_icon_save_button_frame">#808080</color>
+        <color name="map_icon_save_button_default">#202020</color>
+        <color name="map_icon_save_button_pressed">#80FFFFFF</color>
+        <color name="map_search_edit_layer_overlay">#404040CC</color>
+        <color name="map_button_frame">#585858</color>
+        <color name="map_button_back_default">#000000</color>
+        <color name="map_button_back_selected">#006850</color>
+        <color name="map_text_color_gray">#B0B0B0</color>
+        <color name="map_background">#303030</color>
+        <color name="map_poly_line_color">#0048E0</color>
+        <color name="map_web_backbround">#000000</color>
+        <color name="map_darkgray_item">#FF505050</color>
+        <color name="map_bar_backbround">#FF505050</color>
+        <color name="map_bar_handle">#A080FFFF</color>
+        <color name="map_bar_frame">#FF808080</color>
+        <color name="home_blue_button">#0088B0</color>
+        <color name="home_blue_value">#0080B0</color>
+        <color name="home_line_white">#FFFFFF</color>
+        <color name="home_darkgray_item">#FF505050</color>
+        <color name="home_background">#FF000000</color>
+        <color name="home_background_white">#FFFFFF</color>
+        <color name="home_base_color">#000000</color>
+
+        <color name="login_gray_button_frm">#505050</color>
+        <color name="login_gray_button_frm_press">#B8B8B8</color>
+        <color name="login_gray_button_frm_disable">#4C4F4F4F</color>
+        <color name="login_back_button">#48B0E8</color>
+        <color name="login_back_button_press">#90D0F0</color>
+        <color name="login_forgot_button">#B8B8B8</color>
+        <color name="login_forgot_button_press">#FFFFFF</color>
+        <color name="login_blue_value">#0080B0</color>
+        <color name="login_line_white">#FFFFFF</color>
+        <color name="login_dark_gray_item">#FF282828</color>
+        <color name="login_black_item">#FF000000</color>
+
+        <!--メイン画面で使ってる色-->
+        <color name="home_white_item">#FFF0F4F8</color>
+        <color name="home_gray_item">#FF828A8E</color>
+        <color name="home_shadow">#99000000</color>
+        <color name="thumb">#00000000</color>
+        <!--ここまで-->
+
+        <!--ログイン画面で使ってる色-->
+        <color name="login_base_color">#FF101010</color>
+        <color name="login_title_gray">#FF181818</color>
+        <color name="login_list_line">#FF282828</color>
+        <color name="login_rect_edge">#FF505050</color>
+        <color name="login_gray_button">#FF404040</color>
+        <color name="login_gray_button_press">#FFD0D0D0</color>
+        <color name="login_gray_button_disable">#4D808080</color>
+        <color name="login_list_press">#1AFFFFFF</color>
+
+        <color name="login_base_white">#FFFFFFFF</color>
+        <color name="login_title_blue">#FF00A5CF</color>
+        <color name="login_app_line">#FFD5DADB</color>
+        <color name="login_blue_button">#FF00A5CF</color>
+        <color name="login_blue_button_press">#FFD0D0D0</color>
+        <color name="login_blue_button_disable">#4D80A5CF</color>
+        <color name="login_pink_button">#FFEA1E63</color>
+        <color name="login_pink_button_press">#FFD0D0D0</color>
+        <color name="login_pink_button_disable">#4DEA1E63</color>
+
+        <color name="login_white_item">#FFFFFFFF</color>
+        <color name="login_white_item_press">#A5FFFFFF</color>
+        <color name="login_white_item_disable">#4DFFFFFF</color>
+        <color name="login_gray_item">#FF646464</color>
+        <color name="login_blue_item">#FF48B0E8</color>
+        <!--ここまで-->
+
+
+
+        <color name="notify_base_color">#000000</color>
+        <color name="notify_white_item">#FFFFFF</color>
+        <color name="notify_lightgray_item">#AAAAAA</color>
+        <color name="notify_darkgray_item">#FF505050</color>
+        <color name="notify_darkgray_mask">#70FF0000</color>
+        <color name="notify_blue_item">#0088B0</color>
+        <color name="notify_transparent_black">#80000000</color>
+        <color name="notify_web_backbround">#000000</color>
+        <color name="setting_item_selector_on">#A0FFFFFF</color>
+        <color name="setting_item_selector_off">#FF161616</color>
+        <color name="dialog_button">#FF484848</color>
+        <color name="light_grey">#D3D3D3</color>
+        <color name="text_001_color">#FFF0F4F8</color>
+        <color name="text_033_color">#7F686868</color>
+        <color name="text_color_black">#000000</color>
+<!-- AnyPlace:18-445-5-00023 Start -->
+        <color name="text_color_white">#FFFFFFFF</color>
+<!-- AnyPlace:18-445-5-00023 End -->
+        <color name="event_rsvp_button_frame">#FF585858</color>
+        <color name="event_rsvp_button_back_default">#FF000000</color>
+        <color name="event_rsvp_button_back_selected">#FF8000E8</color>
+
+        <color name="colorPrimary">#3F51B5</color>
+        <color name="colorPrimaryDark">#303F9F</color>
+        <color name="colorAccent">#FF4081</color>
+        <color name="main_color">#000000</color>
+</resources>

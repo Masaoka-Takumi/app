@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/status_bar"
+        layout="@layout/element_player_status_bar" />
+
+    <jp.pioneer.carsync.presentation.view.widget.CustomGestureLayout
+        android:id="@+id/gesture_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/player_music_alexa_gesture_margin_portrait"
+        android:layout_marginBottom="@dimen/player_music_alexa_gesture_margin_portrait"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@+id/gesture_view"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/gesture_view">
+
+        <ImageView
+            android:id="@+id/jacket_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p0274_sourceimg" />
+    </jp.pioneer.carsync.presentation.view.widget.CustomGestureLayout>
+    <include
+        android:id="@+id/gesture_view"
+        layout="@layout/element_player_gesture"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="@dimen/player_music_alexa_gesture_view_portrait_margin_bottom"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_top"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/status_bar" />
+    <android.support.v4.widget.Space
+        android:id="@+id/margin_right"
+        android:layout_width="7dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/gesture_layout" />
+    <android.support.v4.widget.Space
+        android:id="@+id/margin_left"
+        android:layout_width="7dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/gesture_layout" />
+    <include
+        android:id="@+id/progressbar_alexa"
+        layout="@layout/element_home_progress_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/margin_Bottom"
+        app:layout_constraintLeft_toLeftOf="@+id/margin_left"
+        app:layout_constraintRight_toRightOf="@+id/margin_right" />
+    <android.support.v4.widget.Space
+        android:id="@+id/margin_Bottom"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/player_music_alexa_progressbar_margin_bottom"
+        app:layout_constraintTop_toTopOf="@+id/section_info"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_percent="@dimen/player_music_alexa_portrait_top_guideline_percent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/section_info"
+        layout="@layout/element_player_section_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/player_music_section_info_margin_top"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline_top" />
+
+    <include
+        android:id="@+id/section_button"
+        layout="@layout/element_player_section_button_streaming"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/player_music_section_button_margin_bottom_alexa"
+        android:layout_marginTop="@dimen/player_music_section_info_margin_top"
+        app:layout_goneMarginBottom="@dimen/player_music_section_button_margin_bottom"
+        app:layout_constraintTop_toBottomOf="@+id/section_info"
+        app:layout_constraintBottom_toTopOf="@+id/shortcut_group"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/currentTimeView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0:00"
+        android:lines="1"
+        autofit:minTextSize="@dimen/min_text_size_8"
+        android:textSize="@dimen/player_time_text_size"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="6dp"
+        android:gravity="right"
+        app:layout_constraintRight_toLeftOf="@+id/gesture_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/gesture_view"
+        />
+
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/remainingTimeView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="-0:00"
+        android:lines="1"
+        autofit:minTextSize="@dimen/min_text_size_8"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="2dp"
+        android:gravity="left"
+        android:textSize="@dimen/player_time_text_size"
+        app:layout_constraintLeft_toRightOf="@+id/gesture_layout"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/gesture_view"
+        />
+    <include
+        android:id="@+id/shortcut_group"
+        layout="@layout/element_shortcut_keys_bar" />
+    <include
+        android:id="@+id/progressbar"
+        layout="@layout/element_player_progress_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+    <include
+        android:id="@+id/fx_eq_message"
+        layout="@layout/element_fx_eq_message"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/player_music_fx_eq_message_height"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@+id/status_bar"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_top"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+</android.support.constraint.ConstraintLayout>

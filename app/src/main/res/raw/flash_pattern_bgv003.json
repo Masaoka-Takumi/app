@@ -1,0 +1,3317 @@
+[
+  {
+    "zone2": {
+      "red": 0,
+      "green": 18,
+      "blue": 10
+    },
+    "zone3": {
+      "red": 14,
+      "green": 19,
+      "blue": 6
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 18,
+      "blue": 10
+    },
+    "zone3": {
+      "red": 14,
+      "green": 20,
+      "blue": 6
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 19,
+      "blue": 11
+    },
+    "zone3": {
+      "red": 15,
+      "green": 21,
+      "blue": 7
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 20,
+      "blue": 12
+    },
+    "zone3": {
+      "red": 16,
+      "green": 22,
+      "blue": 7
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 20,
+      "blue": 13
+    },
+    "zone3": {
+      "red": 16,
+      "green": 23,
+      "blue": 7
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 21,
+      "blue": 13
+    },
+    "zone3": {
+      "red": 16,
+      "green": 25,
+      "blue": 8
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 22,
+      "blue": 15
+    },
+    "zone3": {
+      "red": 17,
+      "green": 26,
+      "blue": 8
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 23,
+      "blue": 16
+    },
+    "zone3": {
+      "red": 17,
+      "green": 27,
+      "blue": 9
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 24,
+      "blue": 17
+    },
+    "zone3": {
+      "red": 18,
+      "green": 28,
+      "blue": 9
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 24,
+      "blue": 18
+    },
+    "zone3": {
+      "red": 18,
+      "green": 29,
+      "blue": 9
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 25,
+      "blue": 19
+    },
+    "zone3": {
+      "red": 18,
+      "green": 31,
+      "blue": 10
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 26,
+      "blue": 20
+    },
+    "zone3": {
+      "red": 19,
+      "green": 32,
+      "blue": 10
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 27,
+      "blue": 21
+    },
+    "zone3": {
+      "red": 18,
+      "green": 33,
+      "blue": 10
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 28,
+      "blue": 23
+    },
+    "zone3": {
+      "red": 19,
+      "green": 34,
+      "blue": 11
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 28,
+      "blue": 24
+    },
+    "zone3": {
+      "red": 19,
+      "green": 35,
+      "blue": 11
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 29,
+      "blue": 25
+    },
+    "zone3": {
+      "red": 19,
+      "green": 36,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 30,
+      "blue": 27
+    },
+    "zone3": {
+      "red": 18,
+      "green": 36,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 30,
+      "blue": 27
+    },
+    "zone3": {
+      "red": 18,
+      "green": 36,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 30,
+      "blue": 27
+    },
+    "zone3": {
+      "red": 17,
+      "green": 36,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 30,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 16,
+      "green": 36,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 30,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 16,
+      "green": 36,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 27,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 15,
+      "green": 36,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 27,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 14,
+      "green": 36,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 26,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 14,
+      "green": 36,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 26,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 13,
+      "green": 36,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 25,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 13,
+      "green": 36,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 24,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 24,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 23,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 23,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 22,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 13
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 21,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 13
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 21,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 15
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 19,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 15
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 19,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 16
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 18,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 16
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 17,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 17
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 17,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 18
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 16,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 18
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 16,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 19
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 15,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 19
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 14,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 19
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 14,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 20
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 13,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 20
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 13,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 21
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 12,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 21
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 11,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 22
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 11,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 22
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 10,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 24
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 9,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 24
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 8,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 24
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 8,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 25
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 7,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 25
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 7,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 26
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 7,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 27
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 5,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 27
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 5,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 28
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 4,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 28
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 3,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 29
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 2,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 29
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 1,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 29
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 1,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 31
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 31
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 1,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 32
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 2,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 32
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 3,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 33
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 4,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 34
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 4,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 34
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 5,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 34
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 5,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 7,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 36,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 7,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 34,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 8,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 34,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 8,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 33,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 9,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 33,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 10,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 32,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 11,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 31,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 11,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 31,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 12,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 30,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 12,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 29,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 13,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 29,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 13,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 28,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 14,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 28,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 15,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 27,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 16,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 27,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 16,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 26,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 17,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 26,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 17,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 25,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 18,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 24,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 19,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 24,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 19,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 24,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 20,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 23,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 21,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 22,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 21,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 22,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 22,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 22,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 23,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 21,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 23,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 20,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 24,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 20,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 25,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 19,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 25,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 19,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 26,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 18,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 27,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 18,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 27,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 17,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 28,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 16,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 16,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 30
+    },
+    "zone3": {
+      "red": 12,
+      "green": 15,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 28
+    },
+    "zone3": {
+      "red": 12,
+      "green": 15,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 27
+    },
+    "zone3": {
+      "red": 12,
+      "green": 14,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 27
+    },
+    "zone3": {
+      "red": 12,
+      "green": 13,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 26
+    },
+    "zone3": {
+      "red": 12,
+      "green": 13,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 25
+    },
+    "zone3": {
+      "red": 12,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 25
+    },
+    "zone3": {
+      "red": 12,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 24
+    },
+    "zone3": {
+      "red": 12,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 23
+    },
+    "zone3": {
+      "red": 12,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 23
+    },
+    "zone3": {
+      "red": 13,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 22
+    },
+    "zone3": {
+      "red": 13,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 21
+    },
+    "zone3": {
+      "red": 14,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 21
+    },
+    "zone3": {
+      "red": 15,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 20
+    },
+    "zone3": {
+      "red": 15,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 19
+    },
+    "zone3": {
+      "red": 16,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 19
+    },
+    "zone3": {
+      "red": 16,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 18
+    },
+    "zone3": {
+      "red": 16,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 17
+    },
+    "zone3": {
+      "red": 18,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 17
+    },
+    "zone3": {
+      "red": 18,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 16
+    },
+    "zone3": {
+      "red": 19,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 16
+    },
+    "zone3": {
+      "red": 19,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 15
+    },
+    "zone3": {
+      "red": 20,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 14
+    },
+    "zone3": {
+      "red": 20,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 14
+    },
+    "zone3": {
+      "red": 21,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 13
+    },
+    "zone3": {
+      "red": 21,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 12
+    },
+    "zone3": {
+      "red": 22,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 11
+    },
+    "zone3": {
+      "red": 22,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 11
+    },
+    "zone3": {
+      "red": 24,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 10
+    },
+    "zone3": {
+      "red": 24,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 10
+    },
+    "zone3": {
+      "red": 24,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 9
+    },
+    "zone3": {
+      "red": 24,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 8
+    },
+    "zone3": {
+      "red": 25,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 8
+    },
+    "zone3": {
+      "red": 26,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 7
+    },
+    "zone3": {
+      "red": 26,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 7
+    },
+    "zone3": {
+      "red": 27,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 6
+    },
+    "zone3": {
+      "red": 27,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 4
+    },
+    "zone3": {
+      "red": 28,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 4
+    },
+    "zone3": {
+      "red": 28,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 3
+    },
+    "zone3": {
+      "red": 29,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 3
+    },
+    "zone3": {
+      "red": 29,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 2
+    },
+    "zone3": {
+      "red": 30,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 31,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 0,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 31,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 1,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 32,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 2,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 32,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 3,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 33,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 4,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 34,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 4,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 34,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 6,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 35,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 6,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 7,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 36
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 7,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 35
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 8,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 34
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 9,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 34
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 9,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 32
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 11,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 32
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 11,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 32
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 11,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 31
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 12,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 31
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 12,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 30
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 13,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 29
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 14,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 29
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 14,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 28
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 16,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 28
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 16,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 27
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 17,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 27
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 17,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 26
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 18,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 26
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 19,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 24
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 19,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 24
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 19,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 24
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 20,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 24
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 21,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 23
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 22,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 22
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 22,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 22
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 23,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 21
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 23,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 20
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 25,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 20
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 25,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 19
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 26,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 19
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 27,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 18
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 27,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 18
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 28,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 18
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 28,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 17
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 30,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 16
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 28,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 16
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 28,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 15
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 27,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 15
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 27,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 13
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 25,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 13
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 25,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 13
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 25,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 23,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 12,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 23,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 13,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 22,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 13,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 21,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 14,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 21,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 14,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 20,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 15,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 20,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 16,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 19,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 16,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 18,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 16,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 18,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 17,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 17,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 18,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 17,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 19,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 16,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 19,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 15,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 20,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 14,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 20,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 14,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 21,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 13,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 21,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 12,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 21,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 12,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 36,
+      "green": 22,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 12,
+      "green": 30,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 35,
+      "green": 22,
+      "blue": 12
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 10,
+      "green": 29,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 35,
+      "green": 23,
+      "blue": 11
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 10,
+      "green": 29,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 35,
+      "green": 23,
+      "blue": 11
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 9,
+      "green": 29,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 34,
+      "green": 23,
+      "blue": 11
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 9,
+      "green": 28,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 34,
+      "green": 24,
+      "blue": 11
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 7,
+      "green": 28,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 33,
+      "green": 23,
+      "blue": 11
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 7,
+      "green": 28,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 33,
+      "green": 24,
+      "blue": 10
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 6,
+      "green": 27,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 32,
+      "green": 24,
+      "blue": 10
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 5,
+      "green": 27,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 32,
+      "green": 24,
+      "blue": 10
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 4,
+      "green": 27,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 31,
+      "green": 24,
+      "blue": 10
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 4,
+      "green": 27,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 31,
+      "green": 24,
+      "blue": 10
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 3,
+      "green": 26,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 30,
+      "green": 24,
+      "blue": 10
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 2,
+      "green": 26,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 30,
+      "green": 25,
+      "blue": 10
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 2,
+      "green": 26,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 29,
+      "green": 24,
+      "blue": 9
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 2,
+      "green": 25,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 29,
+      "green": 25,
+      "blue": 9
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 25,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 28,
+      "green": 24,
+      "blue": 9
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 25,
+      "blue": 0
+    },
+    "zone3": {
+      "red": 28,
+      "green": 25,
+      "blue": 9
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 24,
+      "blue": 1
+    },
+    "zone3": {
+      "red": 27,
+      "green": 24,
+      "blue": 9
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 24,
+      "blue": 2
+    },
+    "zone3": {
+      "red": 27,
+      "green": 25,
+      "blue": 9
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 24,
+      "blue": 2
+    },
+    "zone3": {
+      "red": 27,
+      "green": 25,
+      "blue": 8
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 24,
+      "blue": 3
+    },
+    "zone3": {
+      "red": 26,
+      "green": 25,
+      "blue": 8
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 23,
+      "blue": 3
+    },
+    "zone3": {
+      "red": 26,
+      "green": 25,
+      "blue": 8
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 23,
+      "blue": 4
+    },
+    "zone3": {
+      "red": 25,
+      "green": 24,
+      "blue": 8
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 23,
+      "blue": 4
+    },
+    "zone3": {
+      "red": 25,
+      "green": 25,
+      "blue": 8
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 22,
+      "blue": 5
+    },
+    "zone3": {
+      "red": 24,
+      "green": 24,
+      "blue": 8
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 22,
+      "blue": 5
+    },
+    "zone3": {
+      "red": 23,
+      "green": 24,
+      "blue": 8
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 22,
+      "blue": 6
+    },
+    "zone3": {
+      "red": 22,
+      "green": 24,
+      "blue": 8
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 21,
+      "blue": 6
+    },
+    "zone3": {
+      "red": 22,
+      "green": 23,
+      "blue": 7
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 21,
+      "blue": 6
+    },
+    "zone3": {
+      "red": 20,
+      "green": 23,
+      "blue": 7
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 21,
+      "blue": 7
+    },
+    "zone3": {
+      "red": 20,
+      "green": 22,
+      "blue": 7
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 20,
+      "blue": 7
+    },
+    "zone3": {
+      "red": 19,
+      "green": 22,
+      "blue": 7
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 20,
+      "blue": 7
+    },
+    "zone3": {
+      "red": 18,
+      "green": 21,
+      "blue": 7
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 20,
+      "blue": 8
+    },
+    "zone3": {
+      "red": 18,
+      "green": 21,
+      "blue": 7
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 20,
+      "blue": 8
+    },
+    "zone3": {
+      "red": 16,
+      "green": 20,
+      "blue": 6
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 19,
+      "blue": 8
+    },
+    "zone3": {
+      "red": 16,
+      "green": 20,
+      "blue": 6
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 19,
+      "blue": 9
+    },
+    "zone3": {
+      "red": 15,
+      "green": 19,
+      "blue": 6
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 19,
+      "blue": 9
+    },
+    "zone3": {
+      "red": 15,
+      "green": 19,
+      "blue": 6
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 18,
+      "blue": 9
+    },
+    "zone3": {
+      "red": 14,
+      "green": 18,
+      "blue": 6
+    },
+    "duration": 64
+  },
+  {
+    "zone2": {
+      "red": 0,
+      "green": 18,
+      "blue": 9
+    },
+    "zone3": {
+      "red": 14,
+      "green": 18,
+      "blue": 6
+    },
+    "duration": 64
+  }
+]

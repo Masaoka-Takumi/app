@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/shortcut_group"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginBottom="10dp">
+
+        <RelativeLayout
+            android:id="@+id/status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/home_status_bar_height">
+
+            <jp.pioneer.carsync.presentation.view.widget.BatteryView
+                android:id="@+id/battery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="4dp" />
+
+            <RelativeLayout
+                android:id="@+id/car_icon"
+                android:layout_width="@dimen/home_status_bar_car_icon_width"
+                android:layout_height="@dimen/home_status_bar_car_icon_height"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/battery">
+                <ImageView
+                    android:id="@+id/car_icon_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/p0103_icon_d"
+                    android:scaleType="fitCenter"
+                    android:alpha="0"
+                    android:tint="@color/ui_color_aqua"/>
+                <ImageView
+                    android:id="@+id/car_icon_back_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/p0103_icon_error_d"
+                    android:scaleType="fitCenter"
+                    android:alpha="0"
+                    android:tint="@color/ui_color_red"/>
+                <ImageView
+                    android:id="@+id/car_icon_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/p0103_icon"
+                    android:scaleType="fitCenter" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/player_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:gravity="center">
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="11dp"
+            android:background="#33000000" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="11dp"
+            android:background="#99FFFFFF" />
+
+        <RelativeLayout
+            android:id="@+id/clock_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="12"
+            android:gravity="center">
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="11dp"
+            android:background="#33000000" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="11dp"
+            android:background="#99FFFFFF" />
+
+        <RelativeLayout
+            android:id="@+id/speed_meter_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="11">
+
+            <include
+                android:id="@+id/speed_meter_layout"
+                layout="@layout/element_home_speed_meter" />
+            <include
+                android:id="@+id/adas_detecting_layout"
+                layout="@layout/element_home_adas_detecting"
+                android:visibility="gone"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/setting_button_on_home_screen"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="@dimen/home_setting_button_large_width"
+        android:layout_height="@dimen/home_setting_button_large_width"
+        android:gravity="end">
+
+        <ImageView
+            android:layout_width="@dimen/home_setting_button_width"
+            android:layout_height="@dimen/home_setting_button_width"
+            android:scaleType="fitCenter"
+            android:alpha="0.6"
+            android:src="@drawable/p0166_settingbtn_1nrm" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/shortcut_group"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/home_shortcut_group_height_portrait"
+        android:layout_alignParentBottom="true"
+        android:background="#4D000000"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="9dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginLeft="6dp" />
+
+        <jp.pioneer.carsync.presentation.view.widget.CustomLinePageIndicator
+            android:id="@+id/line_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="-4dp"></jp.pioneer.carsync.presentation.view.widget.CustomLinePageIndicator>
+    </RelativeLayout>
+    <include
+        android:id="@+id/src_message"
+        layout="@layout/element_fx_eq_message"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/player_music_fx_eq_message_height"
+        android:visibility="invisible"
+        app:layout_constraintVertical_bias="0.21"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+</android.support.constraint.ConstraintLayout>

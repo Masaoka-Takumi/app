@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="media_playback_playback_or_pause_width">58.5dp</dimen>
+    <dimen name="media_playback_playback_or_pause_height">58.5dp</dimen>
+    <dimen name="media_large_text">35dp</dimen>
+    <dimen name="media_mid_text">25dp</dimen>
+    <dimen name="media_small_text">15dp</dimen>
+    <!-- dialog -->
+    <dimen name="common_dialog_height">378dp</dimen>
+    <dimen name="common_dialog_width_h">460dp</dimen>
+    <dimen name="common_dialog_width_v">320dp</dimen>
+    <dimen name="common_dialog_button_width_v">120dp</dimen>
+    <dimen name="common_dialog_padding_rl">26dp</dimen>
+    <dimen name="common_dialog_padding_tb">12dp</dimen>
+    <dimen name="common_dialog_space">5dp</dimen>
+
+    <!-- home -->
+    <!-- 影はViewの外側に描画しないといけないため、ひとまず無しにしておく -->
+    <!-- home_large_shadow_radius=3.5dp, home_large_shadow_offset=2.1dp -->
+    <dimen name="home_large_shadow_radius">0dp</dimen>
+    <dimen name="home_large_shadow_offset">0dp</dimen>
+    <dimen name="home_large_frame_size">2.5dp</dimen>
+    <dimen name="home_large_frame_radius">1.4dp</dimen>
+    <dimen name="home_font_10">15dp</dimen>
+    <dimen name="home_font_28">20dp</dimen>
+    <dimen name="home_font_30">25dp</dimen>
+    <!-- font size -->
+    <!-- mdpiの906*480を、xxhdpiの1920*1080に補正(およそ0.7かけた値になる) -->
+    <!-- 20pxなら、20*(1920/906=2.12)=42.4px/3=14.13dp -->
+    <dimen name="common_font_size_20">14.13dp</dimen>
+    <!-- 22pxなら、22*(1920/906=2.12)=46.64px/3=15.54dp -->
+    <dimen name="common_font_size_22">15.54dp</dimen>
+    <!-- 24pxなら、24*2.12=50.88px/3=16.96dp -->
+    <dimen name="common_font_size_24">16.96dp</dimen>
+    <!-- 28pxなら、28*2.12=59.36px/3=19.79dp -->
+    <dimen name="common_font_size_28">19.79dp</dimen>
+    <!-- 30pxなら、30*2.12=63.60px/3=21.20dp -->
+    <dimen name="common_font_size_30">21.20dp</dimen>
+    <!-- 36pxなら、36*2.12=76.32px/3=25.44dp -->
+    <dimen name="common_font_size_36">25.44dp</dimen>
+    <dimen name="common_font_size_40">28.27dp</dimen>
+    <!-- 44pxなら、44*2.12=93.28px/3=31.09dp -->
+    <dimen name="common_font_size_44">31.09dp</dimen>
+    <dimen name="common_font_size_46">32.51dp</dimen>
+    <!-- 48pxなら、48*2.12=101.76px/3=33.92dp -->
+    <dimen name="common_font_size_48">33.92dp</dimen>
+    <!-- 60pxなら、60*2.12=127.2px/3=42.40dp -->
+    <dimen name="common_font_size_60">42.40dp</dimen>
+    <!-- 70pxなら、70*2.12=152.64px/3=50.88dp -->
+    <dimen name="common_font_size_70">49.47dp</dimen>
+    <!-- 72pxなら、72*2.12=152.64px/3=50.88dp -->
+    <dimen name="common_font_size_72">50.88dp</dimen>
+    <!-- 74pxなら、74*2.12=169.6px/3=56.53dp -->
+    <dimen name="common_font_size_74">52.29dp</dimen>
+    <!-- 80pxなら、80*2.12=169.6px/3=56.53dp -->
+    <dimen name="common_font_size_80">56.53dp</dimen>
+    
+    <dimen name="common_list_divider">1dp</dimen>
+
+    <!-- ×ボタンサイズ -->
+    <dimen name="common_esc_button">72dp</dimen>
+    <dimen name="common_trash_button">72dp</dimen>
+    <dimen name="common_back_button">64dp</dimen>
+    <dimen name="common_search_button">64dp</dimen>
+
+    <!-- 時計のフォントサイズ -->
+    <dimen name="clock_size_av">42dp</dimen>
+
+</resources>

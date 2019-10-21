@@ -1,0 +1,89 @@
+apply plugin: 'com.android.library'
+apply from: '../../constants.gradle'
+android {
+/*    Properties releaseProp = new Properties()
+    releaseProp.load(new FileInputStream("${rootDir}/release.properties"))
+    Integer STORE_VERSION_CODE = Integer.parseInt(releaseProp.version_code)
+    String STORE_VERSION_NAME = releaseProp.version_name*/
+
+//    compileSdkVersion 27
+//    buildToolsVersion '28.0.2'
+    compileSdkVersion project.ext.compileSdkVersion
+    defaultConfig {
+        minSdkVersion project.ext.minSdkVersion
+        targetSdkVersion project.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        //versionCode STORE_VERSION_CODE
+        //versionName STORE_VERSION_NAME
+
+        //setProperty("archivesBaseName", "AlexaApp-v${STORE_VERSION_NAME}")
+
+        //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            minifyEnabled false
+        }
+    }
+
+    android {
+        lintOptions {
+            // jsonic.jarを対象外に設定
+            lintConfig file("lint.xml")
+        }
+    }
+
+}
+
+dependencies {
+//    compile fileTree(include: ['*.jar'], dir: 'libs')
+//    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+//        exclude group: 'com.android.support', module: 'support-annotations'
+//    })
+//    compile files('libs/AAM2Kit.jar')
+//    //compile 'com.android.support:appcompat-v7:26.+'
+//    compile 'com.android.support:support-v4:27.1.1'
+//    compile 'com.android.support:appcompat-v7:27.1.1'
+//    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+//    // Alexa Start
+//    compile 'com.squareup.okhttp3:okhttp:3.3.1'
+//    // Alexa End
+//    testCompile 'junit:junit:4.12'
+    //compile project(':wLSDK')
+
+    api fileTree(include: ['*.jar'], dir: 'libs')
+//    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+//        exclude group: 'com.android.support', module: 'support-annotations'
+//    })
+    //compile 'com.android.support:appcompat-v7:26.+'
+
+    implementation 'com.android.support:support-v4:'+ supportLibraryVersion
+    implementation 'com.android.support:appcompat-v7:'+ supportLibraryVersion
+    //implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    // Alexa Start
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    // Alexa End
+    //testImplementation 'junit:junit:4.12'
+
+    // Firebase用
+    //implementation 'com.google.firebase:firebase-core:16.0.1'
+    //implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
+
+    // ExoPlayer
+    api project(':library-core')
+    api project(':library-dash')
+    api project(':library-hls')
+    api project(':library-smoothstreaming')
+
+    // Logger
+    api project(':logger')
+}
+//apply plugin: 'com.google.gms.google-services'
+
+

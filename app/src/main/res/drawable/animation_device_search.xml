@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false"
+    android:visible="true">
+
+    <item android:drawable="@drawable/p1110_search_anm" android:duration="50" />
+    <item android:drawable="@drawable/p1111_search_anm" android:duration="50" />
+    <item android:drawable="@drawable/p1112_search_anm" android:duration="50" />
+    <item android:drawable="@drawable/p1113_search_anm" android:duration="50" />
+    <item android:drawable="@drawable/p1114_search_anm" android:duration="50" />
+    <item android:drawable="@drawable/p1115_search_anm" android:duration="50" />
+    <item android:drawable="@drawable/p1116_search_anm" android:duration="50" />
+    <item android:drawable="@drawable/p1117_search_anm" android:duration="50" />
+    <item android:drawable="@drawable/p1118_search_anm" android:duration="50" />
+    <item android:drawable="@drawable/p1119_search_anm" android:duration="50" />
+    <item android:drawable="@drawable/p1120_search_anm" android:duration="50" />
+    <item android:drawable="@drawable/p1121_search_anm" android:duration="50" />
+    <item android:drawable="@drawable/p1122_search_anm" android:duration="50" />
+    <item android:drawable="@drawable/p1123_search_anm" android:duration="50" />
+    <item android:drawable="@drawable/p1124_search_anm" android:duration="50" />
+</animation-list>

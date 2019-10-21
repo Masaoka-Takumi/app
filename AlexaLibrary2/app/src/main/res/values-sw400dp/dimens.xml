@@ -1,0 +1,4 @@
+<resources>
+    <!-- 時計のフォントサイズ -->
+    <dimen name="clock_size_av">48dp</dimen>
+</resources>

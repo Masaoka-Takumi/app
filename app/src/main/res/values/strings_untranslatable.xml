@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="app_name">Smart Sync</string>
+
+    <!-- 設定系共通 -->
+    <string name="invalid">INVALID</string>
+    <string name="unknown">Unknown</string>
+
+    <!-- DABのバンド種別 -->
+    <string name="dab_band_type_band1">DAB1</string>
+    <string name="dab_band_type_band2">DAB2</string>
+    <string name="dab_band_type_band3">DAB3</string>
+
+    <!-- サブディスプレイ情報 -->
+    <string name="sub_display_type_playlists">Playlists</string>
+    <string name="sub_display_type_genres">Genres</string>
+    <string name="sub_display_type_artists">Artists</string>
+    <string name="sub_display_type_albums">Albums</string>
+    <string name="sub_display_type_songs">Songs</string>
+    <string name="sub_display_type_unused"> </string>
+    <!-- Parking Sensor -->
+    <string name="parking_sensor_distance_unit_inch">inch</string>
+    <!-- Message -->
+    <string name="format_accident_position">https://maps.google.com/maps?q=%1$s,%2$s</string>
+    <!-- Home -->
+    <string name="speed_meter_bearing_north">N</string>
+    <string name="speed_meter_bearing_south">S</string>
+    <string name="speed_meter_bearing_east">E</string>
+    <string name="speed_meter_bearing_west">W</string>
+    <!-- Theme Setting -->
+    <string name="setting_theme_dimmer_time_format">%1$02d:%2$02d</string>
+    <string name="setting_theme_dimmer_time_format_12h">%1$02d:%2$02d %3$s</string>
+    <!-- Illumination Setting -->
+    <string name="setting_theme_illumination_color_for_my_car">ORIGINAL</string>
+    <string name="setting_theme_illumination_color_scan">SCAN</string>
+    <!-- Advanced Settings-->
+    <string name="speaker_front_left">FL</string>
+    <string name="speaker_front_right">FR</string>
+    <string name="speaker_rear_left">RL</string>
+    <string name="speaker_rear_right">RR</string>
+    <string name="speaker_sub_woofer">SW</string>
+    <string name="speaker_high_left">HL</string>
+    <string name="speaker_high_right">HR</string>
+    <string name="speaker_mid_leftt">ML</string>
+    <string name="speaker_mid_right">MR</string>
+    <string name="speaker_level_unit_db">dB</string>
+    <string name="frequency_unit_khz">kHz</string>
+    <string name="frequency_unit_hz">Hz</string>
+    <string name="hpf_label">HPF</string>
+    <string name="lpf_label">LPF</string>
+    <string name="ta_distance_unit_in">inch</string>
+    <string name="ta_distance_unit_cm">cm</string>
+    <string name="ta_label">TA</string>
+
+    <!-- Debug Setting-->
+    <string name="setting_debug_adas_sim_judgement">ADAS SIM判定</string>
+    <string name="setting_debug_adas_trial_reset">ADAS試用状態リセット</string>
+    <string name="setting_debug_adas_trial_reset_dialog_text">ADASお試し開始前に戻しました</string>
+    <string name="setting_debug_adas_purchased">ADAS購入済</string>
+    <string name="setting_debug_adas_configured">ADAS初期設定済</string>
+    <string name="setting_debug_adas_pseudo_cooperation">ADAS用擬似連携</string>
+    <string name="setting_debug_adas_car_speed">ADAS用擬似速度</string>
+    <string name="setting_debug_vr_delay_time">音声認識開始遅延(ms)</string>
+    <string name="setting_debug_home_center_view">HOME画面中央領域</string>
+    <string name="setting_debug_home_center_view_clock">時計表示</string>
+    <string name="setting_debug_home_center_view_adas_detected">ADAS検知表示</string>
+    <string name="setting_debug_running_status">擬似方位・走行状態取得</string>
+    <string name="setting_debug_adas_ldw_min_speed">LDWの最小動作速度</string>
+    <string name="setting_debug_adas_ldw_max_speed">LDWの最大動作速度</string>
+    <string name="setting_debug_adas_pcw_min_speed">PCWの最小動作速度</string>
+    <string name="setting_debug_adas_pcw_max_speed">PCWの最大動作速度</string>
+    <string name="setting_debug_adas_fcw_min_speed">FCWの最小動作速度</string>
+    <string name="setting_debug_adas_fcw_max_speed">FCWの最大動作速度</string>
+    <string name="setting_debug_adas_accelerate_y_range">Calibration有効Y</string>
+    <string name="setting_debug_adas_accelerate_z_range">Calibration有効Z</string>
+    <string name="setting_debug_adas_accelerate_y_range_min">キャリブレーション有効最小Y</string>
+    <string name="setting_debug_adas_accelerate_y_range_max">キャリブレーション有効最大Y</string>
+    <string name="setting_debug_adas_accelerate_z_range_min">キャリブレーション有効最小Z</string>
+    <string name="setting_debug_adas_accelerate_z_range_max">キャリブレーション有効最大Z</string>
+    <string name="setting_debug_adas_fps">ADASのFPS設定</string>
+    <string name="setting_debug_adas_camera_view">ADASのカメラプレビュー表示</string>
+
+    <!-- Amazon Alexa-->
+    <string name="alexa_language_locale_english_us">en-US</string>
+    <string name="alexa_language_locale_english_uk">en-GB</string>
+    <string name="alexa_language_locale_english_india">en-IN</string>
+    <string name="alexa_language_locale_japanese">ja-JP</string>
+    <string name="alexa_language_locale_german">de-DE</string>
+    <string name="alexa_language_locale_french">fr-FR</string>
+
+    <!-- Preference Key -->
+    <!-- System Setting -->
+    <string name="key_system_beep_tone_enabled">beep_tone_enabled</string>
+    <string name="key_system_auto_pi">auto_pi</string>
+    <string name="key_system_demo_mode_enabled">demo_mode_enabled</string>
+    <string name="key_system_aux_enabled">aux_enabled</string>
+    <string name="key_system_bt_audio_enabled">bt_audio_enabled</string>
+    <string name="key_system_pandora_enabled">pandora_enabled</string>
+    <string name="key_system_spotify_enabled">spotify_enabled</string>
+    <string name="key_system_power_save_mode_enabled">power_save_mode_enabled</string>
+    <string name="key_system_app_auto_launch">app_auto_launch</string>
+    <string name="key_system_steering_remote_control">steering_remote_control</string>
+    <string name="key_system_usb_auto">usb_auto</string>
+    <string name="key_system_display_off">display_off</string>
+    <string name="key_system_att_mute_setting">att_mute_setting</string>
+    <string name="key_system_distance_unit">distance_unit</string>
+    <string name="key_system_time_format_setting">time_format_setting</string>
+    <string name="key_system_initial_settings">initial_settings</string>
+
+    <!-- System Setting - Initial -->
+    <string name="key_initial_menu_display_language">menu_display_language</string>
+    <string name="key_initial_fm_step">fm_step</string>
+    <string name="key_initial_am_step">am_step</string>
+    <string name="key_initial_rear_output_preout_output">rear_output_preout_output</string>
+    <string name="key_initial_rear_output">rear_output</string>
+    <!-- Voice Recognition Setting -->
+    <string name="key_voice_recognition_enabled">voice_recognition_enabled</string>
+    <string name="key_voice_recognition_type">voice_recognition_type</string>
+    <string name="key_voice_recognition_description">voice_recognition_description</string>
+    <string name="key_voice_recognition_mic_type">voice_recognition_mic_type</string>
+    <!-- Phone Setting -->
+    <string name="key_phone_auto_pairing">auto_pairing</string>
+    <string name="key_phone_device_settings">device_settings</string>
+    <string name="key_phone_direct_call">direct_call</string>
+    <string name="key_phone_phone_book_access_setting">phone_book_access_setting</string>
+    <string name="key_phone_incoming_call_pattern">incoming_call_pattern</string>
+    <string name="key_phone_incoming_call_color">incoming_call_color</string>
+    <string name="key_phone_incoming_call_auto_answer">incoming_call_auto_answer</string>
+    <!-- Car Safety Setting -->
+    <string name="key_parking_sensor_setting">parking_sensor_setting</string>
+    <string name="key_impact_detection_setting">impact_detection_setting</string>
+    <string name="key_adas_setting">adas_setting</string>
+    <!-- Car Safety Setting - Parking Sensor -->
+    <string name="key_parking_sensor">parking_sensor</string>
+    <string name="key_alarm_output">alarm_output</string>
+    <string name="key_alarm_volume">alarm_volume</string>
+    <string name="key_back_polarity">back_polarity</string>
+    <!-- Car Safety Setting - Impact Detection -->
+    <string name="key_impact_detection">impact_detection</string>
+    <string name="key_contact_method">contact_method</string>
+    <string name="key_emergency_contact">emergency_contact</string>
+    <!-- Car Safety Setting - ADAS -->
+    <string name="key_adas_adas">adas</string>
+    <string name="key_adas_alarm">alarm</string>
+    <string name="key_adas_calibration">calibration</string>
+    <string name="key_adas_re_calibration">re_calibration</string>
+    <string name="key_adas_camera">camera</string>
+    <string name="key_adas_camera_camera_height">camera_height</string>
+    <string name="key_adas_camera_front_nose_distance">front_nose_distance</string>
+    <string name="key_adas_camera_vehicle_width">vehicle_width</string>
+    <string name="key_adas_function">function</string>
+    <string name="key_adas_function_ldw">ldw</string>
+    <string name="key_adas_function_ldw_sensitivity">ldw_sensitivity</string>
+    <string name="key_adas_function_pcw">pcw</string>
+    <string name="key_adas_function_pcw_sensitivity">pcw_sensitivity</string>
+    <string name="key_adas_function_fcw">fcw</string>
+    <string name="key_adas_function_fcw_sensitivity">fcw_sensitivity</string>
+    <string name="key_adas_function_lkw">lkw</string>
+    <string name="key_adas_function_lkw_sensitivity">lkw_sensitivity</string>
+    <string name="key_adas_usage_caution_manual">adas_usage_caution_manual</string>
+    <string name="key_adas_trial_term">adas_trial_term</string>
+
+    <!-- Theme Setting -->
+    <string name="key_theme_theme_set">theme_theme_set</string>
+    <string name="key_theme_illumination_color_common">theme_illumination_color_common</string>
+    <string name="key_theme_illumination_color_disp">theme_illumination_color_disp</string>
+    <string name="key_theme_illumination_color_key">theme_illumination_color_key</string>
+    <string name="key_theme_illumination_color_dual">theme_illumination_color_dual</string>
+    <string name="key_theme_ui_color">theme_ui_color</string>
+    <string name="key_theme_illumination_dimmer">theme_illumination_dimmer</string>
+    <string name="key_theme_illumination_brightness_common">theme_illumination_brightness_common</string>
+    <string name="key_theme_illumination_brightness_disp">theme_illumination_brightness_disp</string>
+    <string name="key_theme_illumination_brightness_key">theme_illumination_brightness_key</string>
+    <string name="key_theme_illumi_fx">Illumi Fx</string>
+    <string name="key_theme_illumi_fx_with_bgv">Illumi FX with BGV</string>
+    <string name="key_theme_illumi_fx_with_audio_level">Illumi FX with Audio Level</string>
+    <!-- Audio Setting -->
+    <string name="key_beat_blaster">beat_blaster</string>
+    <string name="key_loudness">loudness</string>
+    <string name="key_source_level_adjuster">source_level_adjuster</string>
+    <string name="key_fader_balance">fader_balance</string>
+    <string name="key_advance_settings">advance_settings</string>
+    <string name="key_sound_retriever">sound_retriever</string>
+    <string name="key_save_load">save_load</string>
+    <!-- Sound FX Setting -->
+    <string name="key_equalizer">equalizer</string>
+    <string name="key_live_simulation">live_simulation</string>
+    <string name="key_super_todoroki">super_todoroki</string>
+    <string name="key_small_car_ta">small_car_ta</string>
+    <string name="key_karaoke">karaoke</string>
+    <!-- Sound FX Setting - Karaoke -->
+    <string name="key_microphone">microphone</string>
+    <string name="key_mic_volume">mic_volume</string>
+    <string name="key_vocal_cancel">vocal_cancel</string>
+    <!-- Radio Setting -->
+    <string name="key_radio_fm_setting">radio_fm_setting</string>
+    <string name="key_radio_region_enabled">radio_region_enabled</string>
+    <string name="key_radio_local">radio_local_key</string>
+    <string name="key_radio_ta">radio_ta</string>
+    <string name="key_radio_af_enabled">radio_af_enabled</string>
+    <string name="key_radio_news_enabled">radio_news_enabled</string>
+    <string name="key_radio_alarm_enabled">radio_alarm_enabled</string>
+    <string name="key_radio_pch_manual">radio_pch_manual</string>
+    <!-- DAB Setting -->
+    <string name="key_dab_ta">dab_radio_ta</string>
+    <string name="key_dab_service_follow">dab_service_follow</string>
+    <string name="key_dab_soft_link">dab_soft_link</string>
+    <!-- HD RADIO Setting -->
+    <string name="key_hdradio_local">key_hdradio_local</string>
+    <string name="key_hdradio_seek_enabled">key_hdradio_seek_enabled</string>
+    <string name="key_hdradio_blending_enabled">hdradio_blending_enabled</string>
+    <string name="key_hdradio_active_radio_enabled">hdradio_active_radio_enabled</string>
+    <!-- App Function -->
+    <string name="key_distance_unit">distance_unit</string>
+    <string name="key_shortcut_buttons">shortcut_buttons</string>
+    <string name="key_album_list_image">album_list_image</string>
+    <string name="key_genre_list_image">genre_list_image</string>
+    <string name="key_play_list_image">play_list_image</string>
+    <!-- Information -->
+    <string name="key_device_information">device_information</string>
+    <string name="key_licence">licence</string>
+    <string name="key_eula">eula</string>
+    <string name="key_privacy_policy">privacy_policy</string>
+    <string name="key_app_version">app_version</string>
+</resources>

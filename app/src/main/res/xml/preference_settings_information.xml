@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <Preference
+        android:key="@string/key_device_information"
+        android:layout="@layout/element_preference_base"
+        android:order="10"
+        android:title="@string/set_055" />
+
+    <Preference
+        android:key="@string/key_licence"
+        android:layout="@layout/element_preference_base"
+        android:order="20"
+        android:title="@string/set_116" />
+
+    <Preference
+        android:key="@string/key_eula"
+        android:layout="@layout/element_preference_base"
+        android:order="30"
+        android:title="@string/set_066" />
+
+    <Preference
+        android:key="@string/key_privacy_policy"
+        android:layout="@layout/element_preference_base"
+        android:order="40"
+        android:title="@string/set_165" />
+
+    <Preference
+        android:key="@string/key_app_version"
+        android:layout="@layout/element_preference_base"
+        android:order="50"
+        android:title="@string/set_016" />
+</PreferenceScreen>

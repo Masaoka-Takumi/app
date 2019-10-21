@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_alignParentBottom="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/music_info">
+
+        <jp.pioneer.carsync.presentation.view.widget.ScrollTextView
+            android:id="@+id/music_title_text"
+            style="@style/AppMarqueeTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/player_music_text_divider_padding"
+            android:layout_marginLeft="@dimen/player_music_text_divider_padding"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/player_music_music_title_text_size_land_bar" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/music_info"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/player_music_music_info_height"
+        android:layout_alignParentBottom="true"
+        android:alpha="0.75">
+
+        <LinearLayout
+            android:layout_width="@dimen/player_music_info_text_width"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="@dimen/player_music_info_margin_horizontal"
+            android:layout_marginLeft="@dimen/player_music_info_margin_horizontal"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layoutDirection="ltr">
+
+            <jp.pioneer.carsync.presentation.view.widget.SwitchTextView
+                android:id="@+id/music_information_text"
+                style="@style/AppTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:lines="1"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/player_music_music_sub_title_text_size_land" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/shuffle_button"
+            android:layout_width="@dimen/player_music_now_playing_icon_size"
+            android:layout_height="@dimen/player_music_now_playing_icon_size"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@+id/repeat_button"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p0042_trickplaybtn_1nrm" />
+
+        <ImageView
+            android:id="@+id/repeat_button"
+            android:layout_width="@dimen/player_music_now_playing_icon_size"
+            android:layout_height="@dimen/player_music_now_playing_icon_size"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p0043_trickplaybtn_1nrm" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

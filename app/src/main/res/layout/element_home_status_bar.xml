@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
+    android:layout_width="match_parent" android:layout_height="40dp" >
+    <jp.pioneer.carsync.presentation.view.widget.BatteryView
+        android:id="@+id/battery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_alignParentBottom="true"/>
+    <RelativeLayout
+        android:id="@+id/car_icon"
+        android:layout_width="@dimen/home_status_bar_car_icon_width"
+        android:layout_height="@dimen/home_status_bar_car_icon_height"
+        android:paddingTop="4dp"
+        android:layout_toRightOf="@+id/battery"
+        android:layout_alignParentBottom="true">
+        <ImageView
+            android:id="@+id/car_icon_back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/p0103_icon_d"
+            android:scaleType="fitCenter"
+            android:alpha="0"
+            android:tint="@color/ui_color_aqua"/>
+        <ImageView
+            android:id="@+id/car_icon_back_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/p0103_icon_error_d"
+            android:scaleType="fitCenter"
+            android:alpha="0"
+            android:tint="@color/ui_color_red"/>
+        <ImageView
+            android:id="@+id/car_icon_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/p0103_icon"
+            android:scaleType="fitCenter" />
+    </RelativeLayout>
+</RelativeLayout>

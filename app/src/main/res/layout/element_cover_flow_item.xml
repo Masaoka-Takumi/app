@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="202dp"
+    android:layout_height="202dp">
+
+    <RelativeLayout
+        android:id="@+id/item_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:layout_width="202dp"
+            android:layout_height="202dp"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/p0068_chamferselect"
+            android:tint="?attr/uiColor" />
+
+        <ImageView
+            android:layout_width="202dp"
+            android:layout_height="202dp"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/p0067_chamferselect"
+            android:tint="?attr/uiColor" />
+
+        <ImageView
+            android:layout_width="202dp"
+            android:layout_height="202dp"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/p0066_chamferbase" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/item_view"
+        android:layout_width="184dp"
+        android:layout_height="184dp"
+        android:layout_centerInParent="true"
+        android:scaleType="fitCenter" />
+
+    <TextView
+        android:id="@+id/item_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:gravity="left"
+        android:textColor="@android:color/white"
+        android:textSize="24dp" />
+
+    <ImageView
+        android:id="@+id/live_mark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/p0072_live" />
+</RelativeLayout>

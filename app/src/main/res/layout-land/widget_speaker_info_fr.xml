@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/advanced_audio_setting_speaker_info_width_land"
+    android:layout_height="wrap_content"
+    android:duplicateParentState="true">
+
+    <FrameLayout
+        android:id="@+id/leftSpeakerContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/speakerInfoContainer"
+        android:layout_marginRight="@dimen/advanced_audio_setting_speaker_info_margin"
+        android:layout_marginTop="4dp"
+        android:layout_alignParentLeft="true"
+        android:duplicateParentState="true">
+
+ <!--       <jp.pioneer.carsync.presentation.view.widget.SpeakerIconView
+            android:id="@+id/speakerIcon"
+            android:layout_width="32dp"
+            android:layout_height="50dp"
+            android:duplicateParentState="true"
+            android:background="@drawable/p0207_spbtn_selectbase_1nrm"
+            android:rotation="180"
+            />-->
+
+        <RelativeLayout
+            android:id="@+id/speakerIcon"
+            android:layout_width="@dimen/advanced_audio_setting_speaker_icon_width"
+            android:layout_height="@dimen/advanced_audio_setting_speaker_icon_height"
+            android:duplicateParentState="true"
+            android:rotation="180">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:scaleType="fitCenter"
+                android:alpha="0.5"
+                android:src="@drawable/p0205_spbtn_1nrm" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0207_spbtn_selectbase_1nrm" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0206_spbtn_select_1nrm" />
+        </RelativeLayout>
+    </FrameLayout>
+
+    <include
+        android:id="@+id/speakerInfoContainer"
+        layout="@layout/element_speaker_info_texts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/leftSpeakerContainer"/>
+</RelativeLayout>

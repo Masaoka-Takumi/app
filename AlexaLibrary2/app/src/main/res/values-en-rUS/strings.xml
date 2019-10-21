@@ -1,0 +1,8 @@
+<resources>
+    
+    <string name="alexa_setting_locale">en-US</string>
+
+    <!-- Server URLs. -->
+    <string name="locale_directory">en_US</string>
+
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false"
+    android:visible="true">
+
+    <item android:drawable="@drawable/p0341_nowplaying_anm" android:duration="100" />
+    <item android:drawable="@drawable/p0342_nowplaying_anm" android:duration="100" />
+    <item android:drawable="@drawable/p0343_nowplaying_anm" android:duration="100" />
+    <item android:drawable="@drawable/p0344_nowplaying_anm" android:duration="100" />
+    <item android:drawable="@drawable/p0345_nowplaying_anm" android:duration="100" />
+    <item android:drawable="@drawable/p0346_nowplaying_anm" android:duration="100" />
+    <item android:drawable="@drawable/p0347_nowplaying_anm" android:duration="100" />
+    <item android:drawable="@drawable/p0348_nowplaying_anm" android:duration="100" />
+</animation-list>

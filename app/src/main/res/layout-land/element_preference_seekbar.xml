@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/setting_list_item_height"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:gravity="center_vertical"
+    android:layoutDirection="ltr"
+    android:paddingLeft="@dimen/preference_landscape_left_padding"
+    android:paddingRight="@dimen/preference_landscape_right_padding">
+
+    <ImageView
+        android:id="@android:id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:minWidth="@dimen/preference_icon_minWidth" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@android:id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/setting_list_item_seekbar_margin"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:fadingEdge="horizontal"
+            android:maxLines="1"
+            android:fontFamily="sans-serif-light"
+            android:gravity="left|bottom"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/text_color_state"
+            android:textSize="@dimen/setting_list_item_seekbar_title_text_size"
+            autofit:minTextSize="@dimen/min_text_size_12"
+            android:paddingRight="8dp"
+            android:layout_marginRight="@dimen/setting_list_item_seekbar_summary_text_width_land" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@android:id/summary"
+            android:layout_width="@dimen/setting_list_item_seekbar_summary_text_width_land"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignBaseline="@android:id/title"
+            android:layout_above="@+id/seekbar_group"
+            android:paddingRight="8dp"
+            android:ellipsize="end"
+            android:fadingEdge="horizontal"
+            android:fontFamily="sans-serif"
+            android:gravity="right|center_vertical"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="?attr/textButtonUiColor"
+            android:textSize="@dimen/setting_list_item_summary_text_size"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:visibility="visible"/>
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/seekbar_value"
+            android:layout_width="@dimen/preference_seekbar_value_width"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignBaseline="@android:id/title"
+            android:layout_above="@+id/seekbar_group"
+            android:paddingRight="8dp"
+            android:ellipsize="end"
+            android:fadingEdge="horizontal"
+            android:fontFamily="sans-serif"
+            android:gravity="right|center_vertical"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="?attr/textButtonUiColor"
+            android:textSize="@dimen/setting_list_item_summary_text_size"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+        <android.support.v7.preference.UnPressableLinearLayout
+            android:id="@+id/seekbar_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:minWidth="@dimen/setting_list_item_seekbar_min_width"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:gravity="right|center_vertical"
+            android:paddingLeft="30dp"
+            android:paddingRight="8dp">
+            <SeekBar
+                android:id="@+id/seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/setting_list_item_seekbar_margin"
+                android:maxHeight="@dimen/setting_list_item_seekbar_height"
+                android:minHeight="@dimen/setting_list_item_seekbar_height"
+                android:background="@null"
+                android:clickable="false"
+                android:focusable="false" />
+        </android.support.v7.preference.UnPressableLinearLayout>
+    </RelativeLayout>
+</LinearLayout>

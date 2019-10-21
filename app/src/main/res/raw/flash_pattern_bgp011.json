@@ -1,0 +1,15 @@
+[
+  {
+    "zone2": {
+      "red": 8,
+      "green": 16,
+      "blue": 22
+    },
+    "zone3": {
+      "red": 24,
+      "green": 33,
+      "blue": 36
+    },
+    "duration": 65535
+  }
+]

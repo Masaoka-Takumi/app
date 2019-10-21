@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="@string/key_system_initial_settings"
+        android:layout="@layout/element_preference_base"
+        android:order="10"
+        android:title="@string/set_104" />
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_system_beep_tone_enabled"
+        android:order="20"
+        android:persistent="false"
+        android:title="@string/set_028"
+        android:layout="@layout/element_preference_switch"/>
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_system_auto_pi"
+        android:order="30"
+        android:persistent="false"
+        android:title="@string/set_022"
+        android:layout="@layout/element_preference_switch"/>
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_system_aux_enabled"
+        android:order="50"
+        android:persistent="false"
+        android:title="@string/set_024"
+        android:layout="@layout/element_preference_switch"/>
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_system_bt_audio_enabled"
+        android:order="60"
+        android:persistent="false"
+        android:title="@string/set_032"
+        android:layout="@layout/element_preference_switch"/>
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_system_pandora_enabled"
+        android:order="70"
+        android:persistent="false"
+        android:title="@string/set_149"
+        android:layout="@layout/element_preference_switch"/>
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_system_spotify_enabled"
+        android:order="80"
+        android:persistent="false"
+        android:title="@string/set_201"
+        android:layout="@layout/element_preference_switch"/>
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_system_power_save_mode_enabled"
+        android:order="90"
+        android:persistent="false"
+        android:title="@string/set_158"
+        android:layout="@layout/element_preference_switch"/>
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_system_app_auto_launch"
+        android:order="100"
+        android:persistent="false"
+        android:title="@string/set_014"
+        android:layout="@layout/element_preference_switch"/>
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_system_usb_auto"
+        android:order="110"
+        android:persistent="false"
+        android:title="@string/set_232"
+        android:layout="@layout/element_preference_switch"/>
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_system_display_off"
+        android:order="120"
+        android:persistent="false"
+        android:title="@string/set_062"
+        android:layout="@layout/element_preference_switch"/>
+
+    <Preference
+        android:key="@string/key_system_att_mute_setting"
+        android:layout="@layout/element_preference_base"
+        android:order="130"
+        android:title="@string/set_019" />
+
+    <Preference
+        android:key="@string/key_system_distance_unit"
+        android:layout="@layout/element_preference_base"
+        android:order="140"
+        android:title="@string/set_063" />
+
+    <Preference
+        android:key="@string/key_system_time_format_setting"
+        android:layout="@layout/element_preference_base"
+        android:order="150"
+        android:title="@string/set_350" />
+</PreferenceScreen>

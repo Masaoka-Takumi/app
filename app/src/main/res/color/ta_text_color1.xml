@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:color="#000000" android:state_enabled="false" /><!-- disabled -->
+    <item android:color="#FFFFFF" android:state_pressed="true" /><!-- pressed -->
+    <item android:color="#FFFFFF" app:state_on="true" /><!-- ON状態 -->
+    <item android:color="#FFFFFF" /><!-- default(OFF) -->
+</selector>

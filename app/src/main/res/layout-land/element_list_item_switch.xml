@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/setting_list_item_height"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#66FFFFFF" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layoutDirection="ltr"
+        android:paddingLeft="@dimen/list_landscape_left_padding"
+        android:paddingRight="@dimen/list_landscape_right_padding">
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/titleText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:fontFamily="sans-serif-light"
+            android:text="title"
+            android:textColor="@color/text_color_state"
+            android:textAppearance="?textAppearanceListItem"
+            android:gravity="left|center_vertical"
+            android:textSize="@dimen/setting_list_item_title_text_size"
+            autofit:minTextSize="@dimen/min_text_size_12"
+            android:layout_marginRight="8dp"/>
+
+        <android.support.v7.widget.SwitchCompat xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/switchWidget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:clickable="false"
+            android:focusable="false"
+            android:scaleX="1.2"
+            android:scaleY="1.2"
+            android:theme="@style/SwitchStyle"/>
+    </LinearLayout>
+
+</LinearLayout>

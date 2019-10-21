@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:id="@+id/music_title_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <jp.pioneer.carsync.presentation.view.widget.ScrollTextView
+            android:id="@+id/music_title_text"
+            style="@style/AppMarqueeTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:includeFontPadding="false"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/player_music_text_divider_padding"
+            android:layout_marginLeft="@dimen/player_music_text_divider_padding"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/player_music_music_title_text_size_portrait" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/music_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/music_title_group"
+        android:alpha="0.75"
+        android:gravity="right|center_vertical"
+        android:orientation="horizontal"
+        android:layoutDirection="ltr"
+        android:layout_marginRight="@dimen/player_music_text_divider_padding"
+        android:layout_marginLeft="@dimen/player_music_text_divider_padding"
+        android:paddingTop="@dimen/player_music_music_sub_title_padding_top">
+        <jp.pioneer.carsync.presentation.view.widget.SwitchTextView
+            android:id="@+id/music_information_text"
+            style="@style/AppTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:lines="1"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/player_music_music_sub_title_text_size_portrait" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/music_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/music_text"
+        android:alpha="0.75"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <ImageView
+            android:id="@+id/now_playing_button"
+            android:layout_width="@dimen/player_music_now_playing_icon_size"
+            android:layout_height="@dimen/player_music_now_playing_icon_size"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p0041_trickplaybtn_1nrm" />
+
+        <ImageView
+            android:id="@+id/shuffle_button"
+            android:layout_width="@dimen/player_music_now_playing_icon_size"
+            android:layout_height="@dimen/player_music_now_playing_icon_size"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@+id/repeat_button"
+
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p0042_trickplaybtn_1nrm" />
+
+        <ImageView
+            android:id="@+id/repeat_button"
+            android:layout_width="@dimen/player_music_now_playing_icon_size"
+            android:layout_height="@dimen/player_music_now_playing_icon_size"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p0043_trickplaybtn_1nrm" />
+
+    </RelativeLayout>
+</RelativeLayout>

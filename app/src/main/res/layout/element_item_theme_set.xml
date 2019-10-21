@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ui_item"
+    android:layout_width="@dimen/theme_set_footer_item_width"
+    android:layout_height="@dimen/theme_set_footer_item_color_height" >
+
+    <ImageView
+        android:id="@+id/image_light"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitEnd"
+        android:src="@drawable/p0134_colorbtn_1nrm" />
+
+    <ImageView
+        android:id="@+id/image_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitEnd"
+        android:src="@drawable/p0136_colobtnrlineselect_1nrm" />
+
+    <ImageView
+        android:id="@+id/image_frame_light"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitEnd"
+        android:src="@drawable/p0135_colorbtnselect_1nrm" />
+
+</RelativeLayout>

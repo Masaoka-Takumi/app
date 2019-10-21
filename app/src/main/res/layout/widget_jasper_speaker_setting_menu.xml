@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <View
+        style="@style/borderLine"
+        android:layout_width="match_parent"/>
+
+    <RelativeLayout android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:lines="1"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/val_058"
+            android:textColor="#FFFFFF"
+            android:textSize="21sp"/>
+
+        <View
+            android:id="@+id/speakerTypeLine"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignLeft="@id/titleText"
+            android:layout_alignRight="@id/titleText"
+            android:layout_below="@id/titleText"
+            android:background="#FF0000"/>
+
+        <ImageView
+            android:id="@+id/speakerTypeIcon"
+            android:layout_width="16dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/titleText"
+            android:src="@drawable/p0230_spicon"
+            />
+
+    </RelativeLayout>
+
+    <jp.pioneer.carsync.presentation.view.widget.MyListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layoutDirection="ltr"
+        android:listSelector="@drawable/null_selector"
+        android:divider="#40FFFFFF"
+        android:dividerHeight="1dp"/>
+</LinearLayout>

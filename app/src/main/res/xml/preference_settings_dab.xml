@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <Preference
+        android:key="@string/key_dab_ta"
+        android:layout="@layout/element_preference_base"
+        android:order="10"
+        android:title="@string/set_354" />
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_dab_service_follow"
+        android:order="20"
+        android:persistent="false"
+        android:title="@string/set_355"
+        android:layout="@layout/element_preference_switch"/>
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_dab_soft_link"
+        android:order="30"
+        android:persistent="false"
+        android:title="@string/set_356"
+        android:layout="@layout/element_preference_switch"/>
+</PreferenceScreen>

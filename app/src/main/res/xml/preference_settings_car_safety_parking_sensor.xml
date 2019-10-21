@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_parking_sensor"
+        android:layout="@layout/element_preference_switch"
+        android:order="10"
+        android:persistent="false"
+        android:title="@string/set_150" />
+
+    <SeekBarPreference
+        android:key="@string/key_alarm_volume"
+        android:layout="@layout/element_preference_seekbar"
+        android:max="30"
+        android:order="20"
+        android:summary=""
+        android:textColor="@android:color/white"
+        android:title="@string/set_009"
+        app:min="1"
+        app:showSeekBarValue="true" />
+
+    <Preference
+        android:key="@string/key_alarm_output"
+        android:layout="@layout/element_preference_base"
+        android:order="30"
+        android:title="@string/set_008" />
+
+    <Preference
+        android:key="@string/key_back_polarity"
+        android:layout="@layout/element_preference_base"
+        android:order="40"
+        android:title="@string/set_187" />
+
+</PreferenceScreen>

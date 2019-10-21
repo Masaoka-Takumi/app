@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="@string/key_phone_device_settings"
+        android:layout="@layout/element_preference_base"
+        android:order="10"
+        android:title="@string/set_034" />
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_phone_auto_pairing"
+        android:order="20"
+        android:persistent="false"
+        android:title="@string/set_023"
+        android:layout="@layout/element_preference_switch"/>
+
+    <Preference
+        android:key="@string/key_phone_direct_call"
+        android:layout="@layout/element_preference_base"
+        android:order="30"
+        android:title="@string/set_059" />
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_phone_phone_book_access_setting"
+        android:order="40"
+        android:persistent="false"
+        android:title="@string/set_155"
+        android:layout="@layout/element_preference_switch"/>
+
+    <Preference
+        android:key="@string/key_phone_incoming_call_pattern"
+        android:layout="@layout/element_preference_base"
+        android:order="50"
+        android:title="@string/set_102" />
+
+    <Preference
+        android:key="@string/key_phone_incoming_call_color"
+        android:layout="@layout/element_preference_base"
+        android:order="60"
+        android:title="@string/set_101" />
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_phone_incoming_call_auto_answer"
+        android:order="70"
+        android:persistent="false"
+        android:title="@string/set_100"
+        android:layout="@layout/element_preference_switch"/>
+
+</PreferenceScreen>

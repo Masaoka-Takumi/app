@@ -1,0 +1,13 @@
+include ':app', ':findbugs-annotations', ':DirectionalCaroucel', ':AlexaLibrary2'
+project(':DirectionalCaroucel').projectDir = new File(settingsDir,'DirectionalCaroucel/library')
+project(':AlexaLibrary2').projectDir = new File(settingsDir,'AlexaLibrary2/app')
+
+include ':logger'
+include ':library-core'
+include ':library-dash'
+include ':library-hls'
+include ':library-smoothstreaming'
+project(':library-core').projectDir             = new File(rootDir, 'library/core')
+project(':library-dash').projectDir             = new File(rootDir, 'library/dash')
+project(':library-hls').projectDir              = new File(rootDir, 'library/hls')
+project(':library-smoothstreaming').projectDir  = new File(rootDir, 'library/smoothstreaming')

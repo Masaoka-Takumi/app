@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/source_button"
+    android:layout_width="@dimen/player_music_large_button_width"
+    android:layout_height="@dimen/player_music_large_button_width"
+    android:layout_centerVertical="true"
+    android:layout_alignParentLeft="true"
+    android:layout_marginLeft="@dimen/player_music_large_button_margin">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p0129_basebtn_1nrm" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p0130_baseselectbtn_1nrm"
+        android:tint="?attr/uiColor" />
+
+    <ImageView
+        android:id="@+id/source_button_icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p0123_iconbtn_1nrm"
+        android:tint="?attr/uiColor" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:foreground="@drawable/button_touch_effect_big" />
+</RelativeLayout>

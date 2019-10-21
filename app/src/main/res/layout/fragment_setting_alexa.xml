@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navigate_bar_height"
+        android:background="#4ddce8f4"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layoutDirection="ltr">
+
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="@dimen/navigate_bar_back_button_width"
+            android:layout_height="@dimen/navigate_bar_back_button_width"
+            android:layout_marginLeft="@dimen/navigate_bar_padding"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p0002_backbtn_1nrm"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/directory_pass_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="18dp"
+            android:ellipsize="end"
+            android:gravity="left|center_vertical"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:text="@string/set_302"
+            android:textSize="@dimen/navigate_bar_path_text_size"
+            android:fontFamily="sans-serif-light"/>
+
+        <ImageView
+            android:id="@+id/close_button"
+            android:layout_width="@dimen/navigate_bar_back_button_width"
+            android:layout_height="@dimen/navigate_bar_back_button_width"
+            android:scaleType="fitCenter"
+            android:visibility="visible"
+            android:src="@drawable/p0001_closebtn_1nrm"
+            android:clickable="true"
+            android:focusable="true"/>
+    </LinearLayout>
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutDirection="ltr" />
+</LinearLayout>

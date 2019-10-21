@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/setting_container_background_color_40">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/eq_pro_header_height">
+
+            <RelativeLayout
+                android:id="@+id/shrink"
+                android:layout_width="@dimen/eq_pro_shrink_view_width"
+                android:layout_height="@dimen/eq_pro_shrink_view_height"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="16dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.3"
+                    android:background="@drawable/p0064_chamferbase" />
+
+                <ImageView
+                    android:id="@+id/shrink_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="2dp"
+                    android:scaleType="fitXY" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/zoom_button"
+                android:layout_width="@dimen/eq_pro_shrink_view_height"
+                android:layout_height="@dimen/eq_pro_shrink_view_height"
+                android:layout_alignTop="@+id/shrink"
+                android:layout_toRightOf="@+id/shrink"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.3"
+                    android:background="@drawable/p0028_chamferbtn_1nrm" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="center"
+                    android:src="@drawable/p0029_zoombtn_1nrm" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/reset_button"
+                android:layout_width="@dimen/eq_pro_reset_button_width"
+                android:layout_height="@dimen/eq_pro_shrink_view_height"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="92dp"
+                android:layout_marginTop="16dp">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.3"
+                    android:background="@drawable/p0026_chamferbtn_1nrm" />
+
+                <me.grantland.widget.AutofitTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="@string/set_279"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/eq_pro_reset_button_text_size"
+                    autofit:minTextSize="@dimen/min_text_size_8" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/graph_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.christophesmet.android.views.maskableframelayout.MaskableFrameLayout
+                android:id="@+id/frm_mask"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:mask="@drawable/p0115_maskeq"
+                app:porterduffxfermode="DST_OUT">
+
+                <jp.pioneer.carsync.presentation.view.widget.EqProSettingGraphView
+                    android:id="@+id/graph_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </com.christophesmet.android.views.maskableframelayout.MaskableFrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/graph_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <jp.pioneer.carsync.presentation.view.widget.EqProSettingDrawView
+                    android:id="@+id/draw_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </FrameLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/disable_layer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.4"
+        android:background="@android:color/black"
+        android:visibility="gone" />
+</RelativeLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/secondaryProgress">
+        <shape
+            android:innerRadius="@dimen/collision_detect_dialog_circle_inner_radius"
+            android:shape="ring"
+            android:thickness="@dimen/collision_detect_dialog_circle_thickness"
+            android:useLevel="true">
+
+            <gradient
+                android:endColor="#40ffffff"
+                android:startColor="#40ffffff"
+                android:type="sweep" />
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <shape
+            android:innerRadius="@dimen/collision_detect_dialog_circle_inner_radius"
+            android:shape="ring"
+            android:thickness="@dimen/collision_detect_dialog_circle_thickness"
+            android:useLevel="true">
+
+            <gradient
+                android:endColor="#ffffff"
+                android:startColor="#ffffff"
+                android:type="sweep" />
+        </shape>
+    </item>
+</layer-list>

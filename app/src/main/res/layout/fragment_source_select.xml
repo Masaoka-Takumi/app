@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:carousel="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#66000000">
+
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/text_source"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/source_select_source_text_margin_left_portrait"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:fontFamily="sans-serif-thin"
+        android:gravity="left|center_vertical"
+        android:lines="1"
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/source_select_source_text_size"
+        autofit:minTextSize="@dimen/min_text_size_16"
+        android:alpha="0.85"/>
+
+    <FrameLayout
+        android:id="@+id/carousel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true">
+
+        <com.acbelter.directionalcarousel.CarouselViewPager
+            android:id="@+id/carousel_pager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/source_select_margin_left_portrait"
+            android:layout_gravity="left"
+            carousel:infinite="false"
+            carousel:scrollScalingMode="bigCurrent"
+            carousel:bigScale="1.0"
+            carousel:smallScale="0.79"
+            carousel:minPagesOffset="4dp"
+            carousel:sidePagesVisiblePart="0.2"
+            carousel:wrapPadding="0dp"/>
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/close_button"
+        android:layout_width="@dimen/navigate_bar_back_button_width"
+        android:layout_height="@dimen/navigate_bar_back_button_width"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p0001_closebtn_1nrm" />
+    <ImageView
+        android:id="@+id/icon_customize"
+        android:layout_width="@dimen/navigate_bar_back_button_width"
+        android:layout_height="@dimen/navigate_bar_back_button_width"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p0079_addbtn"
+        android:alpha="0.85"/>
+</RelativeLayout>

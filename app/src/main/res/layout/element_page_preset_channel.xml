@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="vertical"
+    android:paddingLeft="40dp"
+    android:paddingRight="20dp"
+    android:paddingTop="8dp"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:layoutDirection="ltr">
+
+
+    <RelativeLayout
+        android:id="@+id/preset_button1_group"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/list_item_background_selector_music">
+
+        <RelativeLayout
+            android:id="@+id/preset_button1"
+            android:layout_marginTop="@dimen/radio_preset_button_margin"
+            android:layout_marginBottom="@dimen/radio_preset_button_margin"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_width="@dimen/radio_preset_button_width"
+            android:layout_height="@dimen/radio_preset_button_width">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0250_chnumbase_1nrm" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0251_chnum_1nrm" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/preset_button1_selected"
+            android:layout_width="@dimen/radio_preset_button_width"
+            android:layout_height="@dimen/radio_preset_button_width"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/radio_preset_button_margin"
+            android:layout_marginBottom="@dimen/radio_preset_button_margin"
+            android:visibility="invisible">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0260_chnumbaseselect_1nrm" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0261_chnumselect_1nrm" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/preset_button1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/preset_title1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left|bottom"
+                android:lines="1"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/radio_preset_title_text_size" />
+
+            <TextView
+                android:id="@+id/frequency_text1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:alpha="0.6"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left|top"
+                android:lines="1"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/radio_preset_title_text_size" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/preset_button2_group"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/list_item_background_selector_music">
+
+        <RelativeLayout
+            android:id="@+id/preset_button2"
+            android:layout_width="@dimen/radio_preset_button_width"
+            android:layout_height="@dimen/radio_preset_button_width"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/radio_preset_button_margin"
+            android:layout_marginBottom="@dimen/radio_preset_button_margin">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0250_chnumbase_1nrm" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0252_chnum_1nrm" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/preset_button2_selected"
+            android:layout_width="@dimen/radio_preset_button_width"
+            android:layout_height="@dimen/radio_preset_button_width"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/radio_preset_button_margin"
+            android:layout_marginBottom="@dimen/radio_preset_button_margin"
+            android:visibility="invisible">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0260_chnumbaseselect_1nrm" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0262_chnumselect_1nrm" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/preset_button2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/preset_title2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left|bottom"
+                android:lines="1"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/radio_preset_title_text_size" />
+
+            <TextView
+                android:id="@+id/frequency_text2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:alpha="0.6"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left|top"
+                android:lines="1"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/radio_preset_title_text_size" />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/preset_button3_group"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/list_item_background_selector_music">
+
+        <RelativeLayout
+            android:id="@+id/preset_button3"
+            android:layout_width="@dimen/radio_preset_button_width"
+            android:layout_height="@dimen/radio_preset_button_width"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/radio_preset_button_margin"
+            android:layout_marginBottom="@dimen/radio_preset_button_margin">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0250_chnumbase_1nrm" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0253_chnum_1nrm" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/preset_button3_selected"
+            android:layout_width="@dimen/radio_preset_button_width"
+            android:layout_height="@dimen/radio_preset_button_width"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/radio_preset_button_margin"
+            android:layout_marginBottom="@dimen/radio_preset_button_margin"
+            android:visibility="invisible">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0260_chnumbaseselect_1nrm" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0263_chnumselect_1nrm" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/preset_button3"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/preset_title3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left|bottom"
+                android:lines="1"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/radio_preset_title_text_size" />
+
+            <TextView
+                android:id="@+id/frequency_text3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:alpha="0.6"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left|top"
+                android:lines="1"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/radio_preset_title_text_size" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/preset_button4_group"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/list_item_background_selector_music">
+
+        <RelativeLayout
+            android:id="@+id/preset_button4"
+            android:layout_width="@dimen/radio_preset_button_width"
+            android:layout_height="@dimen/radio_preset_button_width"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/radio_preset_button_margin"
+            android:layout_marginBottom="@dimen/radio_preset_button_margin">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0250_chnumbase_1nrm" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0254_chnum_1nrm" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/preset_button4_selected"
+            android:layout_width="@dimen/radio_preset_button_width"
+            android:layout_height="@dimen/radio_preset_button_width"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/radio_preset_button_margin"
+            android:layout_marginBottom="@dimen/radio_preset_button_margin"
+            android:visibility="invisible">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0260_chnumbaseselect_1nrm" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0264_chnumselect_1nrm" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/preset_button4"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/preset_title4"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left|bottom"
+                android:lines="1"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/radio_preset_title_text_size" />
+
+            <TextView
+                android:id="@+id/frequency_text4"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:alpha="0.6"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left|top"
+                android:lines="1"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/radio_preset_title_text_size" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/preset_button5_group"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/list_item_background_selector_music">
+
+        <RelativeLayout
+            android:id="@+id/preset_button5"
+            android:layout_width="@dimen/radio_preset_button_width"
+            android:layout_height="@dimen/radio_preset_button_width"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/radio_preset_button_margin"
+            android:layout_marginBottom="@dimen/radio_preset_button_margin">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0250_chnumbase_1nrm" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0255_chnum_1nrm" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/preset_button5_selected"
+            android:layout_width="@dimen/radio_preset_button_width"
+            android:layout_height="@dimen/radio_preset_button_width"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/radio_preset_button_margin"
+            android:layout_marginBottom="@dimen/radio_preset_button_margin"
+            android:visibility="invisible">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0260_chnumbaseselect_1nrm" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0265_chnumselect_1nrm" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/preset_button5"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/preset_title5"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left|bottom"
+                android:lines="1"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/radio_preset_title_text_size" />
+
+            <TextView
+                android:id="@+id/frequency_text5"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:alpha="0.6"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left|top"
+                android:lines="1"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/radio_preset_title_text_size" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/preset_button6_group"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/list_item_background_selector_music">
+
+        <RelativeLayout
+            android:id="@+id/preset_button6"
+            android:layout_width="@dimen/radio_preset_button_width"
+            android:layout_height="@dimen/radio_preset_button_width"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/radio_preset_button_margin"
+            android:layout_marginBottom="@dimen/radio_preset_button_margin">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0250_chnumbase_1nrm" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0256_chnum_1nrm" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/preset_button6_selected"
+            android:layout_width="@dimen/radio_preset_button_width"
+            android:layout_height="@dimen/radio_preset_button_width"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/radio_preset_button_margin"
+            android:layout_marginBottom="@dimen/radio_preset_button_margin"
+            android:visibility="invisible">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0260_chnumbaseselect_1nrm" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0266_chnumselect_1nrm" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/preset_button6"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/preset_title6"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left|bottom"
+                android:lines="1"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/radio_preset_title_text_size" />
+
+            <TextView
+                android:id="@+id/frequency_text6"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:alpha="0.6"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left|top"
+                android:lines="1"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/radio_preset_title_text_size" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CC000000"
+    android:orientation="vertical">
+
+    <View
+        style="@style/borderLine"
+        android:layout_width="match_parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/advanced_audio_speaker_setting_menu_title_height">
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:lines="1"
+            android:fontFamily="sans-serif-light"
+            android:text="Front Left"
+            android:textColor="@color/drawable_white_color"
+            android:textSize="@dimen/advanced_audio_speaker_setting_menu_title_text_size" />
+
+        <View
+            android:id="@+id/speakerTypeLine"
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:layout_alignLeft="@id/titleText"
+            android:layout_alignRight="@id/titleText"
+            android:layout_below="@id/titleText"
+            android:background="#FF0000" />
+
+        <ImageView
+            android:id="@+id/speakerTypeIcon"
+            android:layout_width="@dimen/advanced_audio_speaker_setting_menu_icon_width"
+            android:layout_height="@dimen/advanced_audio_speaker_setting_menu_icon_height"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/titleText"
+            android:src="@drawable/p0230_spicon" />
+
+        <ImageView
+            android:id="@+id/speakerTypeIconSw"
+            android:layout_width="@dimen/advanced_audio_speaker_setting_menu_icon_width"
+            android:layout_height="@dimen/advanced_audio_speaker_setting_menu_icon_height"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="14dp"
+            android:layout_toLeftOf="@+id/titleText"
+            android:rotation="270"
+            android:src="@drawable/p0230_spicon" />
+
+        <jp.pioneer.carsync.presentation.view.widget.CustomButton xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/downButton"
+            android:layout_width="@dimen/advanced_audio_speaker_setting_menu_button_width"
+            android:layout_height="@dimen/advanced_audio_speaker_setting_menu_button_width"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/p0001_closebtn_1nrm"
+            app:backgroundTint="@color/button_tint" />
+    </RelativeLayout>
+
+    <View
+        style="@style/borderLine"
+        android:layout_width="match_parent" />
+
+    <jp.pioneer.carsync.presentation.view.widget.MyListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layoutDirection="ltr"
+        android:listSelector="@drawable/null_selector"
+        android:divider="#40FFFFFF"
+        android:dividerHeight="1dp"/>
+</LinearLayout>

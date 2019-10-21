@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/setting_list_item_height"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:gravity="center_vertical"
+    android:layoutDirection="ltr"
+    android:paddingLeft="@dimen/preference_landscape_left_padding"
+    android:paddingRight="@dimen/preference_landscape_right_padding">
+
+    <ImageView
+        android:id="@android:id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:minWidth="@dimen/preference_icon_minWidth" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginRight="8dip"
+        android:layout_weight="1"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@android:id/title"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:fontFamily="sans-serif-light"
+            android:maxLines="1"
+            android:text="title"
+            android:textAppearance="?textAppearanceListItem"
+            android:textColor="@color/text_color_state"
+            android:gravity="left|center_vertical"
+            android:textSize="@dimen/setting_list_item_title_text_size_half" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@android:id/summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text=""
+            android:gravity="left|center_vertical"
+            android:textColor="@color/text_color_state"
+            android:textSize="@dimen/setting_list_item_summary_text_size"
+            autofit:minTextSize="@dimen/min_text_size_8"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.SwitchCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/switchWidget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        android:clickable="false"
+        android:focusable="false"
+        android:theme="@style/SwitchStyle"/>
+</LinearLayout>

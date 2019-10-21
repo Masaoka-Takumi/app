@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="@string/key_radio_fm_setting"
+        android:layout="@layout/element_preference_base"
+        android:order="10"
+        android:title="@string/set_073" />
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_radio_region_enabled"
+        android:order="50"
+        android:persistent="false"
+        android:title="@string/set_183"
+        android:layout="@layout/element_preference_switch"/>
+
+    <Preference
+        android:key="@string/key_radio_local"
+        android:layout="@layout/element_preference_base"
+        android:order="60"
+        android:title="@string/set_124" />
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_radio_ta"
+        android:order="70"
+        android:persistent="false"
+        android:title="@string/set_219"
+        android:layout="@layout/element_preference_switch"/>
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_radio_af_enabled"
+        android:order="80"
+        android:persistent="false"
+        android:title="@string/set_006"
+        android:layout="@layout/element_preference_switch"/>
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_radio_news_enabled"
+        android:order="90"
+        android:persistent="false"
+        android:title="@string/set_147"
+        android:layout="@layout/element_preference_switch"/>
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_radio_alarm_enabled"
+        android:order="100"
+        android:persistent="false"
+        android:title="@string/set_007"
+        android:layout="@layout/element_preference_switch"/>
+
+    <Preference
+        android:key="@string/key_radio_pch_manual"
+        android:layout="@layout/element_preference_base"
+        android:order="110"
+        android:title="@string/set_193" />
+
+</PreferenceScreen>

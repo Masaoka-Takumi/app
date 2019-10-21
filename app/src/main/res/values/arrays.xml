@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Radio Setting -->
+    <array name="radio_pty_search_values">
+        <item>@string/ply_043</item>
+        <item>@string/ply_044</item>
+        <item>@string/ply_045</item>
+        <item>@string/ply_046</item>
+    </array>
+
+    <!-- Debug Setting -->
+    <array name="debug_adas_warning">
+        <item>@string/dbg_016</item>
+        <item>@string/dbg_017</item>
+        <item>@string/dbg_018</item>
+    </array>
+    <array name="debug_smart_phone_interrupt">
+        <item>@string/dbg_022</item>
+        <item>@string/dbg_021</item>
+        <item>@string/dbg_020</item>
+        <item>解除</item>
+    </array>
+    <!-- 音声認識ランダム表示文字列 -->
+    <array name="speech_recognizer_local_random">
+        <item>@string/rec_014</item>
+        <item>@string/rec_016</item>
+        <item>@string/rec_018</item>
+        <item>@string/rec_020</item>
+        <item>@string/rec_022</item>
+        <item>@string/rec_024</item>
+        <item>@string/rec_026</item>
+    </array>
+    <array name="speech_recognizer_global_random">
+        <item>@string/rec_020</item>
+        <item>@string/rec_022</item>
+        <item>@string/rec_024</item>
+        <item>@string/rec_026</item>
+    </array>
+
+    <array name="alexa_language">
+        <item>@string/set_308</item>
+        <item>@string/set_309</item>
+        <item>@string/set_310</item>
+        <item>@string/set_311</item>
+        <item>@string/set_312</item>
+        <item>@string/set_313</item>
+    </array>
+</resources>

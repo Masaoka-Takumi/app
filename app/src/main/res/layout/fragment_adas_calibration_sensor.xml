@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+    <SurfaceView
+        android:id="@+id/surfaceView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@android:color/black"
+        android:alpha="0.25"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <ImageView
+        android:layout_width="@dimen/adas_calibration_cross_width"
+        android:layout_height="@dimen/adas_calibration_cross_height"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p1700_adas_cross1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+    <ImageView
+        android:id="@+id/cross_ball"
+        android:layout_width="@dimen/adas_calibration_cross_width"
+        android:layout_height="@dimen/adas_calibration_cross_height"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p1701_adas_cross2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+    <ImageButton
+        android:id="@+id/ok_button"
+        android:layout_width="@dimen/adas_calibration_cross_width"
+        android:layout_height="@dimen/adas_calibration_cross_height"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p1702_adas_ok"
+        android:background="@null"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <ImageButton
+        android:id="@+id/back_btn"
+        android:layout_width="@dimen/adas_calibration_button_width"
+        android:layout_height="@dimen/adas_calibration_button_width"
+        android:layout_marginLeft="@dimen/adas_calibration_button_margin"
+        android:layout_marginTop="@dimen/adas_calibration_button_margin"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p1180_btn_back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="@dimen/adas_calibration_title_margin_top_land"
+        android:lineSpacingMultiplier="1.1"
+        android:fontFamily="sans-serif-light"
+        android:gravity="top|center_horizontal"
+        android:maxLines="3"
+        android:singleLine="false"
+        android:text="@string/set_293"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/adas_calibration_title_text_size_land"
+        app:layout_constraintLeft_toRightOf="@+id/back_btn"
+        app:layout_constraintRight_toLeftOf="@+id/next_btn"
+        app:layout_constraintTop_toTopOf="parent"
+        autofit:minTextSize="@dimen/min_text_size_12" />
+
+    <ImageButton
+        android:id="@+id/next_btn"
+        android:layout_width="@dimen/adas_calibration_button_width"
+        android:layout_height="@dimen/adas_calibration_button_width"
+        android:layout_marginRight="@dimen/adas_calibration_button_margin"
+        android:layout_marginTop="@dimen/adas_calibration_button_margin"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p1220_btn_next"
+        android:visibility="invisible"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/skip_btn"
+        android:layout_width="@dimen/adas_calibration_skip_button_width"
+        android:layout_height="@dimen/adas_calibration_skip_button_height"
+        android:layout_marginBottom="13dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.3"
+            android:background="@drawable/p0026_chamferbtn_1nrm" />
+
+        <me.grantland.widget.AutofitTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:lines="1"
+            android:ellipsize="end"
+            android:text="Skip"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/preset_eq_setting_button_text_size"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:maxLines="1"
+            android:singleLine="true"
+            autofit:minTextSize="@dimen/min_text_size_8"/>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+        <TextView
+            android:id="@+id/text_x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/text_y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/text_z"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

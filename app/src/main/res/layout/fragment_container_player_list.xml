@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#33000000">
+    <include layout="@layout/element_navigation_bar_music"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/list_tab_height_portrait"
+            android:gravity="center_horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:layoutDirection="ltr">
+
+            <RelativeLayout
+                android:id="@+id/song_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
+                <ImageView
+                    android:layout_width="@dimen/list_tab_button_width"
+                    android:layout_height="@dimen/list_tab_button_width"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/p0009_songsbtn_select_1nrm"
+                    android:visibility="invisible"
+                    android:alpha="0.75"/>
+                <ImageView
+                    android:layout_width="@dimen/list_tab_button_width"
+                    android:layout_height="@dimen/list_tab_button_width"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/p0004_songsbtn_1nrm" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/playlist_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
+                <ImageView
+                    android:layout_width="@dimen/list_tab_button_width"
+                    android:layout_height="@dimen/list_tab_button_width"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/p0010_playlistbtn_select_1nrm"
+                    android:visibility="invisible"
+                    android:alpha="0.75"/>
+                <ImageView
+                    android:layout_width="@dimen/list_tab_button_width"
+                    android:layout_height="@dimen/list_tab_button_width"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/p0005_playlistbtn_1nrm" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/album_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
+                <ImageView
+                    android:layout_width="@dimen/list_tab_button_width"
+                    android:layout_height="@dimen/list_tab_button_width"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/p0011_albumbtn_select_1nrm"
+                    android:visibility="invisible"
+                    android:alpha="0.75"/>
+                <ImageView
+                    android:layout_width="@dimen/list_tab_button_width"
+                    android:layout_height="@dimen/list_tab_button_width"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/p0006_albumbtn_1nrm" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/artist_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
+                <ImageView
+                    android:layout_width="@dimen/list_tab_button_width"
+                    android:layout_height="@dimen/list_tab_button_width"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/p0012_artistbtn_select_1nrm"
+                    android:visibility="invisible"
+                    android:alpha="0.75"/>
+                <ImageView
+                    android:layout_width="@dimen/list_tab_button_width"
+                    android:layout_height="@dimen/list_tab_button_width"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/p0007_artistbtn_1nrm" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/genre_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
+                <ImageView
+                    android:layout_width="@dimen/list_tab_button_width"
+                    android:layout_height="@dimen/list_tab_button_width"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/p0013_genrebtn_select_1nrm"
+                    android:visibility="invisible"
+                    android:alpha="0.75"/>
+                <ImageView
+                    android:layout_width="@dimen/list_tab_button_width"
+                    android:layout_height="@dimen/list_tab_button_width"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/p0008_genrebtn_1nrm" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:background="#59ffffff"/>
+
+        <RelativeLayout
+            android:id="@+id/player_list_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</LinearLayout>

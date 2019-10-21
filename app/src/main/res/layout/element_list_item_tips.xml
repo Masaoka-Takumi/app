@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/tips_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/tips_background_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="h,3:2"
+        app:layout_constraintHeight_max="@dimen/tips_list_item_height"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitStart" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/tips_divider_color" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tips_list_item_article_height"
+            android:layout_alignParentBottom="true">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/p0920_shadow" />
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="@dimen/tips_list_item_icon_width"
+                android:layout_height="@dimen/tips_list_item_icon_width"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="11dp"
+                android:layout_marginTop="2dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0902_icon_information" />
+
+            <TextView
+                android:id="@+id/title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="14dp"
+                android:layout_toRightOf="@+id/icon"
+                android:fontFamily="sans-serif"
+                android:gravity="left"
+                android:lines="1"
+                android:text="Title"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/tips_list_item_title_text_size" />
+
+            <TextView
+                android:id="@+id/contents_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title_text"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginTop="4dp"
+                android:layout_toRightOf="@+id/icon"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left"
+                android:maxLines="3"
+                android:text=""
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/tips_list_item_contents_text_size" />
+        </RelativeLayout>
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

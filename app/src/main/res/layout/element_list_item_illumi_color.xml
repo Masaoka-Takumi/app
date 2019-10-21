@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/illumi_item"
+    android:layout_width="@dimen/illumination_color_setting_item_width"
+    android:layout_height="@dimen/illumination_color_setting_item_width">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/illumination_color_setting_item_margin"
+        android:layout_marginRight="@dimen/illumination_color_setting_item_margin"
+        android:layout_marginTop="@dimen/illumination_color_setting_item_margin"
+        android:layout_marginBottom="@dimen/illumination_color_setting_item_margin"
+        android:layout_centerInParent="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/p0032_illcolorselectbtn_1nrm" />
+
+    <ImageView
+        android:id="@+id/illumi_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/illumination_color_setting_item_margin"
+        android:layout_marginRight="@dimen/illumination_color_setting_item_margin"
+        android:layout_marginTop="@dimen/illumination_color_setting_item_margin"
+        android:layout_marginBottom="@dimen/illumination_color_setting_item_margin"
+        android:layout_centerInParent="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/p0033_illcolorselectbtn_1nrm" />
+
+    <ImageView
+        android:id="@+id/illumi_frame_light"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/illumination_color_setting_item_margin"
+        android:layout_marginRight="@dimen/illumination_color_setting_item_margin"
+        android:layout_marginTop="@dimen/illumination_color_setting_item_margin"
+        android:layout_marginBottom="@dimen/illumination_color_setting_item_margin"
+        android:layout_centerInParent="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/p0034_illcolorselectbtn_1nrm" />
+
+    <ImageView
+        android:id="@+id/illumi_frame_scan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/illumination_color_setting_item_margin"
+        android:layout_marginRight="@dimen/illumination_color_setting_item_margin"
+        android:layout_marginTop="@dimen/illumination_color_setting_item_margin"
+        android:layout_marginBottom="@dimen/illumination_color_setting_item_margin"
+        android:layout_centerInParent="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/p1270_illcolorselectbtn_1nrm"
+        android:visibility="gone"/>
+    <ImageView
+        android:id="@+id/illumi_select"
+        android:layout_width="@dimen/illumination_color_setting_item_select_width"
+        android:layout_height="@dimen/illumination_color_setting_item_select_width"
+        android:layout_centerInParent="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/p0035_illcolorbtn_1nrm" />
+
+    <ImageView
+        android:id="@+id/illumi_select_light"
+        android:layout_width="@dimen/illumination_color_setting_item_select_width"
+        android:layout_height="@dimen/illumination_color_setting_item_select_width"
+        android:layout_centerInParent="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/p0036_illcolorbtn_1nrm" />
+
+    <ImageView
+        android:id="@+id/illumi_select_scan"
+        android:layout_width="@dimen/illumination_color_setting_item_select_width"
+        android:layout_height="@dimen/illumination_color_setting_item_select_width"
+        android:layout_centerInParent="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/p1271_illcolorbtn_1nrm"
+        android:visibility="gone" />
+</RelativeLayout>

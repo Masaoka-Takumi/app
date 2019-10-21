@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout
+    android:id="@+id/digital_clock_view"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginBottom="4dp"
+    app:layout_constraintHeight_max="@dimen/home_clock_digital_height_max_portrait"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="@+id/guideline"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent">
+    <jp.pioneer.carsync.presentation.view.widget.CustomTextClock
+        android:id="@+id/digital_clock"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="0dp"
+        android:fontFamily="sans-serif-thin"
+        android:format12Hour="kk\nmm"
+        android:format24Hour="kk\nmm"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:lineSpacingMultiplier="0.8"
+        android:maxLines="2"
+        android:paddingBottom="0dp"
+        android:paddingTop="0dp"
+        android:shadowColor="#99000000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="25"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/home_clock_text_size_max"
+        app:layout_constraintBottom_toTopOf="@+id/am_pm"
+        app:layout_constraintDimensionRatio="w,288:449"
+        app:layout_constraintHeight_max="@dimen/home_clock_digital_height_max_portrait"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <jp.pioneer.carsync.presentation.view.widget.AmPmView
+        android:id="@+id/am_pm"
+        android:textSize="@dimen/home_ampm_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="XX"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        android:shadowColor="#99000000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="25"
+        android:textColor="@android:color/white"
+        android:fontFamily="sans-serif-light"
+        android:maxLines="1"
+        android:singleLine="true"
+        />
+
+</android.support.constraint.ConstraintLayout>
+
+    <jp.pioneer.carsync.presentation.view.widget.AnalogClock
+        android:id="@+id/analog_clock"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/analog_clock_background"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="@dimen/home_clock_analog_width_max" />
+
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="12dp"
+        android:fontFamily="sans-serif-light"
+        android:gravity="left"
+        android:shadowColor="#99000000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="25"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="@string/ply_023"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/home_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        autofit:minTextSize="@dimen/min_text_size_16" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.45" />
+</android.support.constraint.ConstraintLayout>

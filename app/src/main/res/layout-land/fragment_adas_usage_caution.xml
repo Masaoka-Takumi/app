@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey240">
+
+    <jp.pioneer.carsync.presentation.view.widget.CustomScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fadingEdgeLength="20dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:requiresFadingEdge="vertical"
+        android:scrollbarSize="4dp"
+        android:scrollbarThumbVertical="@drawable/scrollbar_thumb_black"
+        app:layout_constraintBottom_toTopOf="@+id/confirm"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/caution_text_1_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="top|start"
+                android:paddingLeft="18dp"
+                android:paddingRight="18dp"
+                android:singleLine="false"
+                android:text="@string/set_366"
+                android:textColor="@color/ui_color_red"
+                android:textSize="@dimen/adas_usage_caution_text_size" />
+
+            <TextView
+                android:id="@+id/caution_text_1_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="top|start"
+                android:paddingLeft="18dp"
+                android:paddingRight="18dp"
+                android:paddingBottom="40dp"
+                android:singleLine="false"
+                android:text="@string/set_367"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/adas_usage_caution_text_size" />
+            <TextView
+                android:id="@+id/caution_text_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="top|start"
+                android:paddingLeft="18dp"
+                android:paddingRight="18dp"
+                android:paddingBottom="40dp"
+                android:singleLine="false"
+                android:text="@string/set_339"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/adas_usage_caution_text_size"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+    </jp.pioneer.carsync.presentation.view.widget.CustomScrollView>
+
+    <RelativeLayout
+        android:id="@+id/confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:id="@+id/confirm_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="100dp"
+            android:layout_marginBottom="24dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:lines="1"
+            android:singleLine="true"
+            android:text="@string/com_003"
+            android:textColor="@color/button_text_ui_color_red"
+            android:textSize="@dimen/adas_usage_caution_button_text_size" />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/advanced_audio_setting_seat_width"
+    android:layout_height="@dimen/advanced_audio_setting_seat_height"
+    android:duplicateParentState="true">
+
+    <RelativeLayout
+        android:id="@+id/flSeatIcon"
+        android:layout_width="@dimen/advanced_audio_setting_seat_icon_width"
+        android:layout_height="@dimen/advanced_audio_setting_seat_icon_width"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:duplicateParentState="true">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:alpha="0.5"
+            android:src="@drawable/p0210_fsbtn_1nrm" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p0212_fsbtn_selectbase_1nrm" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:tint="?attr/uiColor"
+            android:src="@drawable/p0211_fsbtn_select_1nrm" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/frSeatIcon"
+        android:layout_width="@dimen/advanced_audio_setting_seat_icon_width"
+        android:layout_height="@dimen/advanced_audio_setting_seat_icon_width"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:duplicateParentState="true">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:alpha="0.5"
+            android:src="@drawable/p0210_fsbtn_1nrm" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p0212_fsbtn_selectbase_1nrm" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:tint="?attr/uiColor"
+            android:src="@drawable/p0211_fsbtn_select_1nrm" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rearSeatIcon"
+        android:layout_width="@dimen/advanced_audio_setting_seat_width"
+        android:layout_height="@dimen/advanced_audio_setting_seat_rear_icon_height"
+        android:layout_alignParentBottom="true"
+        android:duplicateParentState="true">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:alpha="0.5"
+            android:src="@drawable/p0215_rsbtn_1nrm" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p0217_rsbtn_selectbase_1nrm" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:tint="?attr/uiColor"
+            android:src="@drawable/p0216_rsbtn_select_1nrm" />
+    </RelativeLayout>
+</RelativeLayout>

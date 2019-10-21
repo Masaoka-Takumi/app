@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layoutDirection="ltr"
+    android:baselineAligned="false"
+    android:background="@color/setting_container_background_color">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/preset_view"
+            android:layout_width="@dimen/super_todoroki_preset_view_width"
+            android:layout_height="@dimen/super_todoroki_preset_view_width"
+            android:layout_margin="8dp"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p1150_todoroki_1" />
+
+    </RelativeLayout>
+
+    <include layout="@layout/element_setting_list" />
+</LinearLayout>

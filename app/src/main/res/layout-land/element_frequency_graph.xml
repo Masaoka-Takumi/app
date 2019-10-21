@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <jp.pioneer.carsync.presentation.view.widget.FilterGraphView
+        android:id="@+id/filterGraphViewL"
+        android:layout_width="@dimen/advanced_audio_setting_graph_width_land"
+        android:layout_height="@dimen/advanced_audio_setting_graph_height"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/filterGraphTextL"
+        />
+
+    <jp.pioneer.carsync.presentation.view.widget.FilterFrequencyView
+        android:id="@+id/frequenciesL"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/advanced_audio_setting_filter_frequency_height_land"
+        android:layout_alignLeft="@+id/filterGraphViewL"
+        android:layout_alignRight="@+id/filterGraphViewL"
+        android:layout_below="@+id/filterGraphViewL"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"/>
+
+    <TextView
+        android:id="@+id/filterGraphTextL"
+        android:layout_width="@dimen/advanced_audio_setting_filter_graph_text_width_land"
+        android:layout_height="@dimen/advanced_audio_setting_graph_height"
+        android:layout_alignTop="@+id/filterGraphViewL"
+        android:layout_marginLeft="2dp"
+        android:layout_toLeftOf="@+id/center"
+        android:gravity="center_vertical"
+        android:text="@string/set_109"
+        android:lines="1"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/drawable_white_color"
+        android:textSize="@dimen/advanced_audio_setting_graph_text_size"
+        />
+
+    <View
+        android:id="@+id/center"
+        android:layout_width="20dp"
+        android:layout_height="0dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/filterGraphTextR"
+        android:layout_width="@dimen/advanced_audio_setting_filter_graph_text_width_land"
+        android:layout_height="@dimen/advanced_audio_setting_graph_height"
+        android:layout_alignTop="@+id/filterGraphViewR"
+        android:layout_marginRight="2dp"
+        android:layout_toRightOf="@+id/center"
+        android:gravity="center_vertical"
+        android:text="@string/set_169"
+        android:lines="1"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/drawable_white_color"
+        android:textSize="18sp"
+        />
+
+    <jp.pioneer.carsync.presentation.view.widget.FilterGraphView
+        android:id="@+id/filterGraphViewR"
+        android:layout_width="@dimen/advanced_audio_setting_graph_width_land"
+        android:layout_height="@dimen/advanced_audio_setting_graph_height"
+        android:layout_toRightOf="@+id/filterGraphTextR"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="4dp"
+        />
+
+    <jp.pioneer.carsync.presentation.view.widget.FilterFrequencyView
+        android:id="@+id/frequenciesR"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/advanced_audio_setting_filter_frequency_height_land"
+        android:layout_alignLeft="@+id/filterGraphViewR"
+        android:layout_alignRight="@+id/filterGraphViewR"
+        android:layout_below="@+id/filterGraphViewR"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"/>
+
+</RelativeLayout>

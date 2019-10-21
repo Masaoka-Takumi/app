@@ -1,0 +1,793 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- common -->
+    <dimen name="min_text_size_8">9sp</dimen>
+    <dimen name="min_text_size_12">13.6sp</dimen>
+    <dimen name="min_text_size_16">18.1sp</dimen>
+    <dimen name="min_text_size_32">36.2sp</dimen>
+
+    <dimen name="navigate_bar_padding">18.1dp</dimen>
+    <dimen name="navigate_bar_height">48.6dp</dimen>
+    <dimen name="navigate_bar_back_button_width">48.6dp</dimen>
+    <dimen name="navigate_bar_my_photo_button_width">65.5dp</dimen>
+    <dimen name="navigate_bar_path_text_size">27.1dp</dimen>
+    <dimen name="element_list_item_height_66">74.6dp</dimen>
+    <dimen name="element_list_item_title_text_size">33.9dp</dimen>
+    <dimen name="element_list_item_subtitle_text_size">22.6dp</dimen>
+    <dimen name="element_list_item_description_text_size">23.7dp</dimen>
+    <dimen name="element_list_item_description_top_padding">15.8dp</dimen>
+    <dimen name="element_list_item_single_title_text_size">36.2dp</dimen>
+    <dimen name="list_tab_height_portrait">71.2dp</dimen>
+    <dimen name="list_tab_width_land">82.5dp</dimen>
+    <dimen name="list_tab_button_width">65.54dp</dimen>
+    <dimen name="button_text_size">40.7dp</dimen>
+
+    <!-- battery -->
+    <dimen name="battery_width">45.2dp</dimen>
+    <dimen name="battery_frame_width">39.6dp</dimen>
+    <dimen name="battery_frame_margin_left">2.1dp</dimen>
+    <dimen name="battery_charge_width">38.4dp</dimen>
+    <dimen name="battery_bottom_margin">9.72dp</dimen>
+    <dimen name="battery_level_width">11.9dp</dimen>
+    <dimen name="battery_level_height">23.3dp</dimen>
+
+    <!-- ProgressBar -->
+    <dimen name="progressbar_player_padding">9dp</dimen>
+    <dimen name="progressbar_player_height">4dp</dimen>
+    <dimen name="progressbar_line">1.1dp</dimen>
+    <dimen name="progressbar_blur_radius">6.8dp</dimen>
+    <dimen name="progressbar_home_padding">7.9dp</dimen>
+    <dimen name="progressbar_home_height">3.4dp</dimen>
+
+    <!-- Easy Pairing -->
+    <dimen name="easy_pairing_text1_width">316.4dp</dimen>
+    <dimen name="easy_pairing_text_size">21.5dp</dimen>
+    <dimen name="easy_pairing_text_line_spacing_extra">6.8dp</dimen>
+    <dimen name="easy_pairing_image_width">406.8dp</dimen>
+    <dimen name="easy_pairing_image_height">249.7dp</dimen>
+    <dimen name="easy_pairing_text2_width">339dp</dimen>
+    <dimen name="easy_pairing_add_device_button_group_width">326.6dp</dimen>
+    <dimen name="easy_pairing_add_device_button_group_height">56.5dp</dimen>
+    <dimen name="easy_pairing_add_device_button_text_size">32.8dp</dimen>
+    <dimen name="easy_pairing_back_button_width">63.3dp</dimen>
+
+    <!-- Tips -->
+    <dimen name="tips_button_width">63.3dp</dimen>
+    <dimen name="tips_tab_icon_width">44.1dp</dimen>
+    <dimen name="tips_list_item_height">339dp</dimen>
+    <dimen name="tips_list_item_article_height">108.5dp</dimen>
+    <dimen name="tips_list_item_icon_width">47.5dp</dimen>
+    <dimen name="tips_list_item_title_text_size">22.6dp</dimen>
+    <dimen name="tips_list_item_contents_text_size">15.8dp</dimen>
+
+    <!-- Home -->
+    <dimen name="home_status_bar_height">45.2dp</dimen>
+    <dimen name="home_status_bar_car_icon_width">66.7dp</dimen>
+    <dimen name="home_status_bar_car_icon_height">39.6dp</dimen>
+    <dimen name="home_setting_button_width">59.9dp</dimen>
+    <dimen name="home_setting_button_large_width">79.1dp</dimen>
+    <dimen name="home_shortcut_group_height_portrait">88.1dp</dimen>
+    <dimen name="home_shortcut_group_height_land">81.4dp</dimen>
+    <dimen name="home_contents_height_max_land">316.4dp</dimen>
+    <dimen name="home_clock_digital_height_max_portrait">226dp</dimen>
+    <dimen name="home_clock_analog_width_max">210.2dp</dimen>
+    <dimen name="home_text_size">36.2dp</dimen>
+    <dimen name="home_clock_text_size_max">135.6dp</dimen>
+    <dimen name="home_clock_text_size_min">67.8dp</dimen>
+    <dimen name="home_player_jacket_view_group_height_max">180.8dp</dimen>
+    <dimen name="home_player_device_name_text_size">20.3dp</dimen>
+    <dimen name="home_player_radio_band_width">135.6dp</dimen>
+    <dimen name="home_player_radio_band_text_size_portrait">18.1dp</dimen>
+    <dimen name="home_player_radio_pch_text_size_portrait">21.5dp</dimen>
+    <dimen name="home_player_radio_frequency_no_decimal_text_size_portrait">58.8dp</dimen>
+    <dimen name="home_player_radio_frequency_text_size_portrait">58.8dp</dimen>
+    <dimen name="home_player_radio_frequency_decimal_text_size_portrait">40.7dp</dimen>
+    <dimen name="home_player_radio_channel_number_text_size_portrait">49.7dp</dimen>
+    <dimen name="home_player_radio_frequency_unit_text_size_portrait">18.1dp</dimen>
+    <dimen name="home_player_radio_band_text_size_land">22.6dp</dimen>
+    <dimen name="home_player_radio_pch_text_size_land">26dp</dimen>
+    <dimen name="home_player_radio_frequency_no_decimal_text_size_land">81.4dp</dimen>
+    <dimen name="home_player_radio_frequency_text_size_land">81.4dp</dimen>
+    <dimen name="home_player_radio_frequency_decimal_text_size_land">54.2dp</dimen>
+    <dimen name="home_player_radio_channel_number_text_size_land">54.2dp</dimen>
+    <dimen name="home_player_radio_frequency_unit_text_size_land">22.6dp</dimen>
+    <dimen name="home_player_radio_antenna_icon_width">56.5dp</dimen>
+    <dimen name="home_player_radio_antenna_icon_height">22.6dp</dimen>
+    <dimen name="home_player_radio_antenna_icon_margin_bottom">11.3dp</dimen>
+    <dimen name="home_player_dab_service_name_text_size_portrait">29.4dp</dimen>
+    <dimen name="home_shortcut_key_width">64.4dp</dimen>
+    <dimen name="home_shortcut_key_icon_width_portrait">18.1dp</dimen>
+    <dimen name="home_shortcut_key_icon_oval_width_portrait">6.8dp</dimen>
+    <dimen name="home_shortcut_key_icon_width_land">23.7dp</dimen>
+    <dimen name="home_shortcut_key_icon_oval_width_land">7.9dp</dimen>
+    <dimen name="custom_line_indicator_frame_width">53.1dp</dimen>
+    <dimen name="custom_line_indicator_frame_height">20.3dp</dimen>
+    <dimen name="custom_line_indicator_preset_frame_width">42.9dp</dimen>
+    <dimen name="custom_line_indicator_preset_frame_height">9dp</dimen>
+    <dimen name="custom_line_indicator_preset_frame2_width">20.3dp</dimen>
+    <dimen name="custom_line_indicator_line_back_margin_top">-0.9dp</dimen>
+    <dimen name="custom_line_indicator_line_back_margin_left">-0.6dp</dimen>
+    <dimen name="custom_line_indicator_preset_margin_right">-5.7dp</dimen>
+    <dimen name="custom_line_indicator_line_width">36.2dp</dimen>
+    <dimen name="custom_line_indicator_stroke_width">2.8dp</dimen>
+    <dimen name="speed_meter_max_height_portrait">188.7dp</dimen>
+    <dimen name="speed_meter_max_height_land">241.8dp</dimen>
+    <dimen name="speed_meter_avr_text_size_portrait">15.8dp</dimen>
+    <dimen name="speed_meter_avr_value_text_size_portrait">20.3dp</dimen>
+    <dimen name="speed_meter_speed_text_width_portrait">135.6dp</dimen>
+    <dimen name="speed_meter_speed_text_size_portrait">90.4dp</dimen>
+    <dimen name="speed_meter_speed_unit_text_size_portrait">24.9dp</dimen>
+    <dimen name="speed_meter_avr_text_size_land">19.2dp</dimen>
+    <dimen name="speed_meter_avr_value_text_size_land">26dp</dimen>
+    <dimen name="speed_meter_speed_text_width_land">135.6dp</dimen>
+    <dimen name="speed_meter_speed_text_size_land">111.9dp</dimen>
+    <dimen name="speed_meter_speed_unit_text_size_land">30.5dp</dimen>
+    <dimen name="bearing_height">31.6dp</dimen>
+    <dimen name="bearing_division_height_start">13.6dp</dimen>
+    <dimen name="bearing_division_width">2.3dp</dimen>
+    <dimen name="bearing_division_height">11.3dp</dimen>
+    <dimen name="bearing_division_large_height">15.8dp</dimen>
+    <dimen name="bearing_division_height_margin">2.3dp</dimen>
+    <dimen name="bearing_division_label_font_size">11.3dp</dimen>
+    <dimen name="home_ampm_size">29.4dp</dimen>
+    <dimen name="home_ampm_size_land">36.2dp</dimen>
+
+    <!-- Player -->
+    <dimen name="player_music_status_bar_height">54.2dp</dimen>
+    <dimen name="player_music_status_bar_clock_text_size_24">30.5dp</dimen>
+    <dimen name="player_music_status_bar_clock_text_size_12">27.1dp</dimen>
+    <dimen name="player_music_status_bar_car_icon_width">65.5dp</dimen>
+    <dimen name="player_music_status_bar_car_icon_height">38.4dp</dimen>
+    <dimen name="player_music_status_bar_home_button_width">39.6dp</dimen>
+    <dimen name="player_music_status_bar_logo_width">79.1dp</dimen>
+    <dimen name="player_music_status_bar_logo_height">39.6dp</dimen>
+    <dimen name="player_music_info_text_width">415.8dp</dimen>
+    <dimen name="player_music_info_margin_horizontal">119.8dp</dimen>
+    <dimen name="player_music_section_info_height">174dp</dimen>
+    <dimen name="player_music_section_info_margin_top">4.5dp</dimen>
+    <dimen name="player_music_section_bottom_height_land">113dp</dimen>
+    <dimen name="player_music_section_bottom_height_alexa_land">110.7dp</dimen>
+    <dimen name="player_music_section_button_margin_land_alexa">117.5dp</dimen>
+    <dimen name="player_music_section_bottom_margin_land_alexa">79.1dp</dimen>
+    <dimen name="player_music_seek_icon_back_width">298.3dp</dimen>
+    <dimen name="player_music_magnification_text_size">36.2dp</dimen>
+    <dimen name="player_music_fx_eq_message_height">140.1dp</dimen>
+    <dimen name="player_music_fx_eq_message_width_land">466.7dp</dimen>
+    <dimen name="player_music_fx_eq_message_text_size">40.7dp</dimen>
+    <dimen name="player_music_music_title_text_size_portrait">45.2dp</dimen>
+    <dimen name="player_music_music_sub_title_text_size_portrait">21.5dp</dimen>
+    <dimen name="player_music_music_sub_title_padding_top">6.8dp</dimen>
+    <dimen name="player_music_music_title_text_size_land">49.7dp</dimen>
+    <dimen name="player_music_music_title_text_size_land_bar">40.7dp</dimen>
+    <dimen name="player_music_music_title_margin">65.5dp</dimen>
+    <dimen name="player_music_music_title_margin_portrait">81.4dp</dimen>
+    <dimen name="player_music_music_info_height">50.9dp</dimen>
+    <dimen name="player_music_music_info_margin_bottom">4.5dp</dimen>
+    <dimen name="player_music_music_sub_title_text_size_land">27.1dp</dimen>
+    <dimen name="player_music_music_sub_title_divider_width_portrait">1.1dp</dimen>
+    <dimen name="player_music_music_sub_title_divider_height_portrait">18.1dp</dimen>
+    <dimen name="player_music_music_sub_title_divider_width_land">1.4dp</dimen>
+    <dimen name="player_music_music_sub_title_divider_height_land">20.3dp</dimen>
+    <dimen name="player_music_text_divider_padding">13.6dp</dimen>
+    <dimen name="player_music_now_playing_icon_size">48.6dp</dimen>
+    <dimen name="player_music_now_playing_margin_size">11.3dp</dimen>
+    <dimen name="player_music_section_button_height_portrait">174dp</dimen>
+    <dimen name="player_music_section_button_margin_bottom">11.3dp</dimen>
+    <dimen name="player_music_section_top_margin_top_land">36.2dp</dimen>
+    <dimen name="player_music_section_top_gesture_view_margin_land">11.3dp</dimen>
+    <dimen name="player_music_section_top_gesture_min_width_land">226dp</dimen>
+    <dimen name="player_music_large_button_width">174dp</dimen>
+    <dimen name="player_music_large_button_margin">-85.9dp</dimen>
+    <dimen name="player_music_large_button_icon_width">124.3dp</dimen>
+    <dimen name="player_music_large_button_left_icon_margin_left">58.8dp</dimen>
+    <dimen name="player_music_large_button_right_margin_left">-4.5dp</dimen>
+    <dimen name="player_music_center_button_width_max_portrait">120.9dp</dimen>
+    <dimen name="player_music_center_button_icon_margin_bottom_portrait">9dp</dimen>
+    <dimen name="player_music_center_button_icon_vis_margin_bottom_portrait">4.5dp</dimen>
+    <dimen name="player_music_center_button_text_height_portrait">17dp</dimen>
+    <dimen name="player_music_center_button_text_size_portrait">13.6dp</dimen>
+    <dimen name="player_music_center_button_width_max_land">144.6dp</dimen>
+    <dimen name="player_music_center_button_text_height_land">18.1dp</dimen>
+    <dimen name="player_music_center_button_text_size_land">13.6dp</dimen>
+    <dimen name="player_music_gesture_margin_portrait">12.4dp</dimen>
+    <dimen name="player_music_status_bar_ampm_text_size">13.6dp</dimen>
+    <dimen name="player_time_text_size">20.3dp</dimen>
+    <dimen name="player_time_width_bar">57.6dp</dimen>
+    <dimen name="player_music_alexa_progressbar_land_margin_bottom">63.3dp</dimen>
+    <dimen name="player_music_alexa_gesture_view_land_margin_bottom">15.8dp</dimen>
+    <dimen name="player_music_alexa_gesture_view_portrait_margin_bottom">4.5dp</dimen>
+    <dimen name="player_music_alexa_gesture_margin_portrait">10.2dp</dimen>
+    <dimen name="player_music_alexa_gesture_margin_land">9dp</dimen>
+    <dimen name="player_music_alexa_progressbar_margin_bottom">7.9dp</dimen>
+    <dimen name="player_music_section_button_margin_bottom_alexa">6.8dp</dimen>
+    <dimen name="player_music_alexa_title_margin_1">113dp</dimen>
+    <dimen name="player_music_alexa_title_margin_2">226dp</dimen>
+
+    <!-- BT Audio Player -->
+    <dimen name="player_bt_audio_device_name_text_size">36.2dp</dimen>
+    <dimen name="bt_device_name_text_max">36.2dp</dimen>
+    <dimen name="bt_device_name_text_min">13.6dp</dimen>
+
+    <!-- Radio Player -->
+    <dimen name="player_radio_band_text_width_portrait">135.6dp</dimen>
+    <dimen name="player_radio_band_text_size_portrait">29.4dp</dimen>
+    <dimen name="player_radio_pch_text_size_portrait">52dp</dimen>
+    <dimen name="player_radio_frequency_text_size_portrait">108.5dp</dimen>
+    <dimen name="player_radio_frequency_decimal_text_size_portrait">67.8dp</dimen>
+    <dimen name="player_radio_frequency_unit_text_size_portrait">29.4dp</dimen>
+    <dimen name="player_radio_band_text_width_land">124.3dp</dimen>
+    <dimen name="player_radio_band_text_size_land">27.1dp</dimen>
+    <dimen name="player_radio_pch_text_size_land">47.5dp</dimen>
+    <dimen name="player_radio_frequency_text_size_land">97.2dp</dimen>
+    <dimen name="player_radio_frequency_decimal_text_size_land">67.8dp</dimen>
+    <dimen name="player_radio_frequency_unit_text_size_land">27.1dp</dimen>
+    <dimen name="player_radio_pty_search_icon_width">65.5dp</dimen>
+    <dimen name="player_radio_antenna_icon_width">80.2dp</dimen>
+    <dimen name="player_radio_antenna_icon_height">32.8dp</dimen>
+    <dimen name="player_radio_band_text_width_portrait_bar">97.6dp</dimen>
+    <dimen name="player_radio_band_text_size_portrait_bar">21.1dp</dimen>
+    <dimen name="player_radio_pch_text_size_portrait_bar">37.4dp</dimen>
+    <dimen name="player_radio_frequency_text_size_portrait_bar">78.1dp</dimen>
+    <dimen name="player_radio_frequency_decimal_text_size_portrait_bar">48.8dp</dimen>
+    <dimen name="player_radio_frequency_unit_text_size_portrait_bar">21.1dp</dimen>
+    <dimen name="player_radio_band_text_width_land_bar">89.5dp</dimen>
+    <dimen name="player_radio_band_text_size_land_bar">19.4dp</dimen>
+    <dimen name="player_radio_pch_text_size_land_bar">34.1dp</dimen>
+    <dimen name="player_radio_frequency_text_size_land_bar">69.9dp</dimen>
+    <dimen name="player_radio_frequency_decimal_text_size_land_bar">48.8dp</dimen>
+    <dimen name="player_radio_frequency_unit_text_size_land_bar">19.4dp</dimen>
+    <dimen name="player_radio_pty_search_icon_width_bar">47.1dp</dimen>
+    <dimen name="player_radio_alexa_gesture_view_land_margin_bottom">79.1dp</dimen>
+    <dimen name="player_radio_alexa_antenna_portrait_margin_bottom">158.2dp</dimen>
+
+    <!-- DAB Player -->
+    <dimen name="player_dab_service_name_text_size">44.1dp</dimen>
+    <dimen name="player_dab_service_name_text_size_bar">31.6dp</dimen>
+    <dimen name="player_dab_fm_link_text_size_land">24.9dp</dimen>
+
+    <!-- HDRadio Player -->
+    <dimen name="player_hd_radio_hd_icon_width_land">33.9dp</dimen>
+
+    <!-- BSM Dialog -->
+    <dimen name="player_radio_bsm_dialog_width">320.9dp</dimen>
+    <dimen name="player_radio_bsm_dialog_height">145.8dp</dimen>
+    <dimen name="player_radio_bsm_text_size">33.9dp</dimen>
+    <dimen name="player_radio_bsm_icon_width">122dp</dimen>
+    <dimen name="player_radio_bsm_icon_height">74.6dp</dimen>
+
+    <!-- Streaming Player -->
+    <dimen name="player_streaming_center_button_gone_margin_bottom">27.1dp</dimen>
+    <dimen name="player_streaming_large_button_margin_bottom">4.5dp</dimen>
+    <dimen name="player_music_center_button_mini_width_max">124.3dp</dimen>
+    <dimen name="player_music_center_button_mini_text_height">15.8dp</dimen>
+    <dimen name="player_music_center_button_mini_text_size">13.6dp</dimen>
+
+    <!-- SXM Player -->
+    <dimen name="player_sxm_channel_number_text_size_portrait">90.4dp</dimen>
+    <dimen name="player_sxm_channel_number_text_size_land">79.1dp</dimen>
+    <dimen name="player_sxm_sxm_icon_width_portrait">107.4dp</dimen>
+    <dimen name="player_sxm_sxm_icon_height_portrait">45.2dp</dimen>
+    <dimen name="player_sxm_antenna_icon_width">80.2dp</dimen>
+    <dimen name="player_sxm_antenna_icon_height">32.8dp</dimen>
+    <dimen name="player_sxm_antenna_icon_alexa_portrait_width">57.6dp</dimen>
+    <dimen name="player_sxm_antenna_icon_alexa_portrait_height">23.7dp</dimen>
+    <dimen name="player_sxm_sxm_icon_width_land">134.5dp</dimen>
+    <dimen name="player_sxm_sxm_icon_height_land">65.5dp</dimen>
+    <dimen name="player_sxm_center_margin_top_portrait">48.6dp</dimen>
+    <dimen name="player_sxm_gesture_margin_top_portrait">36.2dp</dimen>
+    <dimen name="player_sxm_channel_number_text_size_portrait_bar">65.1dp</dimen>
+    <dimen name="player_sxm_channel_number_text_size_land_bar">57dp</dimen>
+
+    <!-- Radio List -->
+    <dimen name="navigate_bar_bsm_button_width">118.7dp</dimen>
+    <dimen name="navigate_bar_bsm_button_height">36.2dp</dimen>
+    <dimen name="navigate_bar_bsm_button_margin_right_portrait">4.5dp</dimen>
+    <dimen name="navigate_bar_bsm_button_margin_right_land">18.1dp</dimen>
+    <dimen name="navigate_bar_bsm_button_text_size">27.1dp</dimen>
+    <dimen name="radio_list_item_band_text_width">89.3dp</dimen>
+    <dimen name="radio_preset_button_width">113dp</dimen>
+    <dimen name="radio_preset_button_margin">-6.8dp</dimen>
+    <dimen name="radio_preset_title_text_size">30.5dp</dimen>
+
+    <!-- Player List -->
+    <dimen name="player_list_item_album_art_width_portrait">135.6dp</dimen>
+    <dimen name="player_list_item_album_art_width_land">150.3dp</dimen>
+    <dimen name="player_list_now_playing_icon_width_portrait">68.9dp</dimen>
+    <dimen name="player_list_now_playing_icon_height_portrait">33.9dp</dimen>
+    <dimen name="player_list_now_playing_group_width_land">88.1dp</dimen>
+    <dimen name="player_list_now_playing_icon_width_land">68.9dp</dimen>
+    <dimen name="player_list_play_button_width">45.2dp</dimen>
+    <dimen name="player_list_card_view_padding_top">6.8dp</dimen>
+    <dimen name="player_list_card_view_height">108.5dp</dimen>
+    <dimen name="player_list_card_view_select_height">117.5dp</dimen>
+    <dimen name="player_list_card_view_select_margin">-4.5dp</dimen>
+    <dimen name="player_list_card_view_margin_vertical">5.7dp</dimen>
+    <dimen name="player_list_card_view_margin_horizontal">19.2dp</dimen>
+    <dimen name="player_list_card_view_play_button_width">67.8dp</dimen>
+    <dimen name="player_search_list_header_text_height">37.3dp</dimen>
+    <dimen name="player_search_list_header_text_size">27.1dp</dimen>
+    <dimen name="player_search_list_item_left_margin">85.9dp</dimen>
+
+    <!-- Source Select -->
+    <dimen name="source_select_page_content_width">1039.6dp</dimen>
+    <dimen name="source_select_page_content_height">124.3dp</dimen>
+    <dimen name="source_select_page_content_width_portrait">610.2dp</dimen>
+    <dimen name="source_select_margin_left_portrait">-221.5dp</dimen>
+    <dimen name="source_select_margin_left_land">-372.9dp</dimen>
+    <dimen name="source_select_source_text_margin_left_portrait">169.5dp</dimen>
+    <dimen name="source_select_source_text_margin_left_land">243dp</dimen>
+    <dimen name="source_select_source_text_size">64.4dp</dimen>
+    <dimen name="source_select_source_item_height_max">132.2dp</dimen>
+    <dimen name="source_select_source_item_margin">-9.7dp</dimen>
+    <dimen name="source_select_source_item_icon_oval_width">115.3dp</dimen>
+    <dimen name="source_select_source_item_icon_width">108.5dp</dimen>
+    <dimen name="source_app_icon_size">52dp</dimen>
+    <dimen name="source_app_setting_landscape_left_padding">85.9dp</dimen>
+    <dimen name="source_app_setting_portrait_left_padding">26dp</dimen>
+    <dimen name="source_app_setting_right_padding">33.9dp</dimen>
+
+    <!-- Contact -->
+    <dimen name="contact_check_icon_width">64.4dp</dimen>
+    <dimen name="contact_container_tab_padding_portrait">45.2dp</dimen>
+    <dimen name="contact_container_tab_padding_land">22.6dp</dimen>
+    <dimen name="contact_icon_width">68.9dp</dimen>
+
+    <!-- Setting Entrance -->
+    <dimen name="setting_entrance_item_width">158.2dp</dimen>
+    <dimen name="setting_entrance_item_icon_width">85.9dp</dimen>
+    <dimen name="setting_entrance_item_icon_height">64.4dp</dimen>
+    <dimen name="setting_entrance_item_title_height">36.2dp</dimen>
+    <dimen name="setting_entrance_item_title_text_size">27.1dp</dimen>
+
+    <!-- Setting -->
+    <dimen name="setting_preference_padding">0dp</dimen>
+    <dimen name="setting_list_item_height">74.6dp</dimen>
+    <dimen name="setting_list_item_icon_width">54.2dp</dimen>
+    <dimen name="setting_list_item_title_text_size">36.2dp</dimen>
+    <dimen name="setting_list_item_title_text_size_half">29.4dp</dimen>
+    <dimen name="setting_list_item_summary_text_width_portrait">113dp</dimen>
+    <dimen name="setting_list_item_summary_text_width_land">135.6dp</dimen>
+    <dimen name="setting_list_item_summary_text_size">20.3dp</dimen>
+    <dimen name="setting_list_item_seekbar_summary_text_width_portrait">67.8dp</dimen>
+    <dimen name="setting_list_item_seekbar_summary_text_width_land">67.8dp</dimen>
+    <dimen name="setting_list_item_seekbar_title_text_size">31.6dp</dimen>
+    <dimen name="setting_list_item_seekbar_min_width">33.9dp</dimen>
+    <dimen name="setting_list_item_seekbar_max_width">339dp</dimen>
+    <dimen name="setting_list_item_seekbar_height">12.4dp</dimen>
+    <dimen name="setting_list_item_seekbar_margin">2.3dp</dimen>
+    <dimen name="setting_list_item_check_icon_width">27.1dp</dimen>
+    <dimen name="setting_list_item_check_icon_height">20.3dp</dimen>
+    <dimen name="setting_list_check_right_padding">33.9dp</dimen>
+    <dimen name="setting_list_item_check_icon_oval_width">65.5dp</dimen>
+    <dimen name="preference_portrait_left_padding">29.4dp</dimen>
+    <dimen name="preference_portrait_right_padding">27.1dp</dimen>
+    <dimen name="preference_landscape_left_padding">85.9dp</dimen>
+    <dimen name="preference_landscape_right_padding">29.4dp</dimen>
+    <dimen name="list_portrait_left_padding">29.4dp</dimen>
+    <dimen name="list_portrait_right_padding">27.1dp</dimen>
+    <dimen name="list_landscape_left_padding">85.9dp</dimen>
+    <dimen name="list_landscape_right_padding">29.4dp</dimen>
+    <dimen name="application_list_portrait_left_margin">57.6dp</dimen>
+    <dimen name="application_list_landscape_left_margin">115.3dp</dimen>
+    <dimen name="application_list_not_install_portrait_left_margin">28.3dp</dimen>
+    <dimen name="application_list_not_install_landscape_left_margin">28.3dp</dimen>
+    <dimen name="setting_dimmer_button_width">180.8dp</dimen>
+
+    <!-- Bt Device Setting -->
+    <dimen name="bt_device_list_button_group_height">67.8dp</dimen>
+    <dimen name="bt_device_list_button_text_size">31.6dp</dimen>
+    <dimen name="bt_device_list_button_search_status_icon_width">29.4dp</dimen>
+    <dimen name="bt_device_list_button_search_right_margin">38.4dp</dimen>
+    <dimen name="bt_device_list_name_text_size">27.1dp</dimen>
+    <dimen name="bt_device_list_address_text_size">21.5dp</dimen>
+    <dimen name="bt_device_list_icon_width">64.4dp</dimen>
+
+    <!-- Direct Call Setting -->
+    <dimen name="direct_call_setting_text_size">36.2dp</dimen>
+    <dimen name="direct_call_setting_center_view_height">158.2dp</dimen>
+    <dimen name="direct_call_setting_center_contact_height">81.4dp</dimen>
+    <dimen name="direct_call_setting_center_contact_icon_width">68.9dp</dimen>
+    <dimen name="direct_call_setting_center_number_height">76.8dp</dimen>
+    <dimen name="direct_call_setting_center_number_type_width">64.4dp</dimen>
+    <dimen name="direct_call_setting_button_height">57.6dp</dimen>
+    <dimen name="direct_call_setting_button_width">250.9dp</dimen>
+    <dimen name="direct_call_setting_button_text_size">32.8dp</dimen>
+    <dimen name="direct_call_setting_center_width_land">553.7dp</dimen>
+
+    <!-- Theme Set Setting -->
+    <dimen name="theme_select_page_content_width">228.3dp</dimen>
+    <dimen name="theme_select_page_content_height">228.3dp</dimen>
+    <dimen name="theme_select_page_content_width_portrait">318.7dp</dimen>
+    <dimen name="theme_select_page_content_height_portrait">318.7dp</dimen>
+    <dimen name="theme_select_page_custom_text_size_portrait">63.3dp</dimen>
+    <dimen name="theme_select_page_live_mark_width_portrait">83.6dp</dimen>
+    <dimen name="theme_select_page_live_mark_height_portrait">27.1dp</dimen>
+    <dimen name="theme_select_page_custom_text_size_land">45.2dp</dimen>
+    <dimen name="theme_select_page_live_mark_width_land">59.9dp</dimen>
+    <dimen name="theme_select_page_live_mark_height_land">19.2dp</dimen>
+    <dimen name="theme_select_page_item_view_margin">10.2dp</dimen>
+    <dimen name="theme_set_footer_height">100.6dp</dimen>
+    <dimen name="theme_set_footer_text_size">22.6dp</dimen>
+    <dimen name="theme_set_footer_item_width">119.2dp</dimen>
+    <dimen name="theme_set_footer_item_color_height">56.5dp</dimen>
+
+    <!-- UI Color Setting -->
+    <dimen name="ui_color_setting_preview_player_width_max_portrait">283.6dp</dimen>
+    <dimen name="ui_color_setting_preview_player_width_max_land">644.1dp</dimen>
+    <dimen name="ui_color_setting_list_item_color_width">96.1dp</dimen>
+    <dimen name="ui_color_setting_list_item_color_height">56.5dp</dimen>
+    <dimen name="ui_color_setting_list_item_check_icon_width">20.3dp</dimen>
+    <dimen name="ui_color_setting_list_item_image_width">118.7dp</dimen>
+    <dimen name="ui_color_setting_list_item_image_margin">-11.3dp</dimen>
+    <dimen name="ui_color_setting_list_item_text_size">17dp</dimen>
+
+    <!-- Illumination Color Setting -->
+    <dimen name="illumination_color_setting_footer_height">108.5dp</dimen>
+    <dimen name="illumination_color_setting_color_palette_width_max_portrait">284.8dp</dimen>
+    <dimen name="illumination_color_setting_color_palette_width_max_land">594.4dp</dimen>
+    <dimen name="illumination_color_setting_footer_divider_height">96.1dp</dimen>
+    <dimen name="illumination_color_setting_custom_width">135.6dp</dimen>
+    <dimen name="illumination_color_setting_item_width">81.4dp</dimen>
+    <dimen name="illumination_color_setting_item_margin">-13.6dp</dimen>
+    <dimen name="illumination_color_setting_item_select_width">42.9dp</dimen>
+
+    <!-- Dimmer Setting -->
+    <dimen name="dimmer_setting_portrait_left_margin">24.9dp</dimen>
+    <dimen name="dimmer_setting_land_timer_picker_left_margin">22.6dp</dimen>
+    <dimen name="dimmer_setting_list_portrait_left_margin">84.8dp</dimen>
+    <dimen name="dimmer_setting_list_land_left_margin">146.9dp</dimen>
+    <dimen name="dimmer_setting_list_button_height">40.7dp</dimen>
+    <dimen name="dimmer_setting_list_button_min_width">108.5dp</dimen>
+    <dimen name="dimmer_setting_list_button_text_size">30.5dp</dimen>
+
+    <!-- EQ Setting -->
+    <dimen name="preset_eq_setting_view_width_portrait">371.8dp</dimen>
+    <dimen name="preset_eq_setting_view_height_portrait">276.9dp</dimen>
+    <dimen name="preset_eq_setting_frame_mask_width_portrait">361.6dp</dimen>
+    <dimen name="preset_eq_setting_frame_mask_height_portrait">214.7dp</dimen>
+    <dimen name="preset_eq_setting_button_width_portrait">178.5dp</dimen>
+    <dimen name="preset_eq_setting_button_height">46.3dp</dimen>
+    <dimen name="preset_eq_setting_button_text_size">24.9dp</dimen>
+    <dimen name="preset_eq_setting_view_width_land">310.8dp</dimen>
+    <dimen name="preset_eq_setting_frame_mask_width_land">300.6dp</dimen>
+    <dimen name="preset_eq_setting_frame_mask_height_land">226dp</dimen>
+    <dimen name="preset_eq_setting_button_width_land">148dp</dimen>
+
+    <!-- EQ Simple Setting -->
+    <dimen name="eq_quick_spline_stroke_width">1.1dp</dimen>
+    <dimen name="eq_quick_mask_image_height_px">847.5px</dimen>
+    <dimen name="eq_quick_header_height_px">214.7px</dimen>
+    <dimen name="eq_quick_slider_start">49.7dp</dimen>
+    <dimen name="eq_quick_slider_start_portrait">90.4dp</dimen>
+    <dimen name="eq_quick_cursor_width">113dp</dimen>
+    <dimen name="eq_quick_cursor_height">113dp</dimen>
+    <dimen name="eq_quick_black_circle_round">2.3dp</dimen>
+    <dimen name="eq_quick_white_circle_round">5.7dp</dimen>
+    <dimen name="eq_quick_text_width">67.8dp</dimen>
+    <dimen name="eq_quick_text_height_portrait">67.8dp</dimen>
+    <dimen name="eq_quick_text_margin_top_land">22.6dp</dimen>
+    <dimen name="eq_quick_text_height_land">31.6dp</dimen>
+    <dimen name="eq_quick_text_size">27.1dp</dimen>
+    <dimen name="eq_quick_graph_layout_height">406.8dp</dimen>
+
+    <!-- EQ Detail Setting -->
+    <dimen name="eq_pro_header_height_px">237.3px</dimen>
+    <dimen name="eq_pro_graph_margin_top">37.3dp</dimen>
+    <dimen name="eq_pro_graph_margin_start">50.9dp</dimen>
+    <dimen name="eq_pro_graph_cursor_width">75.7dp</dimen>
+    <dimen name="eq_pro_graph_cursor_oval_width">45.2dp</dimen>
+    <dimen name="eq_pro_graph_select_point_width">67.8dp</dimen>
+    <dimen name="eq_pro_graph_vertical_label_position">27.1dp</dimen>
+    <dimen name="eq_pro_graph_horizontal_label_position">27.1dp</dimen>
+    <dimen name="eq_pro_graph_label_font_size">14.7dp</dimen>
+    <dimen name="eq_pro_graph_label_height">26dp</dimen>
+    <dimen name="eq_pro_graph_line_stroke_width">1.1dp</dimen>
+    <dimen name="eq_pro_graph_horizontal_line_extra">13.6dp</dimen>
+    <dimen name="eq_pro_drawing_stroke_width">2.3dp</dimen>
+    <dimen name="eq_pro_drawing_stroke_blur_width">6.8dp</dimen>
+    <dimen name="eq_pro_drawing_stroke_blur_radius">6.8dp</dimen>
+    <dimen name="eq_pro_header_height">65.5dp</dimen>
+    <dimen name="eq_pro_zoom_scale_interval">50.9dp</dimen>
+    <dimen name="eq_pro_shrink_view_width">118.7dp</dimen>
+    <dimen name="eq_pro_shrink_view_height">46.3dp</dimen>
+    <dimen name="eq_pro_reset_button_width">115.3dp</dimen>
+    <dimen name="eq_pro_reset_button_text_size">27.1dp</dimen>
+    <dimen name="eq_pro_text_view_width">203.4dp</dimen>
+    <dimen name="eq_pro_zoom_edit_line_back_width">11.3dp</dimen>
+    <dimen name="eq_pro_zoom_edit_line_width">1.6dp</dimen>
+
+    <!-- Live Simulation Setting -->
+    <dimen name="live_simulation_visual_effect_width">85.9dp</dimen>
+    <dimen name="live_simulation_visual_effect_icon_width">54.2dp</dimen>
+
+    <!-- Super Todoroki Setting -->
+    <dimen name="super_todoroki_list_height_portrait">84.8dp</dimen>
+    <dimen name="super_todoroki_list_height_land">74.6dp</dimen>
+    <dimen name="super_todoroki_preset_view_width">310.8dp</dimen>
+
+    <!-- Easy Sound fit Setting -->
+    <dimen name="easy_sound_fit_custom_view_width">371.8dp</dimen>
+    <dimen name="easy_sound_fit_custom_view_height">276.9dp</dimen>
+    <dimen name="easy_sound_fit_preset_view_height">192.1dp</dimen>
+    <dimen name="easy_sound_fit_preset_view_text_size">22.6dp</dimen>
+    <dimen name="easy_sound_fit_radio_group_height">45.2dp</dimen>
+    <dimen name="easy_sound_fit_radio_text_size">24.9dp</dimen>
+
+    <!-- Fader Balance Setting -->
+    <dimen name="faderBalanceGraphicView_lineStrokeWidth">1.4dp</dimen>
+    <dimen name="faderBalanceGraphicView_innerCircleRadius">9dp</dimen>
+    <dimen name="faderBalanceGraphicView_outerCircleRadius">18.1dp</dimen>
+    <dimen name="faderBalanceGraphicView_outerCircleWidth">1.1dp</dimen>
+    <dimen name="fader_balance_setting_portlait_textContainer_marginTop">9dp</dimen>
+    <dimen name="fader_balance_setting_portlait_textContainer_marginBottom">11.3dp</dimen>
+    <dimen name="fader_balance_setting_portlait_faderBalanceGraph_width">340.1dp</dimen>
+    <dimen name="fader_balance_setting_portlait_faderBalanceGraph_height">318.7dp</dimen>
+    <dimen name="fader_balance_setting_portrait_faderBalanceGraph_marginTop">45.2dp</dimen>
+    <dimen name="fader_balance_setting_portlait_controlButtonContainer_marginTop">9dp</dimen>
+    <dimen name="fader_balance_setting_landscape_faderBalanceGraph_width">340.1dp</dimen>
+    <dimen name="fader_balance_setting_landscape_faderBalanceGraph_height">318.7dp</dimen>
+    <dimen name="fader_balance_setting_landscape_faderBalanceGraph_marginLeft">22.6dp</dimen>
+    <dimen name="fader_balance_setting_portlait_controlButtonContainer_marginLeft">22.6dp</dimen>
+    <dimen name="fader_balance_setting_text_container_width">316.4dp</dimen>
+    <dimen name="fader_balance_setting_text_container_height">31.6dp</dimen>
+    <dimen name="fader_balance_setting_text_size">24.9dp</dimen>
+    <dimen name="fader_balance_setting_control_button_container_width">293.8dp</dimen>
+    <dimen name="fader_balance_setting_control_button_width">108.5dp</dimen>
+    <dimen name="fader_balance_setting_control_button_margin">-22.6dp</dimen>
+
+    <!-- Advanced Audio Setting -->
+    <dimen name="advanced_audio_setting_listening_position_text_size">22.6sp</dimen>
+    <dimen name="advanced_audio_setting_seat_container_width">186.5dp</dimen>
+    <dimen name="advanced_audio_setting_seat_container_height">181.9dp</dimen>
+    <dimen name="advanced_audio_setting_seat_container_margin_top_portrait">101.7dp</dimen>
+    <dimen name="advanced_audio_setting_seat_container_margin_top_land">17dp</dimen>
+    <dimen name="advanced_audio_setting_ta_button_width">137.9dp</dimen>
+    <dimen name="advanced_audio_setting_ta_button_height">40.7dp</dimen>
+    <dimen name="advanced_audio_setting_ta_button_text_size">20.3sp</dimen>
+    <dimen name="advanced_audio_setting_seat_width">186.5dp</dimen>
+    <dimen name="advanced_audio_setting_seat_height">181.9dp</dimen>
+    <dimen name="advanced_audio_setting_seat_icon_width">99.4dp</dimen>
+    <dimen name="advanced_audio_setting_seat_rear_icon_height">96.1dp</dimen>
+    <dimen name="advanced_audio_setting_nw_seat_margin_top">45.2dp</dimen>
+    <dimen name="advanced_audio_setting_nw_seat_margin_bottom">-45.2dp</dimen>
+    <dimen name="advanced_audio_setting_speaker_info_text_width">149.2dp</dimen>
+    <dimen name="advanced_audio_setting_speaker_type_icon_width">40.7dp</dimen>
+    <dimen name="advanced_audio_setting_speaker_type_text_size">22.6dp</dimen>
+    <dimen name="advanced_audio_setting_speaker_text_width">11.3dp</dimen>
+    <dimen name="advanced_audio_setting_speaker_text_size">20.3dp</dimen>
+    <dimen name="advanced_audio_setting_speaker_text_unit_size">13.6dp</dimen>
+    <dimen name="advanced_audio_setting_speaker_type_line_width">120.3dp</dimen>
+    <dimen name="advanced_audio_setting_speaker_type_line_height">1.7dp</dimen>
+    <dimen name="advanced_audio_setting_speaker_info_container_width">123.7dp</dimen>
+    <dimen name="advanced_audio_setting_speaker_icon_width">65dp</dimen>
+    <dimen name="advanced_audio_setting_speaker_icon_height">80.2dp</dimen>
+    <dimen name="advanced_audio_setting_speaker_info_width_portrait">160.5dp</dimen>
+    <dimen name="advanced_audio_setting_speaker_info_width_land">225.4dp</dimen>
+    <dimen name="advanced_audio_setting_speaker_info_margin">11.3dp</dimen>
+    <dimen name="advanced_audio_setting_speaker_icon_sw_width">97.2dp</dimen>
+    <dimen name="advanced_audio_setting_speaker_icon_sw_height">65.5dp</dimen>
+    <dimen name="advanced_audio_setting_speaker_info_sw_width_land">124.3dp</dimen>
+    <dimen name="advanced_audio_setting_speaker_type_line_sw_width">116.4dp</dimen>
+    <dimen name="advanced_audio_setting_speaker_type_line_sw_height">2.3dp</dimen>
+    <dimen name="advanced_audio_speaker_setting_menu_title_height">58.8dp</dimen>
+    <dimen name="advanced_audio_speaker_setting_menu_title_text_size">27.1dp</dimen>
+    <dimen name="advanced_audio_speaker_setting_menu_icon_width">21.5dp</dimen>
+    <dimen name="advanced_audio_speaker_setting_menu_icon_height">33.9dp</dimen>
+    <dimen name="advanced_audio_speaker_setting_menu_button_width">48.6dp</dimen>
+    <dimen name="advanced_audio_speaker_setting_menu_text_size">32.8dp</dimen>
+    <dimen name="advanced_audio_speaker_setting_menu_indent_text_size">29.4dp</dimen>
+    <dimen name="advanced_audio_speaker_setting_menu_inc_button_width">28.3dp</dimen>
+    <dimen name="advanced_audio_speaker_setting_menu_value_width">90.4dp</dimen>
+    <dimen name="advanced_audio_speaker_setting_menu_value_text_size">26dp</dimen>
+
+    <!-- Collision Detect -->
+    <dimen name="collision_detect_dialog_width">404.5dp</dimen>
+    <dimen name="collision_detect_dialog_title_text_size">37.3dp</dimen>
+    <dimen name="collision_detect_dialog_title_max_width">271.2dp</dimen>
+    <dimen name="collision_detect_dialog_caution_icon_width">54.2dp</dimen>
+    <dimen name="collision_detect_dialog_text_max_width">248.6dp</dimen>
+    <dimen name="collision_detect_dialog_text_size">29.4dp</dimen>
+    <dimen name="collision_detect_dialog_after_icon_width">97.2dp</dimen>
+    <dimen name="collision_detect_dialog_after_result_text_size">31.6dp</dimen>
+    <dimen name="collision_detect_dialog_circle_margin_top">56.5dp</dimen>
+    <dimen name="collision_detect_dialog_circle_inner_radius">149.2dp</dimen>
+    <dimen name="collision_detect_dialog_circle_thickness">5.7dp</dimen>
+
+    <!-- Adas Warning -->
+    <dimen name="adas_warning_dialog_caution_icon_width">45.2dp</dimen>
+    <dimen name="adas_warning_dialog_text_max_width">339dp</dimen>
+
+    <!-- Caution Dialog -->
+    <dimen name="caution_dialog_title_text_size">37.3dp</dimen>
+    <dimen name="caution_dialog_text_line_spacing_extra">4.5dp</dimen>
+    <dimen name="caution_dialog_text_size">17dp</dimen>
+    <dimen name="caution_dialog_title_text_top_margin_portrait">134.5dp</dimen>
+    <dimen name="caution_dialog_title_text_top_margin_land">48.6dp</dimen>
+    <dimen name="caution_dialog_caution_text_top_margin_portrait">45.2dp</dimen>
+    <dimen name="caution_dialog_caution_text_top_margin_land">36.2dp</dimen>
+    <dimen name="caution_dialog_confirm_button_bottom_margin_portrait">96.1dp</dimen>
+    <dimen name="caution_dialog_confirm_button_bottom_margin_land">37.3dp</dimen>
+
+    <!-- Pairing Select -->
+    <dimen name="pairing_select_dialog_item_height">42.9dp</dimen>
+    <dimen name="pairing_select_dialog_text_size">22.6dp</dimen>
+
+    <!-- Parking Sensor -->
+    <dimen name="parking_sensor_base_margin_top">50.9dp</dimen>
+    <dimen name="parking_sensor_title_text_size">27.1dp</dimen>
+    <dimen name="parking_sensor_car_margin_top_portrait">67.8dp</dimen>
+    <dimen name="parking_sensor_car_image_margin_top_portrait">31.6dp</dimen>
+    <dimen name="parking_sensor_car_margin_top_land">36.2dp</dimen>
+    <dimen name="parking_sensor_sensor_height">174dp</dimen>
+    <dimen name="parking_sensor_sensor_margin_top_land">-27.1dp</dimen>
+    <dimen name="parking_sensor_distance_text_size">148dp</dimen>
+    <dimen name="parking_sensor_distance_unit_text_size">73.5dp</dimen>
+    <dimen name="parking_sensor_error_caution_icon_width">38.4dp</dimen>
+    <dimen name="parking_sensor_error_caution_icon_height">33.9dp</dimen>
+    <dimen name="parking_sensor_error_title_text_size">38.4dp</dimen>
+    <dimen name="parking_sensor_error_car_width">298.3dp</dimen>
+    <dimen name="parking_sensor_error_car_height">255.4dp</dimen>
+    <dimen name="parking_sensor_error_car_image_height">228.3dp</dimen>
+    <dimen name="parking_sensor_error_sensor_icon_width">22.6dp</dimen>
+    <dimen name="parking_sensor_error_sensor_text_size">27.1dp</dimen>
+    <dimen name="parking_sensor_error_item_height">40.7dp</dimen>
+    <dimen name="parking_sensor_error_item_width">169.5dp</dimen>
+
+    <!-- Speech Recognizer-->
+    <dimen name="speech_recognizer_dialog_width">345.8dp</dimen>
+    <dimen name="speech_recognizer_dialog_height">496.1dp</dimen>
+    <dimen name="speech_recognizer_dialog_close_button">48.6dp</dimen>
+    <dimen name="speech_recognizer_dialog_title_text_size">42.9dp</dimen>
+    <dimen name="speech_recognizer_dialog_text_size">38.4dp</dimen>
+    <dimen name="speech_recognizer_dialog_icon_width">235dp</dimen>
+    <dimen name="speech_recognizer_dialog_icon_height">290.4dp</dimen>
+
+    <!-- Song Notification-->
+    <dimen name="song_notification_height">87dp</dimen>
+    <dimen name="song_notification_jacket_view_width">68.9dp</dimen>
+    <dimen name="song_notification_title_text_size">29.4dp</dimen>
+    <dimen name="song_notification_text_size">22.6dp</dimen>
+    <dimen name="song_notification_divider_width">14.7dp</dimen>
+
+    <!-- Adas Calibration -->
+    <dimen name="adas_calibration_button_width">63.3dp</dimen>
+    <dimen name="adas_calibration_button_margin">11.3dp</dimen>
+    <dimen name="adas_calibration_title_text_size_portrait">23.7dp</dimen>
+    <dimen name="adas_calibration_title_text_size_land">29.4dp</dimen>
+    <dimen name="adas_calibration_title_margin_top_portrait">28.3dp</dimen>
+    <dimen name="adas_calibration_title_margin_top_land">12.4dp</dimen>
+    <dimen name="adas_calibration_title_gone_left_margin_land">85.9dp</dimen>
+    <dimen name="adas_calibration_narrow_caution_width">141.8dp</dimen>
+    <dimen name="adas_calibration_narrow_caution_height">41.2dp</dimen>
+    <dimen name="adas_calibration_narrow_caution_margin_top_portrait">75.7dp</dimen>
+    <dimen name="adas_calibration_narrow_caution_margin_top_land">28.3dp</dimen>
+    <dimen name="adas_calibration_narrow_caution_margin_left_land">55.4dp</dimen>
+    <dimen name="adas_calibration_caution_text_width">192.1dp</dimen>
+    <dimen name="adas_calibration_caution_text_size">13.6dp</dimen>
+    <dimen name="adas_calibration_skip_button_width">107.4dp</dimen>
+    <dimen name="adas_calibration_skip_button_height">42.9dp</dimen>
+    <dimen name="adas_calibration_cross_width">168.4dp</dimen>
+    <dimen name="adas_calibration_cross_height">168.4dp</dimen>
+    <!-- Adas Re-Calibration Notification -->
+    <dimen name="adas_re_calibration_image_margin_top">22.6dp</dimen>
+    <dimen name="adas_re_calibration_margin">40.7dp</dimen>
+    <dimen name="adas_re_calibration_text_size">27.1dp</dimen>
+    <dimen name="adas_re_calibration_button_height">57.6dp</dimen>
+    <dimen name="adas_re_calibration_button_text_size">32.8dp</dimen>
+    <dimen name="adas_re_calibration_image_width_max_land">406.8dp</dimen>
+    <dimen name="adas_re_calibration_margin_land">15.8dp</dimen>
+
+    <!-- Adas Tutorial -->
+    <dimen name="adas_tutorial_skip_button_text_size">27.1dp</dimen>
+    <dimen name="adas_tutorial_button_width">135.6dp</dimen>
+    <dimen name="adas_tutorial_article_text_size">23.7dp</dimen>
+    <dimen name="adas_tutorial_article_text_size_2">21.5dp</dimen>
+
+    <!-- Adas Billing -->
+    <dimen name="adas_billing_purchase_button_text_size">32.8dp</dimen>
+    <dimen name="adas_billing_description_text_size">19.2dp</dimen>
+    <dimen name="adas_billing_description_small_text_size">14.7dp</dimen>
+    <dimen name="adas_billing_image_width">369.5dp</dimen>
+    <dimen name="adas_billing_image_height">207.9dp</dimen>
+
+    <!-- Adas Usage Caution -->
+    <dimen name="adas_usage_caution_text_size">27.1dp</dimen>
+    <dimen name="adas_usage_caution_button_text_size">38.4dp</dimen>
+
+    <!-- Adas Manual -->
+    <dimen name="adas_manual_image1_width">351.4dp</dimen>
+    <dimen name="adas_manual_image1_height">235dp</dimen>
+    <dimen name="adas_manual_image2_width">293.8dp</dimen>
+    <dimen name="adas_manual_image2_height">209.1dp</dimen>
+    <dimen name="adas_manual_car_icon_width">87dp</dimen>
+    <dimen name="adas_manual_car_icon_height">48.6dp</dimen>
+
+    <!-- Alexa Setting -->
+    <dimen name="alexa_setting_image_width">186.5dp</dimen>
+    <dimen name="alexa_setting_image_height">88.1dp</dimen>
+    <dimen name="alexa_setting_image_margin_top">73.5dp</dimen>
+    <dimen name="alexa_setting_text_margin_top">67.8dp</dimen>
+    <dimen name="alexa_setting_horizontal_line_width">345.8dp</dimen>
+    <dimen name="alexa_setting_splash_description_text_width">327.7dp</dimen>
+    <dimen name="alexa_setting_description_text_width">293.8dp</dimen>
+    <dimen name="alexa_setting_description_text_size1">19.2dp</dimen>
+    <dimen name="alexa_setting_description_text_size2">17dp</dimen>
+    <dimen name="alexa_setting_description_text_size3">14.7dp</dimen>
+    <dimen name="alexa_setting_button_width">339dp</dimen>
+    <dimen name="alexa_setting_button_Bottom_margin">56.5dp</dimen>
+
+    <!-- Alexa Screen -->
+    <dimen name="alexa_screen_state_text_size">45.2dp</dimen>
+    <dimen name="alexa_screen_voice_chrome_height">5.7dp</dimen>
+    <dimen name="alexa_screen_start_button_group_width">72.3dp</dimen>
+    <dimen name="alexa_screen_start_button_width">64.4dp</dimen>
+
+    <!-- Prompt Authority Dialog -->
+    <dimen name="prompt_authority_dialog_button_width">385.3dp</dimen>
+    <dimen name="prompt_authority_dialog_button_height">56.5dp</dimen>
+    <dimen name="prompt_authority_dialog_button_text_size">32.8dp</dimen>
+    <dimen name="prompt_authority_dialog_main_text_size">27.1dp</dimen>
+
+    <!-- Custom Key Setting TitleBar -->
+    <dimen name="custom_key_setting_title_bar_height">48.6dp</dimen>
+    <dimen name="custom_key_setting_title_size">27.1dp</dimen>
+    <dimen name="custom_key_setting_closebtn_width">48.6dp</dimen>
+    <dimen name="custom_key_setting_closebtn_height">48.6dp</dimen>
+    <dimen name="custom_key_setting_closebtn_marginEnd">11.3dp</dimen>
+
+    <!-- Custom Key Setting -->
+    <dimen name="custom_key_setting_height">75.7dp</dimen>
+    <dimen name="custom_key_setting_item_left_margin">20.3dp</dimen>
+    <dimen name="custom_key_setting_icon_size">54.2dp</dimen>
+    <dimen name="custom_key_setting_icon_right_margin">5.7dp</dimen>
+    <dimen name="custom_key_setting_text_size_portrait">32.8dp</dimen>
+    <dimen name="custom_key_setting_text_size_landscape">36.2dp</dimen>
+    <dimen name="custom_key_setting_text_left_margin">3.4dp</dimen>
+    <dimen name="custom_key_setting_text_right_margin">15.8dp</dimen>
+    <dimen name="custom_key_setting_radiobutton_right_margin_portrait">38.4dp</dimen>
+    <dimen name="custom_key_setting_radiobutton_right_margin_landscape">40.7dp</dimen>
+
+    <!--YouTubeLinkWebView画面のNavigationBar-->
+    <dimen name="youtube_link_webview_backbutton_left_margin">2.3dp</dimen>
+    <dimen name="youtube_link_webview_backbutton_top_margin">3.4dp</dimen>
+    <dimen name="youtube_link_webview_closebutton_right_margin">2.3dp</dimen>
+    <dimen name="youtube_link_webview_closebutton_top_margin">3.4dp</dimen>
+    <dimen name="youtube_link_webview_backbutton_size">63.3dp</dimen>
+    <dimen name="youtube_link_webview_closebutton_size">63.3dp</dimen>
+
+    <!--YouTubeLinkWebViewの走行規制画面-->
+    <dimen name="youtube_link_text_regulation_size">27.1dp</dimen>
+    <dimen name="youtube_link_text_regulation_left_margin_portrait">19.2dp</dimen>
+    <dimen name="youtube_link_text_regulation_right_margin_portrait">19.2dp</dimen>
+
+    <!--YouTubeLinkCaution画面-->
+    <dimen name="youtube_link_caution_no_display_again_check_box_height">48.6dp</dimen>
+    <dimen name="youtube_link_caution_no_display_again_check_box_width">130dp</dimen>
+    <dimen name="youtube_link_caution_title_size">38.4dp</dimen>
+    <dimen name="youtube_link_caution_text_size">27.1dp</dimen>
+    <dimen name="youtube_link_caution_no_display_again_text_size">27.1dp</dimen>
+    <dimen name="youtube_link_caution_confirm_button_text_size">32.8dp</dimen>
+    <dimen name="youtube_link_caution_title_width">391dp</dimen>
+    <dimen name="youtube_link_caution_title_top_margin_portrait">97.2dp</dimen>
+    <dimen name="youtube_link_caution_title_top_margin_landscapes">38.4dp</dimen>
+    <dimen name="youtube_link_caution_text_left_margin_portrait">19.2dp</dimen>
+    <dimen name="youtube_link_caution_text_left_margin_landscapes">19.2dp</dimen>
+    <dimen name="youtube_link_caution_text_right_margin_portrait">19.2dp</dimen>
+    <dimen name="youtube_link_caution_text_right_margin_landscapes">19.2dp</dimen>
+    <dimen name="youtube_link_caution_text_top_margin_portrait">21.5dp</dimen>
+    <dimen name="youtube_link_caution_text_top_margin_landscapes">32.8dp</dimen>
+    <dimen name="youtube_link_caution_text_bottom_margin_portrait">198.9dp</dimen>
+    <dimen name="youtube_link_caution_text_bottom_margin_landscapes">167.2dp</dimen>
+    <dimen name="youtube_link_caution_no_display_again_text_left_margin">65.5dp</dimen>
+    <dimen name="youtube_link_caution_no_display_again_bottom_margin_portrait">116.4dp</dimen>
+    <dimen name="youtube_link_caution_no_display_again_bottom_margin_landscapes">100.6dp</dimen>
+    <dimen name="youtube_link_caution_no_display_again_touch_left_margin_portrait">12.4dp</dimen>
+    <dimen name="youtube_link_caution_no_display_again_touch_right_margin_portrait">12.4dp</dimen>
+    <dimen name="youtube_link_caution_no_display_again_touch_left_margin_landscapes">177.4dp</dimen>
+    <dimen name="youtube_link_caution_no_display_again_touch_right_margin_landscapes">88.1dp</dimen>
+    <dimen name="youtube_link_caution_confirm_button_width">385.3dp</dimen>
+    <dimen name="youtube_link_caution_confirm_button_height">57.6dp</dimen>
+    <dimen name="youtube_link_caution_confirm_button_bottom_margin">23.7dp</dimen>
+
+</resources>

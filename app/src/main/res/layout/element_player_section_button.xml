@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/button_group"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/player_music_section_button_height_portrait"
+    android:layout_alignParentBottom="true">
+
+    <include
+        android:id="@+id/source_button"
+        layout="@layout/element_player_button_left"
+        android:layout_alignParentLeft="true"
+        android:layout_width="@dimen/player_music_large_button_width"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/player_music_large_button_margin" />
+
+    <include
+        android:id="@+id/visualizer_button"
+        layout="@layout/element_player_button_center_vis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/source_button"
+        android:layout_toLeftOf="@+id/center_line" />
+
+    <View
+        android:id="@+id/center_line"
+        android:layout_width="1dp"
+        android:layout_height="100dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <include
+        android:id="@+id/fx_button"
+        layout="@layout/element_player_button_center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/center_line"
+        android:layout_toLeftOf="@+id/list_button" />
+
+    <include
+        android:id="@+id/list_button"
+        layout="@layout/element_player_button_right"
+        android:layout_width="@dimen/player_music_large_button_width"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/player_music_large_button_margin" />
+
+</RelativeLayout>

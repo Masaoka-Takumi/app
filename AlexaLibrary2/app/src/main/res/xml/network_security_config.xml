@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">avs-alexa-na.amazon.com</domain>
+        <domain includeSubdomains="true">avs-alexa-eu.amazon.com</domain>
+        <domain includeSubdomains="true">avs-alexa-fe.amazon.com</domain>
+        <domain includeSubdomains="true">api.amazonalexa.com</domain>
+        <domain includeSubdomains="true">api.eu.amazonalexa.com</domain>
+        <domain includeSubdomains="true">api.fe.amazonalexa.com</domain>
+        <domain includeSubdomains="true">help-a-19avh.pofmobilethings.com</domain>
+    </domain-config>
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>

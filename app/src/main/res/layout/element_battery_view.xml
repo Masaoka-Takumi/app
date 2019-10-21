@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/battery_width"
+    android:layout_height="@dimen/battery_width"
+    android:layout_alignParentLeft="true">
+    <ImageView
+        android:id="@+id/buttery_frame"
+        android:layout_width="@dimen/battery_frame_width"
+        android:layout_height="@dimen/battery_frame_width"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p0101_icon"
+        android:layout_centerInParent="true"/>
+    <View
+        android:id="@+id/buttery_image"
+        android:layout_width="@dimen/battery_level_width"
+        android:layout_height="@dimen/battery_level_height"
+        android:background="#FFFFFF"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/battery_bottom_margin"
+        android:layout_alignParentBottom="true"
+        android:alpha="0.75" />
+   <ImageView
+        android:id="@+id/buttery_charge"
+        android:layout_width="@dimen/battery_frame_width"
+        android:layout_height="@dimen/battery_frame_width"
+        android:layout_centerInParent="true"
+        android:scaleType="fitCenter"
+        android:visibility="invisible"
+        android:src="@drawable/p0104_icon_chage" />
+</RelativeLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:id="@+id/graphViewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="103dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="5dp"
+        android:background="#B2141414">
+
+        <include layout="@layout/element_jasper_frequency_graph" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="invisible">
+
+                <jp.pioneer.carsync.presentation.view.widget.SpeakerInfoView
+                    android:id="@+id/swSpeakerInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    app:color="#90FF00"
+                    app:highPassFilterFrequency="-1"
+                    app:lowPassFilterFrequency="12.5"
+                    app:speakerLevel="1"
+                    app:speakerType="SW"
+                    app:timeAlignment="27.5" />
+
+                <View
+                    android:id="@+id/center"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_centerInParent="true" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <jp.pioneer.carsync.presentation.view.widget.JasperSpeakerSettingMenuView
+            android:id="@+id/speakerSettingMenu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+</LinearLayout>

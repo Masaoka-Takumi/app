@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="jp.pioneer.carsync">
+    <!--suppress AndroidDomInspection -->
+    <application
+        android:name=".application.TestApp"
+        tools:replace="android:name">
+        <!--suppress AndroidDomInspection -->
+        <activity android:name=".presentation.view.activity.TestActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".presentation.view.activity.TestAbstractActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".presentation.view.service.ResourcefulService"
+            android:enabled="true"
+            android:exported="false">
+        </service>
+    </application>
+</manifest>

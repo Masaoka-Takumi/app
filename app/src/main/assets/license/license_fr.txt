@@ -1,0 +1,432 @@
+=================================================
+Avis de licence de logiciel
+=================================================
+Les licences pour le logiciel open source utilisé pour ce
+produit sont indiquées ci-dessous.
+
+Le texte original est en anglais.
+Il est fourni uniquement à titre informatif
+pour le lecteur et n'a aucune valeur ou effet juridique. 
+
+
+support-v4
+appcompat-v7
+cardview-v7
+recyclerview-v7
+preference-v7
+design
+percent
+exifinterface
+
+Copyright (C) 2011-2015 The Android Open Source Project
+
+Concédé sous la licence Apache, version 2.0 (la « License »);
+vous ne pouvez pas utiliser ce fichier si ce n'est en conformité avec la Licence. Vous pouvez obtenir une copie de la Licence sur
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Sauf ce qui est requis par le droit applicable ou ce qui est convenu par écrit, le logiciel distribué sous la Licence est distribué « TEL QUEL », SANS GARANTIES OU CONDITIONS DE TOUTE NATURE QUE CE SOIT, expresses ou implicites. Voir la Licence pour la langue spécifique régissant les autorisations et les limitations selon la Licence.
+
+
+-------
+Butter Knife http://jakewharton.github.io/butterknife/
+Timber https://github.com/JakeWharton/timber
+
+Copyright 2013 Jake Wharton
+
+Concédé sous la licence Apache, version 2.0 (la « License »);
+vous ne pouvez pas utiliser ce fichier si ce n'est en conformité avec la Licence. Vous pouvez obtenir une copie de la Licence sur
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Sauf ce qui est requis par le droit applicable ou ce qui est convenu par écrit, le logiciel distribué sous la Licence est distribué « TEL QUEL », SANS GARANTIES OU CONDITIONS DE TOUTE NATURE QUE CE SOIT, expresses ou implicites. Voir la Licence pour la langue spécifique régissant les autorisations et les limitations selon la Licence.
+
+
+-------
+EventBus https://github.com/greenrobot/EventBus
+
+Copyright (C) 2012-2016 Markus Junginger, greenrobot (http://greenrobot.org)
+
+Concédé sous la licence Apache, version 2.0 (la « License »);
+vous ne pouvez pas utiliser ce fichier si ce n'est en conformité avec la Licence. Vous pouvez obtenir une copie de la Licence sur
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Sauf ce qui est requis par le droit applicable ou ce qui est convenu par écrit, le logiciel distribué sous la Licence est distribué « TEL QUEL », SANS GARANTIES OU CONDITIONS DE TOUTE NATURE QUE CE SOIT, expresses ou implicites. Voir la Licence pour la langue spécifique régissant les autorisations et les limitations selon la Licence.
+
+
+-------
+Gson https://github.com/google/gson
+
+Copyright 2008 Google Inc.
+
+Concédé sous la licence Apache, version 2.0 (la « License »);
+vous ne pouvez pas utiliser ce fichier si ce n'est en conformité avec la Licence. Vous pouvez obtenir une copie de la Licence sur
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Sauf ce qui est requis par le droit applicable ou ce qui est convenu par écrit, le logiciel distribué sous la Licence est distribué « TEL QUEL », SANS GARANTIES OU CONDITIONS DE TOUTE NATURE QUE CE SOIT, expresses ou implicites. Voir la Licence pour la langue spécifique régissant les autorisations et les limitations selon la Licence.
+
+
+-------
+Dagger https://github.com/google/dagger
+
+Copyright 2012 The Dagger Authors
+
+Concédé sous la licence Apache, version 2.0 (la « License »);
+vous ne pouvez pas utiliser ce fichier si ce n'est en conformité avec la Licence. Vous pouvez obtenir une copie de la Licence sur
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Sauf ce qui est requis par le droit applicable ou ce qui est convenu par écrit, le logiciel distribué sous la Licence est distribué « TEL QUEL », SANS GARANTIES OU CONDITIONS DE TOUTE NATURE QUE CE SOIT, expresses ou implicites. Voir la Licence pour la langue spécifique régissant les autorisations et les limitations selon la Licence.
+
+
+-------
+CWAC MergeAdapter https://github.com/commonsguy/cwac-merge
+
+Copyright (c) 2008-2009 CommonsWare, LLC
+Portions (c) 2009 Google, Inc.
+
+Concédé sous la licence Apache, version 2.0 (la « License »);
+vous ne pouvez pas utiliser ce fichier si ce n'est en conformité avec la Licence. Vous pouvez obtenir une copie de la Licence sur
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Sauf ce qui est requis par le droit applicable ou ce qui est convenu par écrit, le logiciel distribué sous la Licence est distribué « TEL QUEL », SANS GARANTIES OU CONDITIONS DE TOUTE NATURE QUE CE SOIT, expresses ou implicites. Voir la Licence pour la langue spécifique régissant les autorisations et les limitations selon la Licence.
+
+
+-------
+Guava https://github.com/google/guava
+
+Copyright (C) 2007 The Guava Authors
+
+Concédé sous la licence Apache, version 2.0 (la « License »);
+vous ne pouvez pas utiliser ce fichier si ce n'est en conformité avec la Licence. Vous pouvez obtenir une copie de la Licence sur
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Sauf ce qui est requis par le droit applicable ou ce qui est convenu par écrit, le logiciel distribué sous la Licence est distribué « TEL QUEL », SANS GARANTIES OU CONDITIONS DE TOUTE NATURE QUE CE SOIT, expresses ou implicites. Voir la Licence pour la langue spécifique régissant les autorisations et les limitations selon la Licence.
+
+
+-------
+BlurView https://github.com/Dimezis/BlurView
+
+Copyright 2016 Dmitry Saviuk
+
+Concédé sous la licence Apache, version 2.0 (la « License »);
+vous ne pouvez pas utiliser ce fichier si ce n'est en conformité avec la Licence. Vous pouvez obtenir une copie de la Licence sur
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Sauf ce qui est requis par le droit applicable ou ce qui est convenu par écrit, le logiciel distribué sous la Licence est distribué « TEL QUEL », SANS GARANTIES OU CONDITIONS DE TOUTE NATURE QUE CE SOIT, expresses ou implicites. Voir la Licence pour la langue spécifique régissant les autorisations et les limitations selon la Licence.
+
+
+-------
+PermissionsDispatcher https://github.com/permissions-dispatcher/PermissionsDispatcher
+
+Copyright 2016 Shintaro Katafuchi, Marcel Schnelle, Yoshinori Isogai
+
+Concédé sous la licence Apache, version 2.0 (la « License »);
+vous ne pouvez pas utiliser ce fichier si ce n'est en conformité avec la Licence. Vous pouvez obtenir une copie de la Licence sur
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Sauf ce qui est requis par le droit applicable ou ce qui est convenu par écrit, le logiciel distribué sous la Licence est distribué « TEL QUEL », SANS GARANTIES OU CONDITIONS DE TOUTE NATURE QUE CE SOIT, expresses ou implicites. Voir la Licence pour la langue spécifique régissant les autorisations et les limitations selon la Licence.
+
+
+-------
+Android-CoverFlow https://github.com/crosswall/Android-Coverflow
+
+La Licence MIT (MIT)
+
+Copyright (c) 2015 Hugo yu
+
+Autorisation est octroyée par les présentes, gratuitement, à toute personne obtenant une copie de ce logiciel et des fichiers de documentation associés (le « Logiciel »), de faire le commerce du Logiciel sans restriction, y compris, sans exhaustivité, les droits d'utiliser, copier, modifier, fusionner, publier, distribuer, sous-concéder et/ou vendre des copies du Logiciel et de permettre aux personnes auxquelles le Logiciel est fourni de faire de même, sous réserve des conditions suivantes :
+
+L'avis de droit d'auteur ci-dessus et cet avis d'autorisation seront inclus dans toutes les copies ou parties substantielles du Logiciel.
+
+CE LOGICIEL EST FOURNI « TEL QUEL » SANS GARANTIE DE TOUTE NATURE QUE CE SOIT, EXPRESSE OU IMPLICITE, Y COMPRIS, SANS QUE CET ENONCE SOIT EXHAUSTIF, LES GARANTIES IMPLICITES DE VENDABILITE, D'APPROPRIATION POUR UN BUT PARTICULIER ET DE NON-VIOLATION. EN AUCUN CAS, LES AUTEURS OU LES DETENTEURS DU DROIT D'AUTEUR NE SERONT RESPONSABLES DE TOUTES REVENDICATIONS, DE TOUS DOMMAGES OU AUTRES RESPONSABILITES, QUE CE SOIT CONTRACTUELLEMENT, PAR NEGLIGENCE OU AUTREMENT, DECOULANT DE, OU EN RELATION AVEC LE LOGICIEL OU L'UTILISATION OU D'AUTRES OPERATIONS SUR LE LOGICIEL.
+
+
+Status API Training Shop Blog About Pricing
+
+
+-------
+ViewPagerIndicator https://github.com/JakeWharton/ViewPagerIndicator
+
+Copyright 2012 Jake Wharton
+Copyright 2011 Patrik ?kerfeldt
+Copyright 2011 Francisco Figueiredo Jr.
+
+Concédé sous la licence Apache, version 2.0 (la « License »);
+vous ne pouvez pas utiliser ce fichier si ce n'est en conformité avec la Licence. Vous pouvez obtenir une copie de la Licence sur
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Sauf ce qui est requis par le droit applicable ou ce qui est convenu par écrit, le logiciel distribué sous la Licence est distribué « TEL QUEL », SANS GARANTIES OU CONDITIONS DE TOUTE NATURE QUE CE SOIT, expresses ou implicites. Voir la Licence pour la langue spécifique régissant les autorisations et les limitations selon la Licence.
+
+
+-------
+Commons Math https://commons.apache.org/
+
+Concédé sous la licence Apache, version 2.0 (la « License »);
+vous ne pouvez pas utiliser ce fichier si ce n'est en conformité avec la Licence. Vous pouvez obtenir une copie de la Licence sur
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Sauf ce qui est requis par le droit applicable ou ce qui est convenu par écrit, le logiciel distribué sous la Licence est distribué « TEL QUEL », SANS GARANTIES OU CONDITIONS DE TOUTE NATURE QUE CE SOIT, expresses ou implicites. Voir la Licence pour la langue spécifique régissant les autorisations et les limitations selon la Licence.
+
+
+-------
+AutoFitTextView https://github.com/grantland/android-autofittextview
+
+Copyright 2014 Grantland Chew
+
+Concédé sous la licence Apache, version 2.0 (la « License »);
+vous ne pouvez pas utiliser ce fichier si ce n'est en conformité avec la Licence. Vous pouvez obtenir une copie de la Licence sur
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Sauf ce qui est requis par le droit applicable ou ce qui est convenu par écrit, le logiciel distribué sous la Licence est distribué « TEL QUEL », SANS GARANTIES OU CONDITIONS DE TOUTE NATURE QUE CE SOIT, expresses ou implicites. Voir la Licence pour la langue spécifique régissant les autorisations et les limitations selon la Licence.
+
+
+-------
+Glide Transformations https://github.com/wasabeef/glide-transformations
+
+Copyright 2018 Wasabeef
+
+Concédé sous la licence Apache, version 2.0 (la « License »);
+vous ne pouvez pas utiliser ce fichier si ce n'est en conformité avec la Licence. Vous pouvez obtenir une copie de la Licence sur
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Sauf ce qui est requis par le droit applicable ou ce qui est convenu par écrit, le logiciel distribué sous la Licence est distribué « TEL QUEL », SANS GARANTIES OU CONDITIONS DE TOUTE NATURE QUE CE SOIT, expresses ou implicites. Voir la Licence pour la langue spécifique régissant les autorisations et les limitations selon la Licence.
+
+
+-------
+Android Constraint Layout Library https://developer.android.com/training/constraint-layout/index.html
+
+Copyright 2017 The Android Open Source Project, Inc.
+
+Concédé sous la licence Apache, version 2.0 (la « License »);
+vous ne pouvez pas utiliser ce fichier si ce n'est en conformité avec la Licence. Vous pouvez obtenir une copie de la Licence sur
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Sauf ce qui est requis par le droit applicable ou ce qui est convenu par écrit, le logiciel distribué sous la Licence est distribué « TEL QUEL », SANS GARANTIES OU CONDITIONS DE TOUTE NATURE QUE CE SOIT, expresses ou implicites. Voir la Licence pour la langue spécifique régissant les autorisations et les limitations selon la Licence.
+
+
+-------
+Maskable Layout https://github.com/christophesmet/android_maskable_layout
+
+Copyright 2015 Christophe Smet.
+
+Concédé sous la licence Apache, version 2.0 (la « License »);
+vous ne pouvez pas utiliser ce fichier si ce n'est en conformité avec la Licence. Vous pouvez obtenir une copie de la Licence sur
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Sauf ce qui est requis par le droit applicable ou ce qui est convenu par écrit, le logiciel distribué sous la Licence est distribué « TEL QUEL », SANS GARANTIES OU CONDITIONS DE TOUTE NATURE QUE CE SOIT, expresses ou implicites. Voir la Licence pour la langue spécifique régissant les autorisations et les limitations selon la Licence.
+
+
+-------
+DirectionalCarousel https://github.com/acbelter/DirectionalCarousel
+
+Copyright 2014 acbelter
+
+Concédé sous la licence Apache, version 2.0 (la « License »);
+vous ne pouvez pas utiliser ce fichier si ce n'est en conformité avec la Licence. Vous pouvez obtenir une copie de la Licence sur
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Sauf ce qui est requis par le droit applicable ou ce qui est convenu par écrit, le logiciel distribué sous la Licence est distribué « TEL QUEL », SANS GARANTIES OU CONDITIONS DE TOUTE NATURE QUE CE SOIT, expresses ou implicites. Voir la Licence pour la langue spécifique régissant les autorisations et les limitations selon la Licence.
+
+-------
+Glide https://github.com/bumptech/glide
+
+Glide https://github.com/bumptech/glide
+
+Licence pour tout ce qui n'est pas de tiers et n'est pas identifié autrement :
+
+Copyright 2014 Google, Inc. Tous droits réservés.
+
+La redistribution et l'utilisation sous les formes source et binaire, avec ou sans modification, sont 
+permises moyennant le respect des conditions suivantes :
+
+   1. Les redistributions du code source doivent conserver l'avis de droit d'auteur ci-dessus, cette liste de 
+         conditions et la clause de non-responsabilité ci-après.
+
+   2. Les redistributions sous forme binaire doivent reproduire l'avis de droit d'auteur ci-dessus, cette liste
+         de conditions et la clause de non-responsabilité ci-après dans la documentation et/ou l'autre matériel 
+         fournis avec la distribution.
+
+CE LOGICIEL EST FOURNI PAR GOOGLE, INC. « TEL QUEL » ET TOUTES LES GARANTIES EXPRESSES OU IMPLICITES, Y COMPRIS, SANS QUE CET ENONCE SOIT EXHAUSTIF, LES GARANTIES IMPLICITES DE VENDABILITE ET
+D'APPROPRIATION POUR UN BUT PARTICULIER SONT REJETEES. EN AUCUN CAS, GOOGLE, INC. OU
+SES COLLABORATEURS NE SERONT RESPONSABLES DE TOUS DOMMAGES DIRECTS, INDIRECTS, INCIDENTS, SPECIAUX, EXEMPLAIRES OU 
+CONSECUTIFS (Y COMPRIS, SANS QUE CET ENONCE SOIT EXHAUSTIF, L'APPROVISIONNEMENT DE BIENS OU
+SERVICES DE REMPLACEMENT; LA PERTE D'USAGE, DE DONNEES, LE MANQUE A GAGNER; OU L'INTERRUPTION DE L'ACTIVITE) CAUSE(E) DE QUELQUE MANIERE ET REPOSANT
+SUR TOUTE THEORIE DE RESPONSABILITE, QUE CE SOIT CONTRACTUELLEMENT, EN RESPONSABILITE STRICTE OU PAR NEGLIGENCE (OU AUTREMENT)
+DECOULANT DE QUELQUE FACON QUE CE SOIT DE L'UTILISATION DE CE LOGICIEL, MEME EN CAS DE
+COMMUNICATION DE LA POSSIBILITE DE SEMBLABLES DOMMAGES.
+
+Les opinions et conclusions contenues dans le logiciel et la documentation sont celles des
+auteurs et ne doivent pas être interprétées comme représentant des politiques officielles, expresses
+ou implicites de Google, Inc.
+---------------------------------------------------------------------------------------------
+License for third_party/disklrucache:
+
+Copyright 2012 Jake Wharton
+Copyright 2011 The Android Open Source Project
+
+Concédé sous la licence Apache, version 2.0 (la « License »);
+vous ne pouvez pas utiliser ce fichier si ce n'est en conformité avec la Licence. Vous pouvez obtenir une copie de la Licence sur
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Sauf ce qui est requis par le droit applicable ou ce qui est convenu par écrit, le logiciel distribué sous la Licence est distribué « TEL QUEL », SANS GARANTIES OU CONDITIONS DE TOUTE NATURE QUE CE SOIT, expresses ou implicites. Voir la Licence pour la langue spécifique régissant les autorisations et les limitations selon la Licence.
+
+---------------------------------------------------------------------------------------------
+License for third_party/gif_decoder:
+
+Copyright (c) 2013 Xcellent Creations, Inc.
+
+Autorisation est octroyée par les présentes, gratuitement, à toute personne obtenant une copie de ce logiciel et des fichiers de documentation associés (le « Logiciel »), de faire le commerce du Logiciel sans restriction, y compris, sans exhaustivité, les droits d'utiliser, copier, modifier, fusionner, publier, distribuer, sous-concéder et/ou vendre des copies du Logiciel et de permettre aux personnes auxquelles le Logiciel est fourni de faire de même, sous réserve des conditions suivantes :
+
+L'avis de droit d'auteur ci-dessus et cet avis d'autorisation seront inclus dans toutes les copies ou parties substantielles du Logiciel.
+
+CE LOGICIEL EST FOURNI « TEL QUEL » SANS GARANTIE DE TOUTE NATURE QUE CE SOIT, EXPRESSE OU IMPLICITE, Y COMPRIS, SANS QUE CET ENONCE SOIT EXHAUSTIF, LES GARANTIES IMPLICITES DE VENDABILITE, D'APPROPRIATION POUR UN BUT PARTICULIER ET DE NON-VIOLATION. EN AUCUN CAS, LES AUTEURS OU LES DETENTEURS DU DROIT D'AUTEUR NE SERONT RESPONSABLES DE TOUTES REVENDICATIONS, DE TOUS DOMMAGES OU AUTRES RESPONSABILITES, QUE CE SOIT CONTRACTUELLEMENT, PAR NEGLIGENCE OU AUTREMENT, DECOULANT DE, OU EN RELATION AVEC LE LOGICIEL OU L'UTILISATION OU D'AUTRES OPERATIONS SUR LE LOGICIEL.
+
+---------------------------------------------------------------------------------------------
+License for third_party/gif_encoder/AnimatedGifEncoder.java and
+third_party/gif_encoder/LZWEncoder.java:
+
+Aucun droit d'auteur revendiqué sur le code source de cette catégorie. Peut être utilisé à toute
+fin que ce soit, référez-vous toutefois au brevet LZW d'Unisys pour les restrictions d'utilisation
+de la catégorie LZWEncoder associée. Merci d'envoyer toute correction à
+kweiner@fmsware.com.
+
+-----------------------------------------------------------------------------
+License for third_party/gif_encoder/NeuQuant.java
+
+Copyright (c) 1994 Anthony Dekker
+
+Copyright (c) 1994 Anthony Dekker
+
+NEUQUANT Neural-Net quantization algorithm d'Anthony Dekker, 1994. Voir
+« Kohonen neural networks for optimal colour quantization » dans « Network:
+Computation in Neural Systems » Vol. 5 (1994) p. 351-367, pour une discussion sur
+l'algorithme.
+
+Toute partie obtenant une copie de ces fichiers auprès de l'auteur, directement ou
+indirectement, reçoit gratuitement un droit et une licence complets, non restreints, irrévocables,
+mondiaux, payés, exempts de redevances et non exclusifs de faire le commerce
+de ce logiciel et des fichiers de documentation (le « Logiciel »), y compris, sans
+exhaustivité, les droits d'utiliser, copier, modifier, fusionner, publier, distribuer,
+sous-concéder et/ou vendre des copies du Logiciel et de permettre aux personnes qui
+reçoivent des copies de la part d'une quelconque partie de faire de même, la seule exigence étant 
+de conserver tel quel cet avis de droit d'auteur.
+
+-------
+Material icons https://material.io/tools/icons/
+
+Concédé sous la licence Apache, version 2.0 (la « License »);
+vous ne pouvez pas utiliser ce fichier si ce n'est en conformité avec la Licence. Vous pouvez obtenir une copie de la Licence sur
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Sauf ce qui est requis par le droit applicable ou ce qui est convenu par écrit, le logiciel distribué sous la Licence est distribué « TEL QUEL », SANS GARANTIES OU CONDITIONS DE TOUTE NATURE QUE CE SOIT, expresses ou implicites. Voir la Licence pour la langue spécifique régissant les autorisations et les limitations selon la Licence.
+
+-------
+icepick https://github.com/frankiesardo/icepick
+
+Eclipse Public License -v 1.0
+LE PROGRAMME CADRE EST FOURNI CONFORMÉMENT AUX CONDITIONS DE LA PRÊSENTE ECLIPSE PUBLIC LICENSE (« CONTRAT »). TOUTE UTILISATION, REPRODUCTION OU DISTRIBUTION DU PROGRAMME CONSTITUE UNE ACCEPTATION DU PRÊSENT CONTRAT PAR LE DESTINATAIRE.
+
+1. Définitions
+Le terme « Contribution » indique :
+
+a) dans le cas du Contributeur initial, les premiers code et documents transmis dans le cadre du présent Contrat, et
+b) dans le cas de chaque Contributeur suivant :
+i) les modifications apportées au Programme, et
+ii) les ajouts apportés au Programme ; lorsque de telles modifications et/ou de tels ajouts apportés au Programme proviennent et sont fournis par le Contributeur en question. Une Contribution « émane » d’un Contributeur si elle est ajoutée au Programme par ledit Contributeur ou par toute personne agissant pour le compte dudit Contributeur. Les Contributions ne comprennent pas les ajouts apportés au Programme qui : (i) sont dissociés des modules logiciels fournis conjointement avec le Programme dans le cadre de leur propre accord de licence, et (ii) qui ne sont pas des œuvres dérivées du Programme.
+Le terme « Contributeur » indique toute personne ou entité qui distribue le Programme.
+
+L’expression « Brevets sous licence » signifie les brevets pouvant faire l’objet d’une licence demandée par un Contributeur, qui sont forcément violés par l’utilisation ou la vente de sa seule Contribution ou en combinaison avec le Programme.
+
+Le « Programme » indique les Contributions distribuées en vertu du présent Contrat.
+
+Le « Destinataire » signifie toute personne qui bénéficie du Programme dans le cadre du présent Contrat, y compris l’ensemble des Contributeurs.
+
+2. Octroi des droits
+a) Conformément aux conditions du présent Contrat, chaque Contributeur octroie par la présente au Destinataire une licence de copyright internationale, non exclusive et exempte de redevance pour reproduire, préparer des œuvres dérivées de, afficher et exécuter publiquement, distribuer et accorder une sous-licence de la Contribution dudit Contributeur, le cas échéant, et desdits travaux dérivés, sous forme de code objet ou de code source.
+
+a) Conformément aux conditions du présent Contrat, chaque Contributeur octroie par la présente au Destinataire une licence de copyright internationale, non exclusive et exempte de redevance en vertu des Brevets sous licence pour produire, utiliser, vendre, proposer à la vente, importer ou autrement transférer la Contribution dudit Contributeur, le cas échéant, sous forme de code objet ou de code source. Ce brevet sous licence s’appliquera à la combinaison de la Contribution et du Programme si, au moment où le Contributeur ajoute la Contribution, ledit ajout à la Contribution est à l’origine d’une telle association qui sera couverte par les Brevets sous licence. Le brevet sous licence ne s’appliquera pas à d’autres combinaisons incluant la Contribution. Aucune infrastructure matérielle en soi ne peut faire l’objet d’une licence aux termes des présentes.
+
+c) Le Destinataire reconnaît que, bien que chaque Contributeur accorde les licences auxdites Contributions stipulées dans les présentes, les Contributeurs ne garantissent en aucun cas que le Programme ne viole pas les droits de brevet ou les autres droits de propriété intellectuelle de toute autre entité. Chaque Contributeur exclut toute responsabilité envers le Destinataire en cas de revendication introduite par toute autre entité à la suite d’une violation des droits de propriété intellectuelle ou d’autres droits. À condition d’exercer les droits et les licences accordés dans les présentes, chaque Destinataire assume la seule responsabilité de protéger tous les autres droits de propriété intellectuelle nécessaires, le cas échéant. Par exemple, si un brevet sous licence d’un tiers est requis pour permettre au Destinataire de distribuer le Programme, il en va de la responsabilité du Destinataire d’acquérir cette licence avant de fournir le Programme.
+
+d) Chaque Contributeur déclare, le cas échéant, détenir de bonne foi les droits de propriété intellectuelle suffisants relatifs à cette Contribution, et être ainsi habilité à accorder la licence de copyright prévue dans le présent Contrat.
+
+3. Conditions
+Une Contributeur peut opter pour distribuer le Programme sous forme de code objet en vertu de son propre accord de licence, à condition :
+
+a) qu’il respecte les conditions générales du présent Contrat ; et
+b) que son accord de licence :
+i) décline de fait, au nom de tous les Contributeurs, l’ensemble des garanties et des conditions, explicites ou implicites, y compris les garanties ou les conditions des droits de propriété et de non-violation, ainsi que les garanties ou les conditions implicites de qualité marchande et d’adéquation à un usage particulier ;
+ii) exclut de fait, au nom de tous les Contributeurs, toute responsabilité en cas de dommages, notamment les dommages directs, indirects, particuliers, accessoires ou consécutifs, tels que la perte de bénéfices ;
+iii) stipule que seul ledit Contributeur, et non toute autre partie, propose des dispositions variant du présent Contrat ; et
+iv) indique que ledit Contributeur fournit le code source du Programme, et informe les titulaires de licence sur la façon de l’obtenir, d’une manière raisonnable, sur ou par le biais d’un support qu’ils ont l’habitude d’utiliser pour l’échange de logiciels.
+Si le Programme est fourni sous la forme d’un code source :
+
+a) il doit l’être dans le cadre du présent Contrat ; et
+b) un exemplaire du présent Contrat doit être joint à chaque copie du Programme.
+Les Contributeurs ne doivent pas supprimer ni modifier les avis de copyright compris au sein du Programme.
+
+Chaque Contributeur doit s’identifier en tant que l’auteur de sa Contribution, le cas échéant, d’une façon qui permet raisonnablement aux Destinataires suivants d’associer l’auteur de la Contribution.
+
+4. Distribution commerciale
+Les distributeurs commerciaux du logiciel peuvent accepter certaines responsabilités envers les utilisateurs finaux, les partenaires commerciaux, etc. Bien que cette licence soit destinée à faciliter l’utilisation commerciale du Programme, le Contributeur qui intègre le Programme dans une offre de produits commerciaux doit le faire d’une façon à ne pas créer d’obligations pour les autres Contributeurs. Par conséquent, si un Contributeur inclut le Programme dans une offre de produits commerciaux, ledit Contributeur (« Contributeur commercial ») accepte, par les présentes, de défendre et d’indemniser tous les autres Contributeurs (« Contributeurs indemnisés ») pour les pertes, les dommages et les coûts (collectivement les « Pertes ») résultant des revendications, des poursuites judiciaires et d’autres actions en justice intentées par une partie tierce à l’encontre des Contributeurs indemnisés, dans la mesure où ils ont été causés par les actes ou omissions dudit Contributeur commercial, dans le cadre de sa distribution du Programme au sein d’une offre de produits commerciaux. Les obligations stipulées dans cette section ne s’appliquent pas aux revendications ou aux Pertes liées aux violations de la propriété intellectuelle effective ou présumée. Pour pouvoir en bénéficier, un Contributeur indemnisé doit : a) notifier sans délai et par écrit au Contributeur commercial ladite revendication, et b) autoriser le Contributeur commercial à contrôler, et à coopérer avec le Contributeur commercial lors de sa défense et des négociations en vue de régler le litige. Le Contributeur indemnisé peut participer auxdites réclamations à ses propres frais.
+
+Un Contributeur pourra ainsi inclure le Programme dans une offre de produits commerciaux, Produit X. Ledit Contributeur est alors un Contributeur commercial. Par conséquent, si ledit Contributeur commercial revendique des performances, ou propose des garanties liées au Produit X, ces garanties et revendications de performance incombent uniquement au Contributeur commercial. En vertu de la présente section, le Contributeur commercial devra défendre les revendications à l’encontre des autres Contributeurs eu égard à ces garanties et revendications de performance. En outre, si un tribunal demande à un autre Contributeur de verser par la suite des dommages-intérêts, le Contributeur commercial a l’obligation de le faire.
+
+5. Aucune garantie
+SAUF DISPOSITIONS EXPLICITES STIPULÉES EN VERTU DU PRÉSENT CONTRAT, LE PROGRAMME EST FOURNI « TEL QUEL », SANS GARANTIES OU CONDITIONS D’AUCUNE SORTE, QU’ELLES SOIENT EXPLICITES OU IMPLICITES, Y COMPRIS, MAIS SANS SE LIMITER AUX GARANTIES OU CONDITIONS DES DROITS DE PROPRIÉTÉ, DE NON-VIOLATION, DE QUALITÉ MARCHANDE OU D’ADAPTATION À UN USAGE PARTICULIER. Il incombe à chaque Destinataire de déterminer s’il est approprié d’utiliser et de distribuer le Programme. Par ailleurs, chacun assume tous les risques associés à l’exercice des droits conférés par le présent Contrat, notamment les risques et les coûts liés aux erreurs de programme, conformément aux lois en vigueur, aux dommages, à la perte de données, de programmes ou de matériel, et à l’indisponibilité ou à l’interruption des opérations.
+
+6. Clause de non-responsabilité
+SAUF ACCORD EXPRESSÉMENT PRÉVU DANS LE PRÉSENT CONTRAT, NI LE DESTINATAIRE NI TOUT CONTRIBUTEUR NE PEUVENT ÊTRE TENUS RESPONSABLES DES DOMMAGES DIRECTS, INDIRECTS, PARTICULIERS, ACCESSOIRES, EXEMPLAIRES OU CONSÉCUTIFS (Y COMPRIS, MAIS SANS SE LIMITER À LA PERTE DE BÉNÉFICES), QUELLE QU’EN SOIT LA CAUSE OU SUR QUELQUE MOTIF QUE CE SOIT, DANS LE CADRE D’UN CONTRAT, D’UNE RESPONSABILITÉ SANS FAUTE OU D’UN DÉLIT (INCLUANT DE LA NÉGLIGENCE OU AUTRE), DÉCOULANT D’UNE QUELCONQUE UTILISATION OU DISTRIBUTION DU PROGRAMME, OU DE L’EXERCICE DE TOUT DROIT OCTROYÉ PAR LES PRÉSENTES, MÊME S’ILS ONT ÉTÉ AVISÉS DE LA POSSIBILITÉ DE TELS DOMMAGES.
+
+7. Généralités
+Si une disposition du présent Contrat est invalide ou inexécutable en vertu de la loi en vigueur, elle n’affectera pas la validité ou la force exécutoire des autres clauses du présent Contrat. En outre, sans autre action des parties aux présentes, cette disposition sera réformée pour la rendre valide et exécutoire, dans la mesure minimale requise.
+
+Si le Destinataire engage une action en justice relative aux brevets à l’encontre d’une entité (y compris une demande reconventionnelle dans le cadre ou non de poursuites judiciaires) alléguant que le programme proprement dit (à l’exclusion des associations du programme avec un autre logiciel ou matériel) enfreint le(s) brevet(s) dudit Destinataire, alors ses droits concédés en vertu de la Section 2(b) prendront fin à compter de la date à laquelle ce litige a été déposé.
+
+Tous les droits du Destinataire en vertu du présent Contrat cesseront s’ils ne se conforment pas à l’une des principales conditions générales du présent Contrat, et s’ils ne remédient pas à un tel manquement dans un délai raisonnable, après avoir pris connaissance de ce non-respect. Si l’ensemble des droits du Destinataire en vertu du présent Contrat prennent fin, le Destinataire s’engage à cesser l’utilisation et la distribution du Programme dans les meilleurs délais raisonnables. Cependant, ses obligations en vertu du présent Contrat et de toute licence accordée qui lui ont été accordée concernant le Programme resteront en vigueur.
+
+Toute personne est autorisée à copier et à distribuer des exemplaires du présent Contrat. Toutefois, afin d’éviter toute incohérence, le Contrat est protégé par le droit d’auteur et ne peut être modifié que de la manière suivante. Le Régisseur du Contrat se réserve le droit de publier, à tout moment, de nouvelles versions (y compris les révisions) du présent Contrat. Personne d’autre que le régisseur du Contrat n’est autorisé à le modifier. La Fondation Eclipse est le premier Auteur du Contrat. La Fondation Eclipse peut confier la responsabilité d’agir en tant que Régisseur du Contrat pour le compte d’une entité distincte appropriée. Chaque nouvelle version du Contrat se verra attribuer un numéro de version distinct. Le Programme (y compris les Contributions) peut toujours être distribué dans la version du Contrat reçue. En outre, une fois la nouvelle version du Contrat publié, le Contributeur peut décider de distribuer le Programme (y compris ses Contributions) dans la nouvelle version. Sauf stipulation expresse aux sections 2(a) et 2(b) ci-dessus, le Destinataire ne bénéficie d’aucun droit ni licence sur la propriété intellectuelle d’un Contributeur en vertu du présent Contrat, que ce soit expressément, implicitement, par estoppel ou autrement. Tous les droits sur le Programme accordés de manière non explicite en vertu du présent Contrat sont réservés.
+
+Le présent Contrat est régi par les lois de l’État de New York et par les lois sur la propriété intellectuelle des États-Unis d’Amérique. Aucune partie liée au présent Contrat n’intentera une action en justice en vertu du présent Contrat plus d’un an après l’action intentée. Chaque partie renoncera à ses droits lors d’un procès devant un jury pour tout litige qui en découlerait.
+
+-------
+Lightweight-Stream-API https://github.com/aNNiMON/Lightweight-Stream-API/
+
+Copyright 2015-2018 Victor Melnik
+
+Concédé sous la licence Apache, version 2.0 (la « License »);
+vous ne pouvez pas utiliser ce fichier si ce n'est en conformité avec la Licence. Vous pouvez obtenir une copie de la Licence sur
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Sauf ce qui est requis par le droit applicable ou ce qui est convenu par écrit, le logiciel distribué sous la Licence est distribué « TEL QUEL », SANS GARANTIES OU CONDITIONS DE TOUTE NATURE QUE CE SOIT, expresses ou implicites. Voir la Licence pour la langue spécifique régissant les autorisations et les limitations selon la Licence.
+
+
+-------
+EGM96 https://github.com/matthiaszimmermann/EGM96
+
+La Licence MIT (MIT)
+
+Copyright (c) 2015 Matthias Zimmermann
+
+Autorisation est octroyée par les présentes, gratuitement, à toute personne obtenant une copie de ce logiciel et des fichiers de documentation associés (le « Logiciel »), de faire le commerce du Logiciel sans restriction, y compris, sans exhaustivité, les droits d'utiliser, copier, modifier, fusionner, publier, distribuer, sous-concéder et/ou vendre des copies du Logiciel et de permettre aux personnes auxquelles le Logiciel est fourni de faire de même, sous réserve des conditions suivantes :
+
+L'avis de droit d'auteur ci-dessus et cet avis d'autorisation seront inclus dans toutes les copies ou parties substantielles du Logiciel.
+
+CE LOGICIEL EST FOURNI « TEL QUEL » SANS GARANTIE DE TOUTE NATURE QUE CE SOIT, EXPRESSE OU IMPLICITE, Y COMPRIS, SANS QUE CET ENONCE SOIT EXHAUSTIF, LES GARANTIES IMPLICITES DE VENDABILITE, D'APPROPRIATION POUR UN BUT PARTICULIER ET DE NON-VIOLATION. EN AUCUN CAS, LES AUTEURS OU LES DETENTEURS DU DROIT D'AUTEUR NE SERONT RESPONSABLES DE TOUTES REVENDICATIONS, DE TOUS DOMMAGES OU AUTRES RESPONSABILITES, QUE CE SOIT CONTRACTUELLEMENT, PAR NEGLIGENCE OU AUTREMENT, DECOULANT DE, OU EN RELATION AVEC LE LOGICIEL OU L'UTILISATION OU D'AUTRES OPERATIONS SUR LE LOGICIEL.

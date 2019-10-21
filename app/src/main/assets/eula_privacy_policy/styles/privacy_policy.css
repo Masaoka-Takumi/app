@@ -1,0 +1,58 @@
+﻿body {
+    word-wrap: break-word;
+    color: #ffffff;
+}
+h3, h4 {
+    font-size: 1em;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+h4 {
+    font-weight: normal;
+}
+p {
+    margin-bottom: 20px;
+}
+.underline {
+    text-decoration: underline;
+}
+.title {
+    text-align: center;
+    margin: 40px auto;
+    font-size: 2em;
+    font-weight: bold;
+    max-width: 90%;
+}
+.section > p {
+    -webkit-margin-start: 1.5em;
+}
+.subsection > h3 {
+    -webkit-margin-start: 1em;
+}
+.subsection > p {
+    -webkit-margin-start: 1.5em;
+}
+.list_style_disc > li {
+    line-height: 2;
+}
+.rounded_ordered_list {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+.rounded_ordered_list > li {
+    list-style: none;
+    list-style-position: outside;
+    margin: 0;
+    padding-left: 1.5em;
+}
+.rounded_ordered_list > li > p > .number {
+    position: absolute;
+    left: 0;
+    margin: 0;
+}
+.company_location {
+    -webkit-margin-start: 1em;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}

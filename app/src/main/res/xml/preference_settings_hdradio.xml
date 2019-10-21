@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <Preference
+        android:key="@string/key_hdradio_local"
+        android:layout="@layout/element_preference_base"
+        android:order="10"
+        android:title="@string/set_124" />
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_hdradio_seek_enabled"
+        android:order="20"
+        android:persistent="false"
+        android:title="@string/set_357"
+        android:layout="@layout/element_preference_switch"/>
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_hdradio_blending_enabled"
+        android:order="30"
+        android:persistent="false"
+        android:title="@string/set_358"
+        android:layout="@layout/element_preference_switch"/>
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_hdradio_active_radio_enabled"
+        android:order="40"
+        android:persistent="false"
+        android:title="@string/set_359"
+        android:layout="@layout/element_preference_switch"/>
+</PreferenceScreen>

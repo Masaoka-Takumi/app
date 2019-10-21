@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_adas_function_ldw"
+        android:order="70"
+        android:persistent="false"
+        android:title="@string/set_113"
+        android:layout="@layout/element_preference_switch"/>
+
+    <Preference
+        android:key="@string/key_adas_function_ldw_sensitivity"
+        android:layout="@layout/element_preference_base"
+        android:order="80"
+        android:title="@string/set_112" />
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_adas_function_pcw"
+        android:order="90"
+        android:persistent="false"
+        android:title="@string/set_153"
+        android:layout="@layout/element_preference_switch"/>
+
+    <Preference
+        android:key="@string/key_adas_function_pcw_sensitivity"
+        android:layout="@layout/element_preference_base"
+        android:order="100"
+        android:title="@string/set_152" />
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_adas_function_fcw"
+        android:order="110"
+        android:persistent="false"
+        android:title="@string/set_069"
+        android:layout="@layout/element_preference_switch"/>
+
+    <Preference
+        android:key="@string/key_adas_function_fcw_sensitivity"
+        android:layout="@layout/element_preference_base"
+        android:order="120"
+        android:title="@string/set_068" />
+
+</PreferenceScreen>

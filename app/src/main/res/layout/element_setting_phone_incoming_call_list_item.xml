@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/setting_list_item_height"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layoutDirection="ltr"
+        android:gravity="center_vertical">
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/list_portrait_left_padding"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-light"
+            android:gravity="left|center_vertical"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/setting_list_item_title_text_size"
+            autofit:minTextSize="@dimen/min_text_size_12" />
+
+        <ImageView
+            android:id="@+id/check"
+            android:layout_width="@dimen/setting_list_item_check_icon_width"
+            android:layout_height="@dimen/setting_list_item_check_icon_height"
+            android:layout_marginRight="@dimen/setting_list_check_right_padding"
+            android:scaleType="fitCenter"
+            android:src="@drawable/checkmark"
+            android:tint="?attr/uiColor"/>
+    </LinearLayout>
+
+</LinearLayout>

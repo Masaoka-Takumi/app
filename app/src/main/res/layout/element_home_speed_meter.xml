@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/speed_meter_group"
+        layout="@layout/element_speed_meter"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintHeight_max="@dimen/speed_meter_max_height_portrait"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/alt_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="12dp"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-light"
+        android:gravity="left"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:shadowColor="#99000000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="25"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/home_text_size"
+        android:text="ALT.0m"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        autofit:minTextSize="@dimen/min_text_size_16" />
+
+    <jp.pioneer.carsync.presentation.view.widget.BearingGauge
+        android:id="@+id/bearing"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/bearing_height"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/speed_meter_group"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.45" />
+
+</android.support.constraint.ConstraintLayout>

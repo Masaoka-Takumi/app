@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/player_list_card_view_height">
+    <RelativeLayout
+        android:id="@+id/item_select"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/player_list_card_view_select_height"
+        android:layout_marginTop="@dimen/player_list_card_view_select_margin"
+        android:layout_marginBottom="@dimen/player_list_card_view_select_margin"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/p0068_chamferselect"
+            android:tint="?attr/uiColor" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/p0067_chamferselect"
+            android:tint="?attr/uiColor" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/p0066_chamferbase" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/player_list_card_view_margin_horizontal"
+        android:layout_marginRight="@dimen/player_list_card_view_margin_horizontal"
+        android:layout_marginTop="@dimen/player_list_card_view_margin_vertical"
+        android:layout_marginBottom="@dimen/player_list_card_view_margin_vertical"
+        app:cardCornerRadius="0dp"
+        app:cardUseCompatPadding="false">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/background_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#33000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layoutDirection="ltr">
+
+                <FrameLayout
+                    android:id="@+id/play_button"
+                    android:layout_width="@dimen/player_list_card_view_play_button_width"
+                    android:layout_height="@dimen/player_list_card_view_play_button_width"
+                    android:layout_marginLeft="14dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                    <ImageView
+                        android:layout_width="@dimen/player_list_play_button_width"
+                        android:layout_height="@dimen/player_list_play_button_width"
+                        android:layout_gravity="center"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/p0003_quickplaybtn_1nrm" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/title_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-light"
+                    android:maxLines="1"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/element_list_item_single_title_text_size" />
+            </LinearLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

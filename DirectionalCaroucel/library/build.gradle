@@ -1,0 +1,17 @@
+apply plugin: 'com.android.library'
+apply from: '../../constants.gradle'
+android {
+    compileSdkVersion project.ext.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion project.ext.minSdkVersion
+        targetSdkVersion project.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:support-v4:'+ project.ext.supportLibraryVersion
+    implementation 'com.android.support:appcompat-v7:'+ project.ext.supportLibraryVersion
+}

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/custom_key_setting_height"
+    android:orientation="vertical"
+    android:layoutDirection="ltr" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="@dimen/custom_key_setting_item_left_margin"
+        android:orientation="horizontal"
+        android:layoutDirection="ltr" >
+
+        <ImageView
+            android:id="@+id/imageIcon"
+            android:layout_width="@dimen/custom_key_setting_icon_size"
+            android:layout_height="@dimen/custom_key_setting_icon_size"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/custom_key_setting_icon_right_margin"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@android:id/text1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/custom_key_setting_text_left_margin"
+            android:layout_marginRight="@dimen/custom_key_setting_text_right_margin"
+
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:gravity="left|center_vertical"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white"
+
+            android:textSize="@dimen/custom_key_setting_text_size_portrait"
+            android:visibility="visible" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/autofit_text1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/custom_key_setting_text_left_margin"
+            android:layout_marginRight="@dimen/custom_key_setting_text_right_margin"
+
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:gravity="left|center_vertical"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white"
+
+            android:textSize="@dimen/custom_key_setting_text_size_portrait"
+            android:visibility="gone"
+            autofit:minTextSize="@dimen/min_text_size_16" />
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginRight="@dimen/custom_key_setting_radiobutton_right_margin_portrait"
+            android:clickable="false"
+            android:focusable="false" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/separator_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#40FFFFFF"
+        android:visibility="visible"/>
+
+</LinearLayout>

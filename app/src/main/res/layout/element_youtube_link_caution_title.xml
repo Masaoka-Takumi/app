@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<me.grantland.widget.AutofitTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:ellipsize="end"
+    android:fontFamily="sans-serif-light"
+    android:gravity="center"
+    android:maxLines="1"
+    android:padding="0dp"
+    android:singleLine="true"
+    android:text="@string/sta_004"
+    android:textColor="@android:color/white"
+    android:textSize="@dimen/youtube_link_caution_title_size"
+    autofit:minTextSize="@dimen/min_text_size_16" />

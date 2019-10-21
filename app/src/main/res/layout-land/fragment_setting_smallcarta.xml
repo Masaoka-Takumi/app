@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:layoutDirection="ltr"
+    android:background="@color/setting_container_background_color">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:id="@+id/custom_view"
+            android:layout_width="275dp"
+            android:layout_height="275dp"
+            android:layout_margin="8dp"
+            android:layout_centerInParent="true">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.5"
+                android:background="@drawable/p0058_chamferbase" />
+
+            <ImageView
+                android:id="@+id/preset_view"
+                android:layout_width="match_parent"
+                android:layout_height="199dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="4dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0670_pta_amini_r" />
+
+            <ImageView
+                android:id="@+id/left_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/speakerL"
+                android:layout_toRightOf="@+id/speakerL"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_launcher"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/right_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/speakerR"
+                android:layout_toLeftOf="@+id/speakerR"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_launcher"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/speakerR"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_launcher"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/speakerL"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_launcher"
+                android:visibility="gone" />
+
+            <me.grantland.widget.AutofitTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/radioGroup"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/set_192"
+                android:gravity="left"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textSize="20dp"
+                autofit:minTextSize="@dimen/min_text_size_8" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:orientation="horizontal"
+                android:layoutDirection="ltr">
+
+                <RadioButton
+                    android:id="@+id/front_l"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/back_left"
+                    android:button="@null"
+                    android:checked="true"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:text="@string/set_076"
+                    android:lines="1"
+					android:ellipsize="end"
+                    android:textColor="@android:color/white"
+                    android:textSize="22dp" />
+
+                <RadioButton
+                    android:id="@+id/front_r"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/back_right"
+                    android:button="@null"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center"
+                    android:text="@string/set_080"
+                    android:lines="1"
+					android:ellipsize="end"
+                    android:textColor="@android:color/white"
+                    android:textSize="22dp" />
+            </RadioGroup>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <include layout="@layout/element_setting_list" />
+</LinearLayout>

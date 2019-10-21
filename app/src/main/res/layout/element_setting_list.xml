@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_view"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1.16"
+    android:background="#80000000"
+    android:divider="#66FFFFFF"
+    android:dividerHeight="1dp"
+    android:layoutDirection="ltr"
+    android:paddingLeft="16dp"
+    android:scrollbarSize="4dp"
+    android:scrollbarStyle="outsideOverlay"
+    android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb" />

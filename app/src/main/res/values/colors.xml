@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="status_bar_text_color">#FFFFFF</color>
+    <color name="drawable_white_color">#FFFFFF</color>
+    <color name="drawable_red_color">#FF0000</color>
+    <color name="drawable_white_color_pale">#99FFFFFF</color>
+    <!-- Illumination Color -->
+    <color name="illumi_color_white">#FFFFFF</color>
+    <color name="illumi_color_red">#CC0000</color>
+    <color name="illumi_color_amber">#D6B641</color>
+    <color name="illumi_color_orange">#FFB74C</color>
+    <color name="illumi_color_yellow">#FFFF00</color>
+    <color name="illumi_color_pure_green">#00FF00</color>
+    <color name="illumi_color_green">#00FF41</color>
+    <color name="illumi_color_turquoise">#4387E9</color>
+    <color name="illumi_color_light_blue">#BAB7E0</color>
+    <color name="illumi_color_blue">#0C00CC</color>
+    <color name="illumi_color_purple">#C400CC</color>
+    <color name="illumi_color_pink">#EF8F9C</color>
+    <color name="illumi_color_scan">#000000</color>
+
+    <!-- UI Color -->
+    <color name="ui_color_aqua">#0cc3d3</color>
+    <color name="ui_color_blue">#0078FF</color>
+    <color name="ui_color_green">#1de622</color>
+    <color name="ui_color_yellow">#e2e415</color>
+    <color name="ui_color_amber">#ff7200</color>
+    <color name="ui_color_red">#ff0000</color>
+    <color name="ui_color_pink">#ff00fc</color>
+
+    <color name="ui_color_red_pale">#66ff0000</color>
+    <color name="ui_color_green_pale">#661de622</color>
+    <color name="ui_color_blue_pale">#660000cc</color>
+    <color name="ui_color_aqua_pale">#660cc3d3</color>
+    <color name="ui_color_yellow_pale">#66e2e415</color>
+    <color name="ui_color_amber_pale">#66ff7200</color>
+    <color name="ui_color_pink_pale">#66ff00fc</color>
+
+    <color name="list_item_none">#66000000</color>
+    <color name="list_item_pressed">#33dce8f4</color>
+    <color name="list_item_selected">#33dce8f4</color>
+    <color name="list_item_selected_music">#80ffffff</color>
+
+    <color name="player_button_icon_none">#66FFFFFF</color>
+    <color name="list_divider">#66FFFFFF</color>
+    <color name="audio_speaker_flfr">#1DCBDD</color>
+    <color name="audio_speaker_rlrr">#CD0054</color>
+    <color name="audio_speaker_sw">#D49F2E</color>
+
+    <color name="text_color_disable">#848484</color>
+    <color name="text_color_pressed">#80ffffff</color>
+
+    <color name="parking_sensor_color_red">#FE0000</color>
+    <color name="parking_sensor_color_orange">#FF8000</color>
+    <color name="parking_sensor_color_yellow">#FFFF00</color>
+    <color name="parking_sensor_color_lime">#00FF00</color>
+    <color name="parking_sensor_color_error_title">#FFAE00</color>
+
+    <color name="tips_indicator_color">#4c646d</color>
+    <color name="tips_background_color">#000000</color>
+    <color name="tips_divider_color">#80ffffff</color>
+
+    <color name="custom_scroll_solid_color">#00ffffff</color>
+
+    <color name="agreement_background">#43000000</color>
+
+    <color name="circle_indicator_page_color">#40FFFFFF</color>
+
+    <color name="alexa_setting_main_color">#00a5cf</color>
+    <color name="alexa_setting_logout_color">#ea1e63</color>
+    <color name="alexa_setting_text_color">#405558</color>
+    <color name="alexa_setting_sub_text_color">#93a0a1</color>
+    <color name="alexa_setting_link_text_color">#00a5cf</color>
+
+    <color name="setting_container_background_color">#33000000</color>
+    <color name="setting_container_background_color_95">#F2000000</color>
+    <color name="setting_container_background_color_50">#80000000</color>
+    <color name="setting_container_background_color_40">#66000000</color>
+    <color name="setting_container_background_color_30">#4D000000</color>
+    <color name="background_color_20">#33000000</color>
+    <color name="grey240">#f0f0f0</color>
+    <color name="grey300">#E0E0E0</color>
+    <color name="grey600">#757575</color>
+    <color name="grey_800">#ff424242</color>
+    <color name="time_shift_off">#B3FFFFFF</color>
+</resources>

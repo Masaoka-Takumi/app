@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="jp.pioneer.mbg.android.vozsis">
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <application>
+<!--        android:name="jp.pioneer.mbg.appradio.Bentobox.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/androidicon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/androidicon"
+        android:supportsRtl="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:theme="@style/AppTheme">-->
+<!--        <activity
+            android:name="jp.pioneer.mbg.appradio.Bentobox.Login.RootActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing"
+            android:configChanges="orientation|screenSize|uiMode"
+            android:launchMode="singleTask"
+            android:theme="@style/SplashTheme">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="pioneer-voice-driveconnect" />
+                <data android:scheme="wlbasicsampleapp" />
+            </intent-filter>
+        </activity>>-->
+        <activity android:name="com.amazon.identity.auth.device.workflow.WorkflowActivity"
+                  android:theme="@android:style/Theme.NoDisplay"
+                  android:allowTaskReparenting="true"
+                  android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <!-- android:host must use the full package name found in Manifest General Attributes -->
+                <data android:host="${applicationId}" android:scheme="amzn"/>
+            </intent-filter>
+        </activity>
+
+<!--        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="${crashlyticsEnabled}"
+            />-->
+    </application>
+
+</manifest>

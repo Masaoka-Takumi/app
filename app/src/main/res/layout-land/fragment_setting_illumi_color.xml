@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/set_049"
+        android:gravity="left"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/theme_set_footer_text_size"
+        autofit:minTextSize="@dimen/min_text_size_8" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/footer"
+        android:layout_below="@+id/title_text"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="4dp">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_max="@dimen/illumination_color_setting_color_palette_width_max_land"
+            app:layout_constraintDimensionRatio="H,526:165"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/color_palette"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0180_colorpalet" />
+
+            <RelativeLayout
+                android:id="@+id/target_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/p0037_illcolorbtn_1nrm" />
+
+                <ImageView
+                    android:id="@+id/point_light"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/p0038_illcolorbtn_1nrm" />
+            </RelativeLayout>
+        </FrameLayout>
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/illumination_color_setting_footer_height"
+        android:layout_alignParentBottom="true"
+        android:layoutDirection="ltr"
+        android:background="#73000000"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="top|center_horizontal"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <me.grantland.widget.AutofitTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="6dp"
+                android:alpha="0.75"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/set_160"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/theme_set_footer_text_size"
+                autofit:minTextSize="@dimen/min_text_size_8" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="22dp"
+                android:gravity="center_horizontal">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/color_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="36dp"
+                    android:paddingRight="10dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/illumination_color_setting_footer_divider_height"
+            android:background="#ff100808" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/illumination_color_setting_footer_divider_height"
+            android:background="#40ffffff" />
+
+        <RelativeLayout
+            android:layout_width="@dimen/illumination_color_setting_custom_width"
+            android:layout_height="match_parent"
+            android:gravity="top|center_horizontal"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <me.grantland.widget.AutofitTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:alpha="0.75"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:text="@string/set_046"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/theme_set_footer_text_size"
+                autofit:minTextSize="@dimen/min_text_size_8" />
+
+            <include
+                android:id="@+id/custom_item"
+                layout="@layout/element_list_item_illumi_color"
+                android:layout_width="@dimen/illumination_color_setting_item_width"
+                android:layout_height="@dimen/illumination_color_setting_item_width"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="22dp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/disable_layer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.4"
+        android:background="@android:color/black"
+        android:visibility="gone" />
+</RelativeLayout>

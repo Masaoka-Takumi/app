@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/element_player_status_bar" />
+
+    <include
+        android:id="@+id/section_top"
+        layout="@layout/element_player_section_top_normal_alexa"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/player_music_section_button_margin_land_alexa"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <include
+        android:id="@+id/section_bottom"
+        layout="@layout/element_player_section_bottom_bar"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/player_music_section_bottom_height_alexa_land"
+        android:layout_marginBottom="@dimen/player_music_section_bottom_margin_land_alexa"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="invisible" />
+    <include
+        android:id="@+id/shortcut_group"
+        layout="@layout/element_shortcut_keys_bar" />
+</android.support.constraint.ConstraintLayout>

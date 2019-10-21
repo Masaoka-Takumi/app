@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.acbelter.directionalcarousel.page.PageLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:layoutDirection="ltr"
+    android:orientation="vertical">
+
+    <com.acbelter.directionalcarousel.fglayout.ForegroundRelativeLayout
+        android:id="@+id/page_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxWidth="@dimen/theme_select_page_content_width_portrait"
+            android:maxHeight="@dimen/theme_select_page_content_width_portrait"
+            android:layout_alignParentLeft="true">
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_max="@dimen/theme_select_page_content_width_portrait"
+                app:layout_constraintDimensionRatio="w,1:1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+            <RelativeLayout
+                android:id="@+id/item_select"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/p0068_chamferselect" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/p0067_chamferselect" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/p0066_chamferbase" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/item_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/theme_select_page_item_view_margin"
+                android:layout_centerInParent="true"
+                android:background="@android:color/black"
+                android:scaleType="centerCrop" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/custom_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="16dp"
+                android:alpha="0.85"
+                android:fontFamily="sans-serif-thin"
+                android:gravity="center"
+                android:lines="1"
+                android:text="@string/set_255"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/theme_select_page_custom_text_size_portrait"
+                autofit:minTextSize="@dimen/min_text_size_16"/>
+
+            <TextView
+                android:id="@+id/item_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left"
+                android:textColor="@android:color/white"
+                android:textSize="24dp" />
+
+            <ImageView
+                android:id="@+id/live_mark"
+                android:layout_width="@dimen/theme_select_page_live_mark_width_portrait"
+                android:layout_height="@dimen/theme_select_page_live_mark_height_portrait"
+                android:layout_marginLeft="19dp"
+                android:layout_marginTop="19dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0072_live" />
+        </RelativeLayout>
+        </android.support.constraint.ConstraintLayout>
+    </com.acbelter.directionalcarousel.fglayout.ForegroundRelativeLayout>
+</com.acbelter.directionalcarousel.page.PageLayout>

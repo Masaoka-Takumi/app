@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="setting_debug_log_enabled"
+        android:layout="@layout/element_preference_switch"
+        android:order="10"
+        android:persistent="false"
+        android:title="@string/dbg_002" />
+    <Preference
+        android:key="setting_debug_classic_bt_link_key"
+        android:layout="@layout/element_preference_base"
+        android:order="20"
+        android:title="@string/dbg_003" />
+    <Preference
+        android:key="setting_debug_ble_link_key"
+        android:layout="@layout/element_preference_base"
+        android:order="30"
+        android:title="@string/dbg_004" />
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="setting_debug_impact_detection_debug_mode_enabled"
+        android:layout="@layout/element_preference_switch"
+        android:order="40"
+        android:persistent="false"
+        android:title="@string/dbg_007" />
+    <Preference
+        android:key="setting_debug_adas_warning"
+        android:layout="@layout/element_preference_base"
+        android:order="50"
+        android:title="@string/dbg_005" />
+    <Preference
+        android:key="setting_debug_smart_phone_interrupt"
+        android:layout="@layout/element_preference_base"
+        android:order="60"
+        android:title="@string/dbg_006" />
+    <Preference
+        android:key="setting_debug_go_home"
+        android:layout="@layout/element_preference_base"
+        android:order="70"
+        android:title="@string/dbg_008" />
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="setting_debug_special_eq_debug_mode_enabled"
+        android:layout="@layout/element_preference_switch"
+        android:order="80"
+        android:persistent="false"
+        android:title="@string/dbg_009" />
+    <Preference
+        android:key="setting_debug_tips_Server"
+        android:layout="@layout/element_preference_base"
+        android:order="90"
+        android:title="@string/dbg_010" />
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="setting_debug_version_1_1_function"
+        android:layout="@layout/element_preference_switch"
+        android:order="110"
+        android:persistent="false"
+        android:title="@string/dbg_030" />
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="setting_debug_adas_sim_judgement"
+        android:layout="@layout/element_preference_switch"
+        android:order="114"
+        android:persistent="false"
+        android:title="@string/setting_debug_adas_sim_judgement" />
+    <Preference
+        android:key="setting_debug_adas_trial_reset"
+        android:layout="@layout/element_preference_base"
+        android:order="115"
+        android:title="@string/setting_debug_adas_trial_reset" />
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="setting_debug_adas_purchased"
+        android:layout="@layout/element_preference_switch"
+        android:order="120"
+        android:persistent="false"
+        android:title="@string/setting_debug_adas_purchased" />
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="setting_debug_adas_configured"
+        android:layout="@layout/element_preference_switch"
+        android:order="130"
+        android:persistent="false"
+        android:title="@string/setting_debug_adas_configured" />
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="setting_debug_adas_pseudo_cooperation"
+        android:layout="@layout/element_preference_switch"
+        android:order="135"
+        android:persistent="false"
+        android:title="@string/setting_debug_adas_pseudo_cooperation" />
+    <SeekBarPreference
+        android:key="setting_debug_vr_delay_time"
+        android:layout="@layout/element_preference_seekbar"
+        android:order="150"
+        android:title="@string/setting_debug_vr_delay_time"
+        app:showSeekBarValue="true" />
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="setting_debug_running_status"
+        android:layout="@layout/element_preference_switch"
+        android:order="160"
+        android:persistent="false"
+        android:title="@string/setting_debug_running_status" />
+    <Preference
+        android:key="setting_debug_home_center_view"
+        android:layout="@layout/element_preference_base"
+        android:order="165"
+        android:title="@string/setting_debug_home_center_view" />
+    <jp.pioneer.carsync.presentation.view.widget.NumberPickerPreference
+        android:key="setting_debug_adas_car_speed"
+        android:title="@string/setting_debug_adas_car_speed"
+        android:defaultValue="0"
+        android:dialogTitle="@string/setting_debug_adas_car_speed"
+        android:layout="@layout/element_preference_base"
+        android:order="170"
+        android:summary="%s km/h"
+        app:maxValue="40"
+        app:minValue="0"
+        app:wrapSelectorWheel="false" />
+    <jp.pioneer.carsync.presentation.view.widget.NumberPickerPreference
+        android:key="setting_debug_adas_ldw_min_speed"
+        android:title="@string/setting_debug_adas_ldw_min_speed"
+        android:defaultValue="0"
+        android:dialogTitle="@string/setting_debug_adas_ldw_min_speed"
+        android:layout="@layout/element_preference_base"
+        android:order="180"
+        android:summary="&gt;= %s km/h"
+        app:maxValue="60"
+        app:minValue="0"
+        app:wrapSelectorWheel="false" />
+    <jp.pioneer.carsync.presentation.view.widget.NumberPickerPreference
+        android:key="setting_debug_adas_ldw_max_speed"
+        android:title="@string/setting_debug_adas_ldw_max_speed"
+        android:defaultValue="0"
+        android:dialogTitle="@string/setting_debug_adas_ldw_max_speed"
+        android:layout="@layout/element_preference_base"
+        android:order="190"
+        android:summary="&lt; %s km/h"
+        app:maxValue="251"
+        app:minValue="0"
+        app:wrapSelectorWheel="false" />
+    <jp.pioneer.carsync.presentation.view.widget.NumberPickerPreference
+        android:key="setting_debug_adas_pcw_min_speed"
+        android:title="@string/setting_debug_adas_pcw_min_speed"
+        android:defaultValue="0"
+        android:dialogTitle="@string/setting_debug_adas_pcw_min_speed"
+        android:layout="@layout/element_preference_base"
+        android:order="200"
+        android:summary="&gt;= %s km/h"
+        app:maxValue="40"
+        app:minValue="0"
+        app:wrapSelectorWheel="false" />
+    <jp.pioneer.carsync.presentation.view.widget.NumberPickerPreference
+        android:key="setting_debug_adas_pcw_max_speed"
+        android:title="@string/setting_debug_adas_pcw_max_speed"
+        android:defaultValue="0"
+        android:dialogTitle="@string/setting_debug_adas_pcw_max_speed"
+        android:layout="@layout/element_preference_base"
+        android:order="210"
+        android:summary="&lt; %s km/h"
+        app:maxValue="251"
+        app:minValue="0"
+        app:wrapSelectorWheel="false" />
+    <jp.pioneer.carsync.presentation.view.widget.NumberPickerPreference
+        android:key="setting_debug_adas_fcw_min_speed"
+        android:title="@string/setting_debug_adas_fcw_min_speed"
+        android:defaultValue="0"
+        android:dialogTitle="@string/setting_debug_adas_fcw_min_speed"
+        android:layout="@layout/element_preference_base"
+        android:order="220"
+        android:summary="&gt;= %s km/h"
+        app:maxValue="40"
+        app:minValue="0"
+        app:wrapSelectorWheel="false" />
+    <jp.pioneer.carsync.presentation.view.widget.NumberPickerPreference
+        android:key="setting_debug_adas_fcw_max_speed"
+        android:title="@string/setting_debug_adas_fcw_max_speed"
+        android:defaultValue="0"
+        android:dialogTitle="@string/setting_debug_adas_fcw_max_speed"
+        android:layout="@layout/element_preference_base"
+        android:order="230"
+        android:summary="&lt; %s km/h"
+        app:maxValue="251"
+        app:minValue="0"
+        app:wrapSelectorWheel="false" />
+    <jp.pioneer.carsync.presentation.view.widget.NumberPickerPreferenceFloat
+        android:key="setting_debug_adas_accelerate_y_range"
+        android:title="@string/setting_debug_adas_accelerate_y_range"
+        android:defaultValue="0"
+        android:dialogTitle="@string/setting_debug_adas_accelerate_y_range"
+        android:layout="@layout/element_preference_base"
+        android:order="231"
+        android:summary="± %s G"
+        app:maxValue="1000"
+        app:minValue="0"
+        app:wrapSelectorWheel="false" />
+    <jp.pioneer.carsync.presentation.view.widget.NumberPickerPreferenceFloat
+        android:key="setting_debug_adas_accelerate_z_range_min"
+        android:title="@string/setting_debug_adas_accelerate_z_range"
+        android:defaultValue="0"
+        android:dialogTitle="@string/setting_debug_adas_accelerate_z_range"
+        android:layout="@layout/element_preference_base"
+        android:order="233"
+        android:summary="&gt;= %s G"
+        app:maxValue="1000"
+        app:minValue="-999"
+        app:wrapSelectorWheel="false" />
+    <jp.pioneer.carsync.presentation.view.widget.NumberPickerPreferenceFloat
+        android:key="setting_debug_adas_accelerate_z_range_max"
+        android:title="@string/setting_debug_adas_accelerate_z_range"
+        android:defaultValue="0"
+        android:dialogTitle="@string/setting_debug_adas_accelerate_z_range"
+        android:layout="@layout/element_preference_base"
+        android:order="234"
+        android:summary="&lt;= %s G"
+        app:maxValue="999"
+        app:minValue="-1000"
+        app:wrapSelectorWheel="false" />
+    <jp.pioneer.carsync.presentation.view.widget.NumberPickerPreference
+        android:key="setting_debug_adas_fps"
+        android:title="@string/setting_debug_adas_fps"
+        android:defaultValue="0"
+        android:dialogTitle="@string/setting_debug_adas_fps"
+        android:layout="@layout/element_preference_base"
+        android:order="240"
+        android:summary="%s fps"
+        app:maxValue="30"
+        app:minValue="0"
+        app:wrapSelectorWheel="false" />
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="setting_debug_adas_camera_view"
+        android:layout="@layout/element_preference_switch"
+        android:title="@string/setting_debug_adas_camera_view"
+        android:order="250"
+        android:persistent="false" />
+</PreferenceScreen>

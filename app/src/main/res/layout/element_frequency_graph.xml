@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/advanced_audio_setting_graph_height"
+        android:layout_alignTop="@+id/filterGraphViewL"
+        android:layout_marginRight="2dp"
+        android:layout_toLeftOf="@id/filterGraphViewL"
+        android:gravity="center_vertical"
+        android:text="@string/set_109"
+        android:lines="1"
+        android:textColor="@color/drawable_white_color"
+        android:textSize="@dimen/advanced_audio_setting_graph_text_size" />
+
+    <jp.pioneer.carsync.presentation.view.widget.FilterGraphView
+        android:id="@+id/filterGraphViewL"
+        android:layout_width="@dimen/advanced_audio_setting_graph_width_portrait"
+        android:layout_height="@dimen/advanced_audio_setting_graph_height"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp" />
+
+    <jp.pioneer.carsync.presentation.view.widget.FilterFrequencyView
+        android:id="@+id/frequenciesL"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/advanced_audio_setting_filter_frequency_height_land"
+        android:layout_alignLeft="@+id/filterGraphViewL"
+        android:layout_alignRight="@+id/filterGraphViewL"
+        android:layout_below="@+id/filterGraphViewL"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginTop="4.5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/advanced_audio_setting_graph_height"
+        android:layout_alignTop="@+id/filterGraphViewR"
+        android:layout_marginRight="2dp"
+        android:layout_toLeftOf="@id/filterGraphViewR"
+        android:gravity="center_vertical"
+        android:text="@string/set_169"
+        android:lines="1"
+        android:textColor="@color/drawable_white_color"
+        android:textSize="@dimen/advanced_audio_setting_graph_text_size" />
+
+    <jp.pioneer.carsync.presentation.view.widget.FilterGraphView
+        android:id="@+id/filterGraphViewR"
+        android:layout_width="@dimen/advanced_audio_setting_graph_width_portrait"
+        android:layout_height="@dimen/advanced_audio_setting_graph_height"
+        android:layout_below="@+id/filterGraphViewL"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp" />
+
+</RelativeLayout>

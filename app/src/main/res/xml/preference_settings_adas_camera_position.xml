@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SeekBarPreference
+        android:key="@string/key_adas_camera_camera_height"
+        android:layout="@layout/element_preference_seekbar"
+        android:order="40"
+        android:title="@string/set_247"
+        app:showSeekBarValue="false" />
+
+    <SeekBarPreference
+        android:key="@string/key_adas_camera_front_nose_distance"
+        android:layout="@layout/element_preference_seekbar"
+        android:order="50"
+        android:title="@string/set_248"
+        app:showSeekBarValue="false" />
+
+    <SeekBarPreference
+        android:key="@string/key_adas_camera_vehicle_width"
+        android:layout="@layout/element_preference_seekbar"
+        android:order="60"
+        android:title="@string/set_249"
+        app:showSeekBarValue="false" />
+
+
+</PreferenceScreen>

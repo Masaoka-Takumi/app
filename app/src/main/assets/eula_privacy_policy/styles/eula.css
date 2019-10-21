@@ -1,0 +1,43 @@
+﻿body {
+    word-wrap: break-word;
+    color: #ffffff;
+}
+.bold {
+    font-weight: bold;
+}
+.underline {
+    text-decoration: underline;
+}
+.title {
+    text-align: center;
+    margin: 40px auto;
+    font-size: 2em;
+    font-weight: bold;
+    max-width: 90%;
+}
+.sup_text {
+    vertical-align: super;
+    font-size: 0.5em;
+}
+.last_update {
+    text-align: right;
+    margin: 30px auto;
+}
+.last_update[dir=rtl] {
+    text-align: center;
+}
+.list_style_roman {
+    list-style-type: lower-roman;
+}
+.list_style_roman > li {
+    line-height: 2;
+}
+.list_style_alphabet {
+    list-style-type: lower-alpha;
+}
+.list_style_alphabet > li {
+    line-height: 2;
+}
+.company_name {
+    margin-top: 2em;
+}

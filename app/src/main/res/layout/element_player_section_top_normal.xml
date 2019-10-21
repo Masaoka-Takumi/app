@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/section_bottom">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_group"
+        android:layout_marginTop="50dp">
+
+        <ImageView
+            android:id="@+id/jacket_view"
+            android:layout_width="236dp"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:adjustViewBounds="true"
+            android:maxHeight="236dp"
+            android:maxWidth="236dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/p0070_noimage" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/button_group"
+        android:layout_width="match_parent"
+        android:layout_height="154dp"
+        android:layout_alignParentBottom="true">
+
+        <include
+            android:id="@+id/source_button"
+            layout="@layout/element_player_button_left"
+            android:layout_width="154dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="-76dp" />
+
+        <include
+            android:id="@+id/visualizer_button"
+            layout="@layout/element_player_button_center_vis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/source_button"
+            android:layout_toLeftOf="@+id/center_line" />
+
+        <View
+            android:id="@+id/center_line"
+            android:layout_width="1dp"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+        <include
+            android:id="@+id/fx_button"
+            layout="@layout/element_player_button_center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/center_line"
+            android:layout_toLeftOf="@+id/list_button" />
+
+        <include
+            android:id="@+id/list_button"
+            layout="@layout/element_player_button_right"
+            android:layout_width="154dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="-76dp" />
+
+    </RelativeLayout>
+</RelativeLayout>

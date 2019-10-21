@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+    <SurfaceView
+        android:id="@+id/surfaceView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/p1231_adasbg_002"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <RelativeLayout
+        android:id="@+id/line"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="H,750:114"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <ImageView
+            android:id="@+id/line_back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p1238_adasline_p" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p1237_adasline" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line_point"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/narrow_caution"
+        android:layout_width="@dimen/adas_calibration_narrow_caution_width"
+        android:layout_height="@dimen/adas_calibration_narrow_caution_height"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p1504_myadaserror"
+        android:layout_marginBottom="14dp"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_center"/>
+
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/caution_text"
+        android:layout_width="@dimen/adas_calibration_caution_text_width"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="14dp"
+        android:lineSpacingMultiplier="@dimen/line_spacing_multiplier_1_2"
+        android:fontFamily="sans-serif-light"
+        android:gravity="bottom|start"
+        android:maxLines="3"
+        android:singleLine="false"
+        android:text="@string/set_294"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/adas_calibration_caution_text_size"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_center"
+        autofit:minTextSize="@dimen/min_text_size_8" />
+    <ImageView
+        android:id="@+id/up_btn"
+        android:layout_width="@dimen/adas_calibration_button_width"
+        android:layout_height="@dimen/adas_calibration_button_width"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p1502_adasup"
+        android:visibility="gone"
+        android:layout_marginRight="@dimen/adas_calibration_button_margin"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/down_btn"/>
+    <ImageView
+        android:id="@+id/down_btn"
+        android:layout_width="@dimen/adas_calibration_button_width"
+        android:layout_height="@dimen/adas_calibration_button_width"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p1503_adasdown"
+        android:visibility="gone"
+        android:layout_marginBottom="14dp"
+        android:layout_marginRight="@dimen/adas_calibration_button_margin"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_center"/>
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <ImageButton
+        android:id="@+id/back_btn"
+        android:layout_width="@dimen/adas_calibration_button_width"
+        android:layout_height="@dimen/adas_calibration_button_width"
+        android:layout_marginLeft="@dimen/adas_calibration_button_margin"
+        android:layout_marginTop="@dimen/adas_calibration_button_margin"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p1180_btn_back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="@dimen/adas_calibration_button_margin"
+        android:layout_marginRight="@dimen/adas_calibration_button_margin"
+        android:layout_marginTop="@dimen/adas_calibration_title_margin_top_portrait"
+        android:lineSpacingMultiplier="@dimen/line_spacing_multiplier_1_2"
+        android:fontFamily="sans-serif-light"
+        android:gravity="top|center_horizontal"
+        android:maxLines="3"
+        android:singleLine="false"
+        android:text="@string/set_293"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/adas_calibration_title_text_size_portrait"
+        app:layout_constraintLeft_toRightOf="@+id/back_btn"
+        app:layout_constraintRight_toLeftOf="@+id/next_btn"
+        app:layout_constraintTop_toTopOf="parent"
+        autofit:minTextSize="@dimen/min_text_size_12" />
+
+    <ImageButton
+        android:id="@+id/next_btn"
+        android:layout_width="@dimen/adas_calibration_button_width"
+        android:layout_height="@dimen/adas_calibration_button_width"
+        android:layout_marginRight="@dimen/adas_calibration_button_margin"
+        android:layout_marginTop="@dimen/adas_calibration_button_margin"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p1220_btn_next"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

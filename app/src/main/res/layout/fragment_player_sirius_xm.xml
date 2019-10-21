@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/status_bar"
+        layout="@layout/element_player_status_bar" />
+
+    <jp.pioneer.carsync.presentation.view.widget.CustomGestureLayout
+        android:id="@+id/gesture_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/player_music_gesture_margin_portrait"
+        android:layout_marginTop="@dimen/player_sxm_center_margin_top_portrait"
+        android:background="#CC000000"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_top"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/center_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/jacket_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0192_infoplate_select"
+                android:tint="?attr/uiColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/band_text"
+                android:layout_width="@dimen/player_radio_band_text_width_portrait"
+                android:layout_height="0dp"
+                android:paddingLeft="25dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left|center_vertical"
+                android:lines="1"
+                android:text=""
+                android:textColor="?attr/textButtonUiColor"
+                android:clickable="true"
+                android:textSize="@dimen/player_radio_band_text_size_portrait"
+                app:layout_constraintBaseline_toBaselineOf="@+id/pch_text"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/channel_number_text" />
+
+            <TextView
+                android:id="@+id/pre_pch_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="right|center_vertical"
+                android:lines="1"
+                android:text="@string/ply_054"
+                android:textColor="?attr/uiColor"
+                android:textSize="@dimen/player_radio_band_text_size_portrait"
+                app:layout_constraintBaseline_toBaselineOf="@+id/pch_text"
+                app:layout_constraintRight_toLeftOf="@+id/pch_text" />
+
+            <TextView
+                android:id="@+id/pch_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="23dp"
+                android:layout_marginTop="0dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left|center_vertical"
+                android:lines="1"
+                android:text=""
+                android:textColor="?attr/uiColor"
+                android:textSize="@dimen/player_radio_pch_text_size_portrait"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/channel_number_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="23dp"
+                android:fontFamily="sans-serif-thin"
+                android:includeFontPadding="false"
+                android:gravity="center"
+                android:letterSpacing="-0.05"
+                android:lines="1"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="?attr/uiColor"
+                android:textSize="@dimen/player_sxm_channel_number_text_size_portrait"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+                autofit:minTextSize="@dimen/min_text_size_32"/>
+
+            <ImageView
+                android:id="@+id/favorite_view"
+                android:layout_width="@dimen/player_radio_pty_search_icon_width"
+                android:layout_height="@dimen/player_radio_pty_search_icon_width"
+                android:layout_marginBottom="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/button_favorite_off"
+                android:tint="?attr/uiColor"
+                android:clickable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+    </jp.pioneer.carsync.presentation.view.widget.CustomGestureLayout>
+
+    <include
+        android:id="@+id/gesture_view"
+        layout="@layout/element_player_gesture"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="@dimen/player_sxm_gesture_margin_top_portrait"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_top"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.50"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/section_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline_top">
+
+        <FrameLayout
+            android:id="@+id/channel_name_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/channel_name_text"
+                style="@style/AppTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/player_music_text_divider_padding"
+                android:layout_marginLeft="@dimen/player_music_text_divider_padding"
+                android:includeFontPadding="false"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:lines="1"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/player_music_music_title_text_size_portrait" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/music_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/channel_name_group"
+            android:alpha="0.75"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layoutDirection="ltr"
+            android:layout_marginRight="@dimen/player_music_text_divider_padding"
+            android:layout_marginLeft="@dimen/player_music_text_divider_padding"
+            android:paddingTop="0dp">
+
+            <!-- AutofitTextViewのフォントサイズダウンが発生したときにSXMアイコン以降の上下位置が変わってしまうことを防ぐために通常TextViewのダミーテキストラベルを置いている -->
+            <TextView
+                android:id="@+id/dummy_for_layout"
+                style="@style/AppTextViewStyle"
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center|center_vertical"
+                android:lines="1"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/player_music_music_sub_title_text_size_portrait"
+                android:text=" "
+                android:alpha="0" />
+
+            <jp.pioneer.carsync.presentation.view.widget.SwitchTextViewAutofit
+                android:id="@+id/music_information_text"
+                style="@style/AppTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center|center_vertical"
+                android:lines="1"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/player_music_music_sub_title_text_size_portrait" />
+        </LinearLayout>
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/sxm_icon"
+        android:layout_width="@dimen/player_sxm_sxm_icon_width_portrait"
+        android:layout_height="@dimen/player_sxm_sxm_icon_height_portrait"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="8dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p1400_sxmlogo"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/antenna_frame"
+        app:layout_constraintTop_toBottomOf="@+id/section_info" />
+    <FrameLayout
+        android:id="@+id/antenna_frame"
+        android:layout_width="@dimen/player_sxm_sxm_icon_width_portrait"
+        android:layout_height="@dimen/player_sxm_sxm_icon_height_portrait"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/sxm_icon"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/section_info" >
+    <ImageView
+        android:id="@+id/antenna_icon"
+        android:layout_width="@dimen/player_sxm_antenna_icon_width"
+        android:layout_height="@dimen/player_sxm_antenna_icon_height"
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p0491_antenna" />
+    </FrameLayout>
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/section_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/player_music_section_button_margin_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/antenna_frame">
+
+        <include
+            android:id="@+id/source_button"
+            layout="@layout/element_player_button_left"
+            android:layout_width="@dimen/player_music_large_button_width"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/player_music_large_button_margin"
+            android:layout_marginBottom="@dimen/player_streaming_large_button_margin_bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintRight_toRightOf="@+id/guideline_left" />
+
+
+        <include
+            android:id="@+id/visualizer_button"
+            layout="@layout/element_player_button_center_mini_vis"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/left_center_group"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+            app:layout_constraintRight_toRightOf="@+id/guideline_center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_goneMarginBottom="@dimen/player_streaming_center_button_gone_margin_bottom" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/left_center_group"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_max="@dimen/player_music_center_button_mini_width_max"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+            app:layout_constraintRight_toRightOf="@+id/guideline_center"
+            app:layout_constraintTop_toTopOf="@+id/guideline_center_horizontal"
+            app:layout_constraintVertical_bias="1.0">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0311_basebtn_1nrm" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0312_baseselectbtn_1nrm"
+                android:tint="?attr/uiColor" />
+
+            <FrameLayout
+                android:id="@+id/replay_button"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:foreground="@drawable/button_touch_effect"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/p0320_iconbtn_1nrm"
+                    android:tint="?attr/uiColor" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/channel_button"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:foreground="@drawable/button_touch_effect">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/p0321_iconbtn_1nrm"
+                    android:tint="?attr/uiColor" />
+            </FrameLayout>
+        </android.support.constraint.ConstraintLayout>
+
+
+        <include
+            android:id="@+id/fx_button"
+            layout="@layout/element_player_button_center_mini"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/right_center_group"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline_center"
+            app:layout_constraintRight_toRightOf="@+id/guideline_right"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_goneMarginBottom="@dimen/player_streaming_center_button_gone_margin_bottom" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/right_center_group"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_max="@dimen/player_music_center_button_mini_width_max"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline_center"
+            app:layout_constraintRight_toRightOf="@+id/guideline_right"
+            app:layout_constraintTop_toTopOf="@+id/guideline_center_horizontal"
+            app:layout_constraintVertical_bias="1.0">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0311_basebtn_1nrm" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0312_baseselectbtn_1nrm"
+                android:tint="?attr/uiColor" />
+
+            <FrameLayout
+                android:id="@+id/live_button"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:foreground="@drawable/button_touch_effect">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/p0322_iconbtn_1nrm"
+                    android:tint="?attr/uiColor" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/tune_mix_button"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:foreground="@drawable/button_touch_effect"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:id="@+id/tune_mix_button_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/p0319_iconbtn_1nrm"
+                    android:tint="?attr/uiColor" />
+            </FrameLayout>
+        </android.support.constraint.ConstraintLayout>
+
+        <include
+            android:id="@+id/list_button"
+            layout="@layout/element_player_button_right"
+            android:layout_width="@dimen/player_music_large_button_width"
+            android:layout_height="0dp"
+            android:layout_marginRight="@dimen/player_music_large_button_margin"
+            android:layout_marginBottom="@dimen/player_streaming_large_button_margin_bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline_right" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintGuide_percent="0.5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintGuide_percent="0.21"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintGuide_percent="0.5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintGuide_percent="0.79"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <include
+        android:id="@+id/progressbar"
+        layout="@layout/element_player_progress_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <include
+        android:id="@+id/fx_eq_message"
+        layout="@layout/element_fx_eq_message"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/player_music_fx_eq_message_height"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@+id/status_bar"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_top"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+</android.support.constraint.ConstraintLayout>

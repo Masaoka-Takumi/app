@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="AppTheme">
+        <attr name="uiColor" format="color" />
+        <attr name="textButtonUiColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="ShuffleButton">
+        <attr name="shuffleEnabled" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="TimeshiftButton">
+        <attr name="timeshiftEnabled" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="LiveButton">
+        <attr name="liveEnabled" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ReplayButton">
+        <attr name="replayEnabled" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="RepeatButton">
+        <attr name="repeatOne" format="boolean" />
+        <attr name="repeatAll" format="boolean" />
+        <attr name="repeatFolder" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="TimeScaleView">
+        <attr name="degree" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="BufferScaleView">
+        <attr name="bufdegree" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="SeekBarPreferenceCompat">
+        <attr name="max" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="AudioSettingSeekBarPreference">
+        <attr name="min" />
+    </declare-styleable>
+
+    <declare-styleable name="BeatBlasterSeekBarPreference">
+        <attr name="currentValueLabels" format="reference" />
+    </declare-styleable>
+
+    <attr name="zoomSupported" format="boolean" />
+
+    <declare-styleable name="EqualizerPreference">
+        <attr name="defaultTextDisplayStep" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="EqualizerGraphView">
+        <attr name="lineWidth" />
+        <attr name="lineColor" format="color" />
+
+        <attr name="graduationLineSize" format="dimension" />
+        <attr name="graduationLineColor" format="color" />
+
+        <attr name="textSize" format="dimension" />
+        <attr name="textColor" format="color" />
+        <attr name="textMarginTop" format="dimension" />
+
+        <attr name="knobWidth" format="dimension" />
+        <attr name="knobHeight" format="dimension" />
+        <attr name="knobRound" format="dimension" />
+        <attr name="knobColor" format="color" />
+
+        <attr name="bandFrequencyLabels" format="reference" />
+        <attr name="minStep" format="integer" />
+        <attr name="maxStep" format="integer" />
+        <attr name="textDisplayStep" format="integer" />
+
+        <attr name="insetX" format="dimension" />
+        <attr name="zoomSupported" />
+        <attr name="zoomedKnobWidth" format="dimension" />
+        <attr name="zoomedInsetX" format="dimension" />
+        <attr name="zoomedBandIntervalRate" format="float" />
+
+    </declare-styleable>
+
+    <declare-styleable name="SpeakerInfoView">
+        <attr name="speakerEnabled" format="boolean" />
+        <attr name="speakerIconBackgroundTint" format="color" />
+        <attr name="speakerType">
+            <enum name="FL" value="0" />
+            <enum name="FR" value="1" />
+            <enum name="RL" value="2" />
+            <enum name="RR" value="3" />
+            <enum name="SW" value="4" />
+            <enum name="HL" value="5" />
+            <enum name="HR" value="6" />
+            <enum name="ML" value="7" />
+            <enum name="MR" value="8" />
+        </attr>
+        <attr name="speakerLevel" format="integer" />
+        <attr name="highPassFilterFrequency" format="float" />
+        <attr name="lowPassFilterFrequency" format="float" />
+        <attr name="timeAlignment" format="float" />
+        <attr name="timeAlignmentUnit">
+            <enum name="cm" value="0" />
+            <enum name="inch" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="SpeakerSettingMenuView">
+        <attr name="speakerType" />
+        <attr name="speakerTypeLineColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="Theme">
+        <attr name="seekBarPreferenceCompatStyle" format="reference" />
+        <attr name="equalizerPreferenceStyle" format="reference" />
+        <attr name="jasperEqualizerPreferenceStyle" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="PresetChannelButton">
+        <attr name="presetChannelNumber" format="integer" />
+        <attr name="frequency" format="integer" />
+        <attr name="frequencyUnit">
+            <enum name="kHZ" value="1" />
+            <enum name="MHZ1" value="2" />
+            <enum name="MHZ2" value="3" />
+            <enum name="MHZ3" value="4" />
+        </attr>
+        <attr name="channelInfo" format="string" />
+        <attr name="appearance">
+            <enum name="COLOR1" value="0" />
+            <enum name="COLOR2" value="1" />
+            <enum name="COLOR3" value="2" />
+            <enum name="COLOR4" value="3" />
+            <enum name="COLOR5" value="4" />
+            <enum name="COLOR6" value="5" />
+        </attr>
+    </declare-styleable>
+
+    <attr name="playbackState">
+        <enum name="pause" value="0" />
+        <enum name="play" value="1" />
+        <enum name="none" value="2" />
+    </attr>
+    <declare-styleable name="PlayPauseButton">
+        <attr name="playbackState" />
+
+        <attr name="playImage" format="reference" />
+        <attr name="pauseImage" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="TunemixButton">
+        <attr name="tunemixEnabled" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ChannelModeButton">
+        <attr name="channelModeEnabled" format="boolean" />
+    </declare-styleable>
+
+    <attr name="state_on" format="boolean" />
+
+    <declare-styleable name="SeatView">
+        <attr name="audioOutputMode">
+            <enum name="standard" value="0" />
+            <enum name="network" value="1" />
+        </attr>
+
+        <attr name="listeningPosition">
+            <enum name="off" value="0" />
+            <enum name="frontLeft" value="1" />
+            <enum name="frontRight" value="2" />
+            <enum name="front" value="3" />
+            <enum name="all" value="4" />
+        </attr>
+        <attr name="seatBackgroundTint" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="TimeAlignmentButton">
+        <attr name="taMode">
+            <enum name="initial" value="0" />
+            <enum name="ata" value="1" />
+            <enum name="custom" value="2" />
+            <enum name="off" value="3" />
+        </attr>
+        <attr name="valueColor" format="color" />
+    </declare-styleable>
+
+    <attr name="selectedRingColor" format="color" />
+    <declare-styleable name="ColorPickerView">
+        <attr name="android:title" />
+        <attr name="selectedRingColor" />
+    </declare-styleable>
+
+    <declare-styleable name="ColorPickerButton">
+        <attr name="android:checked" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomColorSeekBar">
+        <attr name="android:max" />
+        <attr name="android:progress" />
+        <attr name="color" />
+    </declare-styleable>
+
+    <declare-styleable name="AutoRepeatButton">
+        <attr name="initial_delay" format="integer" />
+        <attr name="repeat_interval" format="integer" />
+        <attr name="debug_mode" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="CheckableButton">
+        <attr name="android:checked" />
+    </declare-styleable>
+
+    <declare-styleable name="ExtendedTextView">
+        <attr name="baselineMode">
+            <enum name="top" value="-1" />
+            <enum name="bottom" value="0x7fffffff" />
+        </attr>
+    </declare-styleable>
+
+    <attr name="values" format="reference" />
+
+    <declare-styleable name="Ac2EqualizerGraphView">
+        <attr name="color" />
+    </declare-styleable>
+
+    <declare-styleable name="Ac2EqualizerGraphView_ContentView">
+        <attr name="values" />
+        <attr name="strokeColor" />
+        <attr name="baseCircleSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="MiniPlayerView">
+        <attr name="backButtonDirection">
+            <enum name="up" value="0" />
+            <enum name="down" value="1" />
+        </attr>
+        <attr name="playbackState" />
+        <attr name="primaryText" format="string" />
+        <attr name="secondaryText" format="string" />
+        <attr name="primaryTextOnly" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="AutofitTextView">
+        <!-- Minimum size of the text. -->
+        <attr name="minTextSize" format="dimension" />
+        <!-- Amount of precision used to calculate the correct text size to fit within its
+        bounds. Lower precision is more precise and takes more time. -->
+        <attr name="precision" format="float" />
+        <!-- Defines whether to automatically resize text to fit to the view's bounds. -->
+        <attr name="sizeToFit" format="boolean" />
+    </declare-styleable>
+
+    <!-- RecyclerViewにscrollbarを表示 -->
+    <attr name="verticalRecyclerViewStyle" format="reference" />
+
+    <!-- これらの設定は、styleable AutofitTextView の値を上書き -->
+    <declare-styleable name="AutoshrinkTextView">
+        <attr name="auto_resize_font" format="boolean" />
+        <attr name="limit_max_fontsize" format="boolean" />
+        <attr name="limit_min_fontsize" format="boolean" />
+        <attr name="resize_font_unit" format="string" />
+        <attr name="resize_font_min" format="float" />
+        <attr name="resize_font_max" format="float" />
+        <attr name="indent_size" format="float" />
+        <attr name="log_debug_message" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="NumberPickerPreference">
+        <attr name="minValue" format="integer|reference" />
+        <attr name="maxValue" format="integer|reference" />
+        <attr name="wrapSelectorWheel" format="boolean" />
+    </declare-styleable>
+</resources>

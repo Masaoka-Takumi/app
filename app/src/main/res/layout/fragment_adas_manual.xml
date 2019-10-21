@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey240">
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:requiresFadingEdge="vertical"
+        android:scrollbarSize="4dp"
+        android:scrollbarThumbVertical="@drawable/scrollbar_thumb_black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="top|start"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:singleLine="false"
+                android:text="@string/set_343"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/adas_usage_caution_text_size" />
+
+            <ImageView
+                android:layout_width="@dimen/adas_manual_image1_width"
+                android:layout_height="@dimen/adas_manual_image1_height"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="4dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p1760_adas_illust_01" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="top|start"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:singleLine="false"
+                android:text="@string/set_344"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/adas_usage_caution_text_size" />
+
+            <ImageView
+                android:layout_width="@dimen/adas_manual_image2_width"
+                android:layout_height="@dimen/adas_manual_image2_height"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="4dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p1761_adas_illust_02" />
+
+            <ImageView
+                android:layout_width="@dimen/adas_manual_image2_width"
+                android:layout_height="@dimen/adas_manual_image2_height"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="4dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p1762_adas_illust_03" />
+
+            <ImageView
+                android:layout_width="@dimen/adas_manual_image2_width"
+                android:layout_height="@dimen/adas_manual_image2_height"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="4dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p1763_adas_illust_04" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="top|start"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:singleLine="false"
+                android:text="@string/set_345"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/adas_usage_caution_text_size" />
+
+            <ImageView
+                android:id="@+id/camera_position_image"
+                android:layout_width="@dimen/adas_manual_image1_width"
+                android:layout_height="@dimen/adas_manual_image1_height"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="4dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p1763_adas_illust_04" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="top|start"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:singleLine="false"
+                android:text="@string/set_346"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/adas_usage_caution_text_size" />
+
+            <ImageView
+                android:id="@+id/functioning_image"
+                android:layout_width="@dimen/adas_manual_car_icon_width"
+                android:layout_height="@dimen/adas_manual_car_icon_height"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="4dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_car_normal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="top|start"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:singleLine="false"
+                android:text="@string/set_347"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/adas_usage_caution_text_size" />
+
+            <ImageView
+                android:id="@+id/detecting_image"
+                android:layout_width="@dimen/adas_manual_car_icon_width"
+                android:layout_height="@dimen/adas_manual_car_icon_height"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="4dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_car_detected" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="top|start"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:singleLine="false"
+                android:text="@string/set_348"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/adas_usage_caution_text_size" />
+
+            <ImageView
+                android:id="@+id/error_image"
+                android:layout_width="@dimen/adas_manual_car_icon_width"
+                android:layout_height="@dimen/adas_manual_car_icon_height"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="4dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_car_error" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="top|start"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:singleLine="false"
+                android:text="@string/set_349"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/adas_usage_caution_text_size" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="top|start"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:singleLine="false"
+                android:text="@string/set_365"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/adas_usage_caution_text_size" />
+
+            <ImageView
+                android:id="@+id/adas_detecting_image"
+                android:layout_width="@dimen/adas_manual_image1_width"
+                android:layout_height="@dimen/adas_manual_image1_height"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="20dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/home_adas_detection" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

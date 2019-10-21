@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="player_music_portrait_top_guideline_percent">0.52</dimen>
+    <dimen name="player_music_alexa_portrait_top_guideline_percent">0.42</dimen>
+    <dimen name="player_music_land_guideline_left_percent">0.31</dimen>
+    <dimen name="player_music_land_guideline_right_percent">0.69</dimen>
+    <dimen name="player_music_land_fx_message_bias">0.63</dimen>
+    <dimen name="player_container_land_fx_message_bias">0.24</dimen>
+    <dimen name="player_list_left_padding">2dp</dimen>
+    <dimen name="list_divider_height">1dp</dimen>
+    <dimen name="music_list_landscape_let_padding">76dp</dimen>
+    <dimen name="line_spacing_multiplier_1_2">1.2</dimen>
+
+    <dimen name="advanced_audio_setting_graph_height_portrait">166dp</dimen>
+    <dimen name="advanced_audio_setting_graph_height_land">80dp</dimen>
+    <dimen name="advanced_audio_setting_graph_text_size">18sp</dimen>
+    <dimen name="advanced_audio_setting_graph_width_portrait">278dp</dimen>
+    <dimen name="advanced_audio_setting_graph_height">58dp</dimen>
+    <dimen name="advanced_audio_setting_graph_width_land">278dp</dimen>
+    <dimen name="advanced_audio_setting_filter_frequency_height_land">12dp</dimen>
+    <dimen name="advanced_audio_setting_filter_graph_text_width_land">10.5dp</dimen>
+</resources>

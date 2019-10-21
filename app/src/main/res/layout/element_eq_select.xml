@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/eq_pro_graph_select_point_width"
+    android:layout_height="@dimen/eq_pro_graph_select_point_width">
+    <ImageView
+        android:id="@+id/point_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/p0116_selecteq"
+        android:scaleType="fitCenter"/>
+    <View
+        android:id="@+id/point"
+        android:layout_width="7dp"
+        android:layout_height="7dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/oval" />
+</RelativeLayout>

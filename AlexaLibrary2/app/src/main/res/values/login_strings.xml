@@ -1,0 +1,164 @@
+<resources>
+
+    <!--ログイン画面で使ってる文字-->
+    <string name="login_initial_title" translatable="false">Terms and Conditions</string>
+    <string name="login_initial_disagree" translatable="false">Disagree</string>
+    <string name="login_initial_agree" translatable="false">Agree</string>
+
+    <string name="login_initial_start" translatable="false">Get Started</string>
+
+    <string name="login_top_login" translatable="false">Log in &amp; out</string>
+
+    <string name="login_alexa_title_before" translatable="false">Amazon Alexa</string>
+    <string name="login_alexa_title_after" translatable="false">Things to try</string>
+    <string name="login_alexa_title" translatable="false">Settings</string>
+
+    <string name="login_alexa_text1_before" translatable="false">
+        Your device includes access to Alexa.\n
+        Connect your Amazon account to\n
+        access personalized features.</string>
+
+    <string name="login_alexa_text2_before" translatable="false">
+        Alexa allows you to use your voice to play\n
+        music and get news, sports scores,\n
+        weather and more-all hands-free. All\n
+        you have to do is ask Alexa.\n</string>
+
+    <string name="login_alexa_text1_after" translatable="false">
+        What\'s the weather today?\n
+        Play my Flash Briefing.\n
+        Set a timer for 20 minutes.\n
+        Add \"Dinner with Mom\"\n
+        to my calender.\n
+        Set an alarm for 6 a.m.\n</string>
+
+    <string name="login_alexa_text2_after" translatable="false">
+        Add \"Dinner with Mom\"\n
+        to my calender.\n
+        Set an alarm for 6 a.m.</string>
+
+    <string name="login_alexa_text3_after" translatable="false">
+        To learn more and access additional features,</string>
+    <string name="login_alexa_text4_after" translatable="false">
+        download the</string>
+    <string name="login_alexa_text5_after" translatable="false">
+        Amazon Alexa App.</string>
+
+    <string name="login_alexa_sign_in" translatable="false">Sign in with Amazon</string>
+    <string name="login_alexa_sign_out" translatable="false">Sign out</string>
+
+    <string name="login_setting_title" translatable="false">Settings</string>
+    <string name="login_setting_close" translatable="false">Close</string>
+
+    <string name="login_setting_alexa_settings" translatable="false">Amazon Alexa Settings</string>
+    <string name="login_setting_language" translatable="false">Language</string>
+    <string name="login_setting_app_settings" translatable="false">App Settings</string>
+    <string name="login_setting_time_date" translatable="false">Time &amp; Date format</string>
+    <string name="login_setting_help_license" translatable="false">Help &amp; License</string>
+    <string name="login_setting_help" translatable="false">Help</string>
+    <string name="login_setting_license" translatable="false">License</string>
+    <string name="login_setting_eula" translatable="false">EULA</string>
+    <string name="login_setting_privacy_policy" translatable="false">Privacy Policy</string>
+    <string name="login_setting_debug" translatable="false">Debug Mode</string>
+    <string name="login_setting_copyright" translatable="false">&#169; 2018 Pioneer Corporation.</string>
+    <!--ここまで-->
+
+    <!--Things to try画面追加-->
+    <string name="things_to_try" translatable="false">Things to try</string>
+    <string name="things_to_try_description" translatable="false">You\'re ready to use Alexa. Here are some things to try:</string>
+    <string name="things_to_try_contents1" translatable="false">What\'s the \n weather today?</string>
+    <string name="things_to_try_contents2" translatable="false">Play my Flash \nBriefing.</string>
+    <string name="things_to_try_contents3" translatable="false">Play some \n jazz music.</string>
+
+
+
+    <string name="login_ok" translatable="false">OK</string>
+    <string name="login_first" translatable="false">New Alexa App</string>
+
+    <string name="login_langage" translatable="false">en</string>
+    <string name="login_version" translatable="false">1.0</string>
+
+    <string name="login" translatable="false">Login</string>
+
+    <string name="login_create" translatable="false">Create Account</string>
+
+    <string name="login_hint_user" translatable="false">E-mail address</string>
+    <string name="login_hint_password" translatable="false">Password</string>
+
+    <string name="login_start_message" translatable="false">Forgot password?</string>
+
+
+    <string name="login_logout" translatable="false">Logout</string>
+
+    <string name="login_welcome" translatable="false">Welcome</string>
+
+    <string name="login_store_title" translatable="false">Store</string>
+
+    <string name="login_alexa_setting" translatable="false">Amazon Alexa</string>
+    <string name="login_alexa_setting_language" translatable="false">Language</string>
+    <string name="login_alexa_setting_default" translatable="false">All Settings to Default</string>
+
+
+    <string name="login_set_version" translatable="false">Version </string>
+
+    <string name="login_help_title" translatable="false">Help</string>
+
+
+
+    <string name="login_help_url" translatable="false">helpmenu.html</string>
+
+    <string name="login_account_create" translatable="false">Create Account</string>
+
+    <string name="login_title_back" translatable="false">Back</string>
+    <string name="login_title_close" translatable="false">Close</string>
+
+    <string name="login_service" translatable="false">Services</string>
+    <string name="login_store" translatable="false">Store</string>
+    <string name="login_service_back" translatable="false">Back</string>
+    <string name="login_service_manage" translatable="false">Service Management</string>
+
+    <string name="login_fragment_tag_login" translatable="false">LoginFragment</string>
+    <string name="login_fragment_tag_logout" translatable="false">LogoutFragment</string>
+    <string name="login_fragment_tag_account" translatable="false">AccountFragment</string>
+    <string name="login_fragment_tag_connect" translatable="false">ConnectFragment</string>
+    <string name="login_fragment_tag_help" translatable="false">HelpFragment</string>
+    <string name="login_fragment_tag_setting" translatable="false">SettingFragment</string>
+    <string name="login_fragment_tag_setting_menu" translatable="false">SettingMenuFragment</string>
+
+    <string name="login_fragment_tag_alexaLogin" translatable="false">AlexaLoginFragment</string>
+    <string name="login_fragment_tag_service" translatable="false">ServiceFragment</string>
+    <string name="login_fragment_tag_tac" translatable="false">TermsAndConditionsFragment</string>
+
+    <string name="login_setting_file" translatable="false">LoginDefaults</string>
+<!-- 
+    <string name="login_zypr_address">http://m-api-bb.zypr.net/</string>
+    <string name="login_zypr_dev_address">http://m-api-dev-bb.zypr.net/</string>
+-->
+<!-- V1.3.2 ~ -->
+    <string name="login_zypr_address" translatable="false">https://assets-bb.zypr.net/</string>
+    <string name="login_zypr_dev_address" translatable="false">https://m-api-dev-bb-zypr-net.s3.amazonaws.com/</string>
+
+    <string name="login_bluetooth" translatable="false">ESOFT-PC104</string>
+
+    <string name="login_service_jump" translatable="false">Jump to </string>
+
+    <string name="login_setting_key_status" translatable="false">LoginStatus</string>
+    <string name="login_setting_key_connect" translatable="false">ConnectStatus</string>
+    <string name="login_setting_key_pp" translatable="false">PP</string>
+    <string name="login_setting_key_eula" translatable="false">EULA</string>
+    <string name="login_setting_key_tos" translatable="false">TOS</string>
+    <string name="login_setting_key_user_name" translatable="false">UserName</string>
+    <string name="login_setting_key_language" translatable="false">Language</string>
+    <string name="login_setting_key_billing" translatable="false">BillingIdx</string>
+
+    <string name="login_load_message" translatable="false">Now Loading ...</string>
+
+    <string name="login_store_buy" translatable="false">Buy</string>
+    <string name="login_store_restore" translatable="false">Restore</string>
+
+    <string name="login_store_purchased" translatable="false">Purchased !</string>
+
+    <string name="login_expiration_date" translatable="false">yyyy/MM/dd</string>
+
+
+</resources>

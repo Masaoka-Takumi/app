@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="login_font_14">10dp</dimen>
+    <dimen name="login_font_16">11dp</dimen>
+    <dimen name="login_font_18">13dp</dimen>
+    <dimen name="login_font_20">14dp</dimen>
+    <dimen name="login_font_22">15dp</dimen>
+    <dimen name="login_font_24">17dp</dimen>
+    <dimen name="login_font_26">18dp</dimen>
+    <dimen name="login_font_28">20dp</dimen>
+    <dimen name="login_font_30">21dp</dimen>
+    <dimen name="login_font_32">22dp</dimen>
+    <dimen name="login_font_34">24dp</dimen>
+    <dimen name="login_font_36">25dp</dimen>
+
+    <!--戻るボタンなし-->
+    <dimen name="login_title_padding1">32dp</dimen>
+    <!--戻るボタンあり-->
+    <dimen name="login_title_padding2">12dp</dimen>
+
+    <dimen name="login_setting_value_padding">16dp</dimen>
+    <dimen name="login_setting_image_padding">19dp</dimen>
+    <dimen name="login_setting_button_height">70dp</dimen>
+    <dimen name="login_title_height">70dp</dimen>
+    <dimen name="login_text_height">35dp</dimen>
+    <dimen name="login_button_height">57dp</dimen>
+    <dimen name="login_version_height">140dp</dimen>
+</resources>

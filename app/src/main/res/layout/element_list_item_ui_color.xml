@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ui_item"
+    android:layout_width="@dimen/ui_color_setting_list_item_color_width"
+    android:layout_height="@dimen/ui_color_setting_list_item_color_height"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+    <ImageView
+        android:id="@+id/check_icon"
+        android:layout_width="@dimen/ui_color_setting_list_item_check_icon_width"
+        android:layout_height="@dimen/ui_color_setting_list_item_check_icon_width"
+        android:layout_marginRight="1dp"
+        android:layout_toLeftOf="@+id/color_text"
+        android:scaleType="center"
+        android:src="@drawable/p0137_check" />
+
+    <TextView
+        android:id="@+id/color_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:textSize="@dimen/ui_color_setting_list_item_text_size" />
+
+    <ImageView
+        android:id="@+id/image_light"
+        android:layout_width="@dimen/ui_color_setting_list_item_image_width"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/ui_color_setting_list_item_image_margin"
+        android:layout_marginRight="@dimen/ui_color_setting_list_item_image_margin"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitEnd"
+        android:src="@drawable/p0134_colorbtn_1nrm" />
+
+    <ImageView
+        android:id="@+id/image_frame"
+        android:layout_width="@dimen/ui_color_setting_list_item_image_width"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/ui_color_setting_list_item_image_margin"
+        android:layout_marginRight="@dimen/ui_color_setting_list_item_image_margin"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitEnd"
+        android:src="@drawable/p0136_colobtnrlineselect_1nrm" />
+
+    <ImageView
+        android:id="@+id/image_frame_light"
+        android:layout_width="@dimen/ui_color_setting_list_item_image_width"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/ui_color_setting_list_item_image_margin"
+        android:layout_marginRight="@dimen/ui_color_setting_list_item_image_margin"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitEnd"
+        android:src="@drawable/p0135_colorbtnselect_1nrm" />
+
+</RelativeLayout>

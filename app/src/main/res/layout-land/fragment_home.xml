@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layoutDirection="ltr"
+        app:layout_goneMarginBottom="10dp"
+        app:layout_constraintHeight_max="@dimen/home_contents_height_max_land"
+        app:layout_constraintBottom_toTopOf="@+id/shortcut_group"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:id="@+id/player_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="35dp"></RelativeLayout>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="20dp"
+            android:background="#33000000" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="20dp"
+            android:background="#99FFFFFF" />
+
+        <RelativeLayout
+            android:id="@+id/clock_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="20dp"
+            android:background="#33000000" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="20dp"
+            android:background="#99FFFFFF" />
+
+        <RelativeLayout
+            android:id="@+id/speed_meter_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <include
+                android:id="@+id/speed_meter_layout"
+                layout="@layout/element_home_speed_meter" />
+            <include
+                android:id="@+id/adas_detecting_layout"
+                layout="@layout/element_home_adas_detecting"
+                android:visibility="gone"/>
+        </RelativeLayout>
+    </LinearLayout>
+    <include
+        android:id="@+id/status_bar"
+        layout="@layout/element_home_status_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/home_status_bar_height"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/setting_button_on_home_screen"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="@dimen/home_setting_button_large_width"
+        android:layout_height="@dimen/home_setting_button_large_width"
+        android:gravity="end"
+        >
+
+        <ImageView
+            android:layout_width="@dimen/home_setting_button_width"
+            android:layout_height="@dimen/home_setting_button_width"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p0166_settingbtn_1nrm"
+            android:alpha="0.6"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/shortcut_group"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/home_shortcut_group_height_land"
+        android:layout_alignParentBottom="true"
+        android:background="#4D000000"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="7dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp" />
+        <jp.pioneer.carsync.presentation.view.widget.CustomLinePageIndicator
+            android:id="@+id/line_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"></jp.pioneer.carsync.presentation.view.widget.CustomLinePageIndicator>
+    </RelativeLayout>
+    <include
+        android:id="@+id/src_message"
+        layout="@layout/element_fx_eq_message"
+        android:layout_width="@dimen/player_music_fx_eq_message_width_land"
+        android:layout_height="@dimen/player_music_fx_eq_message_height"
+        android:visibility="invisible"
+        app:layout_constraintVertical_bias="@dimen/player_container_land_fx_message_bias"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+</android.support.constraint.ConstraintLayout>

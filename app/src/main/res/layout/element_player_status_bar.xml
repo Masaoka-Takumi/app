@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/player_music_status_bar_height"
+    android:gravity="center_vertical"
+    android:layoutDirection="ltr"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextClock
+            android:id="@+id/clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:alpha="0.85"
+            android:fontFamily="sans-serif-light"
+            android:format12Hour="kk:mm"
+            android:format24Hour="kk:mm"
+            android:text="00:00"
+            android:gravity="center_vertical"
+            android:textColor="@color/status_bar_text_color"
+            android:textSize="@dimen/player_music_status_bar_clock_text_size_12" />
+        <jp.pioneer.carsync.presentation.view.widget.AmPmView
+            android:layout_marginBottom="4dp"
+            android:layout_alignBottom="@+id/clock"
+            android:layout_toEndOf="@+id/clock"
+            android:layout_marginLeft="2dp"
+            android:id="@+id/player_am_pm"
+            android:textSize="@dimen/player_music_status_bar_ampm_text_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XX"
+            android:alpha="0.85"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/status_bar_text_color"
+            />
+    </RelativeLayout>
+
+    <jp.pioneer.carsync.presentation.view.widget.BatteryView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp" />
+
+    <RelativeLayout
+        android:id="@+id/car_icon"
+        android:layout_width="@dimen/player_music_status_bar_car_icon_width"
+        android:layout_height="@dimen/player_music_status_bar_car_icon_height"
+        android:visibility="invisible">
+        <ImageView
+            android:id="@+id/car_icon_back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/p0103_icon_d"
+            android:scaleType="fitCenter"
+            android:alpha="0"
+            android:tint="@color/ui_color_aqua"/>
+        <ImageView
+            android:id="@+id/car_icon_back_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/p0103_icon_error_d"
+            android:scaleType="fitCenter"
+            android:alpha="0"
+            android:tint="@color/ui_color_red"/>
+        <ImageView
+            android:id="@+id/car_icon_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/p0103_icon"
+            android:scaleType="fitCenter" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <RelativeLayout
+        android:layout_width="@dimen/player_music_status_bar_logo_width"
+        android:layout_height="@dimen/player_music_status_bar_logo_height"
+        android:layout_marginRight="4dp">
+
+    <ImageView
+        android:id="@+id/alexa_av_logo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitEnd"
+        android:clickable="false"
+        android:focusable="false"
+        android:visibility="gone"/>
+
+    <WebView
+        android:id="@+id/web_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitEnd"
+        android:clickable="false"
+        android:focusable="false"
+        android:visibility="gone"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/player_setting_button"
+        android:layout_width="@dimen/home_setting_button_width"
+        android:layout_height="@dimen/home_setting_button_width"
+        android:alpha="0.6"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/p0166_settingbtn_1nrm" />
+
+    <LinearLayout
+        android:id="@+id/home_button"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginLeft="0dp"
+        android:layout_width="@dimen/home_setting_button_width"
+        android:layout_height="@dimen/home_setting_button_width"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="@dimen/player_music_status_bar_home_button_width"
+            android:layout_height="@dimen/player_music_status_bar_home_button_width"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p0102_icon" />
+    </LinearLayout>
+</LinearLayout>

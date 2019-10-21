@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/setting_container_background_color">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:layoutDirection="ltr">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/preset_view"
+                android:layout_width="@dimen/preset_eq_setting_view_width_land"
+                android:layout_height="@dimen/preset_eq_setting_view_width_land"
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/p0070_noimage" />
+
+            <RelativeLayout
+                android:id="@+id/custom_view"
+                android:layout_width="@dimen/preset_eq_setting_view_width_land"
+                android:layout_height="@dimen/preset_eq_setting_view_width_land"
+                android:layout_centerInParent="true">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.5"
+                    android:background="@drawable/p0058_chamferbase" />
+
+                <com.christophesmet.android.views.maskableframelayout.MaskableFrameLayout
+                    android:id="@+id/frm_mask"
+                    android:layout_width="@dimen/preset_eq_setting_frame_mask_width_land"
+                    android:layout_height="@dimen/preset_eq_setting_frame_mask_height_land"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="4dp"
+                    app:mask="@drawable/p0350_maskpreseteq"
+                    app:porterduffxfermode="DST_OUT">
+
+                    <jp.pioneer.carsync.presentation.view.widget.EqSettingGraphView
+                        android:id="@+id/graph_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </com.christophesmet.android.views.maskableframelayout.MaskableFrameLayout>
+
+                <RelativeLayout
+                    android:id="@+id/quick_set"
+                    android:layout_width="@dimen/preset_eq_setting_button_width_land"
+                    android:layout_height="@dimen/preset_eq_setting_button_height"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginLeft="4dp">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:alpha="0.3"
+                        android:background="@drawable/p0026_chamferbtn_1nrm" />
+
+                    <me.grantland.widget.AutofitTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="center"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:text="@string/set_168"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/preset_eq_setting_button_text_size"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        autofit:minTextSize="@dimen/min_text_size_8"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackground" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/pro_set"
+                    android:layout_width="@dimen/preset_eq_setting_button_width_land"
+                    android:layout_height="@dimen/preset_eq_setting_button_height"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_toRightOf="@+id/quick_set">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:alpha="0.3"
+                        android:background="@drawable/p0026_chamferbtn_1nrm" />
+
+                    <me.grantland.widget.AutofitTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="sans-serif-light"
+                        android:gravity="center"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:text="@string/set_166"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/preset_eq_setting_button_text_size"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        autofit:minTextSize="@dimen/min_text_size_8"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackground" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <include layout="@layout/element_setting_list" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/disable_layer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.4"
+        android:background="@android:color/black"
+        android:visibility="gone" />
+</RelativeLayout>

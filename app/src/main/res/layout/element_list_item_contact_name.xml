@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/element_list_item_height_66"
+    android:orientation="vertical"
+    android:layoutDirection="ltr">
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#66FFFFFF" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layoutDirection="ltr">
+
+        <ImageView
+            android:id="@+id/contact_icon"
+            android:layout_width="@dimen/contact_icon_width"
+            android:layout_height="@dimen/contact_icon_width"
+            android:layout_marginLeft="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/p0071_nocontact" />
+
+        <TextView
+            android:id="@+id/name_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:gravity="left|center_vertical"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/element_list_item_single_title_text_size" />
+
+        <ImageView
+            android:id="@+id/check_icon"
+            android:layout_width="@dimen/contact_check_icon_width"
+            android:layout_height="@dimen/contact_check_icon_width"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p0020_favoritebtn_1nrm"
+            android:clickable="true"
+            android:layout_marginRight="20dp"
+            android:background="?android:attr/selectableItemBackground"/>
+    </LinearLayout>
+    <View
+        android:id="@+id/separator_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="right"
+        android:background="#66FFFFFF"
+        android:visibility="gone"/>
+</LinearLayout>

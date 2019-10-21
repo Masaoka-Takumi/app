@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/carousel"
+        xmlns:carousel="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/footer">
+
+        <com.acbelter.directionalcarousel.CarouselViewPager
+            android:id="@+id/carousel_pager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            carousel:infinite="true"
+            carousel:scrollScalingMode="bigCurrent"
+            carousel:bigScale="1.0"
+            carousel:smallScale="0.9"
+            carousel:minPagesOffset="4dp"
+            carousel:sidePagesVisiblePart="0.1"
+            carousel:wrapPadding="0dp"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/theme_set_footer_height"
+        android:layout_alignParentBottom="true"
+        android:gravity="left"
+        android:background="@color/background_color_20"
+        android:orientation="vertical">
+        <me.grantland.widget.AutofitTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:text="@string/set_256"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/theme_set_footer_text_size"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:alpha="0.75"
+            autofit:minTextSize="@dimen/min_text_size_8"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layoutDirection="ltr"
+            android:gravity="bottom">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <RelativeLayout
+                android:id="@+id/disp_color_group"
+                android:layout_width="@dimen/theme_set_footer_item_width"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:alpha="0.5"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="left"
+                    android:text="@string/set_257"
+                    android:lines="1"
+					android:ellipsize="end"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/theme_set_footer_text_size" />
+
+                <include
+                    android:id="@+id/disp_color_image_group"
+                    android:layout_width="@dimen/theme_set_footer_item_width"
+                    android:layout_height="@dimen/theme_set_footer_item_color_height"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    layout="@layout/element_item_theme_set"/>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/key_color_group"
+                android:layout_width="@dimen/theme_set_footer_item_width"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:alpha="0.5"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="left"
+                    android:text="@string/set_258"
+                    android:lines="1"
+					android:ellipsize="end"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/theme_set_footer_text_size" />
+
+                <include
+                    android:id="@+id/key_color_image_group"
+                    layout="@layout/element_item_theme_set"
+                    android:layout_width="@dimen/theme_set_footer_item_width"
+                    android:layout_height="@dimen/theme_set_footer_item_color_height"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="@dimen/theme_set_footer_item_width"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:alpha="0.5"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="left"
+                    android:text="@string/set_259"
+                    android:lines="1"
+					android:ellipsize="end"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/theme_set_footer_text_size" />
+
+                <include
+                    android:id="@+id/ui_color_image_group"
+                    layout="@layout/element_item_theme_set"
+                    android:layout_width="@dimen/theme_set_footer_item_width"
+                    android:layout_height="@dimen/theme_set_footer_item_color_height"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        android:id="@+id/disable_layer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:alpha="0.4"
+        android:visibility="gone"/>
+</RelativeLayout>

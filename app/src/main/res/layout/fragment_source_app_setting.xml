@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#66000000"
+    android:orientation="vertical">
+
+    <include layout="@layout/element_navigation_bar" />
+
+    <LinearLayout
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/element_list_item_height_66"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:paddingLeft="@dimen/source_app_setting_portrait_left_padding"
+        android:paddingRight="@dimen/source_app_setting_right_padding">
+
+        <me.grantland.widget.AutofitTextView
+            autofit:minTextSize="@dimen/min_text_size_12"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:gravity="left|center_vertical"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="@string/src_002"
+            android:textAlignment="center"
+            android:textColor="@color/text_color_disable"
+            android:textSize="@dimen/element_list_item_single_title_text_size" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutDirection="ltr"
+        android:choiceMode="multipleChoice" />
+</LinearLayout>

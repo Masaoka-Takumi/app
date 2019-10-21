@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="@dimen/youtube_link_webview_backbutton_size"
+        android:layout_height="@dimen/youtube_link_webview_backbutton_size"
+        android:layout_marginTop="@dimen/youtube_link_webview_backbutton_top_margin"
+        android:layout_marginLeft="@dimen/youtube_link_webview_backbutton_left_margin"
+        android:layout_alignParentLeft="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/p1180_btn_back" />
+
+    <ImageButton
+        android:id="@+id/close_button"
+        android:layout_width="@dimen/youtube_link_webview_closebutton_size"
+        android:layout_height="@dimen/youtube_link_webview_closebutton_size"
+        android:layout_marginTop="@dimen/youtube_link_webview_closebutton_top_margin"
+        android:layout_marginRight="@dimen/youtube_link_webview_closebutton_right_margin"
+        android:layout_alignParentRight="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/p1190_btn_close" />
+
+</RelativeLayout>

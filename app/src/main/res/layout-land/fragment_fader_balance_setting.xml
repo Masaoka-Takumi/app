@@ -1,0 +1,113 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/setting_container_background_color">
+
+    <jp.pioneer.carsync.presentation.view.widget.FaderBalanceGraphView
+        android:id="@+id/faderBalanceGraph"
+        android:layout_width="@dimen/fader_balance_setting_landscape_faderBalanceGraph_width"
+        android:layout_height="@dimen/fader_balance_setting_landscape_faderBalanceGraph_height"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/fader_balance_setting_landscape_faderBalanceGraph_marginLeft"
+        android:background="@drawable/car_graph" />
+
+    <LinearLayout
+        android:id="@+id/textContainer"
+        android:layout_width="@dimen/fader_balance_setting_text_container_width"
+        android:layout_height="@dimen/fader_balance_setting_text_container_height"
+        android:layoutDirection="ltr"
+        android:layout_alignLeft="@+id/controlButtonContainer"
+        android:layout_alignTop="@+id/faderBalanceGraph"
+        android:layout_marginTop="-4dp"
+        android:orientation="horizontal">
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/faderText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-light"
+            android:gravity="left|center_vertical"
+            android:lines="1"
+            android:paddingRight="4dp"
+            android:text="Front 1"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/fader_balance_setting_text_size" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/balanceText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-light"
+            android:gravity="left|center_vertical"
+            android:lines="1"
+            android:text="Right 0"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/fader_balance_setting_text_size" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/controlButtonContainer"
+        android:layout_width="@dimen/fader_balance_setting_control_button_container_width"
+        android:layout_height="@dimen/fader_balance_setting_control_button_container_width"
+        android:layout_below="@+id/textContainer"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/fader_balance_setting_portlait_controlButtonContainer_marginLeft"
+        android:layout_toRightOf="@+id/faderBalanceGraph">
+
+        <jp.pioneer.carsync.presentation.view.widget.CustomButton
+            android:id="@+id/centerPositionButton"
+            android:layout_width="@dimen/fader_balance_setting_control_button_width"
+            android:layout_height="@dimen/fader_balance_setting_control_button_width"
+            android:layout_centerInParent="true"
+            android:background="@drawable/fbiconbtn_center_sec" />
+
+        <jp.pioneer.carsync.presentation.view.widget.CustomButton
+            android:id="@+id/faderDownButton"
+            android:layout_width="@dimen/fader_balance_setting_control_button_width"
+            android:layout_height="@dimen/fader_balance_setting_control_button_width"
+            android:layout_below="@+id/centerPositionButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/fader_balance_setting_control_button_margin"
+            android:background="@drawable/fbiconbtn_down_sec" />
+
+        <jp.pioneer.carsync.presentation.view.widget.CustomButton
+            android:id="@+id/faderUpButton"
+            android:layout_width="@dimen/fader_balance_setting_control_button_width"
+            android:layout_height="@dimen/fader_balance_setting_control_button_width"
+            android:layout_above="@+id/centerPositionButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/fader_balance_setting_control_button_margin"
+            android:background="@drawable/fbiconbtn_up_sec" />
+
+        <jp.pioneer.carsync.presentation.view.widget.CustomButton
+            android:id="@+id/balanceRightButton"
+            android:layout_width="@dimen/fader_balance_setting_control_button_width"
+            android:layout_height="@dimen/fader_balance_setting_control_button_width"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/fader_balance_setting_control_button_margin"
+            android:layout_toRightOf="@+id/centerPositionButton"
+            android:background="@drawable/fbiconbtn_right_sec" />
+
+        <jp.pioneer.carsync.presentation.view.widget.CustomButton
+            android:id="@+id/balanceLeftButton"
+            android:layout_width="@dimen/fader_balance_setting_control_button_width"
+            android:layout_height="@dimen/fader_balance_setting_control_button_width"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/fader_balance_setting_control_button_margin"
+            android:layout_toLeftOf="@+id/centerPositionButton"
+            android:background="@drawable/fbiconbtn_left_sec" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/disable_layer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:alpha="0.4"
+        android:visibility="gone"/>
+</RelativeLayout>

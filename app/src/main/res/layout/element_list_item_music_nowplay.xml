@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/element_list_item_height_66"
+    android:orientation="horizontal"
+    android:layoutDirection="ltr">
+
+    <ImageView
+        android:id="@+id/jacket_view"
+        android:layout_width="@dimen/element_list_item_height_66"
+        android:layout_height="@dimen/element_list_item_height_66"
+        android:scaleType="centerCrop" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:duplicateParentState="true">
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="-2dp"
+            android:layout_alignParentTop="true"
+            android:fontFamily="sans-serif-light"
+            android:gravity="left|top"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/element_list_item_title_text_size"
+            android:ellipsize="end"
+            android:duplicateParentState="true"
+            android:scrollHorizontally="true"/>
+        <ImageView
+            android:id="@+id/nowplay_icon"
+            android:layout_width="@dimen/player_list_now_playing_icon_width_portrait"
+            android:layout_height="@dimen/player_list_now_playing_icon_height_portrait"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="0dp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/animation_nowplay_portrait"
+            android:visibility="invisible"/>
+        <TextView
+            android:id="@+id/subtitle_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@+id/nowplay_icon"
+            android:layout_alignParentBottom="true"
+            android:fontFamily="sans-serif-light"
+            android:gravity="right|bottom"
+            android:lines="1"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/element_list_item_subtitle_text_size"
+            android:ellipsize="end"
+            android:alpha="0.35"/>
+    </RelativeLayout>
+
+</LinearLayout>

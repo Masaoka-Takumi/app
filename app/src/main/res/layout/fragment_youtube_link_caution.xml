@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <!--YouTubeLinkCaution画面タイトル-->
+    <include
+        android:id="@+id/caution_title"
+        layout="@layout/element_youtube_link_caution_title"
+        android:layout_width="@dimen/youtube_link_caution_title_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/youtube_link_caution_title_top_margin_portrait"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--YouTubeLinkCaution画面テキスト-->
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/caution_text"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/youtube_link_caution_text_left_margin_portrait"
+        android:layout_marginTop="@dimen/youtube_link_caution_text_top_margin_portrait"
+        android:layout_marginRight="@dimen/youtube_link_caution_text_right_margin_portrait"
+        android:layout_marginBottom="@dimen/youtube_link_caution_text_bottom_margin_portrait"
+        android:alpha="0.75"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-light"
+        android:gravity="top|center_horizontal"
+        android:maxLines="8"
+        android:text="@string/sta_011"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/youtube_link_caution_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/caution_title"
+        autofit:minTextSize="@dimen/min_text_size_12" />
+
+    <!--チャックボックス-->
+    <RelativeLayout
+        android:layout_width="@dimen/youtube_link_caution_confirm_button_width"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/youtube_link_caution_no_display_again_bottom_margin_portrait"
+        android:gravity="center_horizontal"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp">
+
+            <include layout="@layout/element_youtube_link_caution_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <!--チェックボックスタッチ領域-->
+    <View
+        android:id="@+id/no_display_again_touch_area"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/youtube_link_caution_no_display_again_check_box_height"
+        android:layout_marginLeft="@dimen/youtube_link_caution_no_display_again_touch_left_margin_portrait"
+        android:layout_marginRight="@dimen/youtube_link_caution_no_display_again_touch_right_margin_portrait"
+        android:layout_marginBottom="@dimen/youtube_link_caution_no_display_again_bottom_margin_portrait"
+        android:gravity="center_vertical"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <!--OKボタン-->
+    <include layout="@layout/element_youtube_link_caution_confirm_button"
+        android:id="@+id/youtube_link_confirm_button"
+        android:layout_width="@dimen/youtube_link_caution_confirm_button_width"
+        android:layout_height="@dimen/youtube_link_caution_confirm_button_height"
+        android:layout_marginBottom="@dimen/youtube_link_caution_confirm_button_bottom_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

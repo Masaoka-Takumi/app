@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.acbelter.directionalcarousel.page.PageLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layoutDirection="ltr"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <com.acbelter.directionalcarousel.fglayout.ForegroundRelativeLayout
+        android:id="@+id/page_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxWidth="@dimen/source_select_source_item_height_max"
+            android:maxHeight="@dimen/source_select_source_item_height_max">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="w,1:1"
+                app:layout_constraintHeight_max="@dimen/source_select_source_item_height_max"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/icon_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/source_select_source_item_margin"
+                    android:layout_marginTop="@dimen/source_select_source_item_margin"
+                    android:layout_marginRight="@dimen/source_select_source_item_margin"
+                    android:layout_marginBottom="@dimen/source_select_source_item_margin"
+                    android:alpha="0"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/p0080_select" />
+
+                <ImageView
+                    android:id="@+id/icon_oval"
+                    android:layout_width="@dimen/source_select_source_item_icon_oval_width"
+                    android:layout_height="@dimen/source_select_source_item_icon_oval_width"
+                    android:layout_centerInParent="true"
+                    android:alpha="0.6"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/oval" />
+
+                <ImageView
+                    android:id="@+id/icon"
+                    android:layout_width="@dimen/source_select_source_item_icon_width"
+                    android:layout_height="@dimen/source_select_source_item_icon_width"
+                    android:layout_centerInParent="true"
+                    android:alpha="0.8"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/p0081_music" />
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:visibility="invisible"
+                    tools:text="Title" />
+            </RelativeLayout>
+        </android.support.constraint.ConstraintLayout>
+    </com.acbelter.directionalcarousel.fglayout.ForegroundRelativeLayout>
+</com.acbelter.directionalcarousel.page.PageLayout>

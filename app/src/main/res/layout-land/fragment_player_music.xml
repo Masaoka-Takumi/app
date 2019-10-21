@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/element_player_status_bar" />
+    <include
+        android:id="@+id/section_top"
+        layout="@layout/element_player_section_top_normal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/section_bottom"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <include
+        android:id="@+id/section_bottom"
+        layout="@layout/element_player_section_bottom"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/player_music_section_bottom_height_land"
+        android:layout_marginBottom="@dimen/player_music_music_info_margin_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/currentTimeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/player_time_text_size"
+        android:text="0:00"
+        android:layout_marginBottom="9dp"
+        android:layout_marginLeft="4dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/section_top"
+        />
+
+    <TextView
+        android:id="@+id/remainingTimeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/player_time_text_size"
+        android:text="-0:00"
+        android:layout_marginBottom="9dp"
+        android:layout_marginRight="4dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/section_top"
+        />
+
+    <eightbitlab.com.blurview.BlurView
+        android:id="@+id/blurView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:blurOverlayColor="#00ffffff"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/seek_icon_back"
+                android:layout_width="@dimen/player_music_seek_icon_back_width"
+                android:layout_height="@dimen/player_music_seek_icon_back_width"
+                android:layout_centerInParent="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p1010_gesture_play"
+                android:tint="?attr/uiColor"/>
+            <ImageView
+                android:id="@+id/seek_icon"
+                android:layout_width="@dimen/player_music_seek_icon_back_width"
+                android:layout_height="@dimen/player_music_seek_icon_back_width"
+                android:layout_centerInParent="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p1011_gesture_play_h" />
+            <TextView
+                android:id="@+id/magnification_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="20dp"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-light"
+                android:gravity="right"
+                android:maxLines="1"
+                android:textColor="@android:color/white"
+                android:text="RRR"
+                android:textSize="@dimen/player_music_magnification_text_size"/>
+        </RelativeLayout>
+    </eightbitlab.com.blurview.BlurView>
+
+    <include
+        android:id="@+id/progressbar"
+        layout="@layout/element_player_progress_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+</android.support.constraint.ConstraintLayout>

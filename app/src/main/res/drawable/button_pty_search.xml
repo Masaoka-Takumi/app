@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" >
+        <bitmap android:src="@drawable/p0960_btn_ptysearch_1nrm" android:alpha="0.5"/>
+    </item>
+    <item android:drawable="@drawable/p0960_btn_ptysearch_1nrm" />
+</selector>

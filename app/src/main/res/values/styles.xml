@@ -1,0 +1,169 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="preferenceTheme">@style/MyPreferenceThemeOverlay</item>
+        <item name="android:listDivider">@color/list_divider</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="colorAccent">@color/ui_color_aqua</item>
+        <item name="uiColor">@color/ui_color_aqua</item>
+        <item name="verticalRecyclerViewStyle">@style/VerticalRecyclerView</item>
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:splitMotionEvents">false</item>
+
+    </style>
+
+    <style name="AppTheme.Blue">
+        <item name="colorAccent">@color/ui_color_blue</item>
+        <item name="uiColor">@color/ui_color_blue</item>
+        <item name="textButtonUiColor">@color/button_text_ui_color_blue</item>
+    </style>
+    <style name="AppTheme.Aqua">
+        <item name="colorAccent">@color/ui_color_aqua</item>
+        <item name="uiColor">@color/ui_color_aqua</item>
+        <item name="textButtonUiColor">@color/button_text_ui_color_aqua</item>
+    </style>
+    <style name="AppTheme.Green">
+        <item name="colorAccent">@color/ui_color_green</item>
+        <item name="uiColor">@color/ui_color_green</item>
+        <item name="textButtonUiColor">@color/button_text_ui_color_green</item>
+    </style>
+    <style name="AppTheme.Yellow">
+        <item name="colorAccent">@color/ui_color_yellow</item>
+        <item name="uiColor">@color/ui_color_yellow</item>
+        <item name="textButtonUiColor">@color/button_text_ui_color_yellow</item>
+    </style>
+    <style name="AppTheme.Amber">
+        <item name="colorAccent">@color/ui_color_amber</item>
+        <item name="uiColor">@color/ui_color_amber</item>
+        <item name="textButtonUiColor">@color/button_text_ui_color_amber</item>
+    </style>
+    <style name="AppTheme.Red">
+        <item name="colorAccent">@color/ui_color_red</item>
+        <item name="uiColor">@color/ui_color_red</item>
+        <item name="textButtonUiColor">@color/button_text_ui_color_red</item>
+    </style>
+    <style name="AppTheme.Pink">
+        <item name="colorAccent">@color/ui_color_pink</item>
+        <item name="uiColor">@color/ui_color_pink</item>
+        <item name="textButtonUiColor">@color/button_text_ui_color_pink</item>
+    </style>
+
+    <style name="SwitchStyle">
+        <!-- Active thumb color & Active track color(30% transparency) -->
+        <item name="colorControlActivated">?attr/uiColor</item>
+        <!-- Inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/grey300</item>
+        <!-- Inactive track color(30% transparency) -->
+        <item name="android:colorForeground">@color/grey600</item>
+    </style>
+
+    <style name="VerticalRecyclerView" parent="android:Widget">
+        <item name="android:scrollbars">vertical</item>
+    </style>
+
+    <style name="CustomAlertDialogStyle" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:background">@color/grey_800</item>
+        <item name="android:colorBackground">@color/grey_800</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="android:windowAnimationStyle">@style/DialogFragmentAnimation</item>
+        <item name="colorAccent">?attr/uiColor</item>
+    </style>
+
+    <style name="CautionStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="android:windowAnimationStyle">@style/DialogAnimationFade</item>
+    </style>
+
+    <style name="VRDialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+        <item name="android:windowAnimationStyle">@style/DialogAnimationFade</item>
+    </style>
+
+    <style name="BehindScreenStyle" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/DialogFragmentAnimation</item>
+    </style>
+
+    <style name="DialogFragmentAnimation">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
+
+    <style name="AppTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="AppMarqueeTextViewStyle" parent="AppTextViewStyle">
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:marqueeRepeatLimit">1</item>
+    </style>
+
+    <style name="borderLine">
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">#4CFFFFFF</item>
+    </style>
+    <style name="TimeAlignmentButton_LabelTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">"sans-serif-light"</item>
+        <item name="android:textColor">@color/ta_label_text</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="MyPreferenceThemeOverlay" parent="@style/PreferenceThemeOverlay">
+        <item name="preferenceFragmentStyle">@style/MyPreferenceFragment</item>
+        <item name="preferenceScreenStyle">@style/MyPreferenceScreenStyle</item>
+        <item name="preferenceFragmentListStyle">@style/MyPreferenceFragmentListStyle</item>
+    </style>
+    <style name="MyPreferenceFragment" parent="@style/PreferenceFragment">
+    </style>
+    <style name="MyPreferenceScreenStyle" parent="@style/Preference.PreferenceScreen">
+
+    </style>
+    <style name="MyPreferenceFragmentListStyle" parent="@style/PreferenceFragmentList">
+        <item name="android:background">@color/setting_container_background_color</item>
+        <item name="android:paddingLeft">@dimen/setting_preference_padding</item>
+        <item name="android:paddingRight">@dimen/setting_preference_padding</item>
+        <item name="android:paddingStart">@dimen/setting_preference_padding</item>
+        <item name="android:paddingEnd">@dimen/setting_preference_padding</item>
+    </style>
+
+    <style name="DialogAnimationFade" >
+        <item name="android:windowEnterAnimation">@anim/fade_in_dialog</item>
+        <item name="android:windowExitAnimation">@anim/fade_out_dialog</item>
+    </style>
+
+    <style name="CustomCirclePageIndicator">
+        <item name="fillColor">@android:color/white</item>
+        <item name="centered">true</item>
+        <item name="pageColor">@color/circle_indicator_page_color</item>
+        <item name="strokeColor">@android:color/transparent</item>
+        <item name="radius">4dp</item>
+        <item name="snap">false</item>
+    </style>
+
+    <style name="CustomKeySettingBehindScreenStyle" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/CustomKeySettingAnimation</item>
+    </style>
+
+    <style name="CustomKeySettingAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+
+</resources>

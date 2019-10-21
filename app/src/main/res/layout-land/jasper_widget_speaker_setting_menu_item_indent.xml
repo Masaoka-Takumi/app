@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jp.pioneer.carsync.presentation.view.widget.MyLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/myOutline"
+    android:layout_width="match_parent"
+    android:layout_height="66dp"
+    android:gravity="left|center_vertical"
+    android:minHeight="?attr/listPreferredItemHeightSmall"
+    android:orientation="horizontal"
+    android:layoutDirection="ltr"
+    android:paddingLeft="?attr/dialogPreferredPadding"
+    android:paddingRight="20dp">
+
+    <jp.pioneer.carsync.presentation.view.widget.AutoshrinkTextView
+        android:id="@android:id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:lines="1"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/set_200"
+        android:gravity="left"
+        android:textColor="@color/speaker_setting_menu_item_title"
+        android:textSize="29sp"
+        android:paddingLeft="24dp" />
+
+    <jp.pioneer.carsync.presentation.view.widget.AutoRepeatButton
+        android:id="@+id/decreaseButton"
+        android:layout_width="14dp"
+        android:layout_height="25dp"
+        android:background="@drawable/p0235_arrow_1nrm"
+        app:backgroundTint="@color/button_tint_color1" />
+
+    <jp.pioneer.carsync.presentation.view.widget.AutoshrinkTextView
+        android:id="@+id/currentValueText"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:lines="1"
+        android:fontFamily="sans-serif-light"
+        android:text="+20dB"
+        android:textColor="#1CD0DC"
+        android:textSize="23sp" />
+
+    <jp.pioneer.carsync.presentation.view.widget.AutoRepeatButton
+        android:id="@+id/increaseButton"
+        android:layout_width="14dp"
+        android:layout_height="25dp"
+        android:background="@drawable/p0235_arrow_1nrm"
+        android:rotation="180"
+        app:backgroundTint="@color/button_tint_color1" />
+
+    <jp.pioneer.carsync.presentation.view.widget.AutoRepeatButton
+        android:id="@+id/decreaseButton2"
+        android:layout_width="14dp"
+        android:layout_height="25dp"
+        android:background="@drawable/p0235_arrow_1nrm"
+        app:backgroundTint="@color/button_tint_color1"
+        android:layout_marginLeft="32dp" />
+
+    <jp.pioneer.carsync.presentation.view.widget.AutoshrinkTextView
+        android:id="@+id/currentValueText2"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:lines="1"
+        android:fontFamily="sans-serif-light"
+        android:text="+20dB"
+        android:textColor="#1CD0DC"
+        android:textSize="23sp" />
+
+    <jp.pioneer.carsync.presentation.view.widget.AutoRepeatButton
+        android:id="@+id/increaseButton2"
+        android:layout_width="14dp"
+        android:layout_height="25dp"
+        android:background="@drawable/p0235_arrow_1nrm"
+        android:rotation="180"
+        app:backgroundTint="@color/button_tint_color1" />
+
+</jp.pioneer.carsync.presentation.view.widget.MyLinearLayout>

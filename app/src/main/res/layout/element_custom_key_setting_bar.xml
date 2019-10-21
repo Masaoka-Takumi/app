@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/custom_key_setting_title_bar_height"
+    android:background="@android:color/black"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:layoutDirection="ltr" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:layoutDirection="ltr" >
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/custom_key_setting_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="53dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:maxLines="1"
+            android:padding="0dp"
+            android:singleLine="true"
+            android:text="@string/set_389"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/custom_key_setting_title_size"
+            autofit:minTextSize="@dimen/min_text_size_8" />
+
+        <ImageView
+            android:id="@+id/close_button"
+            android:layout_width="@dimen/custom_key_setting_closebtn_width"
+            android:layout_height="@dimen/custom_key_setting_closebtn_height"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="@dimen/custom_key_setting_closebtn_marginEnd"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p0001_closebtn_1nrm" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#40FFFFFF" />
+
+</LinearLayout>

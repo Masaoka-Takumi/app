@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/p1100_initial_bg">
+    <me.grantland.widget.AutofitTextView
+        android:layout_width="@dimen/easy_pairing_text1_width"
+        android:layout_height="0dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginBottom="19dp"
+        android:text="@string/tip_006"
+        android:fontFamily="sans-serif-light"
+        android:textSize="@dimen/easy_pairing_text_size"
+        android:gravity="bottom|center_horizontal"
+        android:lineSpacingExtra="@dimen/easy_pairing_text_line_spacing_extra"
+        android:maxLines="3"
+        app:layout_constraintVertical_bias="0.8"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/image"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/easy_pairing_image_width"
+        android:layout_height="@dimen/easy_pairing_image_height"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p1500_guidance"
+        app:layout_constraintVertical_bias="0.45"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <me.grantland.widget.AutofitTextView
+        android:layout_width="@dimen/easy_pairing_text2_width"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/easy_pairing_text_line_spacing_extra"
+        android:maxLines="3"
+        android:text="@string/tip_007"
+        android:textSize="@dimen/easy_pairing_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/add_device_button_group"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <RelativeLayout
+        android:id="@+id/add_device_button_group"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/easy_pairing_add_device_button_group_height"
+        android:layout_marginBottom="21dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        app:layout_constraintWidth_max="@dimen/easy_pairing_add_device_button_group_width"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.3"
+            android:background="@drawable/p0026_chamferbtn_1nrm" />
+        <me.grantland.widget.AutofitLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/add_device_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@string/tip_008"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/easy_pairing_add_device_button_text_size"
+                autofit:minTextSize="@dimen/min_text_size_8"/>
+        </me.grantland.widget.AutofitLayout>
+    </RelativeLayout>
+    <ImageButton
+        android:id="@+id/back_btn"
+        android:layout_width="@dimen/easy_pairing_back_button_width"
+        android:layout_height="@dimen/easy_pairing_back_button_width"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/p1180_btn_back"
+        android:background="?android:attr/selectableItemBackground"
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+</android.support.constraint.ConstraintLayout>

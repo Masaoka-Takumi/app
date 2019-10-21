@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/textView_start"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_list_item_height"
+            android:layout_marginLeft="@dimen/dimmer_setting_list_portrait_left_margin"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:gravity="left|center_vertical"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="@string/set_202"
+            android:textColor="@color/text_color_state"
+            android:textSize="@dimen/setting_list_item_title_text_size"
+            autofit:minTextSize="@dimen/min_text_size_8" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/textView_start"
+            android:layout_marginLeft="@dimen/dimmer_setting_list_portrait_left_margin"
+            android:background="#66FFFFFF" />
+
+        <jp.pioneer.carsync.presentation.view.widget.DimmerTimePicker
+            android:id="@+id/time_picker_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView_start"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:descendantFocusability="blocksDescendants"
+            android:timePickerMode="spinner" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/time_picker_start"
+            android:layout_marginLeft="@dimen/dimmer_setting_list_portrait_left_margin"
+            android:background="#66FFFFFF" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/textView_stop"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_list_item_height"
+            android:layout_below="@+id/time_picker_start"
+            android:layout_marginLeft="@dimen/dimmer_setting_list_portrait_left_margin"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:gravity="left|center_vertical"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="@string/set_205"
+            android:textColor="@color/text_color_state"
+            android:textSize="@dimen/setting_list_item_title_text_size"
+            autofit:minTextSize="@dimen/min_text_size_8" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/textView_stop"
+            android:layout_marginLeft="@dimen/dimmer_setting_list_portrait_left_margin"
+            android:background="#66FFFFFF" />
+
+        <jp.pioneer.carsync.presentation.view.widget.DimmerTimePicker
+            android:id="@+id/time_picker_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView_stop"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:descendantFocusability="blocksDescendants"
+            android:timePickerMode="spinner" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/time_picker_stop"
+            android:layout_marginLeft="@dimen/dimmer_setting_list_portrait_left_margin"
+            android:background="#66FFFFFF" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimmer_setting_list_button_height"
+            android:layout_below="@+id/time_picker_stop"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="12dp"
+            android:layout_toLeftOf="@+id/ok_button"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:maxWidth="@dimen/setting_dimmer_button_width"
+            android:maxLines="1"
+            android:minWidth="@dimen/dimmer_setting_list_button_min_width"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:singleLine="true"
+            android:text="@string/com_004"
+            android:textColor="?attr/colorAccent"
+            android:textSize="@dimen/dimmer_setting_list_button_text_size"
+            autofit:minTextSize="@dimen/min_text_size_8" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/ok_button"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimmer_setting_list_button_height"
+            android:layout_below="@+id/time_picker_stop"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:maxWidth="@dimen/setting_dimmer_button_width"
+            android:maxLines="1"
+            android:minWidth="@dimen/dimmer_setting_list_button_min_width"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:singleLine="true"
+            android:text="@string/set_364"
+            android:textColor="?attr/colorAccent"
+            android:textSize="@dimen/dimmer_setting_list_button_text_size"
+            autofit:minTextSize="@dimen/min_text_size_8" />
+    </RelativeLayout>
+</ScrollView>

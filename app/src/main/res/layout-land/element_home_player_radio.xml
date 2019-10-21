@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/center_glow"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="4dp"
+        app:layout_goneMarginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/progressbar"
+        app:layout_constraintDimensionRatio="413:392"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/center_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/guideline_bottom"
+            app:layout_constraintDimensionRatio="381:360"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline_top">
+
+            <ImageView
+                android:id="@+id/jacket_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:alpha="0.5"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0750_radioinfobase"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/band_text"
+                android:layout_width="@dimen/home_player_radio_band_width"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left|top"
+                android:lines="1"
+                android:text=""
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/home_player_radio_band_text_size_land"
+                app:layout_constraintBaseline_toBaselineOf="@+id/pch_text"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <TextView
+                android:id="@+id/pre_pch_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:gravity="right|center_vertical"
+                android:lines="1"
+                android:text="@string/ply_054"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/home_player_radio_band_text_size_land"
+                app:layout_constraintBaseline_toBaselineOf="@+id/pch_text"
+                app:layout_constraintRight_toLeftOf="@+id/pch_text" />
+
+            <TextView
+                android:id="@+id/pch_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left|center_vertical"
+                android:lines="1"
+                android:text=""
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/home_player_radio_pch_text_size_land"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/frequency_no_decimal_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:fontFamily="sans-serif-thin"
+                android:gravity="center"
+                android:letterSpacing="-0.05"
+                android:lines="1"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/home_player_radio_frequency_no_decimal_text_size_land"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.4"
+                autofit:minTextSize="@dimen/min_text_size_32" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/frequency_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:fontFamily="sans-serif-thin"
+                android:gravity="right|center_vertical"
+                android:letterSpacing="-0.05"
+                android:lines="1"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/home_player_radio_frequency_text_size_land"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@+id/guideline_decimal"
+                app:layout_constraintTop_toTopOf="parent"
+                autofit:minTextSize="@dimen/min_text_size_32" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/frequency_decimal_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:fontFamily="sans-serif-thin"
+                android:gravity="left|center_vertical"
+                android:letterSpacing="-0.05"
+                android:lines="1"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/home_player_radio_frequency_decimal_text_size_land"
+                android:visibility="visible"
+                app:layout_constraintBaseline_toBaselineOf="@+id/frequency_text"
+                app:layout_constraintLeft_toLeftOf="@+id/guideline_decimal"
+                app:layout_constraintRight_toRightOf="parent"
+                autofit:minTextSize="@dimen/min_text_size_16" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline_decimal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintGuide_percent="0.65"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/channel_number_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:fontFamily="sans-serif-thin"
+                android:gravity="center"
+                android:letterSpacing="-0.05"
+                android:lines="1"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/home_player_radio_channel_number_text_size_land"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                autofit:minTextSize="@dimen/min_text_size_16" />
+
+            <TextView
+                android:id="@+id/frequency_unit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="22dp"
+                android:layout_marginRight="12dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="right|center_vertical"
+                android:lines="1"
+                android:text=""
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/home_player_radio_frequency_unit_text_size_land"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <jp.pioneer.carsync.presentation.view.widget.ScrollTextView
+                android:id="@+id/service_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:lines="1"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/home_text_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p0751_radioinfoglow"
+            android:tint="?attr/uiColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p0752_radioinfoline"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintGuide_percent="0.04"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/center_glow"
+            app:layout_constraintGuide_percent="0.96"
+            app:layout_constraintLeft_toLeftOf="@+id/center_glow"
+            app:layout_constraintRight_toRightOf="@+id/center_glow"
+            app:layout_constraintTop_toTopOf="@+id/center_glow" />
+    </android.support.constraint.ConstraintLayout>
+    <include
+        android:id="@+id/progressbar"
+        layout="@layout/element_home_progress_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/music_title_group"
+        app:layout_constraintLeft_toLeftOf="@+id/center_glow"
+        app:layout_constraintRight_toRightOf="@+id/center_glow" />
+
+    <ImageView
+        android:id="@+id/antenna_icon"
+        android:layout_width="@dimen/home_player_radio_antenna_icon_width"
+        android:layout_height="@dimen/home_player_radio_antenna_icon_height"
+        android:layout_marginBottom="@dimen/home_player_radio_antenna_icon_margin_bottom"
+        android:layout_marginLeft="14dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p0491_antenna"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/music_title_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/antenna_icon"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <jp.pioneer.carsync.presentation.view.widget.ScrollTextView
+            android:id="@+id/music_title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:gravity="left"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:shadowColor="#99000000"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="25"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/home_text_size" />
+    </FrameLayout>
+</android.support.constraint.ConstraintLayout>

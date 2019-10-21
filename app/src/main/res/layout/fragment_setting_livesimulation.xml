@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/carousel"
+        xmlns:carousel="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/footer">
+
+        <com.acbelter.directionalcarousel.CarouselViewPager
+            android:id="@+id/carousel_pager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            carousel:infinite="true"
+            carousel:scrollScalingMode="bigCurrent"
+            carousel:bigScale="1.0"
+            carousel:smallScale="0.9"
+            carousel:minPagesOffset="4dp"
+            carousel:sidePagesVisiblePart="0.1"
+            carousel:wrapPadding="0dp"/>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/theme_set_footer_height"
+        android:layout_alignParentBottom="true"
+        android:background="@color/background_color_20">
+
+        <me.grantland.widget.AutofitTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="33dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:text="@string/set_197"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@android:color/white"
+            android:alpha="0.75"
+            android:textSize="@dimen/theme_set_footer_text_size"
+            autofit:minTextSize="@dimen/min_text_size_8" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="-4dp"
+            android:gravity="center">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/effect_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layoutDirection="ltr" />
+        </LinearLayout>
+    </RelativeLayout>
+    <View
+        android:id="@+id/disable_layer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:alpha="0.4"
+        android:visibility="gone"/>
+</RelativeLayout>

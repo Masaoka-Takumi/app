@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/shortcut_group"
+    android:layout_width="0dp"
+    android:layout_height="@dimen/home_shortcut_group_height_portrait"
+    android:layout_alignParentBottom="true"
+    android:background="#4D000000"
+    android:gravity="center"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent">
+
+    <jp.pioneer.carsync.presentation.view.widget.ShortCutKeyViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="9dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginLeft="6dp" />
+
+    <jp.pioneer.carsync.presentation.view.widget.CustomLinePageIndicatorPreset
+        android:id="@+id/line_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="0dp"></jp.pioneer.carsync.presentation.view.widget.CustomLinePageIndicatorPreset>
+</RelativeLayout>

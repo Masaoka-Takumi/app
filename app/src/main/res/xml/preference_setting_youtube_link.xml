@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="youtube_link_setting_enabled"
+        android:order="10"
+        android:persistent="false"
+        android:title="@string/hom_039"
+        android:layout="@layout/element_preference_switch"/>
+
+</PreferenceScreen>

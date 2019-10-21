@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/setting_container_background_color_50">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:foreground="@drawable/button_frame"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p1550_purchase"
+        app:layout_constraintHeight_max="@dimen/adas_billing_image_height"
+        app:layout_constraintDimensionRatio="w,327:184"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_top" />
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.32"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/textview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="6dp"
+        android:orientation="vertical"
+        android:gravity="top"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_top"
+        app:layout_constraintBottom_toTopOf="@+id/video_link_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/text_view1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="top|center_horizontal"
+            android:lineSpacingMultiplier="1.2"
+            android:maxLines="5"
+            android:singleLine="false"
+            android:text="@string/set_290"
+            android:textColor="@color/text_color_state"
+            android:textSize="@dimen/adas_billing_description_text_size"
+            autofit:minTextSize="@dimen/min_text_size_16" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/text_view2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.75"
+            android:fontFamily="sans-serif-light"
+            android:gravity="top|center_horizontal"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="@string/set_301"
+            android:textColor="@color/text_color_state"
+            android:textSize="@dimen/adas_billing_description_small_text_size"
+            autofit:minTextSize="@dimen/min_text_size_12" />
+
+    </LinearLayout>
+
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/video_link_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:alpha="0.75"
+        android:background="@drawable/button_frame"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.2"
+        android:maxLines="2"
+        android:padding="8dp"
+        android:singleLine="false"
+        android:text="@string/set_292"
+        android:textColor="@color/text_button_white"
+        android:textSize="@dimen/adas_billing_description_small_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/restore_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/restore_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="10dp"
+        android:alpha="0.75"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:maxLines="1"
+        android:padding="4dp"
+        android:singleLine="true"
+        android:text="@string/set_291"
+        android:textColor="@color/text_button_white"
+        android:textSize="@dimen/adas_billing_description_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/trial_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        autofit:minTextSize="@dimen/min_text_size_12" />
+
+    <RelativeLayout
+        android:id="@+id/trial_button"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/easy_pairing_add_device_button_group_height"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="12dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toTopOf="@+id/purchase_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintWidth_max="@dimen/easy_pairing_add_device_button_group_width">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.3"
+            android:background="@drawable/p0026_chamferbtn_1nrm" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/trial_button_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/adas_billing_purchase_button_text_size"
+            autofit:minTextSize="@dimen/min_text_size_8" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/purchase_button"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/easy_pairing_add_device_button_group_height"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="21dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintWidth_max="@dimen/easy_pairing_add_device_button_group_width">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.3"
+            android:background="@drawable/p0026_chamferbtn_1nrm" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/purchase_btn_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/adas_billing_purchase_button_text_size"
+            autofit:minTextSize="@dimen/min_text_size_8" />
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

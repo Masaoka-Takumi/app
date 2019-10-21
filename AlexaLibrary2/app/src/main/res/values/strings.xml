@@ -1,0 +1,70 @@
+<resources>
+    <string translatable="false" name="app_name">Vozsis</string>
+
+    <string name="userdefaults_setting_file" translatable="false">UserDefaults</string>
+    <string name="userdefaults_key_initial_eula" translatable="false">Initial_EULA</string>
+    <string name="userdefaults_key_initial_privacy_policy" translatable="false">Initial_PrivacyPolicy</string>
+    <string name="userdefaults_key_time_unit" translatable="false">TimeUnit</string>
+    <string name="userdefaults_key_data_format" translatable="false">DataFormat</string>
+    <string name="userdefaults_key_status" translatable="false">LoginStatus</string>
+    <string name="userdefaults_key_debug" translatable="false">Debug</string>
+    <string name="userdefaults_key_login" translatable="false">Login</string>
+    <!-- Alexa -->
+    <string name="alexa_api" translatable="false">https://avs-alexa-na.amazon.com</string>
+    <string name="alexa_api_version" translatable="false">v20160207</string>
+
+    <string name="alexa_message" translatable="false">Tap here to speak to Alexa</string>
+
+
+    <string name="alexa_setting_locale">en-US</string>
+
+    <string name="alexa_flag" translatable="false">alexa</string>
+    <string name="home_week_sun" translatable="false">Sun</string>
+    <string name="home_week_mon" translatable="false">Mon</string>
+    <string name="home_week_tue" translatable="false">Tue</string>
+    <string name="home_week_wed" translatable="false">Wed</string>
+    <string name="home_week_thu" translatable="false">Thu</string>
+    <string name="home_week_fri" translatable="false">Fri</string>
+    <string name="home_week_sat" translatable="false">Sat</string>
+    <string name="home_am" translatable="false">AM</string>
+    <string name="home_pm" translatable="false">PM</string>
+    <!-- アラート再生画面 -->
+    <string name="alexa_alert_title" translatable="false">Alert</string>
+    <string name="alexa_alert_stop_button" translatable="false">Stop</string>
+
+    <!-- PlaybackFailed エラーメッセージ -->
+    <string name="alexa_playback_failed_create_player" translatable="false">"MediaPlayerの生成に失敗"</string>
+    <string name="alexa_playback_failed_time_out" translatable="false">"タイムアウト"</string>
+    <string name="alexa_playback_failed_invalid_request" translatable="false">"無効なリクエスト"</string>
+    <string name="alexa_playback_failed_internal_server_error" translatable="false">"サーバーエラー"</string>
+    <string name="alexa_playback_failed_network_error" translatable="false">"ネットワークエラー"</string>
+    <string name="alexa_playback_failed_malformed_error" translatable="false">"コーディング、及び、ファイル仕様のエラー"</string>
+    <string name="alexa_playback_failed_unsupported_error" translatable="false">"非サポートのコンテンツ"</string>
+
+    <!-- 利用規約画面でDisagree -->
+    <string name="LSKey_CautionBody_ID_0100" translatable="false">By not accepting the terms of use you will not be able to use this App.</string>
+    <!-- アプリ終了コーション -->
+    <string name="LSKey_CautionBody_ID_1000" translatable="false">Are you sure to quit the Application ?</string>
+
+
+    <string name="LSKey_CautionButton_OK" translatable="false">OK</string>
+    <string name="LSKey_CautionButton_CANCEL" translatable="false">Cancel</string>
+
+    <string name="alexa_not_logged_in_message" translatable="false">Please disconnect with HU and login</string>
+
+    <!-- Server URLs. -->
+    <string translatable="false" name="base_url">https://help-a-19avh.pofmobilethings.com/</string>
+    <string translatable="false" name="base_url_dev">https://help-a-19avh-dev.pofmobilethings.com/</string>
+
+    <!-- 利用規約 未承諾時の通信エラー画面文言 -->
+    <string translatable="false" name="server_error">Server Error</string>
+
+    <string name="locale_directory">en_US</string>
+
+    <string translatable="false" name="html_eula">eula.html</string>
+    <string translatable="false" name="html_help">help.html</string>
+    <string translatable="false" name="html_oss">oss-android.html</string>
+    <string translatable="false" name="html_privacy_policy">privacy_policy.html</string>
+    <string translatable="false" name="html_versions">versions.json</string>
+
+</resources>

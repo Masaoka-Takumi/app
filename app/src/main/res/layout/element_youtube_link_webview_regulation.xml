@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black">
+
+    <!--YouTubeLink走行規制画面-->
+    <!--文字列オーバーは折り返し-->
+    <TextView
+        android:id="@+id/text_regulation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/youtube_link_text_regulation_left_margin_portrait"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="@dimen/youtube_link_text_regulation_right_margin_portrait"
+        android:layout_marginBottom="8dp"
+        android:alpha="0.75"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:text="@string/sta_013"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/youtube_link_text_regulation_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

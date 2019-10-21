@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/element_list_item_height_66"
+    android:orientation="horizontal"
+    android:background="@drawable/list_item_background_selector_music"
+    android:backgroundTint="?attr/uiColor"
+    android:layoutDirection="ltr">
+
+    <RelativeLayout
+        android:id="@+id/jacket_group"
+        android:layout_width="@dimen/element_list_item_height_66"
+        android:layout_height="@dimen/element_list_item_height_66">
+
+        <ImageView
+            android:id="@+id/jacket_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/p0070_noimage" />
+
+        <FrameLayout
+            android:id="@+id/play_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:focusableInTouchMode="false"
+            android:focusable="false"
+            android:foreground="?android:attr/selectableItemBackground">
+
+            <ImageView
+                android:layout_width="@dimen/player_list_play_button_width"
+                android:layout_height="@dimen/player_list_play_button_width"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:src="@drawable/p0003_quickplaybtn_1nrm" />
+        </FrameLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="20dp">
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-2dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:maxLines="1"
+            android:gravity="left"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/element_list_item_title_text_size" />
+
+        <TextView
+            android:id="@+id/subtitle_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="2dp"
+            android:alpha="0.35"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:gravity="right"
+            android:maxLines="1"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/element_list_item_subtitle_text_size" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground"
+    android:clipToPadding="false"
+    android:gravity="top"
+    android:layoutDirection="ltr"
+    android:orientation="vertical">
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#66FFFFFF" />
+    <me.grantland.widget.AutofitTextView
+        android:id="@android:id/summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/preference_landscape_left_padding"
+        android:paddingRight="@dimen/preference_landscape_right_padding"
+        android:paddingTop="@dimen/element_list_item_description_top_padding"
+        android:paddingBottom="@dimen/element_list_item_description_top_padding"
+        android:singleLine="false"
+        android:lines="7"
+        android:maxLines="7"
+        android:lineSpacingExtra="6dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/rec_014"
+        android:gravity="left|top"
+        android:textAppearance="?textAppearanceListItem"
+        android:textColor="@color/text_color_state"
+        android:textSize="@dimen/element_list_item_description_text_size"
+        autofit:minTextSize="@dimen/min_text_size_8" />
+
+</LinearLayout>

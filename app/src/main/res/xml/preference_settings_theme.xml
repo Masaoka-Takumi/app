@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference
+        android:key="@string/key_theme_theme_set"
+        android:layout="@layout/element_preference_base"
+        android:order="10"
+        android:title="@string/set_228" />
+
+    <Preference
+        android:key="@string/key_theme_ui_color"
+        android:layout="@layout/element_preference_base"
+        android:order="20"
+        android:title="@string/set_230" />
+
+    <Preference
+        android:key="@string/key_theme_illumination_color_disp"
+        android:layout="@layout/element_preference_base"
+        android:order="30"
+        android:title="@string/set_061" />
+
+    <Preference
+        android:key="@string/key_theme_illumination_color_key"
+        android:layout="@layout/element_preference_base"
+        android:order="40"
+        android:title="@string/set_108" />
+
+    <Preference
+        android:key="@string/key_theme_illumination_color_common"
+        android:layout="@layout/element_preference_base"
+        android:order="50"
+        android:title="@string/set_093" />
+
+    <Preference
+        android:key="@string/key_theme_illumination_color_dual"
+        android:layout="@layout/element_preference_base"
+        android:order="60"
+        android:title="@string/set_093" />
+
+    <SeekBarPreference
+        android:key="@string/key_theme_illumination_brightness_disp"
+        android:layout="@layout/element_preference_seekbar"
+        android:max="9"
+        android:order="70"
+        android:title="@string/set_060"
+        app:showSeekBarValue="true" />
+
+    <SeekBarPreference
+        android:key="@string/key_theme_illumination_brightness_key"
+        android:layout="@layout/element_preference_seekbar"
+        android:max="9"
+        android:order="80"
+        android:title="@string/set_107"
+        app:showSeekBarValue="true" />
+
+    <SeekBarPreference
+        android:key="@string/key_theme_illumination_brightness_common"
+        android:layout="@layout/element_preference_seekbar"
+        android:max="9"
+        android:order="90"
+        android:title="@string/set_030"
+        app:showSeekBarValue="true" />
+
+    <Preference
+        android:key="@string/key_theme_illumination_dimmer"
+        android:layout="@layout/element_preference_base"
+        android:order="100"
+        android:title="@string/set_058" />
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_theme_illumi_fx"
+        android:order="110"
+        android:persistent="false"
+        android:title="@string/set_094"
+        android:layout="@layout/element_preference_switch"/>
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_theme_illumi_fx_with_bgv"
+        android:order="120"
+        android:persistent="false"
+        android:title="@string/set_096"
+        android:layout="@layout/element_preference_switch"/>
+</PreferenceScreen>

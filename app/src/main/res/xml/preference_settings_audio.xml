@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference
+        android:key="audio_beat_blaster"
+        android:layout="@layout/element_preference_base"
+        android:order="10"
+        android:title="@string/set_027" />
+
+    <Preference
+        android:key="audio_loudness"
+        android:layout="@layout/element_preference_base"
+        android:order="20"
+        android:title="@string/set_125" />
+
+    <SeekBarPreference
+        android:key="audio_source_level_adjuster"
+        android:layout="@layout/element_preference_seekbar"
+        android:max="9"
+        android:order="30"
+        android:title="@string/set_199"
+        app:showSeekBarValue="true" />
+
+    <Preference
+        android:key="audio_fader_balance"
+        android:layout="@layout/element_preference_base"
+        android:order="40"
+        android:title="@string/set_067" />
+
+    <Preference
+        android:key="audio_advance_settings"
+        android:layout="@layout/element_preference_base"
+        android:order="50"
+        android:title="@string/set_005" />
+
+    <Preference
+        android:key="audio_sound_retriever"
+        android:layout="@layout/element_preference_base"
+        android:order="60"
+        android:title="@string/set_198" />
+
+    <Preference
+        android:key="setting_audio_load"
+        android:layout="@layout/element_preference_base"
+        android:order="70"
+        android:title="@string/set_123" />
+
+    <Preference
+        android:key="setting_audio_save"
+        android:layout="@layout/element_preference_base"
+        android:order="80"
+        android:title="@string/set_189" />
+</PreferenceScreen>
