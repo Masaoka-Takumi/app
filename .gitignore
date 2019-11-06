@@ -1,0 +1,11 @@
+# 20191106
+# Created by NSW00_009084
+
+.gradle/
+local.properties
+
+# IntelliJ IDEA project files
+.idea/
+*.iml
+
+build/
