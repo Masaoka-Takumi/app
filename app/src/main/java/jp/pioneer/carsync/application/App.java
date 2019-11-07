@@ -9,7 +9,6 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 
-
 import org.greenrobot.eventbus.EventBus;
 import org.matthiaszimmermann.location.egm96.Geoid;
 
@@ -29,6 +28,7 @@ import jp.pioneer.carsync.domain.DomainInitializer;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.infrastructure.InfrastructureInitializer;
 import jp.pioneer.carsync.presentation.presenter.MainPresenter;
+import jp.pioneer.carsync.presentation.util.RadioStationNameUtil;
 import timber.log.Timber;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -158,6 +158,7 @@ public class App extends Application {
         //高度表示改善対応
         AltitudeInitTask mAsyncTask = new AltitudeInitTask();
         mAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        RadioStationNameUtil.init(getApplicationContext());
     }
 
     /**

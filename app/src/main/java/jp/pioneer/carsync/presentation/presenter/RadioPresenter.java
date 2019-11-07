@@ -340,8 +340,14 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
                 view.setFavoriteVisible(!isSphCarDevice());
             }
             view.setStatus(mCurrRadio.tunerStatus);
-            view.setPsInformation(RadioTextUtil.getPsInfoForPlayer(mContext, status, mCurrRadio));
-            view.setMusicInfo(RadioTextUtil.getPsInfoForPlayer(mContext, status, mCurrRadio),(String) RadioTextUtil.getPtyInfoForPlayer(mContext, mCurrRadio),RadioTextUtil.getArtistNameForPlayer(mContext, mCurrRadio));
+            String psInfoText;
+            if(true||mPreference.getLastConnectedCarDeviceDestination()==CarDeviceDestinationInfo.JP.code){
+                psInfoText = RadioTextUtil.getPsInfoForJP(mContext, holder.getCarRunningStatus(), mCurrRadio);
+            }else{
+                psInfoText = RadioTextUtil.getPsInfoForPlayer(mContext, status, mCurrRadio);
+            }
+            view.setPsInformation(psInfoText);
+            view.setMusicInfo(psInfoText,(String) RadioTextUtil.getPtyInfoForPlayer(mContext, mCurrRadio),RadioTextUtil.getArtistNameForPlayer(mContext, mCurrRadio));
             view.setAntennaLevel((float) mCurrRadio.antennaLevel / mCurrRadio.maxAntennaLevel);
 
             view.setAdasEnabled((mPreference.isAdasEnabled()&&mPreference.getLastConnectedCarDeviceClassId()!= CarDeviceClassId.MARIN&&(mStatusHolder.execute().getAppStatus().adasPurchased||mPreference.getAdasTrialState() == AdasTrialState.TRIAL_DURING))||mPreference.isAdasPseudoCooperation());

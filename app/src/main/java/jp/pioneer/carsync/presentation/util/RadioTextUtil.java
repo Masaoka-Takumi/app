@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.domain.model.CarDeviceStatus;
+import jp.pioneer.carsync.domain.model.CarRunningStatus;
 import jp.pioneer.carsync.domain.model.ListInfo;
 import jp.pioneer.carsync.domain.model.RadioInfo;
 
@@ -77,6 +78,22 @@ public class RadioTextUtil {
                 } else {
                     text = EMPTY;
                 }
+                break;
+        }
+        return text;
+    }
+    public static String getPsInfoForJP(Context context, CarRunningStatus status, RadioInfo info) {
+        String text;
+        switch(info.tunerStatus){
+            case BSM:
+                text = context.getString(R.string.ply_012);
+                break;
+            case PI_SEARCH:
+            case SEEK:
+                text = context.getString(R.string.ply_030);
+                break;
+            default:
+                text = RadioStationNameUtil.getStationName(status,info.band,info.currentFrequency);
                 break;
         }
         return text;
