@@ -907,6 +907,8 @@ public class RadioFragment extends AbstractRadioFragment<RadioPresenter, RadioVi
                     }
                     //ショートカットありで現在位置がショートカットの時は何もしない
                     if (position == 0) {
+                        //移動完了後にも位置の保存が必要
+                        getPresenter().setPagerPosition(0);
                         return;
                     }
                     //ショートカットありで左にスワイプした場合はショートカットを表示
