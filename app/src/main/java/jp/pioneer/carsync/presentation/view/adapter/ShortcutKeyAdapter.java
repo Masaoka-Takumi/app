@@ -38,6 +38,7 @@ public class ShortcutKeyAdapter extends PagerAdapter {
     private int mColor;
     private ArrayList<BandType> mPresetBandList;
     private int selectedPresetNumber;
+    private int mCurrentPagerPosition;
     /**
      * コンストラクタ
      *
@@ -81,6 +82,13 @@ public class ShortcutKeyAdapter extends PagerAdapter {
         }
     }
 
+    public void setCurrentPagerPosition(int currentPagerPosition) {
+        if(this.mCurrentPagerPosition != currentPagerPosition) {
+            mCurrentPagerPosition = currentPagerPosition;
+            notifyDataSetChanged();
+        }
+    }
+
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
@@ -98,12 +106,17 @@ public class ShortcutKeyAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-/*        if (mShortcutKeyItems != null) {
-            int keyNum = mShortcutKeyItems.size();
-            int pageNum;
-            pageNum = (keyNum - 1) / LANDSCAPE_KEYS + 1;
-            return pageNum;
-        }*/
+        int page = 0;
+        if(mShortcutKeyItems != null) {
+            page = page + 1;
+        }
+        if(mPresetBandList != null){
+            page = page + mPresetBandList.size()+1;
+        }
+        return page;
+    }
+
+    public int getRealCount(){
         int page = 0;
         if(mShortcutKeyItems != null) {
             page = page + 1;
@@ -111,19 +124,42 @@ public class ShortcutKeyAdapter extends PagerAdapter {
         if(mPresetBandList != null){
             page = page + mPresetBandList.size();
         }
-        return page;
+         return page;
+    }
+
+    public int getRealPosition(int pagerPosition) {
+        if(mShortcutKeyItems != null&&mPresetBandList != null) {
+            if(pagerPosition==getRealCount()){
+                return 1;
+            }else{
+                return pagerPosition;
+            }
+        }
+        if(mPresetBandList != null){
+            if(pagerPosition==getRealCount()){
+                return 0;
+            }else{
+                return pagerPosition;
+            }
+        }
+        return pagerPosition;
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View view;
+        int dispPosition;
+        dispPosition = getRealPosition(position);
+        if (position < mCurrentPagerPosition) {
+            dispPosition = 0;
+        }
         //ショートカットキーの設定
-        if(mShortcutKeyItems != null&&position==0) {
+        if(mShortcutKeyItems != null&&dispPosition==0) {
             int pageAllKey;
             pageAllKey = LANDSCAPE_KEYS;
             int pageKeyNum = pageAllKey;
-            if (position == getCount() - 1) {
-                pageKeyNum = mShortcutKeyItems.size() - (position * pageAllKey);
+            if (dispPosition == getCount() - 1) {
+                pageKeyNum = mShortcutKeyItems.size() - (dispPosition * pageAllKey);
             }
             if (pageKeyNum % 2 == 0) {
                 view = mInflater.inflate(R.layout.element_shortcut_keys_even, container, false);
@@ -148,13 +184,13 @@ public class ShortcutKeyAdapter extends PagerAdapter {
                 }
                 RelativeLayout keyGroup = (RelativeLayout) view.findViewById(keyId);
                 ImageView key = (ImageView) keyGroup.findViewById(R.id.key);
-                key.setTag(position * pageAllKey + i);
-                key.setImageResource(mShortcutKeyItems.get(position * pageAllKey + i).imageResource);
+                key.setTag(dispPosition * pageAllKey + i);
+                key.setImageResource(mShortcutKeyItems.get(dispPosition * pageAllKey + i).imageResource);
                 ImageView iconBack = (ImageView) keyGroup.findViewById(R.id.icon_back);
                 View icon = keyGroup.findViewById(R.id.icon);
                 ImageView notification = (ImageView) keyGroup.findViewById(R.id.notification_circle);
-                if (mShortcutKeyItems.get(position * pageAllKey + i).optionImageResource != 0) {
-                    iconBack.setImageDrawable(ImageViewUtil.setTintColor(mContext, mShortcutKeyItems.get(position * pageAllKey + i).optionImageResource, mColor));
+                if (mShortcutKeyItems.get(dispPosition * pageAllKey + i).optionImageResource != 0) {
+                    iconBack.setImageDrawable(ImageViewUtil.setTintColor(mContext, mShortcutKeyItems.get(dispPosition * pageAllKey + i).optionImageResource, mColor));
                     iconBack.setVisibility(VISIBLE);
                     icon.setVisibility(VISIBLE);
                 } else {
@@ -168,9 +204,9 @@ public class ShortcutKeyAdapter extends PagerAdapter {
                     onClickKey(shortCutKey);
                 });
 
-                if (mShortcutKeyItems.get(position * pageAllKey + i).key == ShortcutKey.PHONE ||
-                        mShortcutKeyItems.get(position * pageAllKey + i).key == ShortcutKey.SOURCE ||
-                        mShortcutKeyItems.get(position * pageAllKey + i).key == ShortcutKey.VOICE) {
+                if (mShortcutKeyItems.get(dispPosition * pageAllKey + i).key == ShortcutKey.PHONE ||
+                        mShortcutKeyItems.get(dispPosition * pageAllKey + i).key == ShortcutKey.SOURCE ||
+                        mShortcutKeyItems.get(dispPosition * pageAllKey + i).key == ShortcutKey.VOICE) {
                     key.setOnLongClickListener((View v) -> {
                         int keyIndex = (int) v.getTag();
                         ShortcutKey shortCutKey = mShortcutKeyItems.get(keyIndex).key;
@@ -178,9 +214,9 @@ public class ShortcutKeyAdapter extends PagerAdapter {
                         return true;
                     });
                 }
-                key.setEnabled(mShortcutKeyItems.get(position * pageAllKey + i).enabled);
+                key.setEnabled(mShortcutKeyItems.get(dispPosition * pageAllKey + i).enabled);
 
-                if (mIsNotification && mShortcutKeyItems.get(position * pageAllKey + i).key == ShortcutKey.VOICE) {
+                if (mIsNotification && mShortcutKeyItems.get(dispPosition * pageAllKey + i).key == ShortcutKey.VOICE) {
                     notification.setVisibility(View.VISIBLE);
                 } else {
                     notification.setVisibility(View.GONE);
@@ -191,34 +227,37 @@ public class ShortcutKeyAdapter extends PagerAdapter {
         }else if(mPresetBandList!=null){
             int index;
             if(mShortcutKeyItems!=null){
-                index = position-1;
+                index = dispPosition-1;
             }else{
-                index = position;
+                index = dispPosition;
             }
             view = mInflater.inflate(R.layout.element_shortcut_keys_preset, container, false);
-            for(int i = 1;i<=6;i++){
+            for (int i = 1; i <= 6; i++) {
                 int keyId = mContext.getResources().getIdentifier("preset" + i, "id", mContext.getPackageName());
                 RelativeLayout keyGroup = (RelativeLayout) view.findViewById(keyId);
-                ImageView iconBack = (ImageView)keyGroup.getChildAt(0);
-                ImageView iconBack2 = (ImageView)keyGroup.getChildAt(1);
+                ImageView iconBack = (ImageView) keyGroup.getChildAt(0);
+                ImageView iconBack2 = (ImageView) keyGroup.getChildAt(1);
                 keyGroup.setTag(i);
-                if(i==selectedPresetNumber) {
+
+                if (dispPosition == mCurrentPagerPosition && i == selectedPresetNumber) {
                     keyGroup.setEnabled(false);
                     iconBack.setVisibility(View.VISIBLE);
                     iconBack2.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     keyGroup.setEnabled(true);
                     iconBack.setVisibility(View.INVISIBLE);
                     iconBack2.setVisibility(View.INVISIBLE);
-                    keyGroup.setOnClickListener((View v) -> {
-                        int keyIndex = (int) v.getTag();
-                        onClickPreset(mPresetBandList.get(index),keyIndex);
-                    });
-                    keyGroup.setOnLongClickListener((View v) -> {
-                        int keyIndex = (int) v.getTag();
-                        onLongClickPreset(mPresetBandList.get(index),keyIndex);
-                        return true;
-                    });
+                    if (dispPosition == mCurrentPagerPosition) {
+                        keyGroup.setOnClickListener((View v) -> {
+                            int keyIndex = (int) v.getTag();
+                            onClickPreset(mPresetBandList.get(index), keyIndex);
+                        });
+                        keyGroup.setOnLongClickListener((View v) -> {
+                            int keyIndex = (int) v.getTag();
+                            onLongClickPreset(mPresetBandList.get(index), keyIndex);
+                            return true;
+                        });
+                    }
                 }
             }
         }else{

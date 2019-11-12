@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -120,6 +121,7 @@ public class RadioFragment extends AbstractRadioFragment<RadioPresenter, RadioVi
     private ViewTreeObserver.OnGlobalLayoutListener mGlobalLayoutListener;
     private ShortcutKeyAdapter mAdapter;
     private boolean mShortcutKeyVisible = false;
+    private int mRealPosition=-1;
     private Runnable mDelayGestureFunc = new Runnable() {
         @Override
         public void run() {
@@ -837,7 +839,7 @@ public class RadioFragment extends AbstractRadioFragment<RadioPresenter, RadioVi
     public void setBandList(ArrayList<BandType> bandTypes) {
         mAdapter.setPresetBandList(bandTypes);
         int cur = mViewPager.getCurrentItem();
-        mLineIndicator.setShortCutKeyOn(bandTypes.size()<mAdapter.getCount());
+        mLineIndicator.setShortCutKeyOn(bandTypes.size()<mAdapter.getRealCount());
         mLineIndicator.setCurrentItem(Math.min(cur, mAdapter.getCount()));
         mLineIndicator.setVisibility(mAdapter.getCount() <= 1 ? View.INVISIBLE : View.VISIBLE);
         mViewPager.setOnGestureListener(new ShortCutKeyViewPager.OnGestureListener() {
@@ -865,8 +867,92 @@ public class RadioFragment extends AbstractRadioFragment<RadioPresenter, RadioVi
                     //左→右スワイプは抑制されている
                 } else {
                     //ショートカットありで左→右にスワイプした場合はショートカットを表示
-                    mViewPager.setCurrentItem(0,false);
+                    mViewPager.setCurrentItem(0, true);
                     getPresenter().setPagerPosition(0);
+                }
+            }
+        });
+        mViewPager.setPagingEnabled(true);
+        mViewPager.setAllowedSwipeRightOnly(bandTypes.size() == mAdapter.getRealCount());
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                ArrayList<BandType> bandTypes = mAdapter.getPresetBandList();
+                BandType bandType;
+                Timber.d("onPageSelected:position=" + position);
+
+                if (bandTypes.size() == mAdapter.getRealCount()) {
+                    if (position == mAdapter.getRealCount()) {
+                        //最後のページにスクロールしたら最初のBandに遷移
+                        mRealPosition = 0;
+                    }
+                    //ショートカットなしの場合
+                    bandType = bandTypes.get(mAdapter.getRealPosition(position));
+
+                    //左スワイプは抑制されている
+                    //Band位置が変わっていたらBAND切替通知を車載機に送る
+                    if (mBandType != null && mBandType != bandType && position != 0) {
+                        Timber.d("onToggleBandAction");
+                        getPresenter().setPagerPosition(mAdapter.getRealPosition(position));
+                        getPresenter().onToggleBandAction();
+                    }
+                } else {
+                    if (position == mAdapter.getRealCount()) {
+                        //最後のページにスクロールしたら最初のBandに遷移
+                        mRealPosition = 1;
+                    }
+                    //ショートカットありで現在位置がショートカットの時は何もしない
+                    if (position == 0) {
+                        return;
+                    }
+                    //ショートカットありで左にスワイプした場合はショートカットを表示
+                    if (position < getPresenter().getPagerPosition()) {
+                        Timber.d("onPageSelected:position=" + position + ",getPagerPosition=" + getPresenter().getPagerPosition());
+                        getPresenter().setPagerPosition(0);
+                        //smoothScroll有効でないとViewPager更新がされない
+                        mViewPager.setCurrentItem(0, true);
+                        return;
+                    }
+                    //ショートカット位置から右にスワイプした場合元のBand位置に戻す
+                    if (getPresenter().getPagerPosition() == 0 && position > 0) {
+                        getPresenter().setPagerPosition(bandTypes.indexOf(mBandType) + 1);
+                        //smoothScroll有効でないとViewPager更新がされない
+                        mViewPager.setCurrentItem(bandTypes.indexOf(mBandType) + 1, true);
+                        return;
+                    }
+                    //現位置のバンドを取得
+                    bandType = bandTypes.get(mAdapter.getRealPosition(position) - 1);
+                    //Band位置が変わっていたらBAND切替通知を車載機に送る//最後ページから最初のbandへの遷移後は何もしない
+                    if (mBandType != null && mBandType != bandType && position != 1) {
+                        Timber.d("onToggleBandAction");
+                        //Band変更時のsetViewPagerCurrentPageでPage移動されないようにする
+                        getPresenter().setPagerPosition(mAdapter.getRealPosition(position));
+                        getPresenter().onToggleBandAction();
+                    }
+                }
+                Timber.d("onPageSelected:bandType=" + bandType + ",mBandType=" + mBandType + ",position=" + position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                Timber.d("onPageScrollStateChanged:state=" + state + ",mRealPosition=" + mRealPosition);
+                if (state == ViewPager.SCROLL_STATE_IDLE && mRealPosition >= 0) {
+                    getPresenter().setPagerPosition(mRealPosition);
+                    mViewPager.setCurrentItem(mRealPosition, false);
+                    //遷移完了後にViewPagerの位置更新をする
+                    mAdapter.setCurrentPagerPosition(mRealPosition);
+                    mRealPosition = -1;
+                    return;
+                }
+                if (state == ViewPager.SCROLL_STATE_IDLE) {
+                    int position = mViewPager.getCurrentItem();
+                    Timber.d("onPageScrollStateChanged:position=" + position);
+                    //移動完了後にViewPagerの位置更新をする
+                    mAdapter.setCurrentPagerPosition(position);
                 }
             }
         });
@@ -876,29 +962,37 @@ public class RadioFragment extends AbstractRadioFragment<RadioPresenter, RadioVi
      */
     @Override
     public void setViewPagerCurrentPage(BandType bandType){
-        mBandType = bandType;
-        if(mAdapter==null)return;
-        ArrayList<BandType> bandTypes = mAdapter.getPresetBandList();
-        if(bandTypes!=null&&bandTypes.contains(bandType)){
-            int pageIndex;
-            if(bandTypes.size()==mAdapter.getCount()){
-                //ショートカットキーなし
-                pageIndex = bandTypes.indexOf(bandType);
-                if(bandTypes.get(mViewPager.getCurrentItem())!=bandType) {
-                    getPresenter().setPagerPosition(pageIndex);
-                    mViewPager.setCurrentItem(pageIndex,false);
+        Timber.d("setViewPagerCurrentPage:bandType="+bandType);
+        if(mBandType!=bandType) {
+            mBandType = bandType;
+            if (mAdapter == null) return;
+            ArrayList<BandType> bandTypes = mAdapter.getPresetBandList();
+            if (bandTypes != null && bandTypes.contains(bandType)) {
+                int pageIndex;
+                if (bandTypes.size() == mAdapter.getRealCount()) {
+                    //ショートカットキーなし
+                    pageIndex = bandTypes.indexOf(bandType);
+                    if (mViewPager.getCurrentItem() == 0 ||bandTypes.get(getPresenter().getPagerPosition()) != bandType) {
+                        Timber.d("setViewPagerCurrentPage:move");
+                        getPresenter().setPagerPosition(pageIndex);
+                        mViewPager.setCurrentItem(pageIndex, false);
+                        mAdapter.setCurrentPagerPosition(pageIndex);
+                    }
+                } else if (bandTypes.size() < mAdapter.getRealCount()) {
+                    //ショートカットキーあり
+                    pageIndex = bandTypes.indexOf(bandType) + 1;
+                    //現在位置がショートカットなら何もしない
+                    if (getPresenter().getPagerPosition() == 0) return;
+                    if (mViewPager.getCurrentItem() == 0 || bandTypes.get(getPresenter().getPagerPosition() - 1) != bandType) {
+                        Timber.d("setViewPagerCurrentPage:move2");
+                        //遷移前に位置を保存し、onPageSelectedで左スワイプ判定されないようにする
+                        getPresenter().setPagerPosition(pageIndex);
+                        mViewPager.setCurrentItem(pageIndex, false);
+                        mAdapter.setCurrentPagerPosition(pageIndex);
+                    }
                 }
-            }else if(bandTypes.size()<mAdapter.getCount()){
-                //ショートカットキーあり
-                pageIndex = bandTypes.indexOf(bandType) + 1;
-                //現在位置がショートカットなら何もしない
-                if(getPresenter().getPagerPosition()==0)return;
-                if(mViewPager.getCurrentItem()==0||bandTypes.get(mViewPager.getCurrentItem()-1)!=bandType) {
-                    getPresenter().setPagerPosition(pageIndex);
-                    mViewPager.setCurrentItem(pageIndex,false);
-                }
+                Timber.d("setViewPagerCurrentPage:mBandType=" + mBandType + ",mPagerPosition=" + getPresenter().getPagerPosition());
             }
-            Timber.d("setViewPagerCurrentPage:mBandType=" + mBandType + ",mPagerPosition=" + getPresenter().getPagerPosition() );
         }
     }
     /**
