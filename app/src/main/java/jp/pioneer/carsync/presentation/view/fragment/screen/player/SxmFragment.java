@@ -241,10 +241,8 @@ public class SxmFragment extends AbstractRadioFragment<SxmPresenter, SxmView> im
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_player_sirius_xm, container, false);
-        mUnbinder = ButterKnife.bind(this, view);
-        mViewGroup =container;
-        mView = view;
+        View view = inflater.inflate(R.layout.fragment_container_player_2, container, false);
+        mViewGroup = (ViewGroup) view.findViewById(R.id.container_layout);
         return view;
     }
 
@@ -266,7 +264,6 @@ public class SxmFragment extends AbstractRadioFragment<SxmPresenter, SxmView> im
         mHandler.removeCallbacks(mDelayGestureFunc);
         mHandler.removeCallbacks(mDelayMessageFunc);
         mView.getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
-        mViewGroup.removeAllViews();
         mUnbinder.unbind();
     }
 

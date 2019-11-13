@@ -186,16 +186,14 @@ public class HdRadioFragment extends AbstractRadioFragment<HdRadioPresenter, HdR
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_player_hdradio, container, false);
-        mUnbinder = ButterKnife.bind(this, view);
+        View view = inflater.inflate(R.layout.fragment_container_player_2, container, false);
+        mViewGroup = (ViewGroup) view.findViewById(R.id.container_layout);
         Bundle args = getArguments();
         if(args!=null&&args.getInt("pager")==-1){
             getPresenter().setPagerPosition(-1);
             args.clear();
             setArguments(args);
         }
-        mViewGroup =container;
-        mView = view;
         return view;
     }
 
@@ -217,7 +215,6 @@ public class HdRadioFragment extends AbstractRadioFragment<HdRadioPresenter, HdR
         mHandler.removeCallbacks(mDelayGestureFunc);
         mHandler.removeCallbacks(mDelayMessageFunc);
         mView.getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
-        mViewGroup.removeAllViews();
         mUnbinder.unbind();
     }
 

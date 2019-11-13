@@ -116,13 +116,10 @@ public class AuxFragment extends AbstractScreenFragment<AuxPresenter, AuxView> i
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_player_no_info, container, false);
-        mUnbinder = ButterKnife.bind(this, view);
-        mViewGroup =container;
-        mView = view;
+        View view = inflater.inflate(R.layout.fragment_container_player_2, container, false);
+        mViewGroup = (ViewGroup) view.findViewById(R.id.container_layout);
         Configuration config = getResources().getConfiguration();
         mOrientation = config.orientation;
-        setLayout();
         return view;
     }
 
@@ -131,7 +128,6 @@ public class AuxFragment extends AbstractScreenFragment<AuxPresenter, AuxView> i
         super.onDestroyView();
         mHandler.removeCallbacks(mDelayGestureFunc);
         mHandler.removeCallbacks(mDelayMessageFunc);
-        mViewGroup.removeAllViews();
         mUnbinder.unbind();
     }
 

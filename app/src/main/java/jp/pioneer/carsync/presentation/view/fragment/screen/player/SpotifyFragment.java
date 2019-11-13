@@ -156,10 +156,8 @@ public class SpotifyFragment extends AbstractMusicPlayerFragment<SpotifyPresente
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_player_music_streaming, container, false);
-        mUnbinder = ButterKnife.bind(this, view);
-        mViewGroup =container;
-        mView = view;
+        View view = inflater.inflate(R.layout.fragment_container_player_2, container, false);
+        mViewGroup = (ViewGroup) view.findViewById(R.id.container_layout);
         Configuration config = getResources().getConfiguration();
         mOrientation = config.orientation;
         return view;

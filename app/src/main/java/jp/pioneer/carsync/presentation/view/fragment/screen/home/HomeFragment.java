@@ -228,9 +228,10 @@ public class HomeFragment extends AbstractScreenFragment<HomePresenter, HomeView
         mTimer.cancel();
         mTimerTask.cancel();
         mHandler.removeCallbacks(mRunnable);
-        if (mTitleMarquee != null) {
-            mTitleMarquee.getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
-        }
+        mHandler.removeCallbacks(mDelayMessageFunc);
+        mView.getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
+        mSpeedMeterView.setOnClickListener(null);
+        mClockLayout.setOnClickListener(null);
         super.onDestroyView();
         mUnbinder.unbind();
     }
@@ -352,9 +353,9 @@ public class HomeFragment extends AbstractScreenFragment<HomePresenter, HomeView
             if(mServiceName!=null) {
                 mServiceName.startScroll();
             }
-            mTitleMarquee.getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
+            mView.getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
         };
-        mTitleMarquee.getViewTreeObserver().addOnGlobalLayoutListener(mGlobalLayoutListener);
+        mView.getViewTreeObserver().addOnGlobalLayoutListener(mGlobalLayoutListener);
     }
 
     /**

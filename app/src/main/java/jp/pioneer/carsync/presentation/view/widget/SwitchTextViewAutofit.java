@@ -136,6 +136,13 @@ public class SwitchTextViewAutofit extends AutofitTextView {
     }
 
     @Override
+    protected void onDetachedFromWindow() {
+        mHandler.removeCallbacks(mRunnableBlankText);
+        mHandler.removeCallbacks(mRunnableNextText);
+        super.onDetachedFromWindow();
+    }
+
+    @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
         //BackGroundからの復帰で再レイアウトされるため

@@ -151,16 +151,14 @@ public class DabFragment extends AbstractRadioFragment<DabPresenter, DabView> im
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_player_dab, container, false);
+        View view = inflater.inflate(R.layout.fragment_container_player_2, container, false);
+        mViewGroup = (ViewGroup) view.findViewById(R.id.container_layout);
         Bundle args = getArguments();
         if(args!=null&&args.getInt("pager")==-1){
             getPresenter().setPagerPosition(-1);
             args.clear();
             setArguments(args);
         }
-        mUnbinder = ButterKnife.bind(this, view);
-        mViewGroup =container;
-        mView = view;
         return view;
     }
 
@@ -176,7 +174,6 @@ public class DabFragment extends AbstractRadioFragment<DabPresenter, DabView> im
         mHandler.removeCallbacks(mDelayGestureFunc);
         mHandler.removeCallbacks(mDelayMessageFunc);
         mView.getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
-        mViewGroup.removeAllViews();
         mUnbinder.unbind();
     }
 
