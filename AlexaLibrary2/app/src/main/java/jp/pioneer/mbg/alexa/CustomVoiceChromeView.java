@@ -1,19 +1,25 @@
 package jp.pioneer.mbg.alexa;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ImageDecoder;
 import android.graphics.Movie;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.AnimatedImageDrawable;
 import android.graphics.drawable.NinePatchDrawable;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -34,7 +40,7 @@ public class CustomVoiceChromeView extends View {
     /** ログ出力用タグ. */
     private static final String TAG = CustomVoiceChromeView.class.getSimpleName();
     /** ログの出力フラグ. */
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
 
     /** 更新回数 */
     private static final double MAX_UPDATE_COUNT = 8;
@@ -68,16 +74,23 @@ public class CustomVoiceChromeView extends View {
     public CustomVoiceChromeView.VoiceChromeType mTempVoiceChromeType = null;
     /** 現在のVoiceChromeタイプ. */
     private CustomVoiceChromeView.VoiceChromeType mVoiceChromeType = CustomVoiceChromeView.VoiceChromeType.IDLE;
-    private static Movie mListeningStartMovie;
-    private static  Movie mThinkingMovie;
-    private static  Movie mSpeakingMovie;
-    private static  Movie mNotificationArrivedMovie;
-    private static  Movie mNotificationQueuedMovie;
-    private static  Movie mSystemErrorMovie;
-    private static  Bitmap listeningImage;
+    /** GIF画像描画用(API28未満向け) */
+    private static Movie sThinkingMovie;
+    private static Movie sSpeakingMovie;
+    private static Movie sNotificationArrivedMovie;
+    private static Movie sNotificationQueuedMovie;
+    private static Movie sSystemErrorMovie;
+    /** GIF画像描画用(API28以上向け) */
+    private static AnimatedImageDrawable sThinkingAnimatedImage;
+    private static AnimatedImageDrawable sSpeakingAnimatedImage;
+    private static AnimatedImageDrawable sNotificationArrivedAnimatedImage;
+    private static AnimatedImageDrawable sNotificationQueuedAnimatedImage;
+    private static AnimatedImageDrawable sSystemErrorAnimatedImage;
+    /** View描画共通 */
+    private static Bitmap sListeningImage;
     private static NinePatchDrawable sNinePatchDrawable;
-    private static long moviestart;
-    private static long listeningStartTime;
+    private static long sMovieStart;
+    private static long sListeningStartTime;
     private static float sWidth;
     private static float sHeight;
     private static double sRange;
@@ -89,27 +102,29 @@ public class CustomVoiceChromeView extends View {
         /**
          * アイドル状態.
          */
-        IDLE(false, 0, -1),
+        IDLE(false, 0, -1, null),
         /** 録音中. */
-        LISTENING(true, 1000, -1),
+        LISTENING(true, 1000, -1, "vc_listening.gif"),
         /** 考え中. */
-        THINKING(true, 3660, -1),
+        THINKING(true, 3660, -1, "vc_thinking.gif"),
         /** 音声再生中. */
-        SPEAKING(true, 5100, -1),
+        SPEAKING(true, 5100, -1, "vc_talking.gif"),
         /** マイク使用不可. */
-        PRIVACY(false, 0, -1),
+        PRIVACY(false, 0, -1, null),
         /** システムエラー. */
-        SYSTEM_ERROR(true, 3250, 1),
+        SYSTEM_ERROR(true, 3250, 1, "vc_system_error.gif"),
         /** 通知受信. */
-        NOTIFICATIONS(true, 5130, 2),
+        NOTIFICATIONS(true, 5130, 2, "vc_notification_arrives.gif"),
         /** 通知あり. */
-        NOTIFICATIONS_QUEUED(true, 5130, 2);
+        NOTIFICATIONS_QUEUED(true, 5130, 2, "vc_notification_queued.gif");
         /** アニメーション有無. */
         private boolean mIsAnimation;
         /** アニメーション更新間隔. */
         private long mAnimationLoopTime;
         /** アニメーションループ回数. */
         private long mAnimationLoop;
+        /** GIFアニメーションファイル名. */
+        private String mAnimationFileName;
 
         /**
          * コンストラクタ.
@@ -117,11 +132,13 @@ public class CustomVoiceChromeView extends View {
          * @param isAnimation       アニメーション有無
          * @param animationLoopTime アニメーション間隔
          * @param animationLoop     アニメーションループ回数
+         * @param animationFile     GIFアニメーションファイル名
          */
-        VoiceChromeType(boolean isAnimation, long animationLoopTime, int animationLoop) {
+        VoiceChromeType(boolean isAnimation, long animationLoopTime, int animationLoop, String animationFile) {
             mIsAnimation = isAnimation;
             mAnimationLoopTime = animationLoopTime;
             mAnimationLoop = animationLoop;
+            mAnimationFileName = animationFile;
         }
 
         /**
@@ -149,6 +166,13 @@ public class CustomVoiceChromeView extends View {
          */
         public long getAnimationLoop() {
             return mAnimationLoop;
+        }
+
+        /**
+         * GIFアニメーションファイル名
+         */
+        public String getAnimationFileName() {
+            return mAnimationFileName;
         }
     }
 
@@ -178,7 +202,7 @@ public class CustomVoiceChromeView extends View {
      *
      * @param context      コンテキスト
      * @param attrs        Attribute
-     * @param defStyleAttr defStyleattr
+     * @param defStyleAttr defStyleAttr
      */
     public CustomVoiceChromeView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -186,21 +210,127 @@ public class CustomVoiceChromeView extends View {
     }
 
     private void init() {
-        try {
-            mListeningStartMovie = Movie.decodeStream(getResources().getAssets().open("vc_listening.gif"));
-            mThinkingMovie = Movie.decodeStream(getResources().getAssets().open("vc_thinking.gif"));
-            mSpeakingMovie = Movie.decodeStream(getResources().getAssets().open("vc_talking.gif"));
-            mNotificationArrivedMovie = Movie.decodeStream(getResources().getAssets().open("vc_notification_arrives.gif"));
-            mNotificationQueuedMovie = Movie.decodeStream(getResources().getAssets().open("vc_notification_queued.gif"));
-            mSystemErrorMovie = Movie.decodeStream(getResources().getAssets().open("vc_system_error.gif"));
-            listeningImage = BitmapFactory.decodeResource(getResources(), R.drawable.vc);
-            sNinePatchDrawable =  (NinePatchDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.vc, null);
-            if (DEBUG) Log.d(TAG, "VoiceChromeType mNotificationArrivedMovie" + mNotificationArrivedMovie.duration() +" mNotificationQueuedMovie" + mNotificationQueuedMovie.duration()
-                    +" mSpeakingMovie" + mSpeakingMovie.duration()+" mThinkingMovie" + mThinkingMovie.duration()+" mSystemErrorMovie" + mSystemErrorMovie.duration());
-        } catch (IOException e) {
-        }
+        startImageDecode();
         this.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
     }
+
+    /**
+     * GIF画像のdecode処理を行い、クラス変数に格納する
+     */
+    private void startImageDecode() {
+
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+            // API28未満はMovieクラスを利用
+            decodeVoiceChromeMovie();
+        } else {
+            // API28以上はImageDecoder、AnimatedImageDrawableクラスを利用
+            decodeVoiceChromeAnimatedImage();
+        }
+
+        if(sListeningImage == null) {
+            sListeningImage = BitmapFactory.decodeResource(getResources(), R.drawable.vc);
+        }
+        if(sNinePatchDrawable == null) {
+            sNinePatchDrawable = (NinePatchDrawable) ResourcesCompat.getDrawable(getResources(), R.drawable.vc, null);
+        }
+    }
+
+    /**
+     * Movieクラスを使ったGIF画像のdecode処理
+     * API28でdeprecateになった
+     */
+    @SuppressWarnings("deprecation")
+    private void decodeVoiceChromeMovie() {
+        try {
+            if (sThinkingMovie == null) {
+                sThinkingMovie = Movie.decodeStream(getResources().getAssets().open(VoiceChromeType.THINKING.getAnimationFileName()));
+            }
+            if (sSpeakingMovie == null) {
+                sSpeakingMovie = Movie.decodeStream(getResources().getAssets().open(VoiceChromeType.SPEAKING.getAnimationFileName()));
+            }
+            if (sNotificationArrivedMovie == null) {
+                sNotificationArrivedMovie = Movie.decodeStream(getResources().getAssets().open(VoiceChromeType.NOTIFICATIONS.getAnimationFileName()));
+            }
+            if (sNotificationQueuedMovie == null) {
+                sNotificationQueuedMovie = Movie.decodeStream(getResources().getAssets().open(VoiceChromeType.NOTIFICATIONS_QUEUED.getAnimationFileName()));
+            }
+            if (sSystemErrorMovie == null) {
+                sSystemErrorMovie = Movie.decodeStream(getResources().getAssets().open(VoiceChromeType.SYSTEM_ERROR.getAnimationFileName()));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (DEBUG)
+            Log.d(TAG, "VoiceChromeType sNotificationArrivedMovie" + sNotificationArrivedMovie.duration() + " sNotificationQueuedMovie" + sNotificationQueuedMovie.duration()
+                    + " sSpeakingMovie" + sSpeakingMovie.duration() + " sThinkingMovie" + sThinkingMovie.duration() + " sSystemErrorMovie" + sSystemErrorMovie.duration());
+    }
+
+    /**
+     * ImageDecoderを使ったGIF画像のdecode処理
+     * UI Threadでの実行は非推奨なのでAsyncTaskを使って非同期に行う
+     * decode後、ImageDecoderTask.Listenerインターフェースの実装で利用側処理を行う
+     */
+    @RequiresApi(api = Build.VERSION_CODES.P)
+    private void decodeVoiceChromeAnimatedImage() {
+        if (DEBUG) Log.d(TAG, "Start ImageDecoderTask");
+        if(sThinkingAnimatedImage == null) {
+            new ImageDecoderTask(getResources().getAssets(), createImageDecoderListener()).execute(VoiceChromeType.THINKING);
+        }
+        if(sSpeakingAnimatedImage == null) {
+            new ImageDecoderTask(getResources().getAssets(), createImageDecoderListener()).execute(VoiceChromeType.SPEAKING);
+        }
+        if(sSystemErrorAnimatedImage == null) {
+            new ImageDecoderTask(getResources().getAssets(), createImageDecoderListener()).execute(VoiceChromeType.SYSTEM_ERROR);
+        }
+        if(sNotificationArrivedAnimatedImage == null) {
+            new ImageDecoderTask(getResources().getAssets(), createImageDecoderListener()).execute(VoiceChromeType.NOTIFICATIONS);
+        }
+        if(sNotificationQueuedAnimatedImage == null) {
+            new ImageDecoderTask(getResources().getAssets(), createImageDecoderListener()).execute(VoiceChromeType.NOTIFICATIONS_QUEUED);
+        }
+    }
+
+    /**
+     * ImageDecoderTask.Listenerの生成
+     * decode完了後、VoiceChromeTypeに応じて、各変数に格納する
+     * ImageDecoderTaskのdecode処理が長引き、View#onDrawが先に呼ばれてしまう場合の対策で
+     * ImageDecoderTaskのdecodeが完了次第、View再描画する
+     * ImageDecoderTaskを使ってdecodeする各変数の使用時はnullチェックを行うこと
+     *
+     * @return ImageDecoderTask.Listener
+     */
+    private ImageDecoderTask.Listener createImageDecoderListener() {
+        return new ImageDecoderTask.Listener() {
+            @Override
+            public void onPostExecute(AnimatedImageDrawable animatedImageDrawable, VoiceChromeType voiceChromeType) {
+
+                switch (voiceChromeType) {
+                    case LISTENING:
+                        break;
+                    case THINKING:
+                        sThinkingAnimatedImage = animatedImageDrawable;
+                        break;
+                    case SPEAKING:
+                        sSpeakingAnimatedImage = animatedImageDrawable;
+                        break;
+                    case SYSTEM_ERROR:
+                        sSystemErrorAnimatedImage = animatedImageDrawable;
+                        break;
+                    case NOTIFICATIONS:
+                        sNotificationArrivedAnimatedImage = animatedImageDrawable;
+                        break;
+                    case NOTIFICATIONS_QUEUED:
+                        sNotificationQueuedAnimatedImage = animatedImageDrawable;
+                        break;
+                }
+
+                // decodeが完了次第、View再描画指示
+                if(DEBUG) Log.d(TAG, "ImageDecoderTask Listener onPostExecute invalidate");
+                invalidate();
+            }
+        };
+    }
+
 
     /**
      * アニメーション描画タスクを開始する.
@@ -223,7 +353,7 @@ public class CustomVoiceChromeView extends View {
             mExecutorService = Executors.newSingleThreadScheduledExecutor();
 
             // 一定間隔毎にごとにRunnableの処理を実行する
-            mExecutorService.scheduleAtFixedRate(new CustomVoiceChromeView.DrewTimerTask(), 0L, UPDATE_TIME, TimeUnit.MILLISECONDS);
+            mExecutorService.scheduleAtFixedRate(new DrawTimerTask(), 0L, UPDATE_TIME, TimeUnit.MILLISECONDS);
         }
     }
 
@@ -272,9 +402,7 @@ public class CustomVoiceChromeView extends View {
     protected void onDraw(Canvas canvas) {
         if (DEBUG) Log.d(TAG, "onDraw start");
         super.onDraw(canvas);
-        //CustomVoiceChromeView.DrawVoiceChromeManager.drawBaseCircle(canvas);
         drawVoiceChrome(canvas);
-        //CustomVoiceChromeView.DrawVoiceChromeManager.drawBitmap(canvas, mAlexaLogo);
         invalidate();
         if (DEBUG) Log.d(TAG, "onDraw end");
     }
@@ -363,18 +491,6 @@ public class CustomVoiceChromeView extends View {
                 });
                 break;
             case NOTIFICATIONS:
-                CustomVoiceChromeView.DrawVoiceChromeManager.drawVoiceChromeNotifications(canvas, mCurAnimPosition, mLoopCnt, new CustomVoiceChromeView.DrawVoiceChromeManager.IVoiceChromeCallback() {
-                    @Override
-                    public void onNotificationAnimationEnd() {
-                        isNotificationAnimated = false;
-                        if (mTempVoiceChromeType != null) {
-                            CustomVoiceChromeView.VoiceChromeType nextType = mTempVoiceChromeType;
-                            mTempVoiceChromeType = null;
-                            setVoiceChromeType(nextType);
-                        }
-                    }
-                });
-                break;
             case NOTIFICATIONS_QUEUED:
                 CustomVoiceChromeView.DrawVoiceChromeManager.drawVoiceChromeNotifications(canvas, mCurAnimPosition, mLoopCnt, new CustomVoiceChromeView.DrawVoiceChromeManager.IVoiceChromeCallback() {
                     @Override
@@ -496,8 +612,8 @@ public class CustomVoiceChromeView extends View {
         private static void drawBaseCircle(Canvas canvas) {
             if (DEBUG) Log.d(TAG, "drawBaseCircle start");
             // 中央値の計算
-            float xc = canvas.getWidth() / 2;
-            float yc = canvas.getHeight() / 2;
+            float xc = (float)canvas.getWidth() / 2;
+            float yc = (float)canvas.getHeight() / 2;
 
             // 半径
             float r = Math.min(xc, yc);
@@ -525,8 +641,8 @@ public class CustomVoiceChromeView extends View {
         private static void drawCircleLine(Canvas canvas, int color) {
             if (DEBUG) Log.d(TAG, "drawBaseCircle start");
             // 中央値の計算
-            float xc = canvas.getWidth() / 2;
-            float yc = canvas.getHeight() / 2;
+            float xc = (float)canvas.getWidth() / 2;
+            float yc = (float)canvas.getHeight() / 2;
 
             // 線の太さ
             float strokeWidth = (canvas.getWidth() * 0.05f);
@@ -560,8 +676,8 @@ public class CustomVoiceChromeView extends View {
         private static void drawLine(Canvas canvas, int color, float degree) {
             if (DEBUG) Log.d(TAG, "drawBaseCircle start");
             // 中央値の計算
-            float xc = canvas.getWidth() / 2;
-            float yc = canvas.getHeight() / 2;
+            float xc = (float)canvas.getWidth() / 2;
+            float yc = (float)canvas.getHeight() / 2;
 
             // 線の太さ
             float strokeWidth = (canvas.getWidth() * 0.05f);
@@ -620,33 +736,24 @@ public class CustomVoiceChromeView extends View {
             Paint p = new Paint();
             p.setAntiAlias(true);
             p.setColor(VoiceChromeColor.BLUE.getColor());
-            if (moviestart == 0) moviestart = now;
-            listeningStartTime = (int)(now - moviestart);
-            float scale = (float)sWidth / mListeningStartMovie.width();
+            if (sMovieStart == 0) sMovieStart = now;
+            sListeningStartTime = (int)(now - sMovieStart);
 
             float moveX = 0;
-            moveX = listeningStartTime * sWidth/2/LISTENING_START_TIME;
+            moveX = sListeningStartTime * sWidth/2/LISTENING_START_TIME;
             canvas.drawRect(new RectF(0,0, sWidth,sHeight),p);
-/*            Rect leftBounds = new Rect((int)(-listeningImage.getWidth()/2 + moveX), 0, (int)(listeningImage.getWidth()/2 + moveX), (int)sHeight);
-            Rect rightBounds = new Rect((int)(sWidth-listeningImage.getWidth()/2 - moveX), 0, (int)(sWidth + listeningImage.getWidth()/2 - moveX), (int)sHeight);
 
-            sNinePatchDrawable.setColorFilter(new PorterDuffColorFilter(VoiceChromeColor.CYAN.getColor(), PorterDuff.Mode.SRC_IN));
-            sNinePatchDrawable.setBounds(leftBounds);
-            sNinePatchDrawable.draw(canvas);
-            sNinePatchDrawable.setBounds(rightBounds);
-            sNinePatchDrawable.draw(canvas);*/
             if(moveX>sWidth/2){
                 return;
             }
             int xc = canvas.getWidth() / 2;
-            int left = (int)moveX-listeningImage.getWidth()/2;
-            int right = (int)(sWidth-moveX + listeningImage.getWidth()/2);
+            int left = (int)moveX- sListeningImage.getWidth()/2;
+            int right = (int)(sWidth-moveX + sListeningImage.getWidth()/2);
             Rect tbounds = new Rect(left, 0, right,(int)sHeight );
             sNinePatchDrawable.setColorFilter(new PorterDuffColorFilter(VoiceChromeColor.CYAN.getColor(), PorterDuff.Mode.SRC_IN));
             sNinePatchDrawable.setBounds(tbounds);
             sNinePatchDrawable.draw(canvas);
-            //if (DEBUG) Log.d(TAG, "drawVoiceChromeListeningStart scale" + scale +" translate" + translate);
-            if (DEBUG) Log.d(TAG, "drawVoiceChromeListeningStart listeningStartTime" + listeningStartTime);
+            if (DEBUG) Log.d(TAG, "drawVoiceChromeListeningStart sListeningStartTime" + sListeningStartTime);
             // なにもしない
             if (DEBUG) Log.d(TAG, "drawVoiceChromeListeningStart end");
         }
@@ -662,10 +769,9 @@ public class CustomVoiceChromeView extends View {
             // 中央値の計算
             int xc = canvas.getWidth() / 2;
 
-            //if(listeningStartTime<=LISTENING_START_TIME)return;
-            int level = (int)(listeningImage.getWidth() + (float)canvas.getWidth()*db/sRange);
-            if(level<listeningImage.getWidth()){
-                level = listeningImage.getWidth();
+            int level = (int)(sListeningImage.getWidth() + (float)canvas.getWidth()*db/sRange);
+            if(level< sListeningImage.getWidth()){
+                level = sListeningImage.getWidth();
             }
             int left = xc - level;
             int right = xc + level;
@@ -689,11 +795,19 @@ public class CustomVoiceChromeView extends View {
         private static void drawVoiceChromeThinking(Canvas canvas, long current) {
             if (DEBUG) Log.d(TAG, "drawVoiceChromeThinking start");
             canvas.save();
-            float xScale = sWidth / mThinkingMovie.width();
-            float yScale = sHeight/ mThinkingMovie.height();
-            canvas.scale(xScale, yScale);
-            mThinkingMovie.setTime((int)current);
-            mThinkingMovie.draw(canvas, 0, 0);
+            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P){
+                float xScale = sWidth / sThinkingMovie.width();
+                float yScale = sHeight/ sThinkingMovie.height();
+                canvas.scale(xScale, yScale);
+                sThinkingMovie.setTime((int)current);
+                sThinkingMovie.draw(canvas, 0, 0);
+            } else if(sThinkingAnimatedImage != null) {
+                float xScale = sWidth / sThinkingAnimatedImage.getIntrinsicWidth();
+                float yScale = sHeight/ sThinkingAnimatedImage.getIntrinsicHeight();
+                canvas.scale(xScale, yScale);
+                sThinkingAnimatedImage.draw(canvas);
+                sThinkingAnimatedImage.start();
+            }
             canvas.restore();
             if (DEBUG) Log.d(TAG, "drawVoiceChromeThinking end");
         }
@@ -707,11 +821,19 @@ public class CustomVoiceChromeView extends View {
         private static void drawVoiceChromeSpeaking(Canvas canvas, long current) {
             if (DEBUG) Log.d(TAG, "drawVoiceChromeSpeaking start");
             canvas.save();
-            float xScale = sWidth / mSpeakingMovie.width();
-            float yScale = sHeight/ mSpeakingMovie.height();
-            canvas.scale(xScale, yScale);
-            mSpeakingMovie.setTime((int)current);
-            mSpeakingMovie.draw(canvas, 0, 0);
+            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+                float xScale = sWidth / sSpeakingMovie.width();
+                float yScale = sHeight/ sSpeakingMovie.height();
+                canvas.scale(xScale, yScale);
+                sSpeakingMovie.setTime((int)current);
+                sSpeakingMovie.draw(canvas, 0, 0);
+            } else if(sSpeakingAnimatedImage != null) {
+                float xScale = sWidth/ sSpeakingAnimatedImage.getIntrinsicWidth();
+                float yScale = sHeight/ sSpeakingAnimatedImage.getIntrinsicHeight();
+                canvas.scale(xScale, yScale);
+                sSpeakingAnimatedImage.draw(canvas);
+                sSpeakingAnimatedImage.start();
+            }
             canvas.restore();
             if (DEBUG) Log.d(TAG, "drawVoiceChromeSpeaking end");
         }
@@ -741,11 +863,19 @@ public class CustomVoiceChromeView extends View {
             if (DEBUG) Log.d(TAG, "drawVoiceChromeSystemError start");
             if(loopCnt<VoiceChromeType.SYSTEM_ERROR.getAnimationLoop()) {
                 canvas.save();
-                float xScale = sWidth / mSystemErrorMovie.width();
-                float yScale = sHeight / mSystemErrorMovie.height();
-                canvas.scale(xScale, yScale);
-                mSystemErrorMovie.setTime((int) current);
-                mSystemErrorMovie.draw(canvas, 0, 0);
+                if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+                    float xScale = sWidth / sSystemErrorMovie.width();
+                    float yScale = sHeight / sSystemErrorMovie.height();
+                    canvas.scale(xScale, yScale);
+                    sSystemErrorMovie.setTime((int) current);
+                    sSystemErrorMovie.draw(canvas, 0, 0);
+                } else if(sSystemErrorAnimatedImage != null) {
+                    float xScale = sWidth / sSystemErrorAnimatedImage.getIntrinsicWidth();
+                    float yScale = sHeight / sSystemErrorAnimatedImage.getIntrinsicHeight();
+                    canvas.scale(xScale, yScale);
+                    sSystemErrorAnimatedImage.draw(canvas);
+                    sSystemErrorAnimatedImage.start();
+                }
                 canvas.restore();
             }else{
                 // 描画
@@ -772,19 +902,35 @@ public class CustomVoiceChromeView extends View {
 
             if (1 > loopCnt) {
                 canvas.save();
-                float xScale = sWidth / mNotificationArrivedMovie.width();
-                float yScale = sHeight/ mNotificationArrivedMovie.height();
-                canvas.scale(xScale, yScale);
-                mNotificationArrivedMovie.setTime((int)current);
-                mNotificationArrivedMovie.draw(canvas, 0, 0);
+                if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+                    float xScale = sWidth / sNotificationArrivedMovie.width();
+                    float yScale = sHeight/ sNotificationArrivedMovie.height();
+                    canvas.scale(xScale, yScale);
+                    sNotificationArrivedMovie.setTime((int)current);
+                    sNotificationArrivedMovie.draw(canvas, 0, 0);
+                } else if(sNotificationArrivedAnimatedImage != null ){
+                    float xScale = sWidth / sNotificationArrivedAnimatedImage.getIntrinsicWidth();
+                    float yScale = sHeight/ sNotificationArrivedAnimatedImage.getIntrinsicHeight();
+                    canvas.scale(xScale, yScale);
+                    sNotificationArrivedAnimatedImage.draw(canvas);
+                    sNotificationArrivedAnimatedImage.start();
+                }
                 canvas.restore();
             } else {
                 canvas.save();
-                float xScale = sWidth / mNotificationQueuedMovie.width();
-                float yScale = sHeight/ mNotificationQueuedMovie.height();
-                canvas.scale(xScale, yScale);
-                mNotificationQueuedMovie.setTime((int)current);
-                mNotificationQueuedMovie.draw(canvas, 0, 0);
+                if(Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+                    float xScale = sWidth / sNotificationQueuedMovie.width();
+                    float yScale = sHeight/ sNotificationQueuedMovie.height();
+                    canvas.scale(xScale, yScale);
+                    sNotificationQueuedMovie.setTime((int)current);
+                    sNotificationQueuedMovie.draw(canvas, 0, 0);
+                } else if(sNotificationQueuedAnimatedImage != null) {
+                    float xScale = sWidth / sNotificationQueuedAnimatedImage.getIntrinsicWidth();
+                    float yScale = sHeight/ sNotificationQueuedAnimatedImage.getIntrinsicHeight();
+                    canvas.scale(xScale, yScale);
+                    sNotificationQueuedAnimatedImage.draw(canvas);
+                    sNotificationQueuedAnimatedImage.start();
+                }
                 canvas.restore();
                 if (voiceChrome != null) {
                     voiceChrome.onNotificationAnimationEnd();
@@ -798,7 +944,7 @@ public class CustomVoiceChromeView extends View {
     /**
      * 描画更新用Runnable.
      */
-    private class DrewTimerTask implements Runnable {
+    private class DrawTimerTask implements Runnable {
 
         @Override
         public void run() {
@@ -837,6 +983,60 @@ public class CustomVoiceChromeView extends View {
 
             // 描画の更新を行う.
             postInvalidate();
+        }
+    }
+
+    /**
+     * API28以上のGIF画像decode用Task
+     * ImageDecoder#decodeDrawableがUI Threadでの実行が非推奨なため作成
+     * VoiceChromeTypeに応じたGIF画像のAnimatedImageDrawableを取得する
+     * VoiceChromeTypeのmAnimationFileNameがnullの場合やファイルが開けない場合など
+     * 何らかの原因で取得できない場合はnullとなる
+     * 利用側ではImageDecoder.Listenerインターフェースを使う
+     */
+    @RequiresApi(api = Build.VERSION_CODES.P)
+    private static class ImageDecoderTask extends AsyncTask<VoiceChromeType, Void, AnimatedImageDrawable> {
+
+        // ImageDecoder#createSourceで必要
+        private AssetManager mAssetManager;
+        // クラス変数への格納で使いたいため保持
+        private VoiceChromeType mVoiceChromeType;
+        private ImageDecoderTask.Listener mListener;
+
+        private ImageDecoderTask(AssetManager assetManager, ImageDecoderTask.Listener listener) {
+            mAssetManager = assetManager;
+            mListener = listener;
+        }
+
+        @Override
+        protected AnimatedImageDrawable doInBackground(VoiceChromeType... voiceChromeType) {
+            if(voiceChromeType[0] == null || voiceChromeType[0].getAnimationFileName() == null) {
+                return null;
+            }
+            mVoiceChromeType = voiceChromeType[0];
+
+            try {
+                return (AnimatedImageDrawable) ImageDecoder.decodeDrawable(ImageDecoder.createSource(mAssetManager, voiceChromeType[0].getAnimationFileName()));
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(AnimatedImageDrawable animatedImageDrawable) {
+            if (DEBUG) Log.d(TAG, "ImageDecoderTask onPostExecute VoiceChromeType=" + mVoiceChromeType);
+            if(animatedImageDrawable == null) {
+                return;
+            }
+            if(mListener != null) {
+                mListener.onPostExecute(animatedImageDrawable, mVoiceChromeType);
+            }
+        }
+
+        // 利用側通知リスナ
+        private interface Listener {
+            void onPostExecute(AnimatedImageDrawable animatedImageDrawable, VoiceChromeType voiceChromeType);
         }
     }
 }
