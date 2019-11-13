@@ -17,11 +17,10 @@ import jp.pioneer.carsync.domain.interactor.ExitMenu;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.interactor.PreferSoundFx;
 import jp.pioneer.carsync.domain.model.AppStatus;
-import jp.pioneer.carsync.domain.model.VoiceRecognizeType;
 import jp.pioneer.carsync.domain.model.CarDeviceClassId;
+import jp.pioneer.carsync.domain.model.VoiceRecognizeType;
 import jp.pioneer.carsync.presentation.model.AdasTrialState;
 import jp.pioneer.carsync.presentation.util.ShortCutKeyEnabledStatus;
-import jp.pioneer.carsync.presentation.util.YouTubeLinkStatus;
 import jp.pioneer.carsync.presentation.view.UnsupportedView;
 
 /**
@@ -50,7 +49,6 @@ public class UnsupportedPresenter extends PlayerPresenter<UnsupportedView> {
     void onTakeView() {
         Optional.ofNullable(getView()).ifPresent(view -> {
             view.setColor(mPreference.getUiColor().getResource());
-            view.setAdasEnabled((mPreference.isAdasEnabled()&&mPreference.getLastConnectedCarDeviceClassId()!= CarDeviceClassId.MARIN&&(mGetCase.execute().getAppStatus().adasPurchased||mPreference.getAdasTrialState() == AdasTrialState.TRIAL_DURING))||mPreference.isAdasPseudoCooperation());
         });
         super.onTakeView();
     }
@@ -60,6 +58,9 @@ public class UnsupportedPresenter extends PlayerPresenter<UnsupportedView> {
         if (!mEventBus.isRegistered(this)) {
             mEventBus.register(this);
         }
+        Optional.ofNullable(getView()).ifPresent(view -> {
+            view.setAdasEnabled((mPreference.isAdasEnabled()&&mPreference.getLastConnectedCarDeviceClassId()!= CarDeviceClassId.MARIN&&(mGetCase.execute().getAppStatus().adasPurchased||mPreference.getAdasTrialState() == AdasTrialState.TRIAL_DURING))||mPreference.isAdasPseudoCooperation());
+        });
         setAdasIcon();
         super.onResume();
     }
