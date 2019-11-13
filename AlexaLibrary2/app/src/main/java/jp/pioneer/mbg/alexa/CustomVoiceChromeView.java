@@ -792,6 +792,7 @@ public class CustomVoiceChromeView extends View {
          * @param canvas  Canvasインスタンス
          * @param current
          */
+        @SuppressWarnings("deprecation")
         private static void drawVoiceChromeThinking(Canvas canvas, long current) {
             if (DEBUG) Log.d(TAG, "drawVoiceChromeThinking start");
             canvas.save();
@@ -818,6 +819,7 @@ public class CustomVoiceChromeView extends View {
          * @param canvas  Canvasインスタンス
          * @param current
          */
+        @SuppressWarnings("deprecation")
         private static void drawVoiceChromeSpeaking(Canvas canvas, long current) {
             if (DEBUG) Log.d(TAG, "drawVoiceChromeSpeaking start");
             canvas.save();
@@ -859,6 +861,7 @@ public class CustomVoiceChromeView extends View {
          *
          * @param canvas Canvasインスタンス
          */
+        @SuppressWarnings("deprecation")
         private static void drawVoiceChromeSystemError(Canvas canvas, long current, int loopCnt, CustomVoiceChromeView.DrawVoiceChromeManager.IVoiceChromeCallback voiceChrome) {
             if (DEBUG) Log.d(TAG, "drawVoiceChromeSystemError start");
             if(loopCnt<VoiceChromeType.SYSTEM_ERROR.getAnimationLoop()) {
@@ -896,6 +899,7 @@ public class CustomVoiceChromeView extends View {
          * @param canvas  Canvasインスタンス
          * @param current
          */
+        @SuppressWarnings("deprecation")
         private static void drawVoiceChromeNotifications(Canvas canvas, long current, int loopCnt, CustomVoiceChromeView.DrawVoiceChromeManager.IVoiceChromeCallback voiceChrome) {
             if (DEBUG) Log.d(TAG, "drawVoiceChromeNotifications start");
 
