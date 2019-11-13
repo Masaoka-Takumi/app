@@ -111,6 +111,11 @@ public class GetRunningStatus {
         @Override
         public void onError(@NonNull LocationProvider.Error error, @Nullable Resolver resolver) {
             // nothing to do
+            CarRunningStatus status = mStatusHolder.getCarRunningStatus();
+            status.altitude = Double.MIN_VALUE;
+            status.speedForSpeedMeter = -1;
+            status.speed = -1;
+            status.averageSpeed = -1;
         }
     };
 
