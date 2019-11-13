@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -162,7 +163,7 @@ public class PlaylistsFragment extends AbstractScreenFragment<PlaylistsPresenter
 
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
     public void setLoaderManager() {
-        getPresenter().setLoaderManager(getLoaderManager());
+        getPresenter().setLoaderManager(LoaderManager.getInstance(this));
     }
 
     /**

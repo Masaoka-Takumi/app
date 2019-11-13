@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -167,7 +168,7 @@ public class AlbumsFragment extends AbstractScreenFragment<AlbumsPresenter, Albu
 
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
     public void setLoaderManager() {
-        getPresenter().setLoaderManager(getLoaderManager());
+        getPresenter().setLoaderManager(LoaderManager.getInstance(this));
     }
 
     /**
