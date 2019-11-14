@@ -76,7 +76,7 @@ public class LocationProviderImpl implements LocationProvider, GoogleApiClient.C
         }
 
         mType = type;
-        mLastLocation=null;
+
         mCallback = new WeakReference<>(callback);
         switch (priority) {
             case HIGH_ACCURACY:
