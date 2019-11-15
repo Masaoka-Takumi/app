@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.View;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -353,7 +354,7 @@ public class CustomVoiceChromeView extends View {
             mExecutorService = Executors.newSingleThreadScheduledExecutor();
 
             // 一定間隔毎にごとにRunnableの処理を実行する
-            mExecutorService.scheduleAtFixedRate(new DrawTimerTask(), 0L, UPDATE_TIME, TimeUnit.MILLISECONDS);
+            mExecutorService.scheduleAtFixedRate(new DrawTimerTask(this), 0L, UPDATE_TIME, TimeUnit.MILLISECONDS);
         }
     }
 
@@ -403,7 +404,6 @@ public class CustomVoiceChromeView extends View {
         if (DEBUG) Log.d(TAG, "onDraw start");
         super.onDraw(canvas);
         drawVoiceChrome(canvas);
-        invalidate();
         if (DEBUG) Log.d(TAG, "onDraw end");
     }
 
@@ -948,45 +948,57 @@ public class CustomVoiceChromeView extends View {
     /**
      * 描画更新用Runnable.
      */
-    private class DrawTimerTask implements Runnable {
+    private static class DrawTimerTask implements Runnable {
+
+        private WeakReference<CustomVoiceChromeView> mViewWeakRef;
+
+        DrawTimerTask(CustomVoiceChromeView customVoiceChromeView) {
+            mViewWeakRef = new WeakReference<>(customVoiceChromeView);
+        }
 
         @Override
         public void run() {
-            // 現在の時刻を取得.
-            long time = System.currentTimeMillis();
-
-            // 前回の更新時刻が初期値の場合は現在値を代入.
-            if (0 == mBeforeUpdateTime) {
-                mBeforeUpdateTime = time;
+            if(mViewWeakRef == null) {
+                return;
             }
+            CustomVoiceChromeView view = mViewWeakRef.get();
+            if (view != null) {
+                // 現在の時刻を取得.
+                long time = System.currentTimeMillis();
 
-            if (DEBUG) Log.d(TAG, "time = " + time);
-            if (DEBUG) Log.d(TAG, "mBeforeUpdateTime = " + mBeforeUpdateTime);
+                // 前回の更新時刻が初期値の場合は現在値を代入.
+                if (0 == view.mBeforeUpdateTime) {
+                    view.mBeforeUpdateTime = time;
+                }
 
-            // 前回時刻からの差分を計算する.
-            long diff = time - mBeforeUpdateTime;
+                if (DEBUG) Log.d(TAG, "time = " + time);
+                if (DEBUG) Log.d(TAG, "mBeforeUpdateTime = " + view.mBeforeUpdateTime);
 
-            // 今回の更新時間を保持する.
-            mBeforeUpdateTime = time;
-            if (DEBUG) Log.d(TAG, "diff = " + diff);
-            long loopTime = mVoiceChromeType.getAnimationLoopTime();
-            if(mVoiceChromeType==VoiceChromeType.NOTIFICATIONS&&mLoopCnt==0){
-                loopTime = 4200;
+                // 前回時刻からの差分を計算する.
+                long diff = time - view.mBeforeUpdateTime;
+
+                // 今回の更新時間を保持する.
+                view.mBeforeUpdateTime = time;
+                if (DEBUG) Log.d(TAG, "diff = " + diff);
+                long loopTime = view.mVoiceChromeType.getAnimationLoopTime();
+                if (view.mVoiceChromeType == VoiceChromeType.NOTIFICATIONS && view.mLoopCnt == 0) {
+                    loopTime = 4200;
+                }
+                // ループ間隔の範囲かを計算する.
+                if ((diff + view.mCurAnimPosition) > view.mVoiceChromeType.getAnimationLoopTime()) {
+                    // ループ回数を増加.
+                    view.mLoopCnt++;
+                    // 余剰分を保持する.
+                    view.mCurAnimPosition = (diff + view.mCurAnimPosition) % view.mVoiceChromeType.getAnimationLoopTime();
+                } else {
+                    // 加算する.
+                    view.mCurAnimPosition = diff + view.mCurAnimPosition;
+                }
+                if (DEBUG) Log.d(TAG, "mCurAnimPosition = " + view.mCurAnimPosition);
+
+                // 描画の更新を行う.
+                view.postInvalidate();
             }
-            // ループ間隔の範囲かを計算する.
-            if ((diff + mCurAnimPosition) > mVoiceChromeType.getAnimationLoopTime()) {
-                // ループ回数を増加.
-                mLoopCnt++;
-                // 余剰分を保持する.
-                mCurAnimPosition = (diff + mCurAnimPosition) % mVoiceChromeType.getAnimationLoopTime();
-            } else {
-                // 加算する.
-                mCurAnimPosition = diff + mCurAnimPosition;
-            }
-            if (DEBUG) Log.d(TAG, "mCurAnimPosition = " + mCurAnimPosition);
-
-            // 描画の更新を行う.
-            postInvalidate();
         }
     }
 
@@ -1005,11 +1017,11 @@ public class CustomVoiceChromeView extends View {
         private AssetManager mAssetManager;
         // クラス変数への格納で使いたいため保持
         private VoiceChromeType mVoiceChromeType;
-        private ImageDecoderTask.Listener mListener;
+        private WeakReference<ImageDecoderTask.Listener> mListenerWeakRef;
 
         private ImageDecoderTask(AssetManager assetManager, ImageDecoderTask.Listener listener) {
             mAssetManager = assetManager;
-            mListener = listener;
+            mListenerWeakRef = new WeakReference<>(listener);
         }
 
         @Override
@@ -1030,11 +1042,13 @@ public class CustomVoiceChromeView extends View {
         @Override
         protected void onPostExecute(AnimatedImageDrawable animatedImageDrawable) {
             if (DEBUG) Log.d(TAG, "ImageDecoderTask onPostExecute VoiceChromeType=" + mVoiceChromeType);
-            if(animatedImageDrawable == null) {
+            if(animatedImageDrawable == null || mListenerWeakRef == null) {
                 return;
             }
-            if(mListener != null) {
-                mListener.onPostExecute(animatedImageDrawable, mVoiceChromeType);
+
+            Listener listener = mListenerWeakRef.get();
+            if(listener != null) {
+                listener.onPostExecute(animatedImageDrawable, mVoiceChromeType);
             }
         }
 
