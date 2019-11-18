@@ -50,6 +50,14 @@
     <string name="ply_097">Liste stations</string>
     <string name="ply_098">Recherche</string>
     <string name="ply_099">Erreur antenne</string>
+    <string name="ply_100">Station</string>
+    <string name="ply_101">Type de programme</string>
+    <string name="ply_102">Groupe de stations</string>
+    <string name="ply_103">News&amp;Info</string>
+    <string name="ply_104">Populaire</string>
+    <string name="ply_105">Classiques</string>
+    <string name="ply_106">Autres</string>
+    <string name="ply_107">Introuvable</string>
     <string name="set_004">Vol.</string>
     <string name="set_005">Paramétres avancés</string>
     <string name="set_006">Suivi  de Fréquence Alternative</string>
@@ -209,7 +217,7 @@
     <string name="set_260">Balance</string>
     <string name="set_261">Voulez-vous annuler le jumelage ?</string>
     <string name="set_262">Connexion ...</string>
-    <string name="set_263">Connectez-vous au dispositif embarqué (Bluetooth Low Energy) pour lire le message. \n\n※ Le jumelage est requis lors de la première connexion. Entrez le code de jumelage à 6 chiffres affiché sur le dispositif embarqué.</string>
+    <string name="set_263">Connectez-vous au dispositif embarqué (Bluetooth Low Energy) pour lire le message.\n\n※ Le jumelage est requis lors de la première connexion. Entrez le code de jumelage à 6 chiffres affiché sur le dispositif embarqué.</string>
     <string name="set_264">Ce dispositif ne peut pas détecter les collisions</string>
     <string name="set_265">Connecté</string>
     <string name="set_266">Échoué</string>
@@ -325,6 +333,7 @@
     <string name="set_389">Réglage personnalisation bouton</string>
     <string name="set_393">Attendre pour la connexion automatique</string>
     <string name="set_394">La désactivation de ce paramètre empêche le récepteur  de se connecter automatiquement\n</string>
+    <string name="set_402">Puissance de l\'antenne</string>
     <string name="sta_004">ATTENTION!</string>
     <string name="sta_005">Accepter</string>
     <string name="sta_008">N’utilisez aucune des fonctions de l’appareil si cela présente un quelconque danger et si cela est interdit par la loi. Veuillez également vous concentrer sur la route et sur votre environnement, et respecter le code de la route.\n\nLes fonctionnalités activées à l’aide d’un smartphone ne sont que de simples outils disponibles pour le conducteur. \nLe conducteur doit faire preuve d’un comportement routier sûr et raisonnable en toutes circonstances.</string>
@@ -372,7 +381,7 @@
     <string name="rec_002">Résultats « %s »</string>
     <string name="rec_010">Résultats</string>
     <string name="rec_011">Introuvable</string>
-    <string name="rec_012">Reconnaissance vocale indisponible. \nSiri ou la commande vocale doit être activée et connectée à Internet.</string>
+    <string name="rec_012">Reconnaissance vocale indisponible.\nSiri ou la commande vocale doit être activée et connectée à Internet.</string>
     <string name="rec_013">Siri ou la commande vocale doit être activée</string>
     <string name="rec_014">« Artiste », nom de l\'artiste</string>
     <string name="rec_015">Nom de l\'artiste</string>
@@ -520,9 +529,9 @@
     <string name="per_002">Utilisé pour la fonction lecture notification.</string>
     <string name="per_003">Utilisé pour la fonction Driving Support Eye.</string>
     <string name="per_004">Utilisé pour la fonction répertoire.</string>
-    <string name="per_005">Utilisé pour l\'obtention d\'informations locales.</string>
-    <string name="per_006">Utilisé pour l\'obtention d\'informations locales.</string>
-    <string name="per_007">Utilisé pour l\'obtention d\'informations locales.</string>
+    <string name="per_005">L’affichage Vitesse / Altitude, la détection d’impact (lorsque SMS est renseigné) et des informations de localisation supplémentaires seront utilisés avec la fonction Driving Support Eye.</string>
+    <string name="per_006">L’affichage Vitesse / Altitude, la détection d’impact (lorsque SMS est renseigné) et des informations de localisation supplémentaires seront utilisés avec la fonction Driving Support Eye.</string>
+    <string name="per_007">L’affichage Vitesse / Altitude, la détection d’impact (lorsque SMS est renseigné) et des informations de localisation supplémentaires seront utilisés avec la fonction Driving Support Eye.</string>
     <string name="per_008">Utilisé pour la fonction reconnaissance vocale.</string>
     <string name="per_009">Utilisé pour la fonction reconnaissance vocale.</string>
     <string name="per_010">Utilisation des paramètres de fond d\'écran.</string>

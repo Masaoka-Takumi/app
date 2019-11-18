@@ -51,6 +51,7 @@
     <string name="ply_097">רשימת תחנות</string>
     <string name="ply_098">עדכון רשימה</string>
     <string name="ply_099">שגיאת אנטנה </string>
+    <string name="ply_107">לא נמצא</string>
     <string name="set_004">הוסף</string>
     <string name="set_005">הגדרות מתקדמות</string>
     <string name="set_006">AF</string>
@@ -214,7 +215,7 @@
     <string name="set_260">בלאנס</string>
     <string name="set_261">האם אתה רוצה לבטל את ההתאמה?</string>
     <string name="set_262">מתחבר...</string>
-    <string name="set_263">התחבר להתקן שבכלי הרכב (Bluetooth באנרגיה נמוכה) כדי לקרוא את ההודעה. \n\n※ לחיבור הראשון יש צורך לבצע התאמה. הזן את קוד ההתאמה בן שש ספרות שמוצג בהתקן של כלי הרכב.</string>
+    <string name="set_263">התחבר להתקן שבכלי הרכב (Bluetooth באנרגיה נמוכה) כדי לקרוא את ההודעה.\n\n※ לחיבור הראשון יש צורך לבצע התאמה. הזן את קוד ההתאמה בן שש ספרות שמוצג בהתקן של כלי הרכב.</string>
     <string name="set_264">התקן זה לא יכול לזהות התנגשות</string>
     <string name="set_265">הוצמד</string>
     <string name="set_266">נכשל</string>
@@ -330,6 +331,7 @@
     <string name="set_389">הגדרות כפתור מותאם אישית</string>
     <string name="set_393">ממתין לחיבור אוטומטי</string>
     <string name="set_394">כיבוי הגדרה זו תמנע מהמערכת להתחבר אוטומטית.</string>
+    <string name="set_402">עצמת אנטנה</string>
     <string name="sta_004">זהירות:</string>
     <string name="sta_005">מסכים</string>
     <string name="sta_008">השתמש בפונקציה רק כאשר הדבר בטוח וחוקי במקום בו אתה נמצא, שים לב לכביש ולסביבה וציית לכל חוקי התנועה.\n\nפונקציות מופעלות עם הטלפון החכם הם רק כלים זמינים לנהג. \nהנהג יראה התנהגות נהיגה בטוחה  בכל הנסיבות</string>
@@ -377,7 +379,7 @@
     <string name="rec_002">תוצאות הכוללות \'‎%s\'</string>
     <string name="rec_010">תוצאות</string>
     <string name="rec_011">לא נמצא</string>
-    <string name="rec_012">זיהוי קולי לא זמין. \nיש להפעיל את Siri או קלט קול, ולהיות מחובר לאינטרנט.</string>
+    <string name="rec_012">זיהוי קולי לא זמין.\nיש להפעיל את Siri או קלט קול, ולהיות מחובר לאינטרנט.</string>
     <string name="rec_013">יש להפעיל את Siri או קלט קול</string>
     <string name="rec_014">\'אמן\', שם אמן</string>
     <string name="rec_015">שם אמן</string>
@@ -522,9 +524,9 @@
     <string name="per_002">משמש לפונקציית קריאת הודעות.</string>
     <string name="per_003">משמש לפונקציית Driving Support Eye.</string>
     <string name="per_004">משמש לפונקציית ספר טלפונים.</string>
-    <string name="per_005">הוא משמש לקבלת נתוני מיקום.</string>
-    <string name="per_006">הוא משמש לקבלת נתוני מיקום.</string>
-    <string name="per_007">הוא משמש לקבלת נתוני מיקום.</string>
+    <string name="per_005">תצוגת המהירות / הגובה, impact detection  (כאשר הוגדר ב SMS) ומידע נוסף על מיקום ישמשו את התכונה  Driving Support Eye\n</string>
+    <string name="per_006">תצוגת המהירות / הגובה, impact detection  (כאשר הוגדר ב SMS) ומידע נוסף על מיקום ישמשו את התכונה  Driving Support Eye\n</string>
+    <string name="per_007">תצוגת המהירות / הגובה, impact detection  (כאשר הוגדר ב SMS) ומידע נוסף על מיקום ישמשו את התכונה  Driving Support Eye\n</string>
     <string name="per_008">משמש לפונקציית זיהוי קולי.</string>
     <string name="per_009">משמש לפונקציית זיהוי קולי.</string>
     <string name="per_010">שימוש בהגדרות רקע.</string>

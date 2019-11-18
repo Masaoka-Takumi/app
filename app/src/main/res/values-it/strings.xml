@@ -50,6 +50,14 @@
     <string name="ply_097">Elenco stazioni</string>
     <string name="ply_098">Agg. elenco</string>
     <string name="ply_099">Errore antenna</string>
+    <string name="ply_100">Stazione</string>
+    <string name="ply_101">Tipo di programma</string>
+    <string name="ply_102">Gruppo stazioni</string>
+    <string name="ply_103">Notizie&amp;Info</string>
+    <string name="ply_104">popolare</string>
+    <string name="ply_105">Classica</string>
+    <string name="ply_106">Altro</string>
+    <string name="ply_107">Non trovato</string>
     <string name="set_004">Aggiungi</string>
     <string name="set_005">Impostazioni avanzate</string>
     <string name="set_006">AF</string>
@@ -209,7 +217,7 @@
     <string name="set_260">Bilanciamento</string>
     <string name="set_261">Annullare l\'associazione?</string>
     <string name="set_262">Connecting…</string>
-    <string name="set_263">Connettere al dispositivo del veicolo (Bluetooth a bassa potenza) per leggere il messaggio. \n\n※ Quando si esegue il collegamento per la prima volta, è necessario eseguire l\'associazione. Quando si esegue il collegamento per la prima volta, è necessario eseguire l\'associazione.</string>
+    <string name="set_263">Connettere al dispositivo del veicolo (Bluetooth a bassa potenza) per leggere il messaggio.\n\n※ Quando si esegue il collegamento per la prima volta, è necessario eseguire l\'associazione. Quando si esegue il collegamento per la prima volta, è necessario eseguire l\'associazione.</string>
     <string name="set_264">Questo dispositivo non è in grado di rilevare una collisione</string>
     <string name="set_265">Associato</string>
     <string name="set_266">Non riuscita</string>
@@ -322,9 +330,10 @@
     <string name="set_385">Per accedere a Foto, autorizzare l\'accesso.</string>
     <string name="set_387">Impossibile scaricare foto</string>
     <string name="set_388">Si è verificato un errore durante il download della foto da iCloud, riprova.\n</string>
-    <string name="set_389">Impostazioni dei pulsanti personalizzati\n</string>
+    <string name="set_389">Impostazioni dei pulsanti personalizzati</string>
     <string name="set_393">In attesa di connessione automatica\n</string>
     <string name="set_394">La disattivazione di questa impostazione impedirà al ricevitore di connettersi automaticamente.\n</string>
+    <string name="set_402">Alimentazione antenna</string>
     <string name="sta_004">AVVERTENZA:</string>
     <string name="sta_005">Accetto</string>
     <string name="sta_008">Utilizzare una funzione solo quando è sicuro e legale nel luogo dove ci si trova, prestando attenzione alla strada e all\'ambiente circostante e rispettando tutte le regole della circolazione.\n\nLe funzioni gestite con smartphone sono semplicemente strumenti disponibili per il conducente. \nIl conducente deve osservare un comportamento di guida sicuro e ragionevole in tutte le circostanze</string>
@@ -372,7 +381,7 @@
     <string name="rec_002">Risultati \"%s\"</string>
     <string name="rec_010">Risultati</string>
     <string name="rec_011">Non trovato</string>
-    <string name="rec_012">Riconoscimento vocale non disponibile. \n Siri o l\'ingresso vocale deve essere attivato e deve essere presente un collegamento ad Internet.</string>
+    <string name="rec_012">Riconoscimento vocale non disponibile.\nSiri o l\'ingresso vocale deve essere attivato e deve essere presente un collegamento ad Internet.</string>
     <string name="rec_013">Siri o l\'ingresso vocale deve essere attivato</string>
     <string name="rec_014">\"Artista\", nome artista</string>
     <string name="rec_015">Nome artista</string>
@@ -519,9 +528,9 @@
     <string name="per_002">Utilizzato per funzione di lettura di notifiche.</string>
     <string name="per_003">Utilizzato per la funzione Driving Support Eye.</string>
     <string name="per_004">Utilizzato per la funzione rubrica.</string>
-    <string name="per_005">Utilizzato per l\'acquisizione di informazioni sulla posizione.</string>
-    <string name="per_006">Utilizzato per l\'acquisizione di informazioni sulla posizione.</string>
-    <string name="per_007">Utilizzato per l\'acquisizione di informazioni sulla posizione.</string>
+    <string name="per_005">La visualizzazione di velocità/altitudine, il rilevamento dell\'impatto (quando sono impostati gli SMS) e ulteriori informazioni sulla posizione, saranno utilizzate per la funzione Driving Support Eye.</string>
+    <string name="per_006">La visualizzazione di velocità/altitudine, il rilevamento dell\'impatto (quando sono impostati gli SMS) e ulteriori informazioni sulla posizione, saranno utilizzate per la funzione Driving Support Eye.</string>
+    <string name="per_007">La visualizzazione di velocità/altitudine, il rilevamento dell\'impatto (quando sono impostati gli SMS) e ulteriori informazioni sulla posizione, saranno utilizzate per la funzione Driving Support Eye.</string>
     <string name="per_008">Utilizzato per funzione di riconoscimento vocale.</string>
     <string name="per_009">Utilizzato per funzione di riconoscimento vocale.</string>
     <string name="per_010">Utilizzare le impostazioni dello sfondo.</string>

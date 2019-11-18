@@ -50,6 +50,14 @@
     <string name="ply_097">Station List</string>
     <string name="ply_098">List Update</string>
     <string name="ply_099">Antenna Error</string>
+    <string name="ply_100">Station</string>
+    <string name="ply_101">Program Type</string>
+    <string name="ply_102">Station Group</string>
+    <string name="ply_103">News/Info</string>
+    <string name="ply_104">Popular</string>
+    <string name="ply_105">Classics</string>
+    <string name="ply_106">Others</string>
+    <string name="ply_107">Not Found</string>
     <string name="set_004">Add</string>
     <string name="set_005">Advanced Settings</string>
     <string name="set_006">AF</string>
@@ -209,7 +217,7 @@
     <string name="set_260">Balance</string>
     <string name="set_261">Do you want to cancel Pairing?</string>
     <string name="set_262">Connecting…</string>
-    <string name="set_263">Connect to the in-vehicle device (Bluetooth low energy) to read the message. \n\n※ Pairing is required when connecting for the first time. Please enter the 6 digit Pairing code displayed on the in-vehicle device.</string>
+    <string name="set_263">Connect to the in-vehicle device (Bluetooth low energy) to read the message.\n\n※ Pairing is required when connecting for the first time. Please enter the 6 digit Pairing code displayed on the in-vehicle device.</string>
     <string name="set_264">Impact Detection is not possible with this device</string>
     <string name="set_265">Paired</string>
     <string name="set_266">Failed</string>
@@ -325,6 +333,7 @@
     <string name="set_389">Custom Button Settings</string>
     <string name="set_393">Waiting for Automatic Connection</string>
     <string name="set_394">Turn this setting OFF to prevent the receiver from automatically connecting.</string>
+    <string name="set_402">Antenna Power</string>
     <string name="sta_004">CAUTION: </string>
     <string name="sta_005">Agree</string>
     <string name="sta_008">Only use a function when it is safe and legal in your location, pay attention to the road and your surroundings, and obey all traffic rules.\n\nFunctions operated with a smartphone are merely tools available to the driver. \nThe driver shall observe safe and sensible driving behaviour under all circumstances</string>
@@ -372,7 +381,7 @@
     <string name="rec_002">Results \"%s\"</string>
     <string name="rec_010">Results</string>
     <string name="rec_011">Not Found</string>
-    <string name="rec_012">Voice recognition is unavailable. \nSiri or voice input should be switched on and connected to the Internet.</string>
+    <string name="rec_012">Voice recognition is unavailable.\nSiri or voice input should be switched on and connected to the Internet.</string>
     <string name="rec_013">Siri or voice input should be switched on</string>
     <string name="rec_014">\"Artist\" , Artist name</string>
     <string name="rec_015">Artist name</string>
@@ -517,9 +526,9 @@
     <string name="per_002">Used for notification reading function.</string>
     <string name="per_003">Used for Driving Support Eye function.</string>
     <string name="per_004">Used for phone book function.</string>
-    <string name="per_005">It is used to acquire location information.</string>
-    <string name="per_006">It is used to acquire location information.</string>
-    <string name="per_007">It is used to acquire location information.</string>
+    <string name="per_005">The Speed/Altitude display, Impact detection (when SMS is set), and additional location information will be used with the Driving Support Eye feature.</string>
+    <string name="per_006">The Speed/Altitude display, Impact detection (when SMS is set), and additional location information will be used with the Driving Support Eye feature.</string>
+    <string name="per_007">The Speed/Altitude display, Impact detection (when SMS is set), and additional location information will be used with the Driving Support Eye feature.</string>
     <string name="per_008">Used for voice recognition function.</string>
     <string name="per_009">Used for voice recognition function.</string>
     <string name="per_010">Using wallpaper settings.</string>

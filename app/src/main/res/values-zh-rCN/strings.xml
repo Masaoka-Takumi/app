@@ -50,6 +50,11 @@
     <string name="ply_097">电台列表</string>
     <string name="ply_098">列表更新</string>
     <string name="ply_099">天线错误</string>
+    <string name="ply_103">News&amp;Info</string>
+    <string name="ply_104">Popular</string>
+    <string name="ply_105">Classics</string>
+    <string name="ply_106">Others</string>
+    <string name="ply_107">搜寻失败</string>
     <string name="set_004">添加</string>
     <string name="set_005">高级设置</string>
     <string name="set_006">AF</string>
@@ -325,6 +330,7 @@
     <string name="set_389">功能键设定</string>
     <string name="set_393">蓝牙自动接续等候中</string>
     <string name="set_394">当设定为OFF时，汽车音响的自动接续将不会自动执行。</string>
+    <string name="set_402">天线电源</string>
     <string name="sta_004">警告：</string>
     <string name="sta_005">同意</string>
     <string name="sta_008">功能只有在您的位置安全且合法时才能使用，请注意道路和周边环境，并遵守所有交通规则。\n\n使用智能手机操作的这个功能仅仅是驾驶员可操作的办法。 \n在任何情况下，驾驶员都应安全和明智地驾驶车辆</string>
@@ -517,9 +523,9 @@
     <string name="per_002">用于读取通知功能。</string>
     <string name="per_003">用于 Driving Support Eye 功能。</string>
     <string name="per_004">用于电话簿功能。</string>
-    <string name="per_005">用于获取位置信息。</string>
-    <string name="per_006">用于获取位置信息。</string>
-    <string name="per_007">用于获取位置信息。</string>
+    <string name="per_005">速度/高度显示、碰撞发生（SMS设定时）的位置资讯功能启用时，将须利用驾驶辅助机能。\n临时权限将不开放这些机能运作。</string>
+    <string name="per_006">速度/高度显示、碰撞发生（SMS设定时）的位置资讯功能启用时，将须利用驾驶辅助机能。\n临时权限将不开放这些机能运作。</string>
+    <string name="per_007">速度/高度显示、碰撞发生（SMS设定时）的位置资讯功能启用时，将须利用驾驶辅助机能。\n临时权限将不开放这些机能运作。</string>
     <string name="per_008">用于语音识别功能。</string>
     <string name="per_009">用于语音识别功能。</string>
     <string name="per_010">使用壁纸设置</string>
