@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import java.util.HashMap;
 import java.util.Map;
 
+import jp.pioneer.carsync.domain.model.DabBandType;
 import jp.pioneer.carsync.domain.model.MediaSourceType;
 import timber.log.Timber;
 
@@ -28,6 +29,7 @@ public class PresetChannelDictionary {
     public PresetChannelDictionary(int lifeTime) {
         mLifeTime = lifeTime;
         reset();
+        //makeDummyMap();
     }
 
     /**
@@ -48,6 +50,15 @@ public class PresetChannelDictionary {
         mCurrentBandCode = -1;
         mCurrentPresetChannelNumber = -1;
         mLastCommandApplyTime = -1;
+    }
+
+    private void makeDummyMap(){
+        mPresetChannelMap.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 1000L), 1);
+        mPresetChannelMap.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 200L), 2);
+        mPresetChannelMap.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 300L), 3);
+        mPresetChannelMap.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 1000L), 4);
+        mPresetChannelMap.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 2000L), 5);
+        mPresetChannelMap.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 3000L), 6);
     }
 
     /**
