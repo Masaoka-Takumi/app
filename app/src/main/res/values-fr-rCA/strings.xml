@@ -49,6 +49,7 @@
     <string name="ply_097">Liste des stations</string>
     <string name="ply_098">MAJ de la liste</string>
     <string name="ply_099">Erreur d’antenne</string>
+    <string name="ply_107">Introuvable</string>
     <string name="set_004">Ajouter</string>
     <string name="set_005">Paramètres avancés</string>
     <string name="set_006">AF</string>
@@ -209,7 +210,7 @@
     <string name="set_260">Balance</string>
     <string name="set_261">Voulez-vous annuler le couplage ?</string>
     <string name="set_262">Connexion ...</string>
-    <string name="set_263">Connectez-vous au dispositif embarqué (Bluetooth Low Energy) pour lire le message. \ n\n※ Le couplage est requis lors de la première connexion. Entrez le code de couplage à 6 chiffres affiché sur le dispositif embarqué.</string>
+    <string name="set_263">Connectez-vous au dispositif embarqué (Bluetooth Low Energy) pour lire le message.\n\n※ Le couplage est requis lors de la première connexion. Entrez le code de couplage à 6 chiffres affiché sur le dispositif embarqué.</string>
     <string name="set_264">Cet appareil n\'est pas en mesure de Détection d’impact</string>
     <string name="set_265">Connecté</string>
     <string name="set_266">Échoué</string>
@@ -325,6 +326,7 @@
     <string name="set_389">Configuration de touches personalisées</string>
     <string name="set_393">Attente de la connexion automatique</string>
     <string name="set_394">Désactiver cette fonction empêchera toute connexion automatique au récepteur.</string>
+    <string name="set_402">Puissance de l\'antenne</string>
     <string name="sta_004">MISE EN GARDE : </string>
     <string name="sta_005">Accepter</string>
     <string name="sta_008">N’utilisez aucune des fonctions de l’appareil si cela présente un quelconque danger ou si cela est interdit par la loi. Veuillez également vous concentrer sur la route, sur votre environnement, et respecter le code de la route.\n\nLes fonctionnalités activées à l’aide d’un téléphone intelligent ne sont que des outils d\'aide disponibles pour le conducteur. \nLe conducteur doit faire preuve d’un comportement routier sûr et raisonnable en toutes circonstances.</string>
@@ -372,7 +374,7 @@
     <string name="rec_002">Résultats comprenant « %s »</string>
     <string name="rec_010">Résultats</string>
     <string name="rec_011">Introuvable</string>
-    <string name="rec_012">Reconnaissance vocale indisponible. \ nSiri ou la commande vocale doit être activée et connectée à Internet.</string>
+    <string name="rec_012">Reconnaissance vocale indisponible.\nSiri ou la commande vocale doit être activée et connectée à Internet.</string>
     <string name="rec_013">Siri ou la commande vocale doit être activée</string>
     <string name="rec_014">« Artiste », nom de l\'artiste</string>
     <string name="rec_015">Nom de l\'artiste</string>
@@ -518,9 +520,6 @@
     <string name="per_002">Utilisé pour la fonction lecture notification.</string>
     <string name="per_003">Utilisé pour la fonction Driving Support Eye.</string>
     <string name="per_004">Utilisé pour la fonction répertoire.</string>
-    <string name="per_005">Utilisé pour l\'obtention d\'informations locales.</string>
-    <string name="per_006">Utilisé pour l\'obtention d\'informations locales.</string>
-    <string name="per_007">Utilisé pour l\'obtention d\'informations locales.</string>
     <string name="per_008">Utilisé pour la fonction reconnaissance vocale.</string>
     <string name="per_009">Utilisé pour la fonction reconnaissance vocale.</string>
     <string name="per_010">Utilisation des configurations d’arrière-plan.</string>

@@ -49,6 +49,11 @@
     <string name="ply_097">Daftar Stasiun</string>
     <string name="ply_098">P\'baruan Dftr</string>
     <string name="ply_099">Kesalahan Antena</string>
+    <string name="ply_103">Berita  &amp; Info</string>
+    <string name="ply_104">Popular</string>
+    <string name="ply_105">Klasik</string>
+    <string name="ply_106">Lainnya</string>
+    <string name="ply_107">Tidak ditemukan</string>
     <string name="set_004">Tambah</string>
     <string name="set_005">Pengaturan Tingkat Lanjut</string>
     <string name="set_006">AF</string>
@@ -208,7 +213,7 @@
     <string name="set_260">Blance</string>
     <string name="set_261">Ingin membatalkan Pemasangan?</string>
     <string name="set_262">Menghubungkan...</string>
-    <string name="set_263">Hubung ke perangkat dalam kendaraan (Bluetooth rendah energi) untuk membaca pesan. \n\n※ Pemasangan diperlukan saat menghubungkan pertama kali. Masukkan kode Pemasangan 6 digit yang ditampilkan di perangkat dalam kendaraan.</string>
+    <string name="set_263">Hubung ke perangkat dalam kendaraan (Bluetooth rendah energi) untuk membaca pesan.\n\n※ Pemasangan diperlukan saat menghubungkan pertama kali. Masukkan kode Pemasangan 6 digit yang ditampilkan di perangkat dalam kendaraan.</string>
     <string name="set_264">Perangkat ini tidak dapat mendeteksi benturan</string>
     <string name="set_265">Berpasangan</string>
     <string name="set_266">Gagal</string>
@@ -324,6 +329,7 @@
     <string name="set_389">Pengaturan tombol penyesuaian</string>
     <string name="set_393">Menunggu Koneksi Otomatis</string>
     <string name="set_394">Mematikan pengaturan ini akan membuat penerima tidak terhubung secara otomatis.</string>
+    <string name="set_402">Daya Antena</string>
     <string name="sta_004">Peringatan</string>
     <string name="sta_005">Setuju</string>
     <string name="sta_008">Hanya gunakan fungsi saat aman dan legal di lokasi Anda, perhatikan jalan dan sekeliling Anda, serta patuhi semua aturan lalu lintas.\n\nFungsi yang dioperasikan dengan ponsel cerdas hanyalah alat yang tersedia untuk pengemudi. \nPengemudi harus memperhatikan perilaku berkendara yang aman dan bijaksana dalam semua situasi</string>
@@ -371,7 +377,7 @@
     <string name="rec_002">Hasil \"%s\"</string>
     <string name="rec_010">Hasil</string>
     <string name="rec_011">Tidak Ditemukan</string>
-    <string name="rec_012">Pengenalan suara tidak tersedia. \nSiri atau input suara harus diaktifkan, dan terhubung ke Internet.</string>
+    <string name="rec_012">Pengenalan suara tidak tersedia.\nSiri atau input suara harus diaktifkan, dan terhubung ke Internet.</string>
     <string name="rec_013">Siri atau input suara harus diaktifkan</string>
     <string name="rec_014">\"Artis\" , Nama artis</string>
     <string name="rec_015">Nama artis</string>
@@ -516,9 +522,9 @@
     <string name="per_002">Digunakan untuk fungsi pembacaan notifikasi.</string>
     <string name="per_003">Digunakan untuk fungsi Driving Support Eye.</string>
     <string name="per_004">Digunakan untuk fungsi buku telepon.</string>
-    <string name="per_005">Digunakan untuk pengambilan informasi lokasi.</string>
-    <string name="per_006">Digunakan untuk pengambilan informasi lokasi.</string>
-    <string name="per_007">Digunakan untuk pengambilan informasi lokasi.</string>
+    <string name="per_005">Tampilan kecepatan/ketinggian,deteksi benturan ( ketika SMS sudah di atur ), dan informasi lokasi tambahan, dapat di gunakan dengan fitur Driving Support Eye.</string>
+    <string name="per_006">Tampilan kecepatan/ketinggian,deteksi benturan ( ketika SMS sudah di atur ), dan informasi lokasi tambahan, dapat di gunakan dengan fitur Driving Support Eye.</string>
+    <string name="per_007">Tampilan kecepatan/ketinggian,deteksi benturan ( ketika SMS sudah di atur ), dan informasi lokasi tambahan, dapat di gunakan dengan fitur Driving Support Eye.</string>
     <string name="per_008">Digunakan untuk fungsi pengenalan suara.</string>
     <string name="per_009">Digunakan untuk fungsi pengenalan suara.</string>
     <string name="per_010">Menggunakan pengaturan wallpaper.</string>

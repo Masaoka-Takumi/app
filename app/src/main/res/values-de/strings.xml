@@ -49,6 +49,14 @@
     <string name="ply_097">Senderliste</string>
     <string name="ply_098">Aktualisieren</string>
     <string name="ply_099">Antennenfehler</string>
+    <string name="ply_100">Sender</string>
+    <string name="ply_101">Programmtyp</string>
+    <string name="ply_102">Sendergruppe</string>
+    <string name="ply_103">News&amp;Info</string>
+    <string name="ply_104">Pop</string>
+    <string name="ply_105">Klassik</string>
+    <string name="ply_106">Andere</string>
+    <string name="ply_107">Nicht gefunden</string>
     <string name="set_004">Hinzufügen</string>
     <string name="set_005">Erweiterte Einstellungen</string>
     <string name="set_006">AF</string>
@@ -208,7 +216,7 @@
     <string name="set_260">Balance</string>
     <string name="set_261">Pairing abbrechen?</string>
     <string name="set_262">Verbindung wird hergestellt...</string>
-    <string name="set_263">Verbindung zum Bordgerät herstellen (Niedrigenergie-Bluetooth), um die Nachricht zu lesen.\nBei erstmaliger Verbindung \n\n※ Pairing erforderlich.\nBitte den 6-stelligen Pairing-Code eingeben, der am Bordgerät angezeigt wird.</string>
+    <string name="set_263">Verbindung zum Bordgerät herstellen (Niedrigenergie-Bluetooth), um die Nachricht zu lesen.Bei erstmaliger Verbindung\n\n※ Pairing erforderlich.Bitte den 6-stelligen Pairing-Code eingeben, der am Bordgerät angezeigt wird.</string>
     <string name="set_264">Dieses Gerät kann keine Kollisionen erkennen</string>
     <string name="set_265">Gekoppelt</string>
     <string name="set_266">Fehlgeschlagen</string>
@@ -324,6 +332,7 @@
     <string name="set_389">Individuelle Taste</string>
     <string name="set_393">Warten auf Verbindung</string>
     <string name="set_394">Steht diese Einstellung auf AUS, erfolgt keine automatische Verbindung des Empfängers.</string>
+    <string name="set_402">Stromvers. Antenne</string>
     <string name="sta_004">VORSICHT</string>
     <string name="sta_005">Akzeptieren</string>
     <string name="sta_008">Verwenden Sie eine Funktion nur, wenn dies an Ihrem Standort gefahrlos möglich und rechtlich zulässig ist, achten Sie auf die Straße und Ihre Umgebung und beachten Sie alle Verkehrsvorschriften.\n\nDie mit einem Smartphone bedienten Funktionen sind lediglich Hilfsmittel für den Fahrer. \nDer Fahrer ist jederzeit und unter allen Bedingungen für ein sicheres und vernünftiges Fahrverhalten verantwortlich</string>
@@ -371,7 +380,7 @@
     <string name="rec_002">Ergebnisse \"%s\"</string>
     <string name="rec_010">Ergebnisse</string>
     <string name="rec_011">Nicht gefunden</string>
-    <string name="rec_012">Spracherkennung nicht verfügbar. \nSiri oder Spracheingabe sollte eingeschaltet sein und Internet-Verbindung sollte vorhanden sein.</string>
+    <string name="rec_012">Spracherkennung nicht verfügbar.\nSiri oder Spracheingabe sollte eingeschaltet sein und Internet-Verbindung sollte vorhanden sein.</string>
     <string name="rec_013">Siri oder Spracheingabe sollte eingeschaltet sein</string>
     <string name="rec_014">\"Interpret\" , Name Interpret</string>
     <string name="rec_015">Name Interpret</string>
@@ -518,9 +527,9 @@
     <string name="per_002">Verwendet für Funktion Vorlesen von Nachrichten.</string>
     <string name="per_003">Verwendet für Funktion Driving Support Eye.</string>
     <string name="per_004">Verwendet für Funktion Telefonbuch.</string>
-    <string name="per_005">Wird für Einholung von Standortinformationen verwendet.</string>
-    <string name="per_006">Wird für Einholung von Standortinformationen verwendet.</string>
-    <string name="per_007">Wird für Einholung von Standortinformationen verwendet.</string>
+    <string name="per_005">Die Anzeige für Geschwindigkeit/Höhe sowie Aufprallerkennung (wenn SMS konfiguriert wurde) und zusätzliche Otrsinformationen werden mit Driving Support Eye genutzt.</string>
+    <string name="per_006">Die Anzeige für Geschwindigkeit/Höhe sowie Aufprallerkennung (wenn SMS konfiguriert wurde) und zusätzliche Otrsinformationen werden mit Driving Support Eye genutzt.</string>
+    <string name="per_007">Die Anzeige für Geschwindigkeit/Höhe sowie Aufprallerkennung (wenn SMS konfiguriert wurde) und zusätzliche Otrsinformationen werden mit Driving Support Eye genutzt.</string>
     <string name="per_008">Verwendet für Funktion Spracherkennung.</string>
     <string name="per_009">Verwendet für Funktion Spracherkennung.</string>
     <string name="per_010">Einstellungen für Hintergrundbild werden angewendet.</string>

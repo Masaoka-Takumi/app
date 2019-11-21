@@ -50,6 +50,14 @@
     <string name="ply_097">Lijst stations</string>
     <string name="ply_098">Update de lijst</string>
     <string name="ply_099">Antenne fout</string>
+    <string name="ply_100">Station</string>
+    <string name="ply_101">Programmatype</string>
+    <string name="ply_102">Radionet.</string>
+    <string name="ply_103">Nieuws &amp; Info</string>
+    <string name="ply_104">Populair</string>
+    <string name="ply_105">Klassiek</string>
+    <string name="ply_106">Andere</string>
+    <string name="ply_107">Niet gevonden</string>
     <string name="set_004">Toevoegen</string>
     <string name="set_005">Geavanceerde instellingen</string>
     <string name="set_006">AF</string>
@@ -209,7 +217,7 @@
     <string name="set_260">Balans</string>
     <string name="set_261">Wilt u het koppelen annuleren?</string>
     <string name="set_262">Verbinden...</string>
-    <string name="set_263">Verbinden met apparaat in voertuig (Bluetooth lage energie) om bericht te lezen. Koppelen is vereist bij de eerste keer verbinden. Voer 6-cijferige code voor koppelen in die op het apparaat in het voertuig wordt weergegeven.</string>
+    <string name="set_263">Verbinden met apparaat in voertuig (Bluetooth lage energie) om bericht te lezen. \n\nKoppelen is vereist bij de eerste keer verbinden. Voer 6-cijferige code voor koppelen in die op het apparaat in het voertuig wordt weergegeven.</string>
     <string name="set_264">Dit toestel kan geen botsing detecteren</string>
     <string name="set_265">Gekoppeld</string>
     <string name="set_266">Mislukt</string>
@@ -325,6 +333,7 @@
     <string name="set_389">Aangepaste instellingen per knop</string>
     <string name="set_393">Wachten op automatische verbinding</string>
     <string name="set_394">Als u deze instelling UIT zet, voorkomt u dat de autoradio automatisch verbinding maakt.</string>
+    <string name="set_402">DAB Antenne voeding</string>
     <string name="sta_004">VOORZICHTIG:</string>
     <string name="sta_005">Akkoord</string>
     <string name="sta_008">Gebruik een functie alleen wanneer dit veilig en wettelijk kan op uw locatie. Let op de weg en uw omgeving en leef alle verkeersregels na.\n\nFuncties die worden gebruikt met een smartphone zijn slechts hulpmiddelen die beschikbaar zijn voor de bestuurder. \nDe bestuurder dient in alle omstandigheden op een veilige en verantwoorde manier te rijden.</string>
@@ -372,7 +381,7 @@
     <string name="rec_002">Resultaten “%s”</string>
     <string name="rec_010">Resultaten</string>
     <string name="rec_011">Niet gevonden</string>
-    <string name="rec_012">Spraakherkenning is niet beschikbaar. \nSiri of spraakinvoer moet worden ingeschakeld en verbonden met internet.</string>
+    <string name="rec_012">Spraakherkenning is niet beschikbaar.\nSiri of spraakinvoer moet worden ingeschakeld en verbonden met internet.</string>
     <string name="rec_013">Siri of spraakinvoer moet worden ingeschakeld</string>
     <string name="rec_014">“Artiest”, naam artiest</string>
     <string name="rec_015">Naam artiest</string>
@@ -519,9 +528,9 @@
     <string name="per_002">Wordt gebruikt om meldingen te lezen.</string>
     <string name="per_003">Wordt gebruikt voor Driving Support Eye-functie.</string>
     <string name="per_004">Wordt gebruikt voor telefoonboek.</string>
-    <string name="per_005">Wordt gebruikt om informatie over locatie op te halen.</string>
-    <string name="per_006">Wordt gebruikt om informatie over locatie op te halen.</string>
-    <string name="per_007">Wordt gebruikt om informatie over locatie op te halen.</string>
+    <string name="per_005">De snelheid / hoogte-weergave, impactdetectie (wanneer SMS is ingesteld) en aanvullende locatie-informatie zal worden gebruikt met de Driving Support Eye-functie</string>
+    <string name="per_006">De snelheid / hoogte-weergave, impactdetectie (wanneer SMS is ingesteld) en aanvullende locatie-informatie zal worden gebruikt met de Driving Support Eye-functie</string>
+    <string name="per_007">De snelheid / hoogte-weergave, impactdetectie (wanneer SMS is ingesteld) en aanvullende locatie-informatie zal worden gebruikt met de Driving Support Eye-functie</string>
     <string name="per_008">Wordt gebruikt voor spraakherkenning.</string>
     <string name="per_009">Wordt gebruikt voor spraakherkenning.</string>
     <string name="per_010">Achtergrondinstellingen gebruiken.</string>

@@ -27,6 +27,7 @@ import jp.pioneer.carsync.presentation.view.fragment.dialog.StatusPopupDialogFra
 @PresenterLifeCycle
 public class AlexaExampleUsagePresenter  extends Presenter<AlexaExampleUsageView> {
     public static final String TAG_DIALOG_ALEXA_SIGN_OUT = "alexa_sign_out";
+    public static final String TAG_DIALOG_ALEXA_MIC_PROMPT = "alexa_mic_prompt";
     @Inject GetStatusHolder mGetStatusHolder;
     @Inject Context mContext;
     @Inject EventBus mEventBus;
@@ -45,7 +46,15 @@ public class AlexaExampleUsagePresenter  extends Presenter<AlexaExampleUsageView
      * Next押下アクション
      */
     public void onNextAction() {
-        showLanguageSelectDialog();
+        showAlexaMicPromptDialog();
+    }
+
+    private void showAlexaMicPromptDialog(){
+        Bundle bundle = new Bundle();
+        bundle.putString(StatusPopupDialogFragment.TAG, TAG_DIALOG_ALEXA_MIC_PROMPT);
+        bundle.putString(StatusPopupDialogFragment.MESSAGE, mContext.getResources().getString(R.string.set_396));
+        bundle.putBoolean(StatusPopupDialogFragment.POSITIVE, true);
+        mEventBus.post(new NavigateEvent(ScreenId.STATUS_DIALOG, bundle));
     }
 
     public void showLanguageSelectDialog(){
