@@ -70,7 +70,7 @@ public class FavoriteRepositoryImpl implements FavoriteRepository {
                         contentValues.put(Favorite.TUNER_BAND, params.values.getAsInteger(Favorite.TUNER_BAND));
                         contentValues.put(Favorite.TUNER_PARAM1, params.values.getAsInteger(Favorite.TUNER_PARAM1));
                         contentValues.put(Favorite.TUNER_PARAM2, params.values.getAsInteger(Favorite.TUNER_PARAM2));
-                        //contentValues.put(Favorite.TUNER_PARAM3, params.values.getAsInteger(Favorite.TUNER_PARAM3));
+                        contentValues.put(Favorite.TUNER_PARAM3, params.values.getAsInteger(Favorite.TUNER_PARAM3));
 		                contentValues.put(Favorite.CREATE_DATE, params.values.getAsInteger(Favorite.CREATE_DATE));
                     }
                     resolver.update(params.uri, contentValues, params.where, params.selectionArgs);

@@ -195,7 +195,7 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
         Optional.ofNullable(getView()).ifPresent(view -> {
             if(!mCurrDab.isSearchStatus()) {
                 view.showGesture(GestureType.PCH_UP);
-                if(isSphCarDevice()) {
+                if(false&&isSphCarDevice()) {
                     int nextPreset = mSelectedPreset + 1;
                     if (nextPreset > 6) {
                         nextPreset = 1;
@@ -215,7 +215,7 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
         Optional.ofNullable(getView()).ifPresent(view -> {
             if(!mCurrDab.isSearchStatus()) {
                 view.showGesture(GestureType.PCH_DOWN);
-                if(isSphCarDevice()) {
+                if(false&&isSphCarDevice()) {
                     int previousPreset = mSelectedPreset - 1;
                     if (previousPreset <= 0) {
                         previousPreset = 6;
@@ -371,7 +371,7 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
     private void makeDummyInfo(){
         mCurrDab.minimumFrequency = 0;
         mCurrDab.maximumFrequency = 0;
-        mCurrDab.currentFrequency = 200L;
+        mCurrDab.currentFrequency = 500L;
         mCurrDab.frequencyUnit = TunerFrequencyUnit.KHZ;
         mCurrDab.tunerStatus = TunerStatus.NORMAL;
         mCurrDab.band = DabBandType.BAND1;
@@ -434,7 +434,7 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
             view.setFmLink(DabTextUtil.getFmLink(mContext, mCurrDab));
             view.setAntennaLevel((float) mCurrDab.antennaLevel / mCurrDab.maxAntennaLevel);
             view.setAdasEnabled((mPreference.isAdasEnabled()&&mPreference.getLastConnectedCarDeviceClassId()!= CarDeviceClassId.MARIN&&(mStatusHolder.execute().getAppStatus().adasPurchased||mPreference.getAdasTrialState() == AdasTrialState.TRIAL_DURING))||mPreference.isAdasPseudoCooperation());
-            view.setListEnabled(!mCurrDab.timeShiftMode&&status.listType != ListType.LIST_UNAVAILABLE);
+            view.setListEnabled(status.listType != ListType.LIST_UNAVAILABLE);
 
 /*            view.setServiceName("WWWWWWWWWWyyyyyyyyyyyyyyyyWWWWWWWWWWWWWWWWWWWWWWWW");
             view.setDynamicLabelText("WWWWWWWWWWWWWWWWljjjjjjjjjjjjjjjjjjjyyyyyyyyyyyxxxxxxxxxjjjjjjfhmhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhxxyhhyyyyyyyyyyyyyyy");
@@ -442,7 +442,7 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
             view.setFmLink("FmLink");*/
         });
         setAdasIcon();
-
+        setPresetNumber();
     }
 
     // MARK - EQ FX
@@ -529,6 +529,9 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
         if(!mCurrDab.isErrorStatus()&&!mCurrDab.isSearchStatus()&&isSphCarDevice()) {
             mTunerCase.registerFavorite(TunerContract.FavoriteContract.UpdateParamsBuilder.createDabPreset(mCurrDab, presetNumber, mContext));
         }
+/*        if(presetNumber==1) {
+            deleteUserPresetCurrentBand(mDabBand);
+        }*/
     }
     /**
      * ユーザー登録PCHリスト取得
@@ -604,7 +607,30 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
     }
 
     /**
-     * 現在のプリセット番号設定
+     * 現在のプリセット番号設定(専用機以外)
+     */
+    private void setPresetNumber() {
+        if(!isSphCarDevice()) {
+            Optional.ofNullable(getView()).ifPresent(view -> {
+                int presetNumber = -1;
+                if (mCurrDab != null && mDabBand != null) {
+                    presetNumber = mStatusHolder.execute().getPresetChannelDictionary().findPresetChannelNumberDab(
+                            MediaSourceType.DAB,
+                            mDabBand.getCode(),
+                            mCurrDab.currentFrequency,
+                            mCurrDab.eid,
+                            mCurrDab.sid,
+                            mCurrDab.scids
+                    );
+                    Timber.d("presetNumber=" + presetNumber);
+                    view.setSelectedPreset(presetNumber);
+                }
+            });
+        }
+    }
+
+    /**
+     * 現在のプリセット番号設定(専用機用)
      */
     private void setSelectedPreset(){
         Optional.ofNullable(getView()).ifPresent(view -> {
@@ -615,26 +641,39 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
             //①従来通りの方法でP.CH番号を調べる(P.CH登録データに登録済みのP.CH番号は除く)
             int presetNumber = -1;
             if (mCurrDab != null&&mDabBand != null) {
-                presetNumber = mStatusHolder.execute().getPresetChannelDictionary().findPresetChannelNumber(
+                presetNumber = mStatusHolder.execute().getPresetChannelDictionary().findPresetChannelNumberDabSph(
                         MediaSourceType.DAB,
                         mDabBand.getCode(),
-                        mCurrDab.currentFrequency
+                        mCurrDab.currentFrequency,
+                        mCurrDab.eid,
+                        mCurrDab.sid,
+                        mCurrDab.scids
                 );
                 Timber.d("presetNumber=" + presetNumber);
                 if(presetNumber!=-1&&mUserPreset.get(presetNumber,-1L)==-1L){
                     isPreset = true;
                     presetNum = presetNumber;
                 }
+                Timber.d("presetNum=" + presetNum);
             }
-            //②P.CH登録データで周波数(extraData)が一致するP.CH番号(tunerUniqueID)を調べる
-            for (int i = 0; i < mUserPreset.size(); i++) {
-                int key = mUserPreset.keyAt(i);
-                long frequency = mUserPreset.get(key);
-                if (frequency == mCurrDab.currentFrequency) {
-                    isUserPreset = true;
-                    userPresetNum = key;
-                    break;
+            //②P.CH登録データで周波数(extraData)とeid、sid、scidsが一致するP.CH番号(tunerUniqueID)を調べる
+            if (mUserPresetCursor != null) {
+                mUserPresetCursor.moveToPosition(-1);
+                while (mUserPresetCursor.moveToNext()) {
+                    long frequency = TunerContract.FavoriteContract.Dab.getFrequency(mUserPresetCursor);
+                    int preset = TunerContract.FavoriteContract.Dab.getPresetNumber(mUserPresetCursor);
+                    int eid = TunerContract.FavoriteContract.Dab.getEid(mUserPresetCursor);
+                    long sid = TunerContract.FavoriteContract.Dab.getSid(mUserPresetCursor);
+                    int scids = TunerContract.FavoriteContract.Dab.getScids(mUserPresetCursor);
+                    Timber.d("mUserPresetCursor:frequency="+frequency+",eid="+eid+",sid="+sid+",scids="+scids+",preset="+preset);
+                    if(frequency==mCurrDab.currentFrequency&&eid==mCurrDab.eid&&sid==mCurrDab.sid&&scids==mCurrDab.scids){
+                        isUserPreset = true;
+                        if(userPresetNum==0||preset<userPresetNum){
+                            userPresetNum = preset;
+                        }
+                    }
                 }
+                Timber.d("userPresetNum=" + userPresetNum);
             }
             if(isPreset&&isUserPreset) {
                 //①と②の両方で見つかった場合、値の小さい方をP.CH番号とする
@@ -662,5 +701,11 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
     }
     private boolean isSphCarDevice(){
         return mStatusHolder.execute().getProtocolSpec().isSphCarDevice();
+    }
+
+    private void deleteUserPresetCurrentBand(DabBandType band){
+        if(isSphCarDevice()) {
+            mTunerCase.unregisterFavorite(TunerContract.FavoriteContract.DeleteParamsBuilder.createParamsDabPreset(band));
+        }
     }
 }
