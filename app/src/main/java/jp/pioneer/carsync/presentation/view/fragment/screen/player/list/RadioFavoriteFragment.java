@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +72,7 @@ public class RadioFavoriteFragment extends AbstractScreenFragment<RadioFavoriteP
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getPresenter().setLoaderManager(getLoaderManager());
+        getPresenter().setLoaderManager(LoaderManager.getInstance(this));
     }
 
     @Override

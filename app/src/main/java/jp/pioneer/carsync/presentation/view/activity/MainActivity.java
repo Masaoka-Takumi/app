@@ -706,8 +706,8 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
             if(Build.VERSION.SDK_INT >= 23) {
                 subscriptionManager = getSystemService(SubscriptionManager.class);
             }else{
-                // noinspection
-                subscriptionManager = SubscriptionManager.from(getApplicationContext());
+                // API 22以下のために使用
+                subscriptionManager = (SubscriptionManager) getSystemService(TELEPHONY_SUBSCRIPTION_SERVICE);
             }
             try {
                 final List<SubscriptionInfo> activeSubscriptionInfoList = subscriptionManager.getActiveSubscriptionInfoList();
