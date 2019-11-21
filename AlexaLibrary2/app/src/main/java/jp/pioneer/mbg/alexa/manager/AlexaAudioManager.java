@@ -116,6 +116,11 @@ public class AlexaAudioManager implements IAlexaPlayer.PlaybackCallback {
      */
     private int mPlaylistIndex = 0;
 
+    /**
+     * 前回送信したProgressReportIntervalElapsedの時間
+     */
+    private long mPrevTime = 0;
+
     public boolean isHasAudioResponse = false;
 
     /**
@@ -1299,13 +1304,6 @@ public class AlexaAudioManager implements IAlexaPlayer.PlaybackCallback {
             sendEvent(event);
         }
 
-        if (mProgressThread != null) {
-            mProgressThread.cancel();
-            mProgressThread = null;
-        }
-        mProgressThread = new ProgressThread();
-        mProgressThread.start();
-
     }
 
     /**
@@ -1325,19 +1323,41 @@ public class AlexaAudioManager implements IAlexaPlayer.PlaybackCallback {
             final long offsetInMilliseconds = mCurrentItem.audioItem.stream.offsetInMilliseconds;
 
             PlaybackStartedItem startedItem = new PlaybackStartedItem(contentsToken, offsetInMilliseconds);
-            sendEvent(startedItem);
+            AlexaEventManager.sendEvent(TokenManager.getToken(), startedItem, mContext, new AlexaEventManager.AlexaCallback() {
 
-            if (mHandler != null) {
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (mPlayer!= null) {
-                            PlaybackNearlyFinishedItem event = new PlaybackNearlyFinishedItem(contentsToken, offsetInMilliseconds);
-                            sendEvent(event);
+
+                @Override
+                public void onExecute(Call call) {
+                    if (DBG) android.util.Log.d(TAG, "PlaybackStartedEvent onExecute()");
+                }
+
+                @Override
+                public void onResponse(Call call, int httpCode) {
+                    if (DBG) android.util.Log.d(TAG, "PlaybackStartedEvent onResponse()");
+                    if (mPlayer != null) {
+                        PlaybackNearlyFinishedItem event = new PlaybackNearlyFinishedItem(contentsToken, offsetInMilliseconds);
+                        sendEvent(event);
+
+                        //Amazon指摘不具合　Eventが逆転する
+                        if (mProgressThread != null) {
+                            mProgressThread.cancel();
+                            mProgressThread = null;
                         }
+                        mProgressThread = new ProgressThread();
+                        mProgressThread.start();
                     }
-                }, 100);
-            }
+                }
+
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    if (DBG) android.util.Log.d(TAG, "PlaybackStartedEvent onFailure()");
+                }
+
+                @Override
+                public void onParsedResponse(ArrayList<AlexaIfDirectiveItem> itemList) {
+                    if (DBG) android.util.Log.d(TAG, "PlaybackStartedEvent onParsedResponse()");
+                }
+            });
         }
     }
 
@@ -1444,8 +1464,13 @@ public class AlexaAudioManager implements IAlexaPlayer.PlaybackCallback {
             boolean isRIM = false;
             long progressReportDelayInMilliseconds = 0;
             long progressReportIntervalInMilliseconds = 0;
-            long prevRIM = 0;
+
             String token = null;
+
+            int position = mPlayer.getCurrentPosition();
+            if (position == 0){
+                mPrevTime = 0;
+            }
 
             if (mCurrentItem != null) {
                 PlayItem playItem = mCurrentItem;
@@ -1475,7 +1500,7 @@ public class AlexaAudioManager implements IAlexaPlayer.PlaybackCallback {
 
             while (mPlayer != null && mIsCancel == false) {
 
-                int position = mPlayer.getCurrentPosition();
+                position = mPlayer.getCurrentPosition();
                 // ProgressReportDelayElapsedなどを送信する
 
                 if (isRDM && position > progressReportDelayInMilliseconds && !TextUtils.isEmpty(token)) {
@@ -1513,8 +1538,9 @@ public class AlexaAudioManager implements IAlexaPlayer.PlaybackCallback {
                     });
                     isRDM = false;      // １回のみ
                 }
-                if (isRIM && position > (progressReportIntervalInMilliseconds + prevRIM)) {
-                    prevRIM = position;
+
+                if (isRIM && position > (progressReportIntervalInMilliseconds + mPrevTime)) {
+                    mPrevTime = position;
                     ProgressReportIntervalElapsedItem event = new ProgressReportIntervalElapsedItem(token, position);
                     AlexaEventManager.sendEvent(TokenManager.getToken(), event, mContext, new AlexaEventManager.AlexaCallback() {
                         @Override
