@@ -402,7 +402,7 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
 
         mCurrDab = holder.getCarDeviceMediaInfoHolder().dabInfo;
         mDabBand = holder.getCarDeviceMediaInfoHolder().dabInfo.band;
-        //makeDummyInfo();
+       //makeDummyInfo();
 
         getFavorite();
         getUserPresetList();
@@ -417,7 +417,7 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
                 view.setFavoriteVisible(false);
                 view.setServiceNumber("");
             }else {
-                view.setFavoriteVisible(!mCurrDab.timeShiftMode&&!isSphCarDevice());
+                view.setFavoriteVisible(!mCurrDab.timeShiftMode);
             }
             view.setTimeShiftVisible(mStatusHolder.execute().getCarDeviceSpec().timeShiftSupported);
             view.setTimeShift(mCurrDab.timeShiftMode,mCurrDab.timeShiftModeAvailable);
@@ -434,7 +434,7 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
             view.setFmLink(DabTextUtil.getFmLink(mContext, mCurrDab));
             view.setAntennaLevel((float) mCurrDab.antennaLevel / mCurrDab.maxAntennaLevel);
             view.setAdasEnabled((mPreference.isAdasEnabled()&&mPreference.getLastConnectedCarDeviceClassId()!= CarDeviceClassId.MARIN&&(mStatusHolder.execute().getAppStatus().adasPurchased||mPreference.getAdasTrialState() == AdasTrialState.TRIAL_DURING))||mPreference.isAdasPseudoCooperation());
-            view.setListEnabled(status.listType != ListType.LIST_UNAVAILABLE);
+            view.setListEnabled(!mCurrDab.timeShiftMode&&status.listType != ListType.LIST_UNAVAILABLE);
 
 /*            view.setServiceName("WWWWWWWWWWyyyyyyyyyyyyyyyyWWWWWWWWWWWWWWWWWWWWWWWW");
             view.setDynamicLabelText("WWWWWWWWWWWWWWWWljjjjjjjjjjjjjjjjjjjyyyyyyyyyyyxxxxxxxxxjjjjjjfhmhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhxxyhhyyyyyyyyyyyyyyy");
@@ -614,13 +614,10 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
             Optional.ofNullable(getView()).ifPresent(view -> {
                 int presetNumber = -1;
                 if (mCurrDab != null && mDabBand != null) {
-                    presetNumber = mStatusHolder.execute().getPresetChannelDictionary().findPresetChannelNumberDab(
+                    presetNumber = mStatusHolder.execute().getPresetChannelDictionary().findPresetChannelNumber(
                             MediaSourceType.DAB,
                             mDabBand.getCode(),
-                            mCurrDab.currentFrequency,
-                            mCurrDab.eid,
-                            mCurrDab.sid,
-                            mCurrDab.scids
+                            mCurrDab.currentFrequency
                     );
                     Timber.d("presetNumber=" + presetNumber);
                     view.setSelectedPreset(presetNumber);

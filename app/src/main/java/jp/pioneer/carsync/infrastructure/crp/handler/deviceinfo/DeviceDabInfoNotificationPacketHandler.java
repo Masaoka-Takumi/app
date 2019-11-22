@@ -68,13 +68,10 @@ public class DeviceDabInfoNotificationPacketHandler extends AbstractPacketHandle
             info.index = ubyteToInt(data[23]);
 
             info.updateVersion();
-            mStatusHolder.getPresetChannelDictionary().applyFrequencyDab(
+            mStatusHolder.getPresetChannelDictionary().applyFrequency(
                     MediaSourceType.DAB,
                     info.band.code,
-                    info.currentFrequency,
-                    info.eid,
-                    info.sid,
-                    info.scids
+                    info.currentFrequency
             );
             Timber.d("doHandle() DabInfo = " + info);
             getSession().publishStatusUpdateEvent(packet.getPacketIdType());

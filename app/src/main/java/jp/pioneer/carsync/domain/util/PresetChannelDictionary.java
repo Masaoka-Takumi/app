@@ -30,8 +30,8 @@ public class PresetChannelDictionary {
     public PresetChannelDictionary(int lifeTime) {
         mLifeTime = lifeTime;
         reset();
-        //makeDummyPreset();
         initSphPresetList();
+        //makeDummyPreset();
     }
 
     /**
@@ -54,21 +54,27 @@ public class PresetChannelDictionary {
         mLastCommandApplyTime = -1;
     }
 
+    /**
+     * 専用機以外のテスト用車載器PCHリスト
+     */
     private void makeDummyPreset(){
-        mPresetChannelMap.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 1000L,1,2,3), 1);
-        mPresetChannelMap.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 200L,1,3,3), 2);
-        mPresetChannelMap.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 300L,1,2,3), 3);
-        mPresetChannelMap.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 200L,1,2,3), 4);
-        mPresetChannelMap.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 2000L,1,2,3), 5);
-        mPresetChannelMap.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 3000L,1,2,3), 6);
+        mPresetChannelMap.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 1000L), 1);
+        mPresetChannelMap.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 200L), 2);
+        mPresetChannelMap.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 300L), 3);
+        mPresetChannelMap.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 500L), 4);
+        mPresetChannelMap.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 2000L), 5);
+        mPresetChannelMap.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 3000L), 6);
     }
 
+    /**
+     * 専用機の初期PCHリスト
+     */
     private void initSphPresetList(){
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 1000L,1,2,3), 1);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 1000L,1,3,3), 1);
         mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 200L,1,3,3), 2);
         mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 300L,1,2,3), 3);
         mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 1000L,1,2,3), 4);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 200L,1,2,3), 5);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 500L,1,2,3), 5);
         mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 3000L,1,2,3), 6);
         mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 1000L,1,2,3), 1);
         mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 200L,1,2,3), 2);
