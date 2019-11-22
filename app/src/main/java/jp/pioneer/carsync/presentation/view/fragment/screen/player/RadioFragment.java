@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.LoaderManager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -198,23 +199,21 @@ public class RadioFragment extends AbstractRadioFragment<RadioPresenter, RadioVi
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_player_radio, container, false);
+        View view = inflater.inflate(R.layout.fragment_container_player_2, container, false);
+        mViewGroup = (ViewGroup) view.findViewById(R.id.container_layout);
         Bundle args = getArguments();
         if(args!=null&&args.getInt("pager")==-1){
             getPresenter().setPagerPosition(-1);
             args.clear();
             setArguments(args);
         }
-        mUnbinder = ButterKnife.bind(this, view);
-        mViewGroup =container;
-        mView = view;
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getPresenter().setLoaderManager(getLoaderManager());
+        getPresenter().setLoaderManager(LoaderManager.getInstance(this));
     }
 
     @Override
@@ -229,8 +228,6 @@ public class RadioFragment extends AbstractRadioFragment<RadioPresenter, RadioVi
         mHandler.removeCallbacks(mDelayGestureFunc);
         mHandler.removeCallbacks(mDelayMessageFunc);
         mView.getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
-        mViewGroup.removeAllViews();
-
         mUnbinder.unbind();
     }
 

@@ -35,17 +35,6 @@ public class ServiceControlManager {
      */
     public void initialize() {
         Timber.d("initialize()");
-        ActivityManager manager = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
-        if(manager!=null) {
-            List<ActivityManager.RunningServiceInfo> runningServicesInfo = manager.getRunningServices(Integer.MAX_VALUE);
-            for (ActivityManager.RunningServiceInfo serviceInfo : runningServicesInfo) {
-                if (ResourcefulService.class.getName().equals(serviceInfo.service.getClassName())) {
-                    // 実行中なら起動しない
-                    Timber.d("ResourcefulService is Running");
-                    return;
-                }
-            }
-        }
         Intent intent = new Intent(mContext, ResourcefulService.class);
         if(Build.VERSION.SDK_INT>=26){
             mContext.startForegroundService(intent);

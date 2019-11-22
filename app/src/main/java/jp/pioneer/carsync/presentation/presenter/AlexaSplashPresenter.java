@@ -15,6 +15,7 @@ import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.model.SessionStatus;
 import jp.pioneer.carsync.domain.model.StatusHolder;
+import jp.pioneer.carsync.domain.model.VoiceRecognizeType;
 import jp.pioneer.carsync.presentation.event.GoBackEvent;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
 import jp.pioneer.carsync.presentation.view.AlexaSplashView;
@@ -49,6 +50,7 @@ public class AlexaSplashPresenter extends Presenter<AlexaSplashView> {
                 }
             }
         });
+        mPreference.setVoiceRecognitionType(VoiceRecognizeType.ALEXA);
         mEventBus.post(new NavigateEvent(ScreenId.ALEXA_EXAMPLE_USAGE, createSettingsParams(mContext.getString(R.string.set_318))));
     }
 

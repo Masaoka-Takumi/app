@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -241,17 +242,15 @@ public class SxmFragment extends AbstractRadioFragment<SxmPresenter, SxmView> im
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_player_sirius_xm, container, false);
-        mUnbinder = ButterKnife.bind(this, view);
-        mViewGroup =container;
-        mView = view;
+        View view = inflater.inflate(R.layout.fragment_container_player_2, container, false);
+        mViewGroup = (ViewGroup) view.findViewById(R.id.container_layout);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getPresenter().setLoaderManager(getLoaderManager());
+        getPresenter().setLoaderManager(LoaderManager.getInstance(this));
     }
 
     @Override
@@ -266,7 +265,6 @@ public class SxmFragment extends AbstractRadioFragment<SxmPresenter, SxmView> im
         mHandler.removeCallbacks(mDelayGestureFunc);
         mHandler.removeCallbacks(mDelayMessageFunc);
         mView.getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
-        mViewGroup.removeAllViews();
         mUnbinder.unbind();
     }
 

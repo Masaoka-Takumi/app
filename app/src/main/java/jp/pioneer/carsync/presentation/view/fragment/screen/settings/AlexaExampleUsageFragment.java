@@ -158,6 +158,8 @@ public class AlexaExampleUsageFragment extends AbstractScreenFragment<AlexaExamp
             if (mAmazonAlexaManager != null) {
                 mAmazonAlexaManager.logoutAlexa();
             }
+        }else if(tag.equals(AlexaExampleUsagePresenter.TAG_DIALOG_ALEXA_MIC_PROMPT)){
+            getPresenter().showLanguageSelectDialog();
         }
     }
 

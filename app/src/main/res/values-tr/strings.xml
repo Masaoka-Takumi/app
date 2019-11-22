@@ -50,6 +50,14 @@
     <string name="ply_097">İstas. Liste</string>
     <string name="ply_098">ListeGüncl.</string>
     <string name="ply_099">Anten Hatası</string>
+    <string name="ply_100">İstasyon</string>
+    <string name="ply_101">Program Tipi</string>
+    <string name="ply_102">İstasyon Grubu</string>
+    <string name="ply_103">Haberler&amp;Bilgi</string>
+    <string name="ply_104">Popüler</string>
+    <string name="ply_105">Klasikler</string>
+    <string name="ply_106">Diğerleri</string>
+    <string name="ply_107">Bulunamadı</string>
     <string name="set_004">Ekle</string>
     <string name="set_005">Gelişmiş Ayarlar</string>
     <string name="set_006">AF</string>
@@ -209,7 +217,7 @@
     <string name="set_260">Denge</string>
     <string name="set_261">Eşleştirmeyi iptal etmek mi istiyorsunuz?</string>
     <string name="set_262">Bağlanılıyor...</string>
-    <string name="set_263">Mesajı okumak için araç içi aygıta (Bluetooth düşük enerji) bağlanın. \n\n※ İlk kez bağlanırken eşleştirme gereklidir. Lütfen araç içi aygıtta görüntülenen 6 basamaklı Eşleştirme kodunu girin.</string>
+    <string name="set_263">Mesajı okumak için araç içi aygıta (Bluetooth düşük enerji) bağlanın.\n\n※ İlk kez bağlanırken eşleştirme gereklidir. Lütfen araç içi aygıtta görüntülenen 6 basamaklı Eşleştirme kodunu girin.</string>
     <string name="set_264">Bu aygıt çarpışma algılayamıyor</string>
     <string name="set_265">Eşlendi</string>
     <string name="set_266">Başarısız</string>
@@ -325,6 +333,7 @@
     <string name="set_389">Özel Buton Ayarları</string>
     <string name="set_393">Otomatik Bağlantı için Bekleniyor</string>
     <string name="set_394">Bu ayarı OFF konumuna getirmek, alıcınızın otomatik bağlanmasını önleyecektir.</string>
+    <string name="set_402">Anten Gücü</string>
     <string name="sta_004">UYARI:</string>
     <string name="sta_005">Kabul</string>
     <string name="sta_008">Bir işlevi ancak bulunduğunuz yerde güvenli ve yasal olduğunda kullanın, yola ve çevrenize dikkat edin ve tüm trafik kurallarına uyun.\n\nBir akıllı telefonla çalıştırılan işlevler sadece sürücünün kullanabileceği araçlardır. \nSürücü her koşulda emniyetli ve duyarlı sürüş davranışını gözetmelidir</string>
@@ -372,7 +381,7 @@
     <string name="rec_002">Sonuçlar \"%s\" </string>
     <string name="rec_010">Sonuçlar</string>
     <string name="rec_011">Bulunamadı</string>
-    <string name="rec_012">Ses tanıma kullanılamıyor. \nTelefonunuz da Siri veya ses girişi açılmalı ve internete bağlanmalıdır.</string>
+    <string name="rec_012">Ses tanıma kullanılamıyor.\nTelefonunuz da Siri veya ses girişi açılmalı ve internete bağlanmalıdır.</string>
     <string name="rec_013">Siri veya ses girişi açılmalıdır</string>
     <string name="rec_014">\"Sanatçı\", Sanatçı adı</string>
     <string name="rec_015">Sanatçı adı</string>
@@ -517,9 +526,9 @@
     <string name="per_002">Bildirim okuma işlevi için kullanılır.</string>
     <string name="per_003">Driving Support Eye işlevi için kullanılır.</string>
     <string name="per_004">Telefon rehberi işlevi için kullanılır.</string>
-    <string name="per_005">Konum bilgisi almak için kullanılır.</string>
-    <string name="per_006">Konum bilgisi almak için kullanılır.</string>
-    <string name="per_007">Konum bilgisi almak için kullanılır.</string>
+    <string name="per_005">Sürüş Desteği Gözü özelliği ile; Hız / Yükseklik ekranı, Darbe algılama (SMS ayarlandığında) ve ek konum bilgileri kullanılacaktır.</string>
+    <string name="per_006">Sürüş Desteği Gözü özelliği ile; Hız / Yükseklik ekranı, Darbe algılama (SMS ayarlandığında) ve ek konum bilgileri kullanılacaktır.</string>
+    <string name="per_007">Sürüş Desteği Gözü özelliği ile; Hız / Yükseklik ekranı, Darbe algılama (SMS ayarlandığında) ve ek konum bilgileri kullanılacaktır.</string>
     <string name="per_008">Ses tanıma işlevi için kullanılır.</string>
     <string name="per_009">Ses tanıma işlevi için kullanılır.</string>
     <string name="per_010">Duvar kağıdı ayarları kullanılıyor. </string>

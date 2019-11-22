@@ -43,24 +43,12 @@ public class FilterPathView extends View {
         return mPath;
     }
 
-    private void invalidatePathRect (@Nullable Path path) {
-        if (path == null)
-            return;
-
-        RectF rf = new RectF();
-        path.computeBounds(rf, false);
-        Rect r = new Rect();
-        rf.roundOut(r);
-        invalidate(r);
-    }
-
     public void setPath (Path path) {
         if (mPath == path)
             return;
 
-        invalidatePathRect(mPath);
-        invalidatePathRect(path);
         mPath = path;
+        invalidate();
     }
 
     public void setPath (Path path, @ColorInt int color, boolean isCurrent) {
@@ -79,7 +67,7 @@ public class FilterPathView extends View {
             return;
 
         mPathColor = pathColor;
-        invalidatePathRect(mPath);
+        invalidate();
     }
 
     public boolean isCurrent () {
@@ -91,7 +79,7 @@ public class FilterPathView extends View {
             return;
 
         mCurrent = current;
-        invalidatePathRect(mPath);
+        invalidate();
     }
 
     public Animator getBlinkAnimator () {

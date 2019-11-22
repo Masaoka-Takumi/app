@@ -147,10 +147,8 @@ public class BtAudioFragment extends AbstractMusicPlayerFragment<BtAudioPresente
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_player_btaudio, container, false);
-        mUnbinder = ButterKnife.bind(this, view);
-        mViewGroup =container;
-        mView = view;
+        View view = inflater.inflate(R.layout.fragment_container_player_2, container, false);
+        mViewGroup = (ViewGroup) view.findViewById(R.id.container_layout);
         Configuration config = getResources().getConfiguration();
         mOrientation = config.orientation;
 
@@ -169,7 +167,6 @@ public class BtAudioFragment extends AbstractMusicPlayerFragment<BtAudioPresente
         mHandler.removeCallbacks(mDelayGestureFunc);
         mHandler.removeCallbacks(mDelayMessageFunc);
         mView.getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
-        mViewGroup.removeAllViews();
         mUnbinder.unbind();
     }
 

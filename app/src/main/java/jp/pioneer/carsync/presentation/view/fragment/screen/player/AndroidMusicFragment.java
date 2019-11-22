@@ -237,10 +237,8 @@ public class AndroidMusicFragment extends AbstractMusicPlayerFragment<AndroidMus
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_player_music, container, false);
-        mUnbinder = ButterKnife.bind(this, view);
-        mViewGroup = container;
-        mView = view;
+        View view = inflater.inflate(R.layout.fragment_container_player_2, container, false);
+        mViewGroup = (ViewGroup) view.findViewById(R.id.container_layout);
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         Point point = new Point();
         display.getSize(point);
@@ -317,7 +315,6 @@ public class AndroidMusicFragment extends AbstractMusicPlayerFragment<AndroidMus
         mGestureLayout.removeOnSeekGestureListener();
 
         mView.getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
-        mViewGroup.removeAllViews();
         mUnbinder.unbind();
     }
 

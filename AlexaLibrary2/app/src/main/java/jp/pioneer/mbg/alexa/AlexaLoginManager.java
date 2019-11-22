@@ -7,7 +7,6 @@ package jp.pioneer.mbg.alexa;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
-import android.support.v4.BuildConfig;
 import android.support.v4.app.SupportActivity;
 import android.text.TextUtils;
 
@@ -31,6 +30,7 @@ import java.util.ArrayList;
 import jp.pioneer.mbg.alexa.AlexaInterface.AlexaIfDirectiveItem;
 import jp.pioneer.mbg.alexa.manager.AlexaEventManager;
 import jp.pioneer.mbg.alexa.manager.TokenManager;
+import jp.pioneer.mbg.android.vozsis.BuildConfig;
 import okhttp3.Call;
 import okhttp3.HttpUrl;
 import okhttp3.Request;

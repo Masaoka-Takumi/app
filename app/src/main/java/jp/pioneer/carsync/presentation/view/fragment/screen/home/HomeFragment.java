@@ -8,6 +8,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -216,7 +217,7 @@ public class HomeFragment extends AbstractScreenFragment<HomePresenter, HomeView
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getPresenter().setLoaderManager(getLoaderManager());
+        getPresenter().setLoaderManager(LoaderManager.getInstance(this));
     }
 
     @Override
@@ -228,9 +229,10 @@ public class HomeFragment extends AbstractScreenFragment<HomePresenter, HomeView
         mTimer.cancel();
         mTimerTask.cancel();
         mHandler.removeCallbacks(mRunnable);
-        if (mTitleMarquee != null) {
-            mTitleMarquee.getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
-        }
+        mHandler.removeCallbacks(mDelayMessageFunc);
+        mView.getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
+        mSpeedMeterView.setOnClickListener(null);
+        mClockLayout.setOnClickListener(null);
         super.onDestroyView();
         mUnbinder.unbind();
     }
@@ -352,9 +354,9 @@ public class HomeFragment extends AbstractScreenFragment<HomePresenter, HomeView
             if(mServiceName!=null) {
                 mServiceName.startScroll();
             }
-            mTitleMarquee.getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
+            mView.getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
         };
-        mTitleMarquee.getViewTreeObserver().addOnGlobalLayoutListener(mGlobalLayoutListener);
+        mView.getViewTreeObserver().addOnGlobalLayoutListener(mGlobalLayoutListener);
     }
 
     /**
