@@ -3,22 +3,19 @@ package jp.pioneer.carsync.presentation.presenter;
 import com.annimon.stream.Optional;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Set;
 
 import javax.inject.Inject;
 
+import jp.pioneer.carsync.application.content.Analytics;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
-import jp.pioneer.carsync.domain.event.MediaSourceTypeChangeEvent;
 import jp.pioneer.carsync.domain.interactor.ControlSource;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.model.CarDeviceStatus;
 import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.StatusHolder;
-import jp.pioneer.carsync.presentation.event.GoBackEvent;
 import jp.pioneer.carsync.presentation.view.YouTubeLinkContainerView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import timber.log.Timber;
@@ -30,7 +27,7 @@ public class YouTubeLinkContainerPresenter extends Presenter<YouTubeLinkContaine
     @Inject AppSharedPreference mPreference;
     @Inject GetStatusHolder mGetStatusHolder;
     @Inject ControlSource mControlSource;
-
+    @Inject Analytics mAnalytics;
     @Inject
     public YouTubeLinkContainerPresenter() {
     }
@@ -92,10 +89,12 @@ public class YouTubeLinkContainerPresenter extends Presenter<YouTubeLinkContaine
             if(availableSources.contains(lastSource)){
                 // 有効なソースならそれに戻る
                 mControlSource.selectSource(lastSource);
+
             } else {
                 // 無効なソースならソースOFF
                 mControlSource.selectSource(MediaSourceType.OFF);
             }
+            mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.temporarySourceChangeBack);
             // ラストソースをクリア
             holder.getAppStatus().lastSourceBeforeYouTubeLink = null;
         } else {

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
@@ -24,6 +25,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.annotation.UiThread;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.PermissionChecker;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
@@ -53,6 +55,7 @@ import javax.inject.Inject;
 import jp.pioneer.carsync.BuildConfig;
 import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.application.App;
+import jp.pioneer.carsync.application.content.Analytics;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.application.util.AppUtil;
@@ -120,6 +123,8 @@ import jp.pioneer.carsync.presentation.view.argument.SettingsParams;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.SpeechRecognizerDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.StatusPopupDialogFragment;
+import jp.pioneer.carsync.presentation.view.fragment.screen.home.HomeContainerFragment;
+import jp.pioneer.carsync.presentation.view.fragment.screen.player.PlayerContainerFragment;
 import jp.pioneer.mbg.alexa.AmazonAlexaManager;
 import jp.pioneer.mbg.alexa.util.SettingsUpdatedUtil;
 import timber.log.Timber;
@@ -164,6 +169,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
     @Inject PreferAdas mPreferAdas;
     @Inject CarDeviceConnection mCarDeviceConnection;
     @Inject ControlAppMusicSource mControlAppMusicSource;
+    @Inject Analytics mAnalytics;
     private PrepareSpeechRecognizer.FinishBluetoothHeadset mFinishBluetoothHeadset;
     private VoiceCommand mResentVoiceCommand;
     private boolean mIsRecognizerRestarted = false;
@@ -298,8 +304,34 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
         mFinishSpeechRecognizerTask.stop();
         mStopSpeechRecognizerTask.start();
 
+        if (mCurrentSessionStatus == SessionStatus.STARTED&&mStatusCase.execute().getAppStatus().isAgreedCaution) {
+            mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.background, false);
+            Optional.ofNullable(getView()).ifPresent(view -> {Fragment fragment = view.getScreenInContainer();
+                Timber.d("onResume:AnalyticsActiveScreen:screen="+fragment);
+                if (fragment instanceof PlayerContainerFragment) {
+                    mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.av_screen, true);
+                } else if (fragment instanceof HomeContainerFragment) {
+                    mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.home_screen, true);
+                }
+            });
+            Configuration config = mContext.getResources().getConfiguration();
+            mAnalytics.startUIOrientationDuration(config.orientation, true);
+        }
+
     }
 
+    public void analyticsActiveScreenByNavigate(ScreenId screenId){
+        if(mStatusCase.execute().getSessionStatus()==SessionStatus.STARTED&&mStatusCase.execute().getAppStatus().isAgreedCaution) {
+                Timber.d("AnalyticsActiveScreenByNavigate:screen="+screenId);
+                if (screenId==ScreenId.PLAYER_CONTAINER) {
+                    mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.av_screen, true);
+                } else if (screenId==ScreenId.HOME_CONTAINER) {
+                    mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.home_screen, true);
+                } else if (screenId==ScreenId.SETTINGS_CONTAINER||screenId==ScreenId.UNCONNECTED_CONTAINER){
+                    mAnalytics.startActiveScreenDuration(Analytics.getActiveScreen(), false);
+                }
+        }
+    }
     /**
      * オーバーレイ権限状態確認
      */
@@ -352,6 +384,12 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
             mFinishSpeechRecognizerTask.start();
         } else {
             mFinishSpeechRecognizerTask.stop();
+        }
+        if(mCurrentSessionStatus==SessionStatus.STARTED&&mStatusCase.execute().getAppStatus().isAgreedCaution) {
+            mAnalytics.startActiveScreenDuration(Analytics.getActiveScreen(),false);
+            mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.background,true);
+            Configuration config = mContext.getResources().getConfiguration();
+            mAnalytics.startUIOrientationDuration(config.orientation,false);
         }
     }
 
@@ -1582,6 +1620,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                             @Override
                             public void run() {
                                 mControlSource.selectSource(MediaSourceType.APP_MUSIC);
+                                mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.alexaStart);
                             }
                         }, 1000);
                     }
@@ -1616,6 +1655,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                         mFinishBluetoothHeadset = finishBluetoothHeadset;
                         if(mSpeechRecognizerDevice == PrepareSpeechRecognizer.Device.PHONE&&mPreviousSourceType!=MediaSourceType.APP_MUSIC){
                             mControlSource.selectSource(MediaSourceType.APP_MUSIC);
+                            mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.temporarySourceChange);
                         }
                         if(mPreviousSourceType==MediaSourceType.APP_MUSIC){
                             SmartPhoneStatus status = holder.getSmartPhoneStatus();
@@ -1689,6 +1729,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
             if(mSpeechRecognizerDevice == PrepareSpeechRecognizer.Device.PHONE&&mPreviousSourceType != MediaSourceType.APP_MUSIC&&!mIsRecognizeSourceChanged){
                 Timber.d("selectPreviousSource");
                 mControlSource.selectSource(mPreviousSourceType);
+                mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.temporarySourceChangeBack);
             }
         }
     };
@@ -1975,6 +2016,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                     if (mCurrentAvailableSourceType.contains(type)) {
                         mIsRecognizeSourceChanged = true;
                         mControlSource.selectSource(type);
+                        mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.speechRecognizeSourceChange);
                         view.navigate(ScreenId.PLAYER_CONTAINER, Bundle.EMPTY);
                     } else {
                         // 有効ではないソースを認識

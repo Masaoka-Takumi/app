@@ -11,6 +11,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
+import jp.pioneer.carsync.application.content.Analytics;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.event.AlexaNotificationChangeEvent;
 import jp.pioneer.carsync.domain.event.AppMusicAudioModeChangeEvent;
@@ -37,6 +38,7 @@ public class AlexaPresenter extends Presenter<AlexaView> {
     @Inject Context mContext;
     @Inject ControlAppMusicSource mControlAppMusicSource;
     @Inject ControlSource mControlSource;
+    @Inject Analytics mAnalytics;
     @Inject
     public AlexaPresenter() {
     }
@@ -65,6 +67,9 @@ public class AlexaPresenter extends Presenter<AlexaView> {
     public void onAudioPlay(){
         AppStatus appStatus  = mGetCase.execute().getAppStatus();
         appStatus.appMusicAudioMode = AudioMode.ALEXA;
+        if(mGetCase.execute().getCarDeviceStatus().sourceType==MediaSourceType.APP_MUSIC) {
+            mAnalytics.startActiveSourceDuration(MediaSourceType.APP_MUSIC);
+        }
         mEventBus.post(new AppMusicAudioModeChangeEvent());
         mEventBus.post(new NavigateEvent(ScreenId.PLAYER_CONTAINER, Bundle.EMPTY));
         Optional.ofNullable(getView()).ifPresent(AlexaView::callbackClose);
@@ -79,6 +84,7 @@ public class AlexaPresenter extends Presenter<AlexaView> {
         AppStatus appStatus = mGetCase.execute().getAppStatus();
        if(appStatus.alexaPreviousSourceType != MediaSourceType.APP_MUSIC){
            mControlSource.selectSource(appStatus.alexaPreviousSourceType);
+           mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.alexaEnd);
        }
     }
 

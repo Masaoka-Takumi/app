@@ -21,6 +21,7 @@ import javax.inject.Inject;
 
 import jp.pioneer.carsync.BuildConfig;
 import jp.pioneer.carsync.R;
+import jp.pioneer.carsync.application.content.Analytics;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.util.AppUtil;
 import jp.pioneer.carsync.domain.event.AdasErrorEvent;
@@ -100,6 +101,7 @@ public class PlayerPresenter<T> extends Presenter<T> {
     @Inject CustomKeyActionHandler mCustomKeyActionHandler;
     @Inject YouTubeLinkActionHandler mYouTubeLinkActionHandler;
     @Inject YouTubeLinkStatus mYouTubeLinkStatus;
+    @Inject Analytics mAnalytics;
     private final Handler mHandler = new Handler();
     List<SoundFxSettingEqualizerType> mEqArray = new ArrayList<>();
     List<SoundFxItem> mSoundFxArray = new ArrayList<SoundFxItem>(){{
@@ -620,26 +622,32 @@ public class PlayerPresenter<T> extends Presenter<T> {
                 if(mYouTubeLinkStatus.isYouTubeLinkEnabled()){
                     //YouTubeLink機能設定がONの場合
                     mYouTubeLinkActionHandler.execute();
+                    mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.youTubeLinkShort, Analytics.AnalyticsActiveScreen.av_screen);
                 } else {
                     //カスタムの割り当てがソース切替の場合
                     mCustomKeyActionHandler.execute();
+                    mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.customShort, Analytics.AnalyticsActiveScreen.av_screen);
                 }
                 break;
             case VOICE:
                 Timber.d("onVoiceAction");
                 mShortcutCase.execute(ShortcutKey.VOICE);
+                mAnalytics.sendShortCutActionEvent(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA?Analytics.AnalyticsShortcutAction.alexaShort:Analytics.AnalyticsShortcutAction.voiceShort, Analytics.AnalyticsActiveScreen.av_screen);
                 break;
             case NAVI:
                 Timber.d("onNavigateAction");
                 mShortcutCase.execute(ShortcutKey.NAVI);
+                mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.navi, Analytics.AnalyticsActiveScreen.av_screen);
                 break;
             case MESSAGE:
                 Timber.d("onMessageAction");
                 mShortcutCase.execute(ShortcutKey.MESSAGE);
+                mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.message, Analytics.AnalyticsActiveScreen.av_screen);
                 break;
             case PHONE:
                 Timber.d("onPhoneAction");
                 mShortcutCase.execute(ShortcutKey.PHONE);
+                mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.phoneShort, Analytics.AnalyticsActiveScreen.av_screen);
                 break;
             default:
                 break;
@@ -653,19 +661,23 @@ public class PlayerPresenter<T> extends Presenter<T> {
                 if(mPreference.getDirectCallContactNumberId() > -1) {
                     mEventBus.post(new SmartPhoneControlCommandEvent(SmartPhoneControlCommand.DIRECT_CALL));
                 }
+                mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.phoneLong, Analytics.AnalyticsActiveScreen.av_screen);
                 break;
             case SOURCE:
                 if(mYouTubeLinkStatus.isYouTubeLinkEnabled()) {
                     // なにもしない
                     Timber.i("YouTubeLinkIcon LongKeyAction");
+                    mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.youtubeLinkLong, Analytics.AnalyticsActiveScreen.av_screen);
                 } else {
                     // カスタムキー割当画面の表示
                     mEventBus.post(new NavigateEvent(ScreenId.CUSTOM_KEY_SETTING, Bundle.EMPTY));
+                    mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.customLong, Analytics.AnalyticsActiveScreen.av_screen);
                 }
                 break;
             case VOICE:
                 //TODO:Alexaを塞ぐ
                 if(mIsDebug) {
+                    mAnalytics.sendShortCutActionEvent(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA?Analytics.AnalyticsShortcutAction.alexaLong:Analytics.AnalyticsShortcutAction.voiceLong, Analytics.AnalyticsActiveScreen.av_screen);
                     VoiceRecognizeType nextType = mPreference.getVoiceRecognitionType().toggle();
                     mPreference.setVoiceRecognitionType(nextType);
                     mEventBus.post(new VoiceRecognitionTypeChangeEvent());
@@ -755,6 +767,9 @@ public class PlayerPresenter<T> extends Presenter<T> {
                 AlexaAudioManager audioManager = AlexaAudioManager.getInstance();
                 if (audioManager != null) {
                     audioManager.doStop();
+                }
+                if(mStatusHolder.execute().getCarDeviceStatus().sourceType==MediaSourceType.APP_MUSIC) {
+                    mAnalytics.startActiveSourceDuration(MediaSourceType.APP_MUSIC);
                 }
             }
             AmazonAlexaManager amazonAlexaManager = AmazonAlexaManager.getInstance();

@@ -25,6 +25,7 @@ import javax.inject.Inject;
 
 import jp.pioneer.carsync.BuildConfig;
 import jp.pioneer.carsync.R;
+import jp.pioneer.carsync.application.content.Analytics;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.content.TunerContract;
@@ -150,6 +151,7 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
     @Inject YouTubeLinkActionHandler mYouTubeLinkActionHandler;
     @Inject YouTubeLinkStatus mYouTubeLinkStatus;
     @Inject ShortCutKeyEnabledStatus mShortCutKeyEnabledStatus;
+    @Inject Analytics mAnalytics;
     private List<Notification> mNotifications;
     private PermissionParams mParams;
     private static final ShortcutKey[] KEY_INDEX = new ShortcutKey[]{
@@ -319,26 +321,32 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
                 if(mYouTubeLinkStatus.isYouTubeLinkEnabled()){
                     //YouTubeLink機能設定がONの場合
                     mYouTubeLinkActionHandler.execute();
+                    mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.youTubeLinkShort, Analytics.AnalyticsActiveScreen.home_screen);
                 } else {
                     //カスタムの割り当てがソース切替の場合
                     mCustomKeyActionHandler.execute();
+                    mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.customShort, Analytics.AnalyticsActiveScreen.home_screen);
                 }
                 break;
             case VOICE:
                 Timber.d("onVoiceAction");
                 mShortcutCase.execute(ShortcutKey.VOICE);
+                mAnalytics.sendShortCutActionEvent(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA?Analytics.AnalyticsShortcutAction.alexaShort:Analytics.AnalyticsShortcutAction.voiceShort, Analytics.AnalyticsActiveScreen.home_screen);
                 break;
             case NAVI:
                 Timber.d("onNavigateAction");
                 mShortcutCase.execute(ShortcutKey.NAVI);
+                mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.navi, Analytics.AnalyticsActiveScreen.home_screen);
                 break;
             case MESSAGE:
                 Timber.d("onMessageAction");
                 mShortcutCase.execute(ShortcutKey.MESSAGE);
+                mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.message, Analytics.AnalyticsActiveScreen.home_screen);
                 break;
             case PHONE:
                 Timber.d("onPhoneAction");
                 mShortcutCase.execute(ShortcutKey.PHONE);
+                mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.phoneShort, Analytics.AnalyticsActiveScreen.home_screen);
                 break;
             default:
                 break;
@@ -401,19 +409,23 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
                 if(mPreference.getDirectCallContactNumberId() > -1) {
                     mEventBus.post(new SmartPhoneControlCommandEvent(SmartPhoneControlCommand.DIRECT_CALL));
                 }
+                mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.phoneLong, Analytics.AnalyticsActiveScreen.home_screen);
                 break;
             case SOURCE:
                 if(mYouTubeLinkStatus.isYouTubeLinkEnabled()) {
                     // なにもしない
                     Timber.i("YouTubeLinkIcon LongKeyAction");
+                    mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.youtubeLinkLong, Analytics.AnalyticsActiveScreen.home_screen);
                 } else {
                     // カスタムキー割当画面の表示
                     mEventBus.post(new NavigateEvent(ScreenId.CUSTOM_KEY_SETTING, Bundle.EMPTY));
+                    mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.customLong, Analytics.AnalyticsActiveScreen.home_screen);
                 }
                 break;
             case VOICE:
                 //TODO:Alexaを塞ぐ
                 if(mIsDebug) {
+                    mAnalytics.sendShortCutActionEvent(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA?Analytics.AnalyticsShortcutAction.alexaLong:Analytics.AnalyticsShortcutAction.voiceLong, Analytics.AnalyticsActiveScreen.home_screen);
                     VoiceRecognizeType nextType = mPreference.getVoiceRecognitionType().toggle();
                     mPreference.setVoiceRecognitionType(nextType);
                     mEventBus.post(new VoiceRecognitionTypeChangeEvent());
@@ -1256,6 +1268,9 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
                     audioManager.doStop();
                 }
                 updateSourceView();
+                if(mGetCase.execute().getCarDeviceStatus().sourceType==MediaSourceType.APP_MUSIC) {
+                    mAnalytics.startActiveSourceDuration(MediaSourceType.APP_MUSIC);
+                }
             }
             AmazonAlexaManager amazonAlexaManager = AmazonAlexaManager.getInstance();
             if (amazonAlexaManager != null) {

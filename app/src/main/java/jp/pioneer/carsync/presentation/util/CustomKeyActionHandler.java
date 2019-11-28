@@ -19,6 +19,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import jp.pioneer.carsync.R;
+import jp.pioneer.carsync.application.content.Analytics;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.domain.event.MediaSourceTypeChangeEvent;
 import jp.pioneer.carsync.domain.interactor.ControlAppMusicSource;
@@ -43,6 +44,7 @@ public class CustomKeyActionHandler {
     @Inject GetStatusHolder mStatusHolder;
     @Inject PreferMusicApp mPreferMusicApp;
     @Inject ControlAppMusicSource mControlAppMusicSource;
+    @Inject Analytics mAnalytics;
     private EventBus mEventBus;
     private Runnable mRunnable = null;
     private final long NO_ACTION_TIME = 1000; // ソースON動作を無視する時間
@@ -66,6 +68,7 @@ public class CustomKeyActionHandler {
         switch (customKey) {
             case SOURCE_CHANGE://カスタムの割り当てがソース切替の場合
                 mControlSource.changeNextSource();
+                mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.appCustomKey);
                 break;
 
             case SOURCE_ON_OFF://カスタムの割り当てがソースOFF/ONの場合
@@ -102,6 +105,7 @@ public class CustomKeyActionHandler {
                 if (availableSources.contains(sourceType)) {
                     //割り当てたソースが有効の場合
                     mControlSource.selectSource(sourceType);
+                    mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.appCustomKeyDirectSource);
                 } else {
                     //割り当てたソースが無効の場合、なにもしない
                 }
@@ -135,11 +139,14 @@ public class CustomKeyActionHandler {
                     Intent intent = pm.getLaunchIntentForPackage(customKeyMusicApp.packageName);
                     mContext.startActivity(intent);
                     mControlSource.selectSource(MediaSourceType.APP_MUSIC);
+                    mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.temporarySourceChange);
                     AppStatus appStatus = holder.getAppStatus();
                     appStatus.isLaunchedThirdPartyAudioApp = true;
                     if(currentMediaSource == MediaSourceType.APP_MUSIC) {
                         mControlAppMusicSource.abandonFocus();
                     }
+                    mAnalytics.sendThirdAppStartUpEvent(Analytics.AnalyticsThirdAppStartUp.appCustomKey);
+
                 } catch (ActivityNotFoundException | NullPointerException ex){
                     Timber.w("Invalid music app. package name : %s", customKeyMusicApp.packageName);
                     Toast.makeText(mContext, mContext.getString(R.string.err_017), Toast.LENGTH_LONG).show();
@@ -169,6 +176,7 @@ public class CustomKeyActionHandler {
             holder.getAppStatus().lastSourceOnTime = currentTime;
             // ラストソースに復帰
             changeLastSource(holder);
+            mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.getAppCustomKeySourceOnOff);
         }
         // 一定時間経過前にソースONを実行する場合は無視(連打によってラストソース以外になることを防ぐ)
         else { //  if ((currentTime - startTime) < NO_ACTION_TIME)
@@ -211,6 +219,7 @@ public class CustomKeyActionHandler {
         // 直前のソースを保持してソースOFF
         holder.getAppStatus().lastDirectSource = currentMediaSource;
         mControlSource.selectSource(MediaSourceType.OFF);
+        mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.getAppCustomKeySourceOnOff);
     }
 
     /**

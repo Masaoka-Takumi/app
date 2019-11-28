@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 import jp.pioneer.carsync.presentation.controller.MainFragmentController;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
@@ -43,7 +44,12 @@ public interface MainView {
      * @return ScreenId
      */
     ScreenId getScreenId();
-
+    /**
+     * コンテナに表示中のFragmentの取得
+     *
+     * @return Fragment
+     */
+    Fragment getScreenInContainer();
     /**
      * 背景再読み込み
      */

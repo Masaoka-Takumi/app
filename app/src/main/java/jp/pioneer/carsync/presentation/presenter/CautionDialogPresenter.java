@@ -3,6 +3,7 @@ package jp.pioneer.carsync.presentation.presenter;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 
@@ -15,8 +16,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import jp.pioneer.carsync.application.content.Analytics;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
-import jp.pioneer.carsync.application.content.Flurry;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.interactor.ControlSource;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
@@ -50,6 +51,7 @@ public class CautionDialogPresenter extends Presenter<CautionDialogView> {
     @Inject Context mContext;
     @Inject AppSharedPreference mPreference;
     @Inject ControlSource mControlSource;
+    @Inject Analytics mAnalytics;
     /**
      * コンストラクタ
      */
@@ -73,10 +75,11 @@ public class CautionDialogPresenter extends Presenter<CautionDialogView> {
             view.setScreenOn();
             mGetStatusHolder.execute().getAppStatus().isAgreedCaution = true;
             CarDeviceSpec spec = mGetStatusHolder.execute().getCarDeviceSpec();
-            int accessoryId = spec.accessoryId;
-            String accesoryHex = String.format("0x%04X", accessoryId);
-            String destinationHex = String.format("0x%02X", spec.carDeviceDestinationInfo.code);
-            Flurry.sendDeviceConnectedEvent(accesoryHex, spec.modelName, destinationHex);
+            mAnalytics.logDeviceConnectedEvent(spec);
+            mAnalytics.startActiveSourceDuration(holder.getCarDeviceStatus().sourceType);
+            Configuration config = mContext.getResources().getConfiguration();
+            mAnalytics.startUIOrientationDuration(config.orientation,true);
+            mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.home_screen,true);
             requestPermissions();
             view.callbackClose();
         });

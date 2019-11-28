@@ -15,6 +15,7 @@ import java.net.URLEncoder;
 
 import javax.inject.Inject;
 
+import jp.pioneer.carsync.application.content.Analytics;
 import jp.pioneer.carsync.domain.event.CarDeviceStatusChangeEvent;
 import jp.pioneer.carsync.domain.event.MediaSourceTypeChangeEvent;
 import jp.pioneer.carsync.domain.interactor.ControlSource;
@@ -38,6 +39,7 @@ public class YouTubeLinkWebViewPresenter extends Presenter<YouTubeLinkWebViewVie
     @Inject EventBus mEventBus;
     @Inject GetStatusHolder mGetStatusHolder;
     @Inject ControlSource mControlSource;
+    @Inject Analytics mAnalytics;
     private static final String BASE_YOUTUBE_LINK_URL = "https://m.youtube.com/results?search_query=";
     private static final String NO_TITLE = "No Title";
     private static final String NO_ARTIST = "No Artist";
@@ -88,6 +90,7 @@ public class YouTubeLinkWebViewPresenter extends Presenter<YouTubeLinkWebViewVie
         if(lastSource != MediaSourceType.APP_MUSIC){
             holder.getAppStatus().lastSourceBeforeYouTubeLink = lastSource;
             mControlSource.selectSource(MediaSourceType.APP_MUSIC);
+            mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.temporarySourceChange);
         } else {
             mIsSourceChanged = true; // 最初からAppMusicソースの場合はフラグを立てる
         }

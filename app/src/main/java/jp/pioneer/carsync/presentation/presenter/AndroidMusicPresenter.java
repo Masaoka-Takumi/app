@@ -38,6 +38,7 @@ import jp.pioneer.carsync.domain.model.CarDeviceClassId;
 import jp.pioneer.carsync.domain.model.CarDeviceMediaInfoHolder;
 import jp.pioneer.carsync.domain.model.ListType;
 import jp.pioneer.carsync.domain.model.LiveSimulationSetting;
+import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.PlaybackMode;
 import jp.pioneer.carsync.domain.model.SmartPhoneStatus;
 import jp.pioneer.carsync.domain.model.SoundEffectType;
@@ -870,6 +871,9 @@ public class AndroidMusicPresenter extends PlayerPresenter<AndroidMusicView> {
     public void onExitAlexaMode(){
         AppStatus appStatus = mGetCase.execute().getAppStatus();
         appStatus.appMusicAudioMode = AudioMode.MEDIA;
+        if(mGetCase.execute().getCarDeviceStatus().sourceType==MediaSourceType.APP_MUSIC) {
+            mAnalytics.startActiveSourceDuration(MediaSourceType.APP_MUSIC);
+        }
         appStatus.playerInfoItem = null;
         mAudioMode = AudioMode.MEDIA;
         AlexaAudioManager.getInstance().doStop();
