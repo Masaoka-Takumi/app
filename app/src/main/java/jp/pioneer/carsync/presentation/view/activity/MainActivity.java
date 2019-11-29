@@ -790,6 +790,7 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
 
         setOrientation(screenId);
         getPresenter().suppressDeviceConnection(screenId);
+        getPresenter().analyticsActiveScreenByNavigate(screenId);
     }
 
     @Override
@@ -826,6 +827,11 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
     @Override
     public ScreenId getScreenId() {
         return mFragmentController.getScreenIdInContainer();
+    }
+
+    @Override
+    public Fragment getScreenInContainer() {
+        return mFragmentController.getScreenInContainer();
     }
 
     @Override

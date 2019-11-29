@@ -15,6 +15,7 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import jp.pioneer.carsync.R;
+import jp.pioneer.carsync.application.content.Analytics;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.event.CarDeviceStatusChangeEvent;
@@ -44,7 +45,7 @@ public class SourceSelectPresenter extends Presenter<SourceSelectView> {
     @Inject AppSharedPreference mPreference;
     @Inject PreferMusicApp mPreferMusicApp;
     @Inject ControlAppMusicSource mControlAppMusicSource;
-
+    @Inject Analytics mAnalytics;
     private Set<MediaSourceType> mAvailableTypeSet = new HashSet<>();
     private List<SourceSelectItem> mSourceSelectList = new ArrayList<>();
     private boolean isScrolled = false;
@@ -176,8 +177,8 @@ public class SourceSelectPresenter extends Presenter<SourceSelectView> {
         if (type == currentType) {
             Optional.ofNullable(getView()).ifPresent(SourceSelectView::dismissDialog);
         }
+        mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.appSourceList);
         mControlSource.selectSource(type);
-
     }
 
     /**
@@ -192,6 +193,7 @@ public class SourceSelectPresenter extends Presenter<SourceSelectView> {
             mControlAppMusicSource.abandonFocus();
         }
         onChangeSourceAction(MediaSourceType.APP_MUSIC);
+        mAnalytics.sendThirdAppStartUpEvent(Analytics.AnalyticsThirdAppStartUp.appSourceList);
     }
 
     /**

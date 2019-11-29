@@ -13,8 +13,10 @@ import javax.inject.Inject;
 
 import jp.pioneer.carsync.BuildConfig;
 import jp.pioneer.carsync.R;
+import jp.pioneer.carsync.application.content.Analytics;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
+import jp.pioneer.carsync.domain.event.AppMusicAudioModeChangeEvent;
 import jp.pioneer.carsync.domain.event.PhoneSettingStatusChangeEvent;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.model.AppStatus;
@@ -38,6 +40,7 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
     @Inject GetStatusHolder mStatusCase;
     @Inject Context mContext;
     @Inject EventBus mEventBus;
+    @Inject Analytics mAnalytics;
     public final static boolean mIsDebug = BuildConfig.DEBUG;
     /**
      * コンストラクタ
@@ -117,6 +120,7 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
             if (appStatus.appMusicAudioMode == AudioMode.ALEXA) {
                 appStatus.appMusicAudioMode = AudioMode.MEDIA;
                 appStatus.playerInfoItem = null;
+                mEventBus.post(new AppMusicAudioModeChangeEvent());
                 AlexaAudioManager audioManager = AlexaAudioManager.getInstance();
                 if (audioManager != null) {
                     audioManager.doStop();

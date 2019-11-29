@@ -860,11 +860,13 @@ public class AndroidMusicPresenter extends PlayerPresenter<AndroidMusicView> {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAppMusicAudioModeChangeEvent(AppMusicAudioModeChangeEvent event) {
-        updateAlexaView();
-        updateView(true);
-        onUpdateSoundFxButton();
-        updateNotification();
-        updateAlexaNotification();
+        if(mGetCase.execute().getAppStatus().appMusicAudioMode!=mAudioMode) {
+            updateAlexaView();
+            updateView(true);
+            onUpdateSoundFxButton();
+            updateNotification();
+            updateAlexaNotification();
+        }
     }
 
     public void onExitAlexaMode(){
@@ -876,6 +878,7 @@ public class AndroidMusicPresenter extends PlayerPresenter<AndroidMusicView> {
         Optional.ofNullable(getView()).ifPresent(view -> {
             view.setAudioMode(mAudioMode);
         });
+        mEventBus.post(new AppMusicAudioModeChangeEvent());
         updateShortcutButton();
         updateAlexaView();
         updateView(true);
