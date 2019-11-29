@@ -44,6 +44,7 @@ import jp.pioneer.carsync.domain.model.TunerFrequencyUnit;
 import jp.pioneer.carsync.domain.model.TunerStatus;
 import jp.pioneer.carsync.domain.model.VoiceRecognizeType;
 import jp.pioneer.carsync.domain.repository.CarDeviceMediaRepository;
+import jp.pioneer.carsync.domain.util.PresetChannelDictionary;
 import jp.pioneer.carsync.presentation.event.BackgroundChangeEvent;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
 import jp.pioneer.carsync.presentation.model.AdasTrialState;
@@ -402,7 +403,7 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
 
         mCurrDab = holder.getCarDeviceMediaInfoHolder().dabInfo;
         mDabBand = holder.getCarDeviceMediaInfoHolder().dabInfo.band;
-       //makeDummyInfo();
+        //makeDummyInfo();
 
         getFavorite();
         getUserPresetList();
@@ -590,10 +591,22 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
                         TunerContract.FavoriteContract.Dab.getSid(mUserPresetCursor),
                         TunerContract.FavoriteContract.Dab.getScids(mUserPresetCursor));
             } else {
-                //上記以外:プリセットキー1～プリセットキー6を送信
-                mControlCase.callPreset(presetNum);
+                //初期PCHリストで選局
+                PresetChannelDictionary.PresetKey presetKey = mStatusHolder.execute().getPresetChannelDictionary().getInitialPresetInfo(
+                        MediaSourceType.DAB,
+                        mDabBand.getCode(),
+                        presetNum);
+                if(presetKey!=null) {
+                    mDabCase.selectFavorite(
+                            presetKey.index,
+                            mDabBand,
+                            presetKey.eid,
+                            presetKey.sid,
+                            presetKey.scids);
+                }
             }
         }else{
+            //上記以外:プリセットキー1～プリセットキー6を送信
             mControlCase.callPreset(presetNum);
         }
         mSelectedPreset = presetNum;

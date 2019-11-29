@@ -119,12 +119,12 @@ public class TunerContract {
             public static QueryParams createDabPreset(DabBandType dabBandType) {
                 return new QueryParams(
                         Favorite.CONTENT_URI,
-                        Radio.PROJECTION,
+                        Dab.PROJECTION,
                         "(" + Favorite.SOURCE_ID + " = ? "
                                 + " AND " + Favorite.TUNER_BAND + " = ?"
                                 + " AND " + Favorite.TUNER_CHANNEL_KEY2 + " IS NOT NULL)",
                         new String[]{String.valueOf(MediaSourceType.DAB.code),String.valueOf(dabBandType.code)},
-                        Radio.SORT_ORDER,
+                        Dab.SORT_ORDER,
                         null
                 );
             }

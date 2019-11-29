@@ -70,24 +70,24 @@ public class PresetChannelDictionary {
      * 専用機の初期PCHリスト
      */
     private void initSphPresetList(){
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 1000L,1,3,3), 1);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 200L,1,3,3), 2);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 300L,1,2,3), 3);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 1000L,1,2,3), 4);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 500L,1,2,3), 5);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 3000L,1,2,3), 6);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 1000L,1,2,3), 1);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 200L,1,2,3), 2);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 300L,1,2,3), 3);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 1000L,1,2,3), 4);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 2000L,1,2,3), 5);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 3000L,1,2,3), 6);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 1000L,1,2,3), 1);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 200L,1,2,3), 2);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 300L,1,2,3), 3);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 1000L,1,2,3), 4);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 2000L,1,2,3), 5);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 3000L,1,2,3), 6);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 1000L,111,1,3,3), 1);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 200L,111,1,3,3), 2);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 300L,111,1,2,3), 3);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 1000L,111,1,2,3), 4);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 500L,111,1,2,3), 5);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 3000L,111,1,2,3), 6);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 1000L,111,1,2,3), 1);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 200L,111,1,2,3), 2);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 300L,111,1,2,3), 3);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 1000L,111,1,2,3), 4);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 2000L,111,1,2,3), 5);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 3000L,111,1,2,3), 6);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 1000L,111,1,2,3), 1);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 200L,111,1,2,3), 2);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 300L,111,1,2,3), 3);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 1000L,111,1,2,3), 4);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 2000L,111,1,2,3), 5);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 3000L,111,1,2,3), 6);
     }
 
     /**
@@ -258,6 +258,9 @@ public class PresetChannelDictionary {
         return new PresetKey(source.code,bandCode,frequency,eid,sid,scids);
     }
 
+    private PresetKey createKey(@NonNull MediaSourceType source, int bandCode, long frequency, int index, int eid,long sid,int scids) {
+        return new PresetKey(source.code,bandCode,frequency,index,eid,sid,scids);
+    }
     private int findPresetChannelNumber(PresetKey key) {
         int number = -1;
         Integer value;
@@ -285,10 +288,35 @@ public class PresetChannelDictionary {
         return number;
     }
 
-    static private class PresetKey{
+    /**
+     * DAB用. SPH初期PCHリストのPresetKeyを返す
+     * @param source
+     * @param bandCode
+     * @param presetNumber
+     * @return PresetKey
+     */
+    public PresetKey getInitialPresetInfo(@NonNull MediaSourceType source, int bandCode,int presetNumber){
+        for (PresetKey key : mPresetChannelMapSph.keySet()) {
+            int number = 0;
+            Integer numberInteger;
+            numberInteger = mPresetChannelMapSph.get(key);
+            if (numberInteger != null) {
+                number = numberInteger;
+            }
+            if(key.source==source.code&&key.band==bandCode&&number==presetNumber){
+                return key;
+            }
+        }
+        return null;
+    }
+
+    public static class PresetKey{
         int source;
         int band;
-        long frequency;
+        /** 周波数. */
+        public long frequency;
+        /** 周波数index. */
+        public int index;//hash値には含めない
         /** EID. */
         public int eid;
         /** SID. */
@@ -302,6 +330,7 @@ public class PresetChannelDictionary {
             this.source = source;
             this.band = band;
             this.frequency = frequency;
+            this.index = 0;
             this.eid = 0;
             this.sid = 0;
             this.scids = 0;
@@ -312,6 +341,7 @@ public class PresetChannelDictionary {
             this.source = source;
             this.band = band;
             this.frequency = 0;
+            this.index = 0;
             this.eid = 0;
             this.sid = 0;
             this.scids = 0;
@@ -322,6 +352,18 @@ public class PresetChannelDictionary {
             this.source = source;
             this.band = band;
             this.frequency = frequency;
+            this.index = 0;
+            this.eid = eid;
+            this.sid = sid;
+            this.scids = scids;
+            this.channelNumber = 0;
+        }
+        //DAB用(初期リスト用に周波数Index含む)
+        PresetKey(int source,int band, long frequency, int index, int eid,long sid,int scids){
+            this.source = source;
+            this.band = band;
+            this.frequency = frequency;
+            this.index = index;
             this.eid = eid;
             this.sid = sid;
             this.scids = scids;
