@@ -9,8 +9,8 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.EnumMap;
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
@@ -176,14 +176,14 @@ public class Analytics {
     private static AnalyticsToolStrategy sStrategy;
     private static String sDeviceName;
     private static String sDeviceDivision;
-    private static Map<AnalyticsSource, Long> sSourceActiveDuration = new HashMap<>();
+    private static EnumMap<AnalyticsSource, Long> sSourceActiveDuration = new EnumMap<AnalyticsSource, Long>(AnalyticsSource.class);
     private static AnalyticsSource sLastSource = null;
     private static long sLastSourceStartTime;//ms
-    private static Map<AnalyticsUIOrientation, Long> sUIOrientationDuration = new HashMap<>();
+    private static EnumMap<AnalyticsUIOrientation, Long> sUIOrientationDuration = new EnumMap<AnalyticsUIOrientation, Long>(AnalyticsUIOrientation.class);
     private static AnalyticsUIOrientation sLastUIOrientation = null;
     private static long sLastUIOrientationTime;//ms
     private static EnumSet<AnalyticsThirdAppStartUp> sThirdAppStartUpSendFlg = EnumSet.noneOf(AnalyticsThirdAppStartUp.class);
-    private static Map<AnalyticsActiveScreen, Long> sActiveScreenDuration = new HashMap<>();
+    private static EnumMap<AnalyticsActiveScreen, Long> sActiveScreenDuration = new EnumMap<AnalyticsActiveScreen, Long>(AnalyticsActiveScreen.class);
     private static AnalyticsActiveScreen sLastActiveScreen = null;
     private static AnalyticsActiveScreen sLastForegroundScreen = null;
     private static long sLastActiveScreenTime;//ms
@@ -267,13 +267,13 @@ public class Analytics {
         sDeviceDivision = null;
         sLastSource = null;
         sLastSourceStartTime = 0;
-        sSourceActiveDuration = new HashMap<>();
+        sSourceActiveDuration = new EnumMap<AnalyticsSource, Long>(AnalyticsSource.class);
         sLastUIOrientation = null;
         sLastUIOrientationTime = 0;
-        sUIOrientationDuration = new HashMap<>();
+        sUIOrientationDuration = new EnumMap<AnalyticsUIOrientation, Long>(AnalyticsUIOrientation.class);
         sLastActiveScreen = null;
         sLastActiveScreenTime = 0;
-        sActiveScreenDuration = new HashMap<>();
+        sActiveScreenDuration = new EnumMap<AnalyticsActiveScreen, Long>(AnalyticsActiveScreen.class);
         sThirdAppStartUpSendFlg = EnumSet.noneOf(AnalyticsThirdAppStartUp.class);
         sSourceChangeReason = null;
         sLastSourceType = null;
