@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
@@ -25,7 +24,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.annotation.UiThread;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.PermissionChecker;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
@@ -123,8 +121,6 @@ import jp.pioneer.carsync.presentation.view.argument.SettingsParams;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.SpeechRecognizerDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.StatusPopupDialogFragment;
-import jp.pioneer.carsync.presentation.view.fragment.screen.home.HomeContainerFragment;
-import jp.pioneer.carsync.presentation.view.fragment.screen.player.PlayerContainerFragment;
 import jp.pioneer.mbg.alexa.AmazonAlexaManager;
 import jp.pioneer.mbg.alexa.util.SettingsUpdatedUtil;
 import timber.log.Timber;
@@ -304,34 +300,21 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
         mFinishSpeechRecognizerTask.stop();
         mStopSpeechRecognizerTask.start();
 
-        if (mCurrentSessionStatus == SessionStatus.STARTED&&mStatusCase.execute().getAppStatus().isAgreedCaution) {
-            mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.background, false);
-            Optional.ofNullable(getView()).ifPresent(view -> {Fragment fragment = view.getScreenInContainer();
-                Timber.d("onResume:AnalyticsActiveScreen:screen="+fragment);
-                if (fragment instanceof PlayerContainerFragment) {
-                    mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.av_screen, true);
-                } else if (fragment instanceof HomeContainerFragment) {
-                    mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.home_screen, true);
-                }
-            });
-            Configuration config = mContext.getResources().getConfiguration();
-            mAnalytics.startUIOrientationDuration(config.orientation, true);
-        }
-
     }
 
     public void analyticsActiveScreenByNavigate(ScreenId screenId){
-        if(mStatusCase.execute().getSessionStatus()==SessionStatus.STARTED&&mStatusCase.execute().getAppStatus().isAgreedCaution) {
-                Timber.d("AnalyticsActiveScreenByNavigate:screen="+screenId);
-                if (screenId==ScreenId.PLAYER_CONTAINER) {
-                    mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.av_screen, true);
-                } else if (screenId==ScreenId.HOME_CONTAINER) {
-                    mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.home_screen, true);
-                } else if (screenId==ScreenId.SETTINGS_CONTAINER||screenId==ScreenId.UNCONNECTED_CONTAINER){
-                    mAnalytics.startActiveScreenDuration(Analytics.getActiveScreen(), false);
-                }
+        if (mStatusCase.execute().getSessionStatus() == SessionStatus.STARTED && mStatusCase.execute().getAppStatus().isAgreedCaution) {
+            Timber.d("AnalyticsActiveScreenByNavigate:screen=" + screenId);
+            if (screenId == ScreenId.PLAYER_CONTAINER) {
+                mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.av_screen, true);
+            } else if (screenId == ScreenId.HOME_CONTAINER) {
+                mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.home_screen, true);
+            } else if (screenId == ScreenId.SETTINGS_CONTAINER || screenId == ScreenId.UNCONNECTED_CONTAINER) {
+                mAnalytics.startActiveScreenDuration(Analytics.getActiveScreen(), false);
+            }
         }
     }
+
     /**
      * オーバーレイ権限状態確認
      */
@@ -384,12 +367,6 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
             mFinishSpeechRecognizerTask.start();
         } else {
             mFinishSpeechRecognizerTask.stop();
-        }
-        if(mCurrentSessionStatus==SessionStatus.STARTED&&mStatusCase.execute().getAppStatus().isAgreedCaution) {
-            mAnalytics.startActiveScreenDuration(Analytics.getActiveScreen(),false);
-            mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.background,true);
-            Configuration config = mContext.getResources().getConfiguration();
-            mAnalytics.startUIOrientationDuration(config.orientation,false);
         }
     }
 

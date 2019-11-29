@@ -1263,14 +1263,12 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
             if (appStatus.appMusicAudioMode == AudioMode.ALEXA) {
                 appStatus.appMusicAudioMode = AudioMode.MEDIA;
                 appStatus.playerInfoItem = null;
+                mEventBus.post(new AppMusicAudioModeChangeEvent());
                 AlexaAudioManager audioManager = AlexaAudioManager.getInstance();
                 if (audioManager != null) {
                     audioManager.doStop();
                 }
                 updateSourceView();
-                if(mGetCase.execute().getCarDeviceStatus().sourceType==MediaSourceType.APP_MUSIC) {
-                    mAnalytics.startActiveSourceDuration(MediaSourceType.APP_MUSIC);
-                }
             }
             AmazonAlexaManager amazonAlexaManager = AmazonAlexaManager.getInstance();
             if (amazonAlexaManager != null) {

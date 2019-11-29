@@ -104,8 +104,8 @@ dependencies {
     implementation 'com.commonsware.cwac:merge:1.1.2'
     implementation 'com.google.guava:guava:20.0'
     implementation 'com.annimon:stream:1.1.7'
-    implementation 'com.flurry.android:ads:12.0.3'
-    implementation 'com.flurry.android:analytics:12.0.3'
+    implementation 'com.flurry.android:ads:8.2.0'
+    implementation 'com.flurry.android:analytics:8.2.0'
     compileOnly project(':findbugs-annotations')
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.8'

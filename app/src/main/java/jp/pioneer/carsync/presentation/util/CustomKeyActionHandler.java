@@ -139,7 +139,7 @@ public class CustomKeyActionHandler {
                     Intent intent = pm.getLaunchIntentForPackage(customKeyMusicApp.packageName);
                     mContext.startActivity(intent);
                     mControlSource.selectSource(MediaSourceType.APP_MUSIC);
-                    mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.temporarySourceChange);
+                    mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.thirdAppChange);
                     AppStatus appStatus = holder.getAppStatus();
                     appStatus.isLaunchedThirdPartyAudioApp = true;
                     if(currentMediaSource == MediaSourceType.APP_MUSIC) {

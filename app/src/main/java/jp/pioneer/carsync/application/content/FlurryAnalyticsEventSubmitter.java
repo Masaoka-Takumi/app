@@ -21,7 +21,7 @@ public class FlurryAnalyticsEventSubmitter implements AnalyticsEventSubmitter {
         return this;
     }
 
-    public AnalyticsEventSubmitter with(Analytics.AnalyticsParam param, int value) {
+    public AnalyticsEventSubmitter with(Analytics.AnalyticsParam param, long value) {
         this.params.put(param.name, String.valueOf(value));
         return this;
     }

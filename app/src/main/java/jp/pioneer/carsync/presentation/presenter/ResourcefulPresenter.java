@@ -408,9 +408,7 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
                 mAmazonAlexaManager.onActivityPause();
             }
         }
-        mAnalytics.sendActiveSourceEvent();
-        mAnalytics.sendUIOrientationEvent();
-        mAnalytics.sendActiveScreenEvent();
+        mAnalytics.finishAnalytics();
     }
 
     /**
@@ -719,15 +717,6 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
         }
 
         initializeSlaSetting();
-
-        if (mStatusHolder.getSessionStatus() == SessionStatus.STARTED && mStatusHolder.getAppStatus().isAgreedCaution) {
-            if (status.sourceType != mLastSourceType) {
-                // ラストソースと異なるソース変更後
-                mAnalytics.startActiveSourceDuration(status.sourceType);
-                mAnalytics.sendSourceSelectReasonEvent(status.sourceType);
-                mLastSourceType = status.sourceType;
-            }
-        }
     }
 
     /**
@@ -1125,14 +1114,11 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
             mPreference.setAlexaCapabilitiesSend(false);
             if (appStatus.appMusicAudioMode == AudioMode.ALEXA) {
                 appStatus.appMusicAudioMode = AudioMode.MEDIA;
-                if(mStatusHolder.getCarDeviceStatus().sourceType==MediaSourceType.APP_MUSIC) {
-                    mAnalytics.startActiveSourceDuration(MediaSourceType.APP_MUSIC);
-                }
+                mEventBus.post(new AppMusicAudioModeChangeEvent());
                 AlexaAudioManager audioManager = AlexaAudioManager.getInstance();
                 if (audioManager != null) {
                     audioManager.doStop();
                 }
-                mEventBus.post(new AppMusicAudioModeChangeEvent());
             }
         }
 
@@ -1226,9 +1212,6 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
             AppStatus appStatus  = mStatusHolder.getAppStatus();
             if(appStatus.appMusicAudioMode==AudioMode.MEDIA) {
                 appStatus.appMusicAudioMode = AudioMode.ALEXA;
-                if(mStatusHolder.getCarDeviceStatus().sourceType==MediaSourceType.APP_MUSIC) {
-                    mAnalytics.startActiveSourceDuration(MediaSourceType.APP_MUSIC);
-                }
                 mEventBus.post(new AppMusicAudioModeChangeEvent());
             }
         }
@@ -1358,9 +1341,6 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
             AppStatus appStatus  = mStatusHolder.getAppStatus();
             if(appStatus.appMusicAudioMode==AudioMode.MEDIA) {
                 appStatus.appMusicAudioMode = AudioMode.ALEXA;
-                if(mStatusHolder.getCarDeviceStatus().sourceType==MediaSourceType.APP_MUSIC) {
-                    mAnalytics.startActiveSourceDuration(MediaSourceType.APP_MUSIC);
-                }
                 mEventBus.post(new AppMusicAudioModeChangeEvent());
             }
         }

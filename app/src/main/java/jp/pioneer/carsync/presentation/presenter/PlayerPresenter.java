@@ -26,6 +26,7 @@ import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.util.AppUtil;
 import jp.pioneer.carsync.domain.event.AdasErrorEvent;
 import jp.pioneer.carsync.domain.event.AlexaNotificationChangeEvent;
+import jp.pioneer.carsync.domain.event.AppMusicAudioModeChangeEvent;
 import jp.pioneer.carsync.domain.event.EqualizerSettingChangeEvent;
 import jp.pioneer.carsync.domain.event.ListTypeChangeEvent;
 import jp.pioneer.carsync.domain.event.LiveSimulationSettingChangeEvent;
@@ -764,12 +765,10 @@ public class PlayerPresenter<T> extends Presenter<T> {
             if (appStatus.appMusicAudioMode == AudioMode.ALEXA) {
                 appStatus.appMusicAudioMode = AudioMode.MEDIA;
                 appStatus.playerInfoItem = null;
+                mEventBus.post(new AppMusicAudioModeChangeEvent());
                 AlexaAudioManager audioManager = AlexaAudioManager.getInstance();
                 if (audioManager != null) {
                     audioManager.doStop();
-                }
-                if(mStatusHolder.execute().getCarDeviceStatus().sourceType==MediaSourceType.APP_MUSIC) {
-                    mAnalytics.startActiveSourceDuration(MediaSourceType.APP_MUSIC);
                 }
             }
             AmazonAlexaManager amazonAlexaManager = AmazonAlexaManager.getInstance();

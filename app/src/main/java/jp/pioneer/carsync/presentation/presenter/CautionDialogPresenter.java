@@ -3,7 +3,6 @@ package jp.pioneer.carsync.presentation.presenter;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 
@@ -76,10 +75,7 @@ public class CautionDialogPresenter extends Presenter<CautionDialogView> {
             mGetStatusHolder.execute().getAppStatus().isAgreedCaution = true;
             CarDeviceSpec spec = mGetStatusHolder.execute().getCarDeviceSpec();
             mAnalytics.logDeviceConnectedEvent(spec);
-            mAnalytics.startActiveSourceDuration(holder.getCarDeviceStatus().sourceType);
-            Configuration config = mContext.getResources().getConfiguration();
-            mAnalytics.startUIOrientationDuration(config.orientation,true);
-            mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.home_screen,true);
+
             requestPermissions();
             view.callbackClose();
         });

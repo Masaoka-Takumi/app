@@ -14,8 +14,8 @@ import javax.inject.Inject;
 import jp.pioneer.carsync.application.content.Analytics;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.event.AlexaNotificationChangeEvent;
-import jp.pioneer.carsync.domain.event.AppMusicAudioModeChangeEvent;
 import jp.pioneer.carsync.domain.event.MediaSourceTypeChangeEvent;
+import jp.pioneer.carsync.domain.event.AppMusicAudioModeChangeEvent;
 import jp.pioneer.carsync.domain.interactor.ControlAppMusicSource;
 import jp.pioneer.carsync.domain.interactor.ControlSource;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
@@ -67,9 +67,6 @@ public class AlexaPresenter extends Presenter<AlexaView> {
     public void onAudioPlay(){
         AppStatus appStatus  = mGetCase.execute().getAppStatus();
         appStatus.appMusicAudioMode = AudioMode.ALEXA;
-        if(mGetCase.execute().getCarDeviceStatus().sourceType==MediaSourceType.APP_MUSIC) {
-            mAnalytics.startActiveSourceDuration(MediaSourceType.APP_MUSIC);
-        }
         mEventBus.post(new AppMusicAudioModeChangeEvent());
         mEventBus.post(new NavigateEvent(ScreenId.PLAYER_CONTAINER, Bundle.EMPTY));
         Optional.ofNullable(getView()).ifPresent(AlexaView::callbackClose);

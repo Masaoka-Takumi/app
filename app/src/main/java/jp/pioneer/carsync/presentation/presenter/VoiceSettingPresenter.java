@@ -16,12 +16,12 @@ import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.application.content.Analytics;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
+import jp.pioneer.carsync.domain.event.AppMusicAudioModeChangeEvent;
 import jp.pioneer.carsync.domain.event.PhoneSettingStatusChangeEvent;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.model.AppStatus;
 import jp.pioneer.carsync.domain.model.AudioMode;
 import jp.pioneer.carsync.domain.model.ConnectedDevicesCountStatus;
-import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.VoiceRecognizeMicType;
 import jp.pioneer.carsync.domain.model.VoiceRecognizeType;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
@@ -119,10 +119,8 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
             AppStatus appStatus = mStatusCase.execute().getAppStatus();
             if (appStatus.appMusicAudioMode == AudioMode.ALEXA) {
                 appStatus.appMusicAudioMode = AudioMode.MEDIA;
-                if(mStatusCase.execute().getCarDeviceStatus().sourceType==MediaSourceType.APP_MUSIC) {
-                    mAnalytics.startActiveSourceDuration(MediaSourceType.APP_MUSIC);
-                }
                 appStatus.playerInfoItem = null;
+                mEventBus.post(new AppMusicAudioModeChangeEvent());
                 AlexaAudioManager audioManager = AlexaAudioManager.getInstance();
                 if (audioManager != null) {
                     audioManager.doStop();

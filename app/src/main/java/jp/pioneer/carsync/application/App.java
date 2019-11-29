@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import jp.pioneer.carsync.BuildConfig;
 import jp.pioneer.carsync.application.content.Analytics;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
+import jp.pioneer.carsync.application.content.FlurryAnalyticsToolStrategy;
 import jp.pioneer.carsync.application.di.component.AppComponent;
 import jp.pioneer.carsync.application.di.component.DaggerAppComponent;
 import jp.pioneer.carsync.application.di.module.AppModule;
@@ -166,6 +167,7 @@ public class App extends Application {
      */
     @VisibleForTesting
     public void startFlurry(){
+        Analytics.init(new FlurryAnalyticsToolStrategy());
         if(mPreference.isAgreedEulaPrivacyPolicy()){
             Analytics.startSession(getApplicationContext());
         }
