@@ -9,15 +9,15 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 
-
 import org.greenrobot.eventbus.EventBus;
 import org.matthiaszimmermann.location.egm96.Geoid;
 
 import javax.inject.Inject;
 
 import jp.pioneer.carsync.BuildConfig;
+import jp.pioneer.carsync.application.content.Analytics;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
-import jp.pioneer.carsync.application.content.Flurry;
+import jp.pioneer.carsync.application.content.FlurryAnalyticsToolStrategy;
 import jp.pioneer.carsync.application.di.component.AppComponent;
 import jp.pioneer.carsync.application.di.component.DaggerAppComponent;
 import jp.pioneer.carsync.application.di.module.AppModule;
@@ -58,7 +58,7 @@ public class App extends Application {
         }
 
         initialize();
-        startFlurry();
+        startAnalytics();
         setDefaultUncaughtExceptionHandler();
         registerActivityLifecycleCallbacks(mMyActivityLifecycleCallbacks);
     }
@@ -158,6 +158,7 @@ public class App extends Application {
         //高度表示改善対応
         AltitudeInitTask mAsyncTask = new AltitudeInitTask();
         mAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
     }
 
     /**
@@ -165,9 +166,10 @@ public class App extends Application {
      * UnitTest用
      */
     @VisibleForTesting
-    public void startFlurry(){
+    public void startAnalytics(){
+        Analytics.init(new FlurryAnalyticsToolStrategy());
         if(mPreference.isAgreedEulaPrivacyPolicy()){
-            Flurry.sessionStart(getApplicationContext());
+            Analytics.startSession(getApplicationContext());
         }
     }
 

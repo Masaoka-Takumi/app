@@ -53,6 +53,7 @@ import javax.inject.Inject;
 import jp.pioneer.carsync.BuildConfig;
 import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.application.App;
+import jp.pioneer.carsync.application.content.Analytics;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.application.util.AppUtil;
@@ -164,6 +165,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
     @Inject PreferAdas mPreferAdas;
     @Inject CarDeviceConnection mCarDeviceConnection;
     @Inject ControlAppMusicSource mControlAppMusicSource;
+    @Inject Analytics mAnalytics;
     private PrepareSpeechRecognizer.FinishBluetoothHeadset mFinishBluetoothHeadset;
     private VoiceCommand mResentVoiceCommand;
     private boolean mIsRecognizerRestarted = false;
@@ -298,6 +300,19 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
         mFinishSpeechRecognizerTask.stop();
         mStopSpeechRecognizerTask.start();
 
+    }
+
+    public void analyticsActiveScreenByNavigate(ScreenId screenId){
+        if (mStatusCase.execute().getSessionStatus() == SessionStatus.STARTED && mStatusCase.execute().getAppStatus().isAgreedCaution) {
+            Timber.d("AnalyticsActiveScreenByNavigate:screen=" + screenId);
+            if (screenId == ScreenId.PLAYER_CONTAINER) {
+                mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.av_screen, true);
+            } else if (screenId == ScreenId.HOME_CONTAINER) {
+                mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.home_screen, true);
+            } else if (screenId == ScreenId.SETTINGS_CONTAINER || screenId == ScreenId.UNCONNECTED_CONTAINER) {
+                mAnalytics.startActiveScreenDuration(Analytics.getActiveScreen(), false);
+            }
+        }
     }
 
     /**
@@ -1581,6 +1596,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                         mHandler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
+                                mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.alexaStart);
                                 mControlSource.selectSource(MediaSourceType.APP_MUSIC);
                             }
                         }, 1000);
@@ -1615,6 +1631,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                         mStatusCase.execute().getAppStatus().isShowSpeechRecognizerDialog = true;
                         mFinishBluetoothHeadset = finishBluetoothHeadset;
                         if(mSpeechRecognizerDevice == PrepareSpeechRecognizer.Device.PHONE&&mPreviousSourceType!=MediaSourceType.APP_MUSIC){
+                            mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.temporarySourceChange);
                             mControlSource.selectSource(MediaSourceType.APP_MUSIC);
                         }
                         if(mPreviousSourceType==MediaSourceType.APP_MUSIC){
@@ -1688,6 +1705,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
             mFinishBluetoothHeadset = null;
             if(mSpeechRecognizerDevice == PrepareSpeechRecognizer.Device.PHONE&&mPreviousSourceType != MediaSourceType.APP_MUSIC&&!mIsRecognizeSourceChanged){
                 Timber.d("selectPreviousSource");
+                mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.temporarySourceChangeBack);
                 mControlSource.selectSource(mPreviousSourceType);
             }
         }
@@ -1974,6 +1992,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
                     if (mCurrentAvailableSourceType.contains(type)) {
                         mIsRecognizeSourceChanged = true;
+                        mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.speechRecognizeSourceChange);
                         mControlSource.selectSource(type);
                         view.navigate(ScreenId.PLAYER_CONTAINER, Bundle.EMPTY);
                     } else {
