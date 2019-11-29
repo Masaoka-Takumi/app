@@ -177,9 +177,8 @@ public class SourceSelectPresenter extends Presenter<SourceSelectView> {
         if (type == currentType) {
             Optional.ofNullable(getView()).ifPresent(SourceSelectView::dismissDialog);
         }
-        mControlSource.selectSource(type);
         mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.appSourceList);
-
+        mControlSource.selectSource(type);
     }
 
     /**

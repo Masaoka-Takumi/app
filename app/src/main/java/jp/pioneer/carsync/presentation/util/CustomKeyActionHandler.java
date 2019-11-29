@@ -67,8 +67,8 @@ public class CustomKeyActionHandler {
         //カスタムの割り当てがソース切替の場合
         switch (customKey) {
             case SOURCE_CHANGE://カスタムの割り当てがソース切替の場合
-                mControlSource.changeNextSource();
                 mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.appCustomKey);
+                mControlSource.changeNextSource();
                 break;
 
             case SOURCE_ON_OFF://カスタムの割り当てがソースOFF/ONの場合
@@ -104,8 +104,8 @@ public class CustomKeyActionHandler {
                 Set<MediaSourceType> availableSources = holder.getCarDeviceStatus().availableSourceTypes;
                 if (availableSources.contains(sourceType)) {
                     //割り当てたソースが有効の場合
-                    mControlSource.selectSource(sourceType);
                     mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.appCustomKeyDirectSource);
+                    mControlSource.selectSource(sourceType);
                 } else {
                     //割り当てたソースが無効の場合、なにもしない
                 }
@@ -138,8 +138,8 @@ public class CustomKeyActionHandler {
                     PackageManager pm = mContext.getPackageManager();
                     Intent intent = pm.getLaunchIntentForPackage(customKeyMusicApp.packageName);
                     mContext.startActivity(intent);
-                    mControlSource.selectSource(MediaSourceType.APP_MUSIC);
                     mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.thirdAppChange);
+                    mControlSource.selectSource(MediaSourceType.APP_MUSIC);
                     AppStatus appStatus = holder.getAppStatus();
                     appStatus.isLaunchedThirdPartyAudioApp = true;
                     if(currentMediaSource == MediaSourceType.APP_MUSIC) {
@@ -174,9 +174,9 @@ public class CustomKeyActionHandler {
         if(startTime == 0L || (currentTime - startTime) >= NO_ACTION_TIME) {
             // ラストソース復帰の実行時刻(現在時刻)を保持
             holder.getAppStatus().lastSourceOnTime = currentTime;
+            mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.getAppCustomKeySourceOnOff);
             // ラストソースに復帰
             changeLastSource(holder);
-            mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.getAppCustomKeySourceOnOff);
         }
         // 一定時間経過前にソースONを実行する場合は無視(連打によってラストソース以外になることを防ぐ)
         else { //  if ((currentTime - startTime) < NO_ACTION_TIME)
@@ -218,8 +218,8 @@ public class CustomKeyActionHandler {
     private void sourceOffAction(StatusHolder holder, MediaSourceType currentMediaSource){
         // 直前のソースを保持してソースOFF
         holder.getAppStatus().lastDirectSource = currentMediaSource;
-        mControlSource.selectSource(MediaSourceType.OFF);
         mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.getAppCustomKeySourceOnOff);
+        mControlSource.selectSource(MediaSourceType.OFF);
     }
 
     /**

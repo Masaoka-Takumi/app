@@ -86,6 +86,7 @@ public class YouTubeLinkContainerPresenter extends Presenter<YouTubeLinkContaine
             // ソースが切り替わることにより画面が閉じる
             Timber.i("changeSource->closeDialog");
             Set<MediaSourceType> availableSources = carDeviceStatus.availableSourceTypes;
+            mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.temporarySourceChangeBack);
             if(availableSources.contains(lastSource)){
                 // 有効なソースならそれに戻る
                 mControlSource.selectSource(lastSource);
@@ -94,7 +95,6 @@ public class YouTubeLinkContainerPresenter extends Presenter<YouTubeLinkContaine
                 // 無効なソースならソースOFF
                 mControlSource.selectSource(MediaSourceType.OFF);
             }
-            mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.temporarySourceChangeBack);
             // ラストソースをクリア
             holder.getAppStatus().lastSourceBeforeYouTubeLink = null;
         } else {

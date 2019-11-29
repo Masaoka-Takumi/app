@@ -1206,8 +1206,8 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
         public void onAudioResume() {
             Timber.d("onAudioResume");
             if(mStatusHolder.getCarDeviceStatus().sourceType!=MediaSourceType.APP_MUSIC){
-                mControlSource.selectSource(MediaSourceType.APP_MUSIC);
                 mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.alexaStart);
+                mControlSource.selectSource(MediaSourceType.APP_MUSIC);
             }
             AppStatus appStatus  = mStatusHolder.getAppStatus();
             if(appStatus.appMusicAudioMode==AudioMode.MEDIA) {
@@ -1335,8 +1335,8 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
         public void onAudioStart() {
             Timber.d("onAudioStart");
             if(mStatusHolder.getCarDeviceStatus().sourceType!=MediaSourceType.APP_MUSIC){
-                mControlSource.selectSource(MediaSourceType.APP_MUSIC);
                 mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.alexaStart);
+                mControlSource.selectSource(MediaSourceType.APP_MUSIC);
             }
             AppStatus appStatus  = mStatusHolder.getAppStatus();
             if(appStatus.appMusicAudioMode==AudioMode.MEDIA) {
@@ -1358,8 +1358,8 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
                 }
             }else{
                 //AppMusicソースでなかったらソース変更する
-                mControlSource.selectSource(MediaSourceType.APP_MUSIC);
                 mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.alexaStart);
+                mControlSource.selectSource(MediaSourceType.APP_MUSIC);
             }
         }
 

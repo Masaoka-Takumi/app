@@ -58,7 +58,7 @@ public class App extends Application {
         }
 
         initialize();
-        startFlurry();
+        startAnalytics();
         setDefaultUncaughtExceptionHandler();
         registerActivityLifecycleCallbacks(mMyActivityLifecycleCallbacks);
     }
@@ -166,7 +166,7 @@ public class App extends Application {
      * UnitTest用
      */
     @VisibleForTesting
-    public void startFlurry(){
+    public void startAnalytics(){
         Analytics.init(new FlurryAnalyticsToolStrategy());
         if(mPreference.isAgreedEulaPrivacyPolicy()){
             Analytics.startSession(getApplicationContext());

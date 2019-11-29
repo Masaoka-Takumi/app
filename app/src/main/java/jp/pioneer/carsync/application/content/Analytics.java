@@ -9,11 +9,10 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 import java.util.TimeZone;
 
 import javax.inject.Inject;
@@ -183,14 +182,15 @@ public class Analytics {
     private static Map<AnalyticsUIOrientation, Long> sUIOrientationDuration = new HashMap<>();
     private static AnalyticsUIOrientation sLastUIOrientation = null;
     private static long sLastUIOrientationTime;//ms
-    private static Set<AnalyticsThirdAppStartUp> sThirdAppStartUpSendFlg =  new HashSet<>();
+    private static EnumSet<AnalyticsThirdAppStartUp> sThirdAppStartUpSendFlg = EnumSet.noneOf(AnalyticsThirdAppStartUp.class);
     private static Map<AnalyticsActiveScreen, Long> sActiveScreenDuration = new HashMap<>();
     private static AnalyticsActiveScreen sLastActiveScreen = null;
-    private static AnalyticsActiveScreen sCurrentScreen = null;
+    private static AnalyticsActiveScreen sLastForegroundScreen = null;
     private static long sLastActiveScreenTime;//ms
     private static final Handler mHandler = new Handler();
     private static Runnable sRunnable;
     private static SourceChangeReason sSourceChangeReason;
+    private static MediaSourceType sLastSourceTypeTrigger;
     private static MediaSourceType sLastSourceType;
 
     /**
@@ -215,8 +215,8 @@ public class Analytics {
         return sLastActiveScreen;
     }
 
-    public static AnalyticsActiveScreen getCurrentScreen() {
-        return sCurrentScreen;
+    public static AnalyticsActiveScreen getLastForegroundScreen() {
+        return sLastForegroundScreen;
     }
 
     public void setSourceSelectReason(SourceChangeReason reason) {
@@ -251,6 +251,7 @@ public class Analytics {
         startUIOrientationDuration(config.orientation,true);
         startActiveScreenDuration(Analytics.AnalyticsActiveScreen.home_screen,true);
         sLastSourceType = mGetStatusHolder.execute().getCarDeviceStatus().sourceType;
+        sLastSourceTypeTrigger = mGetStatusHolder.execute().getCarDeviceStatus().sourceType;;
     }
 
     public void finishAnalytics(){
@@ -273,9 +274,10 @@ public class Analytics {
         sLastActiveScreen = null;
         sLastActiveScreenTime = 0;
         sActiveScreenDuration = new HashMap<>();
-        sThirdAppStartUpSendFlg = new HashSet<>();
+        sThirdAppStartUpSendFlg = EnumSet.noneOf(AnalyticsThirdAppStartUp.class);
         sSourceChangeReason = null;
         sLastSourceType = null;
+        sLastSourceTypeTrigger = null;
     }
 
     /**
@@ -340,6 +342,7 @@ public class Analytics {
             case HD_RADIO_INTERRUPT:
             case TTS:
             default:
+                startSourceDuration(null);
                 return;
         }
         startSourceDuration(analyticsSource);
@@ -445,14 +448,14 @@ public class Analytics {
      */
     public void sendSourceSelectReasonEvent(MediaSourceType sourceType) {
         Timber.d("sendSourceSelectReasonEvent:sourceType=" + sourceType);
+        mHandler.removeCallbacks(sRunnable);
         if (sourceType == MediaSourceType.BT_PHONE || sourceType == MediaSourceType.IPOD
                 || sourceType == MediaSourceType.DAB_INTERRUPT || sourceType == MediaSourceType.HD_RADIO_INTERRUPT
                 || sourceType == MediaSourceType.TTS) {
             sSourceChangeReason = null;
             return;
         }
-        if (sourceType != sLastSourceType) {
-            mHandler.removeCallbacks(sRunnable);
+        if (sourceType != sLastSourceTypeTrigger) {
             final SourceChangeReason reason = sSourceChangeReason;
             sSourceChangeReason = null;
             sRunnable = new Runnable() {
@@ -460,22 +463,22 @@ public class Analytics {
                 public void run() {
                     Timber.d("sendSourceSelectReasonEvent:sSourceChangeReason=" + reason + ",sourceType=" + sourceType + ",newSourceType=" + mGetStatusHolder.execute().getCarDeviceStatus().sourceType);
                     if (mGetStatusHolder.execute().getCarDeviceStatus().sourceType == sourceType) {
-                        if(reason == null){
+                        if (reason == null) {
                             logSourceSelectReasonEvent(AnalyticsSourceChangeReason.carDeviceKey);
-                        }else if(reason == SourceChangeReason.appCustomKey){
+                        } else if (reason == SourceChangeReason.appCustomKey) {
                             logSourceSelectReasonEvent(AnalyticsSourceChangeReason.appCustomKey);
                         }
                     }
                 }
             };
-            if (reason ==null||reason == SourceChangeReason.appCustomKey) {
+            if (reason == null || reason == SourceChangeReason.appCustomKey) {
                 //トグル切換のため、ソースを切り替えてから10秒固定されたらソース切り替えされたとする
                 mHandler.postDelayed(sRunnable, 10000);//10s
-            }else if(reason == SourceChangeReason.appSourceList){
+            } else if (reason == SourceChangeReason.appSourceList) {
                 logSourceSelectReasonEvent(AnalyticsSourceChangeReason.appSourceList);
             }
-            sLastSourceType = sourceType;
-        }
+            sLastSourceTypeTrigger = sourceType;
+        };
     }
 
     /**
@@ -484,13 +487,13 @@ public class Analytics {
     public void startActiveScreenDuration(AnalyticsActiveScreen activeScreen, boolean start) {
         if (activeScreen == null) {
             Timber.d("startActiveScreenDuration:activeScreen is Null" + ",start=" + start);
-            sCurrentScreen = null;
+            sLastForegroundScreen = null;
             sLastActiveScreen = null;
             sLastActiveScreenTime = 0;
             return;
         }
         if(activeScreen==AnalyticsActiveScreen.home_screen||activeScreen==AnalyticsActiveScreen.av_screen){
-            sCurrentScreen = activeScreen;
+            sLastForegroundScreen = activeScreen;
         }
         Timber.d("startActiveScreenDuration:activeScreen=" + activeScreen.value + ",start=" + start);
         long now = System.currentTimeMillis();
@@ -558,7 +561,7 @@ public class Analytics {
             if (mGetStatusHolder.execute().getSessionStatus() == SessionStatus.STARTED&&mGetStatusHolder.execute().getAppStatus().isAgreedCaution) {
                 startActiveScreenDuration(Analytics.AnalyticsActiveScreen.background, false);
                 //Pause前の表示画面がAV画面/HOME画面であれば計測再開
-                startActiveScreenDuration(getCurrentScreen(), true);
+                startActiveScreenDuration(getLastForegroundScreen(), true);
                 Configuration config = mContext.getResources().getConfiguration();
                 startUIOrientationDuration(config.orientation, true);
             }

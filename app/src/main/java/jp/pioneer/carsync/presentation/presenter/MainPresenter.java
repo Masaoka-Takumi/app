@@ -1596,8 +1596,8 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                         mHandler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                mControlSource.selectSource(MediaSourceType.APP_MUSIC);
                                 mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.alexaStart);
+                                mControlSource.selectSource(MediaSourceType.APP_MUSIC);
                             }
                         }, 1000);
                     }
@@ -1631,8 +1631,8 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                         mStatusCase.execute().getAppStatus().isShowSpeechRecognizerDialog = true;
                         mFinishBluetoothHeadset = finishBluetoothHeadset;
                         if(mSpeechRecognizerDevice == PrepareSpeechRecognizer.Device.PHONE&&mPreviousSourceType!=MediaSourceType.APP_MUSIC){
-                            mControlSource.selectSource(MediaSourceType.APP_MUSIC);
                             mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.temporarySourceChange);
+                            mControlSource.selectSource(MediaSourceType.APP_MUSIC);
                         }
                         if(mPreviousSourceType==MediaSourceType.APP_MUSIC){
                             SmartPhoneStatus status = holder.getSmartPhoneStatus();
@@ -1705,8 +1705,8 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
             mFinishBluetoothHeadset = null;
             if(mSpeechRecognizerDevice == PrepareSpeechRecognizer.Device.PHONE&&mPreviousSourceType != MediaSourceType.APP_MUSIC&&!mIsRecognizeSourceChanged){
                 Timber.d("selectPreviousSource");
-                mControlSource.selectSource(mPreviousSourceType);
                 mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.temporarySourceChangeBack);
+                mControlSource.selectSource(mPreviousSourceType);
             }
         }
     };
@@ -1992,8 +1992,8 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
                     if (mCurrentAvailableSourceType.contains(type)) {
                         mIsRecognizeSourceChanged = true;
-                        mControlSource.selectSource(type);
                         mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.speechRecognizeSourceChange);
+                        mControlSource.selectSource(type);
                         view.navigate(ScreenId.PLAYER_CONTAINER, Bundle.EMPTY);
                     } else {
                         // 有効ではないソースを認識
