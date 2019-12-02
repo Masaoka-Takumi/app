@@ -12,7 +12,7 @@ import org.greenrobot.eventbus.EventBus;
 import javax.inject.Inject;
 
 import jp.pioneer.carsync.R;
-import jp.pioneer.carsync.application.content.Analytics;
+import jp.pioneer.carsync.application.content.AnalyticsEventManager;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.interactor.ControlSource;
@@ -66,8 +66,7 @@ public class OpeningPrivacyPolicyPresenter extends Presenter<OpeningPrivacyPolic
      */
     public void onAcceptAction(){
         mPreference.setAgreedEulaPrivacyPolicy(true);
-        //Flurry.sessionStart(mContext);
-        Analytics.startSession(mContext);
+        AnalyticsEventManager.startSession(mContext);
         StatusHolder holder = mGetStatusHolder.execute();
         //購入情報チェックが不要かつオーバーレイ権限がOKの場合連携抑制解除
         if(holder.getAppStatus().adasBillingCheck&&!(MainPresenter.sIsVersionQ&&!Settings.canDrawOverlays(mContext))) {

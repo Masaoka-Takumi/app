@@ -15,7 +15,7 @@ import org.matthiaszimmermann.location.egm96.Geoid;
 import javax.inject.Inject;
 
 import jp.pioneer.carsync.BuildConfig;
-import jp.pioneer.carsync.application.content.Analytics;
+import jp.pioneer.carsync.application.content.AnalyticsEventManager;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.content.FlurryAnalyticsToolStrategy;
 import jp.pioneer.carsync.application.di.component.AppComponent;
@@ -167,9 +167,9 @@ public class App extends Application {
      */
     @VisibleForTesting
     public void startAnalytics(){
-        Analytics.init(new FlurryAnalyticsToolStrategy());
+        AnalyticsEventManager.configure(new FlurryAnalyticsToolStrategy());
         if(mPreference.isAgreedEulaPrivacyPolicy()){
-            Analytics.startSession(getApplicationContext());
+            AnalyticsEventManager.startSession(getApplicationContext());
         }
     }
 

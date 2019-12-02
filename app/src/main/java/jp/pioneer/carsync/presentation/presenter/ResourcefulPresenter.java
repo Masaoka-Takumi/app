@@ -30,6 +30,7 @@ import jp.pioneer.carsync.BuildConfig;
 import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.application.App;
 import jp.pioneer.carsync.application.content.Analytics;
+import jp.pioneer.carsync.application.content.AnalyticsEventManager;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.ForDomain;
 import jp.pioneer.carsync.application.di.ForInfrastructure;
@@ -151,7 +152,7 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
     @Inject CarDeviceConnection mCarDeviceConnection;
     @Inject QueryTunerItem mTunerCase;
     @Inject PreferRadioFunction mPreferRadioFunction;
-    @Inject Analytics mAnalytics;
+    @Inject AnalyticsEventManager mAnalytics;
     private CursorLoader mCursorLoader;
     private static final int LOADER_ID_NUMBER = 1;
     private ForegroundReason mReason;

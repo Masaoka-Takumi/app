@@ -16,6 +16,7 @@ import java.net.URLEncoder;
 import javax.inject.Inject;
 
 import jp.pioneer.carsync.application.content.Analytics;
+import jp.pioneer.carsync.application.content.AnalyticsEventManager;
 import jp.pioneer.carsync.domain.event.CarDeviceStatusChangeEvent;
 import jp.pioneer.carsync.domain.event.MediaSourceTypeChangeEvent;
 import jp.pioneer.carsync.domain.interactor.ControlSource;
@@ -39,7 +40,7 @@ public class YouTubeLinkWebViewPresenter extends Presenter<YouTubeLinkWebViewVie
     @Inject EventBus mEventBus;
     @Inject GetStatusHolder mGetStatusHolder;
     @Inject ControlSource mControlSource;
-    @Inject Analytics mAnalytics;
+    @Inject AnalyticsEventManager mAnalytics;
     private static final String BASE_YOUTUBE_LINK_URL = "https://m.youtube.com/results?search_query=";
     private static final String NO_TITLE = "No Title";
     private static final String NO_ARTIST = "No Artist";

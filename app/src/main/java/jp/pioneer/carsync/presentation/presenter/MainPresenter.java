@@ -54,6 +54,7 @@ import jp.pioneer.carsync.BuildConfig;
 import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.application.App;
 import jp.pioneer.carsync.application.content.Analytics;
+import jp.pioneer.carsync.application.content.AnalyticsEventManager;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.application.util.AppUtil;
@@ -165,7 +166,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
     @Inject PreferAdas mPreferAdas;
     @Inject CarDeviceConnection mCarDeviceConnection;
     @Inject ControlAppMusicSource mControlAppMusicSource;
-    @Inject Analytics mAnalytics;
+    @Inject AnalyticsEventManager mAnalytics;
     private PrepareSpeechRecognizer.FinishBluetoothHeadset mFinishBluetoothHeadset;
     private VoiceCommand mResentVoiceCommand;
     private boolean mIsRecognizerRestarted = false;
@@ -304,13 +305,13 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
     public void analyticsActiveScreenByNavigate(ScreenId screenId){
         if (mStatusCase.execute().getSessionStatus() == SessionStatus.STARTED && mStatusCase.execute().getAppStatus().isAgreedCaution) {
-            Timber.d("AnalyticsActiveScreenByNavigate:screen=" + screenId);
+            //Timber.d("AnalyticsActiveScreenByNavigate:screen=" + screenId);
             if (screenId == ScreenId.PLAYER_CONTAINER) {
                 mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.av_screen, true);
             } else if (screenId == ScreenId.HOME_CONTAINER) {
                 mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.home_screen, true);
             } else if (screenId == ScreenId.SETTINGS_CONTAINER || screenId == ScreenId.UNCONNECTED_CONTAINER) {
-                mAnalytics.startActiveScreenDuration(Analytics.getActiveScreen(), false);
+                mAnalytics.startActiveScreenDuration(mAnalytics.getActiveScreen(), false);
             }
         }
     }
@@ -1042,6 +1043,8 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
         mIsInitializedReadText = false;
         mReadText.terminate();
+        //FlurryのSessionがstartしていないとログを送れない(MainActivityがバックグラウンド中はセッションが終了している)
+        mAnalytics.sendFinishLogEvent();
     }
 
     private void sessionStart() {

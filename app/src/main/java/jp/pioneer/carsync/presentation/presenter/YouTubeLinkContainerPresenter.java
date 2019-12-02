@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import jp.pioneer.carsync.application.content.Analytics;
+import jp.pioneer.carsync.application.content.AnalyticsEventManager;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.interactor.ControlSource;
@@ -27,7 +28,7 @@ public class YouTubeLinkContainerPresenter extends Presenter<YouTubeLinkContaine
     @Inject AppSharedPreference mPreference;
     @Inject GetStatusHolder mGetStatusHolder;
     @Inject ControlSource mControlSource;
-    @Inject Analytics mAnalytics;
+    @Inject AnalyticsEventManager mAnalytics;
     @Inject
     public YouTubeLinkContainerPresenter() {
     }

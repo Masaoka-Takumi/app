@@ -12,10 +12,11 @@ import org.greenrobot.eventbus.ThreadMode;
 import javax.inject.Inject;
 
 import jp.pioneer.carsync.application.content.Analytics;
+import jp.pioneer.carsync.application.content.AnalyticsEventManager;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.event.AlexaNotificationChangeEvent;
-import jp.pioneer.carsync.domain.event.MediaSourceTypeChangeEvent;
 import jp.pioneer.carsync.domain.event.AppMusicAudioModeChangeEvent;
+import jp.pioneer.carsync.domain.event.MediaSourceTypeChangeEvent;
 import jp.pioneer.carsync.domain.interactor.ControlAppMusicSource;
 import jp.pioneer.carsync.domain.interactor.ControlSource;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
@@ -38,7 +39,7 @@ public class AlexaPresenter extends Presenter<AlexaView> {
     @Inject Context mContext;
     @Inject ControlAppMusicSource mControlAppMusicSource;
     @Inject ControlSource mControlSource;
-    @Inject Analytics mAnalytics;
+    @Inject AnalyticsEventManager mAnalytics;
     @Inject
     public AlexaPresenter() {
     }

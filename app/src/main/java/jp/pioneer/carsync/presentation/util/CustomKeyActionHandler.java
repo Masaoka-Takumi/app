@@ -20,6 +20,7 @@ import javax.inject.Singleton;
 
 import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.application.content.Analytics;
+import jp.pioneer.carsync.application.content.AnalyticsEventManager;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.domain.event.MediaSourceTypeChangeEvent;
 import jp.pioneer.carsync.domain.interactor.ControlAppMusicSource;
@@ -44,7 +45,7 @@ public class CustomKeyActionHandler {
     @Inject GetStatusHolder mStatusHolder;
     @Inject PreferMusicApp mPreferMusicApp;
     @Inject ControlAppMusicSource mControlAppMusicSource;
-    @Inject Analytics mAnalytics;
+    @Inject AnalyticsEventManager mAnalytics;
     private EventBus mEventBus;
     private Runnable mRunnable = null;
     private final long NO_ACTION_TIME = 1000; // ソースON動作を無視する時間
