@@ -54,7 +54,7 @@ public class AnalyticsEventManager {
      * コンストラクタ.
      */
     @Inject
-    private AnalyticsEventManager(){
+    public AnalyticsEventManager(){
     }
 
     // アプリ起動時に呼び出す
