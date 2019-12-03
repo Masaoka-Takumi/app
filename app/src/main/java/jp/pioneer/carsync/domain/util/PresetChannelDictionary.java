@@ -70,24 +70,24 @@ public class PresetChannelDictionary {
      * 専用機の初期PCHリスト
      */
     private void initSphPresetList(){
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 1000L,111,1,3,3), 1);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 200L,111,1,3,3), 2);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 300L,111,1,2,3), 3);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 1000L,111,1,2,3), 4);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 500L,111,1,2,3), 5);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 3000L,111,1,2,3), 6);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 1000L,111,1,2,3), 1);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 200L,111,1,2,3), 2);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 300L,111,1,2,3), 3);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 1000L,111,1,2,3), 4);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 2000L,111,1,2,3), 5);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 3000L,111,1,2,3), 6);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 1000L,111,1,2,3), 1);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 200L,111,1,2,3), 2);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 300L,111,1,2,3), 3);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 1000L,111,1,2,3), 4);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 2000L,111,1,2,3), 5);
-        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 3000L,111,1,2,3), 6);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 174928L,13,0,0,0), 1);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 208064L,32,0,0,0), 2);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 239200L,53,0,0,0), 3);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 1452960L,54,0,0,0), 4);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 1471792L,65,0,0,0), 5);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND1.code, 1490624L,76,0,0,0), 6);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 174928L,13,0,0,0), 1);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 208064L,32,0,0,0), 2);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 239200L,53,0,0,0), 3);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 1452960L,54,0,0,0), 4);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 1471792L,65,0,0,0), 5);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND2.code, 1490624L,76,0,0,0), 6);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 174928L,13,0,0,0), 1);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 208064L,32,0,0,0), 2);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 239200L,53,0,0,0), 3);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 1452960L,54,0,0,0), 4);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 1471792L,65,0,0,0), 5);
+        mPresetChannelMapSph.put(createKey(MediaSourceType.DAB, DabBandType.BAND3.code, 1490624L,76,0,0,0), 6);
     }
 
     /**

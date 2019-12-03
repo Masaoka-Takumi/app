@@ -372,13 +372,14 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
     private void makeDummyInfo(){
         mCurrDab.minimumFrequency = 0;
         mCurrDab.maximumFrequency = 0;
-        mCurrDab.currentFrequency = 500L;
-        mCurrDab.frequencyUnit = TunerFrequencyUnit.KHZ;
+        mCurrDab.currentFrequency = 239200L;
+        mCurrDab.frequencyUnit = TunerFrequencyUnit.MHZ;
         mCurrDab.tunerStatus = TunerStatus.NORMAL;
         mCurrDab.band = DabBandType.BAND1;
-        mCurrDab.eid = 1;
-        mCurrDab.sid = 2;
-        mCurrDab.scids = 3;
+        mCurrDab.eid = 0;
+        mCurrDab.sid = 0;
+        mCurrDab.scids = 0;
+        mCurrDab.index = 53;
         mCurrDab.serviceComponentLabel = "test";
         mCurrDab.dynamicLabel = "test";
         mCurrDab.ptyInfo  = "test";
