@@ -72,6 +72,8 @@ public class AlexaSettingFragment extends AbstractScreenFragment<AlexaSettingPre
         mAdapter = new AlexaSettingAdapter(getContext(), new ArrayList<String>(){
             {
                 add(getString(R.string.set_304));
+//                add(getString(R.string.set_412));
+                add("使い方");
                 add(getString(R.string.set_303));
             }
         });
@@ -146,9 +148,11 @@ public class AlexaSettingFragment extends AbstractScreenFragment<AlexaSettingPre
 
     @OnItemClick(R.id.list_view)
     public void onListItemClick(int position) {
-        if(position==0){
+        if(position==0) {
             getPresenter().showLanguageSelectDialog();
-        }else if(position==1){
+        }else if(position == 1){
+            getPresenter().onNavigateAlexaUsage();
+        }else if(position==2){
             getPresenter().showSignOutDialog();
         }
     }

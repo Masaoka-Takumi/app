@@ -3,14 +3,18 @@ package jp.pioneer.carsync.presentation.view.fragment.screen.settings;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.viewpagerindicator.CirclePageIndicator;
 
 import javax.inject.Inject;
 
@@ -22,6 +26,7 @@ import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.application.di.component.FragmentComponent;
 import jp.pioneer.carsync.presentation.presenter.AlexaExampleUsagePresenter;
 import jp.pioneer.carsync.presentation.view.AlexaExampleUsageView;
+import jp.pioneer.carsync.presentation.view.adapter.AlexaTutorialPagerAdapter;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.SingleChoiceDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.StatusPopupDialogFragment;
@@ -40,8 +45,12 @@ public class AlexaExampleUsageFragment extends AbstractScreenFragment<AlexaExamp
     @Inject AlexaExampleUsagePresenter mPresenter;
     @BindView(R.id.back_button) ImageView mBackBtn;
     @BindView(R.id.next_button) ImageView mNextBtn;
-    @BindView(R.id.text_view_link) TextView mTextViewLink;
+    @BindView(R.id.directory_pass_text) TextView mDirectoryPass;
+    @BindView(R.id.viewPager) ViewPager mViewPager;
+    @BindView(R.id.indicator) CirclePageIndicator mIndicator;
+//    @BindView(R.id.text_view_link) TextView mTextViewLink;
     private Unbinder mUnbinder;
+    private AlexaTutorialPagerAdapter mPagerAdapter;
     /** Alexaマネージャ. */
     AmazonAlexaManager mAmazonAlexaManager;
     private AlexaCallback mAlexaCallback = new AlexaCallback();
@@ -55,7 +64,7 @@ public class AlexaExampleUsageFragment extends AbstractScreenFragment<AlexaExamp
      * 新規インスタンス取得
      *
      * @param args 引き継ぎ情報
-     * @return ImpactDetectionSettingsFragment
+     * @return AlexaExampleUsageFragment
      */
     public static AlexaExampleUsageFragment newInstance(Bundle args) {
         AlexaExampleUsageFragment fragment = new AlexaExampleUsageFragment();
@@ -67,20 +76,70 @@ public class AlexaExampleUsageFragment extends AbstractScreenFragment<AlexaExamp
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting_alexa_example_usage, container, false);
         mUnbinder = ButterKnife.bind(this, view);
-        String str1 = getString(R.string.set_320);
-        String linkStr = getString(R.string.set_322);
-        int result = str1.indexOf(linkStr);
-        if (result != -1) {
-            String htmlBlogStr = str1.substring(0, result)
-                    + "<font color =\"#00a5cf\" ><a href=\"https://play.google.com/store/apps/details?id=com.amazon.dee.app\">" + linkStr + "</a></font>"
-                    + str1.substring(result+linkStr.length());
-            CharSequence blogChar = fromHtml(htmlBlogStr);
-            mTextViewLink.setText(blogChar);
-            MovementMethod mMethod = LinkMovementMethod.getInstance();
-            mTextViewLink.setMovementMethod(mMethod);
-        } else {
-            mTextViewLink.setText(str1);
-        }
+//        String str1 = getString(R.string.set_320);
+//        String linkStr = getString(R.string.set_322);
+//        int result = str1.indexOf(linkStr);
+//        if (result != -1) {
+//            String htmlBlogStr = str1.substring(0, result)
+//                    + "<font color =\"#00a5cf\" ><a href=\"https://play.google.com/store/apps/details?id=com.amazon.dee.app\">" + linkStr + "</a></font>"
+//                    + str1.substring(result+linkStr.length());
+//            CharSequence blogChar = fromHtml(htmlBlogStr);
+//            mTextViewLink.setText(blogChar);
+//            MovementMethod mMethod = LinkMovementMethod.getInstance();
+//            mTextViewLink.setMovementMethod(mMethod);
+//        } else {
+//            mTextViewLink.setText(str1);
+//        }
+//        mBackBtn.setVisibility(View.VISIBLE);
+//        mNextBtn.setVisibility(View.VISIBLE);
+        view.requestFocus();
+        view.setFocusableInTouchMode(true);
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+                    Timber.i("AlexaExampleUsage BackKey");
+                    onBackAction();
+                    return true;
+                }
+                return false;
+            }
+        });
+        mPagerAdapter = new AlexaTutorialPagerAdapter(getActivity());
+        mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                switch (i) {
+                    case 0:
+//                        mDirectoryPass.setText(R.string.set_403);
+                        mDirectoryPass.setText("はじめよう");
+                        break;
+                    case 1:
+//                        mDirectoryPass.setText(R.string.set_406);
+                        mDirectoryPass.setText("使い方を知ろう");
+                        break;
+                    case 2:
+                        mDirectoryPass.setText(R.string.set_318);
+                        break;
+                    default:
+                        mBackBtn.setVisibility(View.INVISIBLE);
+                        mNextBtn.setVisibility(View.INVISIBLE);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+            }
+        });
+
+        mIndicator.setViewPager(mViewPager);
+
         return view;
     }
 
@@ -134,7 +193,7 @@ public class AlexaExampleUsageFragment extends AbstractScreenFragment<AlexaExamp
 
     @OnClick(R.id.back_button)
     public void onClickBackButton() {
-        getPresenter().onBackAction();
+        onBackAction();
     }
 
     @OnClick(R.id.next_button)
@@ -142,9 +201,14 @@ public class AlexaExampleUsageFragment extends AbstractScreenFragment<AlexaExamp
         getPresenter().onNextAction();
     }
 
-    @OnClick(R.id.sign_out_btn)
-    public void onClickSignOut() {
-        getPresenter().showSignOutDialog();
+    public boolean onBackAction() {
+        if(mViewPager.getCurrentItem() == 0) {
+            getPresenter().onBackAction();
+            return true;
+        } else {
+            mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
+            return true;
+        }
     }
 
     @Override

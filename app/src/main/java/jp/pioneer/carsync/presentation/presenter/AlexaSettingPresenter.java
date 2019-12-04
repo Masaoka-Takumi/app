@@ -14,11 +14,13 @@ import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.model.AlexaLanguageType;
+import jp.pioneer.carsync.domain.model.CarDeviceClassId;
 import jp.pioneer.carsync.domain.model.SessionStatus;
 import jp.pioneer.carsync.domain.model.StatusHolder;
 import jp.pioneer.carsync.presentation.event.GoBackEvent;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
 import jp.pioneer.carsync.presentation.view.AlexaSettingView;
+import jp.pioneer.carsync.presentation.view.argument.SettingsParams;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.SingleChoiceDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.StatusPopupDialogFragment;
@@ -83,6 +85,16 @@ public class AlexaSettingPresenter extends Presenter<AlexaSettingView>{
         AlexaDirectiveManager.sendSettingsUpdated(mContext);
     }
 
+    public void onNavigateAlexaUsage() {
+//        CarDeviceClassId lastCarDeviceClassId = mPreference.getLastConnectedCarDeviceClassId();
+//        if(lastCarDeviceClassId == CarDeviceClassId.SPH) {
+            mEventBus.post(new NavigateEvent(ScreenId.ALEXA_EXAMPLE_USAGE, createSettingsParams(mContext.getString(R.string.set_318))));
+//        } else {
+//            mEventBus.post(new NavigateEvent(ScreenId.ALEXA_GUIDANCE_OF_PUTTING_SMARTPHONE, createSettingsParams(mContext.getString(R.string.set_403))));
+//            mEventBus.post(new NavigateEvent(ScreenId.ALEXA_GUIDANCE_OF_PUTTING_SMARTPHONE, createSettingsParams("Amazon Alexa")));
+//        }
+    }
+
     public void onLogout(){
         StatusHolder holder = mGetStatusHolder.execute();
         holder.getAppStatus().alexaAuthenticated = false;
@@ -109,4 +121,9 @@ public class AlexaSettingPresenter extends Presenter<AlexaSettingView>{
         }
     }
 
+    private Bundle createSettingsParams(String pass) {
+        SettingsParams params = new SettingsParams();
+        params.pass = pass;
+        return params.toBundle();
+    }
 }

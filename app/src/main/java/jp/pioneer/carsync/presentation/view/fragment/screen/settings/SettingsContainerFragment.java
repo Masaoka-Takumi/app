@@ -122,6 +122,7 @@ public class SettingsContainerFragment extends AbstractScreenFragment<SettingsCo
             if (screenId.isSettings()) {
                 getPresenter().requestExitMenu();
             }
+            // TODO #5200 ALEXA_EXAMPLE_USAGEへの遷移の場合、Bundleの遷移元ScreenIdを遷移先画面に伝えたい
             return true;
         }else{
             if(screenId == ScreenId.CAR_SAFETY_SETTINGS){
@@ -184,6 +185,13 @@ public class SettingsContainerFragment extends AbstractScreenFragment<SettingsCo
         if (mFragmentController.getScreenIdInContainer() == ScreenId.CAR_SAFETY_SETTINGS) {
             getPresenter().onGoSettingTop();
             return true;
+        }
+
+        if (mFragmentController.getScreenIdInContainer() == ScreenId.ALEXA_EXAMPLE_USAGE) {
+            AlexaExampleUsageFragment fragment = (AlexaExampleUsageFragment) mFragmentController.getContainerFragment();
+            if (fragment.onBackAction()) {
+                return true;
+            }
         }
 
         if (mFragmentController.goBack()) {
