@@ -30,6 +30,7 @@ import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.ParkingStatus;
 import jp.pioneer.carsync.domain.model.PlaybackMode;
 import jp.pioneer.carsync.domain.model.StatusHolder;
+import jp.pioneer.carsync.presentation.event.SourceChangeReasonEvent;
 import jp.pioneer.carsync.presentation.view.YouTubeLinkWebViewView;
 import jp.pioneer.mbg.alexa.AlexaInterface.AlexaIfDirectiveItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
@@ -90,7 +91,7 @@ public class YouTubeLinkWebViewPresenter extends Presenter<YouTubeLinkWebViewVie
         holder.getAppStatus().lastSourceBeforeYouTubeLink = null;
         if(lastSource != MediaSourceType.APP_MUSIC){
             holder.getAppStatus().lastSourceBeforeYouTubeLink = lastSource;
-            mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.temporarySourceChange);
+            mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.temporarySourceChange));
             mControlSource.selectSource(MediaSourceType.APP_MUSIC);
         } else {
             mIsSourceChanged = true; // 最初からAppMusicソースの場合はフラグを立てる

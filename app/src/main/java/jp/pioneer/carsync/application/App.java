@@ -46,6 +46,7 @@ public class App extends Application {
     @Inject EventBus mEventBus;
     @Inject AppSharedPreference mPreference;
     @Inject GetStatusHolder mStatusCase;
+    @Inject AnalyticsEventManager mAnalytics;
     /**
      * {@inheritDoc}
      */
@@ -167,9 +168,9 @@ public class App extends Application {
      */
     @VisibleForTesting
     public void startAnalytics(){
-        AnalyticsEventManager.configure(new FlurryAnalyticsToolStrategy());
+        mAnalytics.configure(new FlurryAnalyticsToolStrategy());
         if(mPreference.isAgreedEulaPrivacyPolicy()){
-            AnalyticsEventManager.startSession(getApplicationContext());
+            mAnalytics.startSession(getApplicationContext());
         }
     }
 

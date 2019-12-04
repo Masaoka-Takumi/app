@@ -108,8 +108,10 @@ import jp.pioneer.carsync.presentation.event.CaptureSetEvent;
 import jp.pioneer.carsync.presentation.event.CloseDialogEvent;
 import jp.pioneer.carsync.presentation.event.DeviceConnectionSuppressEvent;
 import jp.pioneer.carsync.presentation.event.GoBackEvent;
+import jp.pioneer.carsync.presentation.event.MainNavigateEvent;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
 import jp.pioneer.carsync.presentation.event.ShowCautionEvent;
+import jp.pioneer.carsync.presentation.event.SourceChangeReasonEvent;
 import jp.pioneer.carsync.presentation.event.StartGetRunningStatusEvent;
 import jp.pioneer.carsync.presentation.model.AdasTrialState;
 import jp.pioneer.carsync.presentation.model.SettingEntrance;
@@ -305,13 +307,11 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
     public void analyticsActiveScreenByNavigate(ScreenId screenId){
         if (mStatusCase.execute().getSessionStatus() == SessionStatus.STARTED && mStatusCase.execute().getAppStatus().isAgreedCaution) {
-            //Timber.d("AnalyticsActiveScreenByNavigate:screen=" + screenId);
-            if (screenId == ScreenId.PLAYER_CONTAINER) {
-                mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.av_screen, true);
-            } else if (screenId == ScreenId.HOME_CONTAINER) {
-                mAnalytics.startActiveScreenDuration(Analytics.AnalyticsActiveScreen.home_screen, true);
-            } else if (screenId == ScreenId.SETTINGS_CONTAINER || screenId == ScreenId.UNCONNECTED_CONTAINER) {
-                mAnalytics.startActiveScreenDuration(mAnalytics.getActiveScreen(), false);
+            if(screenId == ScreenId.PLAYER_CONTAINER
+                    ||screenId == ScreenId.HOME_CONTAINER
+                    ||screenId == ScreenId.SETTINGS_CONTAINER
+                    ||screenId == ScreenId.UNCONNECTED_CONTAINER) {
+                mEventBus.post(new MainNavigateEvent(screenId));
             }
         }
     }
@@ -1043,8 +1043,6 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
         mIsInitializedReadText = false;
         mReadText.terminate();
-        //FlurryのSessionがstartしていないとログを送れない(MainActivityがバックグラウンド中はセッションが終了している)
-        mAnalytics.sendFinishLogEvent();
     }
 
     private void sessionStart() {
@@ -1599,7 +1597,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                         mHandler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.alexaStart);
+                                mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.alexaStart));
                                 mControlSource.selectSource(MediaSourceType.APP_MUSIC);
                             }
                         }, 1000);
@@ -1634,7 +1632,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                         mStatusCase.execute().getAppStatus().isShowSpeechRecognizerDialog = true;
                         mFinishBluetoothHeadset = finishBluetoothHeadset;
                         if(mSpeechRecognizerDevice == PrepareSpeechRecognizer.Device.PHONE&&mPreviousSourceType!=MediaSourceType.APP_MUSIC){
-                            mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.temporarySourceChange);
+                            mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.temporarySourceChange));
                             mControlSource.selectSource(MediaSourceType.APP_MUSIC);
                         }
                         if(mPreviousSourceType==MediaSourceType.APP_MUSIC){
@@ -1708,7 +1706,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
             mFinishBluetoothHeadset = null;
             if(mSpeechRecognizerDevice == PrepareSpeechRecognizer.Device.PHONE&&mPreviousSourceType != MediaSourceType.APP_MUSIC&&!mIsRecognizeSourceChanged){
                 Timber.d("selectPreviousSource");
-                mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.temporarySourceChangeBack);
+                mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.temporarySourceChangeBack));
                 mControlSource.selectSource(mPreviousSourceType);
             }
         }
@@ -1995,7 +1993,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
                     if (mCurrentAvailableSourceType.contains(type)) {
                         mIsRecognizeSourceChanged = true;
-                        mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.speechRecognizeSourceChange);
+                        mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.speechRecognizeSourceChange));
                         mControlSource.selectSource(type);
                         view.navigate(ScreenId.PLAYER_CONTAINER, Bundle.EMPTY);
                     } else {

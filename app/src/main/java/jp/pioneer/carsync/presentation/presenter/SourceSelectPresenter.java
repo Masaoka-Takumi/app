@@ -31,6 +31,7 @@ import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.MusicApp;
 import jp.pioneer.carsync.domain.model.StatusHolder;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
+import jp.pioneer.carsync.presentation.event.SourceChangeReasonEvent;
 import jp.pioneer.carsync.presentation.model.SourceSelectItem;
 import jp.pioneer.carsync.presentation.view.SourceSelectView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
@@ -178,7 +179,7 @@ public class SourceSelectPresenter extends Presenter<SourceSelectView> {
         if (type == currentType) {
             Optional.ofNullable(getView()).ifPresent(SourceSelectView::dismissDialog);
         }
-        mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.appSourceList);
+        mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.appSourceList));
         mControlSource.selectSource(type);
     }
 

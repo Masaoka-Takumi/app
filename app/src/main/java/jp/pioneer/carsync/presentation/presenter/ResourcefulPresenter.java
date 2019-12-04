@@ -111,6 +111,7 @@ import jp.pioneer.carsync.infrastructure.crp.event.CrpSessionStoppedEvent;
 import jp.pioneer.carsync.presentation.event.AlexaRenderPlayerInfoUpdateEvent;
 import jp.pioneer.carsync.presentation.event.AlexaVoiceRecognizeEvent;
 import jp.pioneer.carsync.presentation.event.SessionCompletedEvent;
+import jp.pioneer.carsync.presentation.event.SourceChangeReasonEvent;
 import jp.pioneer.carsync.presentation.event.StartGetRunningStatusEvent;
 import jp.pioneer.carsync.presentation.view.ResourcefulView;
 import jp.pioneer.carsync.presentation.view.service.ForegroundReason;
@@ -1207,7 +1208,7 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
         public void onAudioResume() {
             Timber.d("onAudioResume");
             if(mStatusHolder.getCarDeviceStatus().sourceType!=MediaSourceType.APP_MUSIC){
-                mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.alexaStart);
+                mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.alexaStart));
                 mControlSource.selectSource(MediaSourceType.APP_MUSIC);
             }
             AppStatus appStatus  = mStatusHolder.getAppStatus();
@@ -1336,7 +1337,7 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
         public void onAudioStart() {
             Timber.d("onAudioStart");
             if(mStatusHolder.getCarDeviceStatus().sourceType!=MediaSourceType.APP_MUSIC){
-                mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.alexaStart);
+                mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.alexaStart));
                 mControlSource.selectSource(MediaSourceType.APP_MUSIC);
             }
             AppStatus appStatus  = mStatusHolder.getAppStatus();
@@ -1359,7 +1360,7 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
                 }
             }else{
                 //AppMusicソースでなかったらソース変更する
-                mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.alexaStart);
+                mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.alexaStart));
                 mControlSource.selectSource(MediaSourceType.APP_MUSIC);
             }
         }

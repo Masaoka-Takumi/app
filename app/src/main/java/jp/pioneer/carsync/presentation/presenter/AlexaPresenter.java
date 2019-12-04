@@ -25,6 +25,7 @@ import jp.pioneer.carsync.domain.model.AudioMode;
 import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.presentation.event.AlexaVoiceRecognizeEvent;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
+import jp.pioneer.carsync.presentation.event.SourceChangeReasonEvent;
 import jp.pioneer.carsync.presentation.view.AlexaView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
@@ -81,8 +82,8 @@ public class AlexaPresenter extends Presenter<AlexaView> {
     public void changePreviousSource(){
         AppStatus appStatus = mGetCase.execute().getAppStatus();
        if(appStatus.alexaPreviousSourceType != MediaSourceType.APP_MUSIC){
+           mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.alexaEnd));
            mControlSource.selectSource(appStatus.alexaPreviousSourceType);
-           mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.alexaEnd);
        }
     }
 

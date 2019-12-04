@@ -37,6 +37,7 @@ public class OpeningPrivacyPolicyPresenter extends Presenter<OpeningPrivacyPolic
     @Inject AppSharedPreference mPreference;
     @Inject Context mContext;
     @Inject ControlSource mControlSource;
+    @Inject AnalyticsEventManager mAnalytics;
     private boolean mIsScrollBottom;
 
     /**
@@ -66,7 +67,7 @@ public class OpeningPrivacyPolicyPresenter extends Presenter<OpeningPrivacyPolic
      */
     public void onAcceptAction(){
         mPreference.setAgreedEulaPrivacyPolicy(true);
-        AnalyticsEventManager.startSession(mContext);
+        mAnalytics.startSession(mContext);
         StatusHolder holder = mGetStatusHolder.execute();
         //購入情報チェックが不要かつオーバーレイ権限がOKの場合連携抑制解除
         if(holder.getAppStatus().adasBillingCheck&&!(MainPresenter.sIsVersionQ&&!Settings.canDrawOverlays(mContext))) {

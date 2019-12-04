@@ -33,6 +33,7 @@ import jp.pioneer.carsync.domain.model.CarDeviceStatus;
 import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.RdsInterruptionType;
 import jp.pioneer.carsync.domain.model.StatusHolder;
+import jp.pioneer.carsync.presentation.event.SourceChangeReasonEvent;
 import jp.pioneer.carsync.presentation.model.CustomKey;
 import timber.log.Timber;
 
@@ -68,7 +69,7 @@ public class CustomKeyActionHandler {
         //カスタムの割り当てがソース切替の場合
         switch (customKey) {
             case SOURCE_CHANGE://カスタムの割り当てがソース切替の場合
-                mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.appCustomKey);
+                mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.appCustomKey));
                 mControlSource.changeNextSource();
                 break;
 
@@ -105,7 +106,7 @@ public class CustomKeyActionHandler {
                 Set<MediaSourceType> availableSources = holder.getCarDeviceStatus().availableSourceTypes;
                 if (availableSources.contains(sourceType)) {
                     //割り当てたソースが有効の場合
-                    mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.appCustomKeyDirectSource);
+                    mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.appCustomKeyDirectSource));
                     mControlSource.selectSource(sourceType);
                 } else {
                     //割り当てたソースが無効の場合、なにもしない
@@ -139,7 +140,8 @@ public class CustomKeyActionHandler {
                     PackageManager pm = mContext.getPackageManager();
                     Intent intent = pm.getLaunchIntentForPackage(customKeyMusicApp.packageName);
                     mContext.startActivity(intent);
-                    mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.thirdAppChange);
+                    mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.thirdAppChange));
+
                     mControlSource.selectSource(MediaSourceType.APP_MUSIC);
                     AppStatus appStatus = holder.getAppStatus();
                     appStatus.isLaunchedThirdPartyAudioApp = true;
@@ -175,7 +177,8 @@ public class CustomKeyActionHandler {
         if(startTime == 0L || (currentTime - startTime) >= NO_ACTION_TIME) {
             // ラストソース復帰の実行時刻(現在時刻)を保持
             holder.getAppStatus().lastSourceOnTime = currentTime;
-            mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.getAppCustomKeySourceOnOff);
+            mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.getAppCustomKeySourceOnOff));
+
             // ラストソースに復帰
             changeLastSource(holder);
         }
@@ -219,7 +222,7 @@ public class CustomKeyActionHandler {
     private void sourceOffAction(StatusHolder holder, MediaSourceType currentMediaSource){
         // 直前のソースを保持してソースOFF
         holder.getAppStatus().lastDirectSource = currentMediaSource;
-        mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.getAppCustomKeySourceOnOff);
+        mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.getAppCustomKeySourceOnOff));
         mControlSource.selectSource(MediaSourceType.OFF);
     }
 
