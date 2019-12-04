@@ -111,7 +111,7 @@ public class AnalyticsEventManager {
     private void stopAll(EnumMap<?, Stopwatch> stopwatches) {
         for (EnumMap.Entry<?, Stopwatch> entry : stopwatches.entrySet()) {
             entry.getValue().stop();
-            //Timber.d("stopWatch:key=" + entry.getKey() + ",totalDuration=" + entry.getValue().getElapsed());
+            //Timber.d("stopWatch:key=" + entry.getKey() + ",totalDuration=" + entry.getValue().getElapsed() + "sec");
         }
     }
 
@@ -331,7 +331,7 @@ public class AnalyticsEventManager {
         private void sendUIOrientationEvent() {
             startUIOrientationDuration(0, false);
             for (EnumMap.Entry<Analytics.AnalyticsUIOrientation, Stopwatch> entry : mUIOrientationDuration.entrySet()) {
-                Timber.d("sendUIOrientationEvent:" + entry.getKey() + " : " + entry.getValue() + "sec");
+                Timber.d("sendUIOrientationEvent:" + entry.getKey() + " : " + entry.getValue().getElapsed() + "sec");
                 long durationMinute = entry.getValue().getElapsed() / 60;
                 if (durationMinute > 0) {
                     sAnalytics.logUIOrientationEvent(entry.getKey(), durationMinute);
@@ -431,7 +431,7 @@ public class AnalyticsEventManager {
         private void sendActiveScreenEvent() {
             startActiveScreenDuration(mLastActiveScreen, false);
             for (EnumMap.Entry<Analytics.AnalyticsActiveScreen, Stopwatch> entry : mActiveScreenDuration.entrySet()) {
-                Timber.d("sendActiveScreenEvent:" + entry.getKey() + " : " + entry.getValue());
+                Timber.d("sendActiveScreenEvent:" + entry.getKey() + " : " + entry.getValue().getElapsed() + "sec");
                 long durationMinute = entry.getValue().getElapsed() / 60;
                 if (durationMinute > 0) {
                     sAnalytics.logActiveScreenEvent(entry.getKey(), durationMinute);
