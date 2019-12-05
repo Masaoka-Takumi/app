@@ -26,6 +26,7 @@ import javax.inject.Inject;
 import jp.pioneer.carsync.BuildConfig;
 import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.application.content.Analytics;
+import jp.pioneer.carsync.application.content.AnalyticsEventManager;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.content.TunerContract;
@@ -151,7 +152,7 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
     @Inject YouTubeLinkActionHandler mYouTubeLinkActionHandler;
     @Inject YouTubeLinkStatus mYouTubeLinkStatus;
     @Inject ShortCutKeyEnabledStatus mShortCutKeyEnabledStatus;
-    @Inject Analytics mAnalytics;
+    @Inject AnalyticsEventManager mAnalytics;
     private List<Notification> mNotifications;
     private PermissionParams mParams;
     private static final ShortcutKey[] KEY_INDEX = new ShortcutKey[]{

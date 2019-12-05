@@ -16,6 +16,7 @@ import java.net.URLEncoder;
 import javax.inject.Inject;
 
 import jp.pioneer.carsync.application.content.Analytics;
+import jp.pioneer.carsync.application.content.AnalyticsEventManager;
 import jp.pioneer.carsync.domain.event.CarDeviceStatusChangeEvent;
 import jp.pioneer.carsync.domain.event.MediaSourceTypeChangeEvent;
 import jp.pioneer.carsync.domain.interactor.ControlSource;
@@ -29,6 +30,7 @@ import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.ParkingStatus;
 import jp.pioneer.carsync.domain.model.PlaybackMode;
 import jp.pioneer.carsync.domain.model.StatusHolder;
+import jp.pioneer.carsync.presentation.event.SourceChangeReasonEvent;
 import jp.pioneer.carsync.presentation.view.YouTubeLinkWebViewView;
 import jp.pioneer.mbg.alexa.AlexaInterface.AlexaIfDirectiveItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
@@ -39,7 +41,7 @@ public class YouTubeLinkWebViewPresenter extends Presenter<YouTubeLinkWebViewVie
     @Inject EventBus mEventBus;
     @Inject GetStatusHolder mGetStatusHolder;
     @Inject ControlSource mControlSource;
-    @Inject Analytics mAnalytics;
+    @Inject AnalyticsEventManager mAnalytics;
     private static final String BASE_YOUTUBE_LINK_URL = "https://m.youtube.com/results?search_query=";
     private static final String NO_TITLE = "No Title";
     private static final String NO_ARTIST = "No Artist";
@@ -89,7 +91,7 @@ public class YouTubeLinkWebViewPresenter extends Presenter<YouTubeLinkWebViewVie
         holder.getAppStatus().lastSourceBeforeYouTubeLink = null;
         if(lastSource != MediaSourceType.APP_MUSIC){
             holder.getAppStatus().lastSourceBeforeYouTubeLink = lastSource;
-            mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.temporarySourceChange);
+            mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.temporarySourceChange));
             mControlSource.selectSource(MediaSourceType.APP_MUSIC);
         } else {
             mIsSourceChanged = true; // 最初からAppMusicソースの場合はフラグを立てる

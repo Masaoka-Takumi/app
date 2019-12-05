@@ -10,8 +10,8 @@ import com.flurry.android.FlurryAgent;
  */
 public class FlurryAnalyticsToolStrategy implements AnalyticsToolStrategy{
     /** FlurryのAPI. */
-    //public static final String FLURRY_API = "92XY6QSWZJ6BBJ52XC9X";
-    public static final String FLURRY_API = "QC5CGWCTJZHDPSG27Q69";
+    public static final String FLURRY_API = "92XY6QSWZJ6BBJ52XC9X";//Pioneer
+    //public static final String FLURRY_API = "QC5CGWCTJZHDPSG27Q69";//NSWサンプル
     private static final boolean DBG = false;
     private final static String TAG = FlurryAnalyticsToolStrategy.class.getSimpleName();
 
@@ -25,8 +25,9 @@ public class FlurryAnalyticsToolStrategy implements AnalyticsToolStrategy{
         if (!isSessionStarted()) {
             new FlurryAgent.Builder()
                     .withLogEnabled(true)
-                    .withLogLevel(Log.VERBOSE)//TODO:不要？
+                    .withLogLevel(Log.WARN)
                     .withIncludeBackgroundSessionsInMetrics(true)
+                    .withContinueSessionMillis(Integer.MAX_VALUE)//Set the timeout for expiring a Flurry session.
                     .build(context, FLURRY_API);
         }
     }

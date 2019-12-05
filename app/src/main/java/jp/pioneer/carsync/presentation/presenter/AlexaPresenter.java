@@ -12,10 +12,11 @@ import org.greenrobot.eventbus.ThreadMode;
 import javax.inject.Inject;
 
 import jp.pioneer.carsync.application.content.Analytics;
+import jp.pioneer.carsync.application.content.AnalyticsEventManager;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.event.AlexaNotificationChangeEvent;
-import jp.pioneer.carsync.domain.event.MediaSourceTypeChangeEvent;
 import jp.pioneer.carsync.domain.event.AppMusicAudioModeChangeEvent;
+import jp.pioneer.carsync.domain.event.MediaSourceTypeChangeEvent;
 import jp.pioneer.carsync.domain.interactor.ControlAppMusicSource;
 import jp.pioneer.carsync.domain.interactor.ControlSource;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
@@ -24,6 +25,7 @@ import jp.pioneer.carsync.domain.model.AudioMode;
 import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.presentation.event.AlexaVoiceRecognizeEvent;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
+import jp.pioneer.carsync.presentation.event.SourceChangeReasonEvent;
 import jp.pioneer.carsync.presentation.view.AlexaView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
@@ -38,7 +40,7 @@ public class AlexaPresenter extends Presenter<AlexaView> {
     @Inject Context mContext;
     @Inject ControlAppMusicSource mControlAppMusicSource;
     @Inject ControlSource mControlSource;
-    @Inject Analytics mAnalytics;
+    @Inject AnalyticsEventManager mAnalytics;
     @Inject
     public AlexaPresenter() {
     }
@@ -80,8 +82,8 @@ public class AlexaPresenter extends Presenter<AlexaView> {
     public void changePreviousSource(){
         AppStatus appStatus = mGetCase.execute().getAppStatus();
        if(appStatus.alexaPreviousSourceType != MediaSourceType.APP_MUSIC){
+           mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.alexaEnd));
            mControlSource.selectSource(appStatus.alexaPreviousSourceType);
-           mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.alexaEnd);
        }
     }
 
