@@ -73,7 +73,7 @@ public class AlexaSettingFragment extends AbstractScreenFragment<AlexaSettingPre
             {
                 add(getString(R.string.set_304));
 //                add(getString(R.string.set_412));
-                add("使い方");
+                add("使い方"); // TODO #5200
                 add(getString(R.string.set_303));
             }
         });

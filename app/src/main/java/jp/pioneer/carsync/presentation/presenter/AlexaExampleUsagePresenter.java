@@ -12,6 +12,7 @@ import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.model.AlexaLanguageType;
+import jp.pioneer.carsync.domain.model.CarDeviceClassId;
 import jp.pioneer.carsync.domain.model.StatusHolder;
 import jp.pioneer.carsync.presentation.event.GoBackEvent;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
@@ -32,6 +33,7 @@ public class AlexaExampleUsagePresenter  extends Presenter<AlexaExampleUsageView
     @Inject Context mContext;
     @Inject EventBus mEventBus;
     @Inject AppSharedPreference mPreference;
+
     @Inject
     public AlexaExampleUsagePresenter() {
     }
@@ -86,6 +88,15 @@ public class AlexaExampleUsagePresenter  extends Presenter<AlexaExampleUsageView
         //ログアウト時にCapabilitiesSend状態クリア
         mPreference.setAlexaCapabilitiesSend(false);
         mEventBus.post(new NavigateEvent(ScreenId.SETTINGS_ENTRANCE, createSettingsParams(mContext.getString(R.string.hom_015))));
+    }
+
+    public ScreenId getBeforeScreenId(Bundle arguments) {
+        SettingsParams params = SettingsParams.from(arguments);
+        return params.mScreenId;
+    }
+
+    public CarDeviceClassId getCarDeviceClassId() {
+        return mPreference.getLastConnectedCarDeviceClassId();
     }
 
     private Bundle createSettingsParams(String pass) {

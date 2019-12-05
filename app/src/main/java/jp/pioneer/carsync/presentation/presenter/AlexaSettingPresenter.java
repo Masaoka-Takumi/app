@@ -86,13 +86,7 @@ public class AlexaSettingPresenter extends Presenter<AlexaSettingView>{
     }
 
     public void onNavigateAlexaUsage() {
-//        CarDeviceClassId lastCarDeviceClassId = mPreference.getLastConnectedCarDeviceClassId();
-//        if(lastCarDeviceClassId == CarDeviceClassId.SPH) {
-            mEventBus.post(new NavigateEvent(ScreenId.ALEXA_EXAMPLE_USAGE, createSettingsParams(mContext.getString(R.string.set_318))));
-//        } else {
-//            mEventBus.post(new NavigateEvent(ScreenId.ALEXA_GUIDANCE_OF_PUTTING_SMARTPHONE, createSettingsParams(mContext.getString(R.string.set_403))));
-//            mEventBus.post(new NavigateEvent(ScreenId.ALEXA_GUIDANCE_OF_PUTTING_SMARTPHONE, createSettingsParams("Amazon Alexa")));
-//        }
+        mEventBus.post(new NavigateEvent(ScreenId.ALEXA_EXAMPLE_USAGE, createSettingsParams(mContext.getString(R.string.set_318), ScreenId.ALEXA_SETTING)));
     }
 
     public void onLogout(){
@@ -124,6 +118,13 @@ public class AlexaSettingPresenter extends Presenter<AlexaSettingView>{
     private Bundle createSettingsParams(String pass) {
         SettingsParams params = new SettingsParams();
         params.pass = pass;
+        return params.toBundle();
+    }
+
+    private Bundle createSettingsParams(String pass, ScreenId screenId) {
+        SettingsParams params = new SettingsParams();
+        params.pass = pass;
+        params.mScreenId = screenId;
         return params.toBundle();
     }
 }

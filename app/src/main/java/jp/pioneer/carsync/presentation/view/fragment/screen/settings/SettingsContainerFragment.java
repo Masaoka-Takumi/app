@@ -189,7 +189,7 @@ public class SettingsContainerFragment extends AbstractScreenFragment<SettingsCo
 
         if (mFragmentController.getScreenIdInContainer() == ScreenId.ALEXA_EXAMPLE_USAGE) {
             AlexaExampleUsageFragment fragment = (AlexaExampleUsageFragment) mFragmentController.getContainerFragment();
-            if (fragment.onBackAction()) {
+            if (fragment.onBackViewPagerAction()) {
                 return true;
             }
         }

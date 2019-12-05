@@ -1,17 +1,24 @@
 package jp.pioneer.carsync.presentation.view.adapter;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.text.method.MovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import jp.pioneer.carsync.R;
+import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 
 public class AlexaTutorialPagerAdapter extends PagerAdapter {
-    public static final int PAGER_COUNT = 3;
+    private static final int PAGER_COUNT = 3;
     private LayoutInflater mLayoutInflater;
+    private Context mContext;
 
     /**
      * コンストラクタ
@@ -20,6 +27,7 @@ public class AlexaTutorialPagerAdapter extends PagerAdapter {
      * @param context Context
      */
     public AlexaTutorialPagerAdapter(Context context) {
+        mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
     }
 
@@ -27,17 +35,18 @@ public class AlexaTutorialPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View view;
-        switch (position){
-            case 0:
+        switch (AlexaTutorialPage.values()[position]){ // TODO #5200 もしpositionが配列外だと？
+            case GUIDANCE_OF_PUTTING_SMARTPHONE:
                 view = mLayoutInflater.inflate(R.layout.element_setting_alexa_guidance_of_putting_smartphone, container, false);
                 break;
-            case 1:
+            case GUIDANCE_OF_USAGE:
                 view = mLayoutInflater.inflate(R.layout.element_setting_alexa_guidance_of_usage, container, false);
                 break;
-            case 2:
+            case GUIDANCE_OF_EXAMPLE_USAGE:
             default:
                 view = mLayoutInflater.inflate(R.layout.element_setting_alexa_guidance_of_example_usage, container, false);
-                // TODO #5200 リンクの設定
+                TextView linkTextView = view.findViewById(R.id.linkTextView);
+                setLinkTextView(mContext, linkTextView);
                 break;
         }
 
@@ -60,5 +69,51 @@ public class AlexaTutorialPagerAdapter extends PagerAdapter {
     public boolean isViewFromObject(@NonNull View view, @NonNull Object o) {
         // Object 内に View が存在するか判定する
         return view.equals(o);
+    }
+
+    private void setLinkTextView(Context context, TextView textView) {
+        String str = context.getString(R.string.set_320);
+        String linkStr = context.getString(R.string.set_322);
+        int result = str.indexOf(linkStr);
+        if(result != -1) {
+            String htmlBlogStr = str.substring(0, result)
+                    + "<font color =\"#00a5cf\" ><a href=\"https://play.google.com/store/apps/details?id=com.amazon.dee.app\">" + linkStr + "</a></font>"
+                    + str.substring(result+linkStr.length());
+            CharSequence blogChar = fromHtml(htmlBlogStr);
+            textView.setText(blogChar);
+            MovementMethod mMethod = LinkMovementMethod.getInstance();
+            textView.setMovementMethod(mMethod);
+        } else {
+            textView.setText(str);
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    public static CharSequence fromHtml(String html){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            return Html.fromHtml(html);
+        }
+    }
+
+    /**
+     * Alexaチュートリアル画面の識別子
+     */
+    public enum AlexaTutorialPage {
+        GUIDANCE_OF_PUTTING_SMARTPHONE(0),
+        GUIDANCE_OF_USAGE(1),
+        GUIDANCE_OF_EXAMPLE_USAGE(2),
+        ;
+
+        private int mPageNum;
+
+        AlexaTutorialPage(int mPageNum) {
+            this.mPageNum = mPageNum;
+        }
+
+        public int getPageNum() {
+            return mPageNum;
+        }
     }
 }

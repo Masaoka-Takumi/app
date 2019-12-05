@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +23,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.application.di.component.FragmentComponent;
+import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
+import jp.pioneer.carsync.domain.model.CarDeviceClassId;
 import jp.pioneer.carsync.presentation.presenter.AlexaExampleUsagePresenter;
 import jp.pioneer.carsync.presentation.view.AlexaExampleUsageView;
 import jp.pioneer.carsync.presentation.view.adapter.AlexaTutorialPagerAdapter;
@@ -48,7 +49,6 @@ public class AlexaExampleUsageFragment extends AbstractScreenFragment<AlexaExamp
     @BindView(R.id.directory_pass_text) TextView mDirectoryPass;
     @BindView(R.id.viewPager) ViewPager mViewPager;
     @BindView(R.id.indicator) CirclePageIndicator mIndicator;
-//    @BindView(R.id.text_view_link) TextView mTextViewLink;
     private Unbinder mUnbinder;
     private AlexaTutorialPagerAdapter mPagerAdapter;
     /** Alexaマネージャ. */
@@ -76,36 +76,14 @@ public class AlexaExampleUsageFragment extends AbstractScreenFragment<AlexaExamp
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting_alexa_example_usage, container, false);
         mUnbinder = ButterKnife.bind(this, view);
-//        String str1 = getString(R.string.set_320);
-//        String linkStr = getString(R.string.set_322);
-//        int result = str1.indexOf(linkStr);
-//        if (result != -1) {
-//            String htmlBlogStr = str1.substring(0, result)
-//                    + "<font color =\"#00a5cf\" ><a href=\"https://play.google.com/store/apps/details?id=com.amazon.dee.app\">" + linkStr + "</a></font>"
-//                    + str1.substring(result+linkStr.length());
-//            CharSequence blogChar = fromHtml(htmlBlogStr);
-//            mTextViewLink.setText(blogChar);
-//            MovementMethod mMethod = LinkMovementMethod.getInstance();
-//            mTextViewLink.setMovementMethod(mMethod);
-//        } else {
-//            mTextViewLink.setText(str1);
-//        }
-//        mBackBtn.setVisibility(View.VISIBLE);
-//        mNextBtn.setVisibility(View.VISIBLE);
-        view.requestFocus();
-        view.setFocusableInTouchMode(true);
-        view.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-                    Timber.i("AlexaExampleUsage BackKey");
-                    onBackAction();
-                    return true;
-                }
-                return false;
-            }
-        });
-        mPagerAdapter = new AlexaTutorialPagerAdapter(getActivity());
+
+        ScreenId beforeScreenId = mPresenter.getBeforeScreenId(getArguments());
+        if(beforeScreenId == ScreenId.ALEXA_SPLASH) {
+            mBackBtn.setVisibility(View.INVISIBLE);
+        }
+        Timber.i("AlexaExampleUsage beforeScreen=" + beforeScreenId);
+
+        mPagerAdapter = new AlexaTutorialPagerAdapter(getContext());
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -114,17 +92,31 @@ public class AlexaExampleUsageFragment extends AbstractScreenFragment<AlexaExamp
 
             @Override
             public void onPageSelected(int i) {
-                switch (i) {
-                    case 0:
+                switch (AlexaTutorialPagerAdapter.AlexaTutorialPage.values()[i]) {
+                    case GUIDANCE_OF_PUTTING_SMARTPHONE:
 //                        mDirectoryPass.setText(R.string.set_403);
                         mDirectoryPass.setText("はじめよう");
+                        mNextBtn.setVisibility(View.VISIBLE);
+                        if(beforeScreenId == ScreenId.ALEXA_SETTING) {
+                            mBackBtn.setVisibility(View.VISIBLE);
+                        } else {
+                            mBackBtn.setVisibility(View.INVISIBLE);
+                        }
                         break;
-                    case 1:
+                    case GUIDANCE_OF_USAGE:
 //                        mDirectoryPass.setText(R.string.set_406);
                         mDirectoryPass.setText("使い方を知ろう");
+                        mBackBtn.setVisibility(View.VISIBLE);
+                        mNextBtn.setVisibility(View.VISIBLE);
                         break;
-                    case 2:
+                    case GUIDANCE_OF_EXAMPLE_USAGE:
                         mDirectoryPass.setText(R.string.set_318);
+                        mBackBtn.setVisibility(View.VISIBLE);
+                        if(beforeScreenId == ScreenId.ALEXA_SETTING) {
+                            mNextBtn.setVisibility(View.INVISIBLE);
+                        } else {
+                            mNextBtn.setVisibility(View.VISIBLE);
+                        }
                         break;
                     default:
                         mBackBtn.setVisibility(View.INVISIBLE);
@@ -143,21 +135,16 @@ public class AlexaExampleUsageFragment extends AbstractScreenFragment<AlexaExamp
         return view;
     }
 
-    @SuppressWarnings("deprecation")
-    public static CharSequence fromHtml(String html){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
-        } else {
-            return Html.fromHtml(html);
-        }
-    }
-
     @Override
     public void onResume() {
         super.onResume();
         mAmazonAlexaManager = AmazonAlexaManager.getInstance();
         if (mAmazonAlexaManager != null) {
             mAmazonAlexaManager.addAlexaCallback(mAlexaCallback);
+        }
+        Timber.i("AlexaExampleUsage ClassId=" + mPresenter.getCarDeviceClassId());
+        if(mPresenter.getCarDeviceClassId() == CarDeviceClassId.SPH) {
+            mViewPager.setCurrentItem(AlexaTutorialPagerAdapter.AlexaTutorialPage.GUIDANCE_OF_EXAMPLE_USAGE.getPageNum());
         }
     }
 
@@ -193,22 +180,42 @@ public class AlexaExampleUsageFragment extends AbstractScreenFragment<AlexaExamp
 
     @OnClick(R.id.back_button)
     public void onClickBackButton() {
-        onBackAction();
+        if(mViewPager.getCurrentItem() == 0) {
+            getPresenter().onBackAction();
+        } else {
+            onBackViewPagerAction();
+        }
     }
 
     @OnClick(R.id.next_button)
     public void onClickNextButton() {
-        getPresenter().onNextAction();
+        if(!onNextViewPagerAction()) {
+            getPresenter().onNextAction();
+        }
     }
 
-    public boolean onBackAction() {
-        if(mViewPager.getCurrentItem() == 0) {
-            getPresenter().onBackAction();
-            return true;
-        } else {
+    /**
+     * ViewPagerのViewを1ページ左に戻す
+     * @return {@code true}:1ページ戻した {@code false}:最左ページのため戻せない
+     */
+    public boolean onBackViewPagerAction() {
+        if(mViewPager.getCurrentItem() > 0) {
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
             return true;
         }
+        return false;
+    }
+
+    /**
+     * ViewPagerのViewを1ページ右に進める
+     * @return {@code true}:1ページ進めた {@code false}:最右ページのため進めない
+     */
+    private boolean onNextViewPagerAction() {
+        if(mViewPager.getCurrentItem() + 1 < mPagerAdapter.getCount()) {
+            mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+            return true;
+        }
+        return false;
     }
 
     @Override
