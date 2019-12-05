@@ -25,8 +25,9 @@ public class FlurryAnalyticsToolStrategy implements AnalyticsToolStrategy{
         if (!isSessionStarted()) {
             new FlurryAgent.Builder()
                     .withLogEnabled(true)
-                    .withLogLevel(Log.VERBOSE)//TODO:不要？
+                    .withLogLevel(Log.WARN)
                     .withIncludeBackgroundSessionsInMetrics(true)
+                    .withContinueSessionMillis(Integer.MAX_VALUE)//Set the timeout for expiring a Flurry session.
                     .build(context, FLURRY_API);
         }
     }

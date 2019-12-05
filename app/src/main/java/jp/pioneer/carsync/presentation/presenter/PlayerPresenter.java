@@ -22,6 +22,7 @@ import javax.inject.Inject;
 import jp.pioneer.carsync.BuildConfig;
 import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.application.content.Analytics;
+import jp.pioneer.carsync.application.content.AnalyticsEventManager;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.util.AppUtil;
 import jp.pioneer.carsync.domain.event.AdasErrorEvent;
@@ -102,7 +103,7 @@ public class PlayerPresenter<T> extends Presenter<T> {
     @Inject CustomKeyActionHandler mCustomKeyActionHandler;
     @Inject YouTubeLinkActionHandler mYouTubeLinkActionHandler;
     @Inject YouTubeLinkStatus mYouTubeLinkStatus;
-    @Inject Analytics mAnalytics;
+    @Inject AnalyticsEventManager mAnalytics;
     private final Handler mHandler = new Handler();
     List<SoundFxSettingEqualizerType> mEqArray = new ArrayList<>();
     List<SoundFxItem> mSoundFxArray = new ArrayList<SoundFxItem>(){{

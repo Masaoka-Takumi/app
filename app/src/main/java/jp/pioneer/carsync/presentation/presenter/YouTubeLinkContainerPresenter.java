@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import jp.pioneer.carsync.application.content.Analytics;
+import jp.pioneer.carsync.application.content.AnalyticsEventManager;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.interactor.ControlSource;
@@ -16,6 +17,7 @@ import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.model.CarDeviceStatus;
 import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.StatusHolder;
+import jp.pioneer.carsync.presentation.event.SourceChangeReasonEvent;
 import jp.pioneer.carsync.presentation.view.YouTubeLinkContainerView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import timber.log.Timber;
@@ -27,7 +29,7 @@ public class YouTubeLinkContainerPresenter extends Presenter<YouTubeLinkContaine
     @Inject AppSharedPreference mPreference;
     @Inject GetStatusHolder mGetStatusHolder;
     @Inject ControlSource mControlSource;
-    @Inject Analytics mAnalytics;
+    @Inject AnalyticsEventManager mAnalytics;
     @Inject
     public YouTubeLinkContainerPresenter() {
     }
@@ -86,7 +88,8 @@ public class YouTubeLinkContainerPresenter extends Presenter<YouTubeLinkContaine
             // ソースが切り替わることにより画面が閉じる
             Timber.i("changeSource->closeDialog");
             Set<MediaSourceType> availableSources = carDeviceStatus.availableSourceTypes;
-            mAnalytics.setSourceSelectReason(Analytics.SourceChangeReason.temporarySourceChangeBack);
+            mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.temporarySourceChangeBack));
+
             if(availableSources.contains(lastSource)){
                 // 有効なソースならそれに戻る
                 mControlSource.selectSource(lastSource);

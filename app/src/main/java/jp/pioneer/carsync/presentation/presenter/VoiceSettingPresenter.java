@@ -13,7 +13,7 @@ import javax.inject.Inject;
 
 import jp.pioneer.carsync.BuildConfig;
 import jp.pioneer.carsync.R;
-import jp.pioneer.carsync.application.content.Analytics;
+import jp.pioneer.carsync.application.content.AnalyticsEventManager;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.event.AppMusicAudioModeChangeEvent;
@@ -40,7 +40,7 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
     @Inject GetStatusHolder mStatusCase;
     @Inject Context mContext;
     @Inject EventBus mEventBus;
-    @Inject Analytics mAnalytics;
+    @Inject AnalyticsEventManager mAnalytics;
     public final static boolean mIsDebug = BuildConfig.DEBUG;
     /**
      * コンストラクタ
