@@ -798,11 +798,6 @@ public class CarRemoteSession implements PacketSenderThread.OnPacketSendListener
         MediaSourceType source = mStatusHolder.getCarDeviceStatus().sourceType;
 		//DABのみ登録
         if(source!=MediaSourceType.DAB)return;
-        AbstractTunerInfo abstractTunerInfo = mStatusHolder.findTunerInfoByMediaSourceType(source);
-        if (abstractTunerInfo == null) {
-            return;
-        }
-        int bandCode = abstractTunerInfo.getBand().getCode();
 
         int number;
         CarDeviceControlCommand command = CarDeviceControlCommand.valueOf(packet.data[1]); // D1が車載機操作コマンド
@@ -835,6 +830,12 @@ public class CarRemoteSession implements PacketSenderThread.OnPacketSendListener
                 // その他のコマンドの場合は何もする必要はなし
                 return;
         }
+        AbstractTunerInfo abstractTunerInfo = mStatusHolder.findTunerInfoByMediaSourceType(source);
+        if (abstractTunerInfo == null||abstractTunerInfo.getBand()==null) {
+            return;
+        }
+        int bandCode = abstractTunerInfo.getBand().getCode();
+
         dictionary.applyPresetCommand(source, bandCode, number);
     }
 }
