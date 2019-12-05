@@ -34,11 +34,11 @@ public class InitialSetting extends Setting {
      */
     public void reset() {
         requestStatus = RequestStatus.NOT_SENT;
-        fmStep = null;
-        amStep = null;
-        rearOutputPreoutOutputSetting = null;
-        rearOutputSetting = null;
-        menuDisplayLanguageType = null;
+        fmStep = FmStep._50KHZ;
+        amStep = AmStep._9KHZ;
+        rearOutputPreoutOutputSetting = RearOutputPreoutOutputSetting.REAR_REAR;
+        rearOutputSetting = RearOutputSetting.REAR;
+        menuDisplayLanguageType = MenuDisplayLanguageType.ENGLISH;
         clear();
         updateVersion();
     }
