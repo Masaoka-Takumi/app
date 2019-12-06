@@ -281,14 +281,19 @@ public class PresetChannelDictionary {
         int number = -1;
         Integer value = null;
         for (PresetKey presetKey : mPresetChannelMapSph.keySet()) {
-            //周波数indexはequals判定から除く
-            if(presetKey.equals(key)){
+            //周波数indexとfrequencyは専用機PCH点灯判定から除く
+            if (presetKey.source == key.source
+                    && presetKey.band == key.band
+                    && presetKey.eid == key.eid
+                    && presetKey.sid == key.sid
+                    && presetKey.scids == key.scids) {
                 value = mPresetChannelMapSph.get(presetKey);
-                break;
+                if(value != null){
+                    if(number==-1||value<number) {
+                        number = value;
+                    }
+                }
             }
-        }
-        if (value != null) {
-            number = value;
         }
         Timber.d("findPresetChannelNumberSph:key.frequency=%d, key.eid=%d, key.sid=%d, key.scids=%d, number=%s", key.frequency, key.eid, key.sid, key.scids, number);
         return number;
@@ -368,8 +373,8 @@ public class PresetChannelDictionary {
         PresetKey(int source,int band, long frequency, int index, int eid,long sid,int scids){
             this.source = source;
             this.band = band;
-            this.frequency = 0;//周波数は専用機のDABのPCH点灯条件から除く
-            this.index = index;//indexはequals判定から除くが一意のkeyを作るためhashに含める
+            this.frequency = frequency;
+            this.index = index;
             this.eid = eid;
             this.sid = sid;
             this.scids = scids;
@@ -384,6 +389,7 @@ public class PresetChannelDictionary {
             return source == presetKey.source &&
                     band == presetKey.band &&
                     frequency == presetKey.frequency &&
+                    index == presetKey.index &&
                     eid == presetKey.eid &&
                     sid == presetKey.sid &&
                     scids == presetKey.scids &&
