@@ -272,8 +272,8 @@ public class PresetChannelDictionary {
         return number;
     }
 
-    public int findPresetChannelNumberDabSph(@NonNull MediaSourceType source, int bandCode, long frequency,int eid,long sid,int scids) {
-        PresetKey key = createKey(source, bandCode, frequency,eid,sid,scids);
+    public int findPresetChannelNumberDabSph(@NonNull MediaSourceType source, int bandCode, int eid,long sid,int scids) {
+        PresetKey key = createKey(source, bandCode, 0,eid,sid,scids);
         return findPresetChannelNumberSph(key);
     }
 
@@ -362,7 +362,7 @@ public class PresetChannelDictionary {
         PresetKey(int source,int band, long frequency, int index, int eid,long sid,int scids){
             this.source = source;
             this.band = band;
-            this.frequency = frequency;
+            this.frequency = 0;//周波数は専用機のDABのPCH点灯条件から除く
             this.index = index;
             this.eid = eid;
             this.sid = sid;

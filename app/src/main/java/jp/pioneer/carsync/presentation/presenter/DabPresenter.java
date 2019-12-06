@@ -655,7 +655,6 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
                 presetNumber = mStatusHolder.execute().getPresetChannelDictionary().findPresetChannelNumberDabSph(
                         MediaSourceType.DAB,
                         mDabBand.getCode(),
-                        mCurrDab.currentFrequency,
                         mCurrDab.eid,
                         mCurrDab.sid,
                         mCurrDab.scids
@@ -677,7 +676,8 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
                     long sid = TunerContract.FavoriteContract.Dab.getSid(mUserPresetCursor);
                     int scids = TunerContract.FavoriteContract.Dab.getScids(mUserPresetCursor);
                     Timber.d("mUserPresetCursor:frequency="+frequency+",eid="+eid+",sid="+sid+",scids="+scids+",preset="+preset);
-                    if(frequency==mCurrDab.currentFrequency&&eid==mCurrDab.eid&&sid==mCurrDab.sid&&scids==mCurrDab.scids){
+                    //周波数は登録PCH点灯条件から除く
+                    if(eid==mCurrDab.eid&&sid==mCurrDab.sid&&scids==mCurrDab.scids){
                         isUserPreset = true;
                         if(userPresetNum==0||preset<userPresetNum){
                             userPresetNum = preset;
