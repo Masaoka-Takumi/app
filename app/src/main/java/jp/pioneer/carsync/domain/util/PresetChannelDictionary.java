@@ -279,8 +279,14 @@ public class PresetChannelDictionary {
 
     private int findPresetChannelNumberSph(PresetKey key) {
         int number = -1;
-        Integer value;
-        value = mPresetChannelMapSph.containsKey(key) ? mPresetChannelMapSph.get(key) : -1;
+        Integer value = null;
+        for (PresetKey presetKey : mPresetChannelMapSph.keySet()) {
+            //周波数indexはequals判定から除く
+            if(presetKey.equals(key)){
+                value = mPresetChannelMapSph.get(presetKey);
+                break;
+            }
+        }
         if (value != null) {
             number = value;
         }
@@ -363,7 +369,7 @@ public class PresetChannelDictionary {
             this.source = source;
             this.band = band;
             this.frequency = 0;//周波数は専用機のDABのPCH点灯条件から除く
-            this.index = index;
+            this.index = index;//indexはequals判定から除くが一意のkeyを作るためhashに含める
             this.eid = eid;
             this.sid = sid;
             this.scids = scids;
@@ -386,7 +392,7 @@ public class PresetChannelDictionary {
 
         @Override
         public int hashCode() {
-            return Objects.hash(source, band, frequency, eid, sid, scids, channelNumber);
+            return Objects.hash(source, band, frequency, index, eid, sid, scids, channelNumber);
         }
     }
 }
