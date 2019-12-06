@@ -436,6 +436,16 @@
     <string name="set_400">Information</string>
     <string name="set_401">Dynamic Label</string>
     <string name="set_402">Antenna Power</string>
+    <string name="set_403">設置ガイダンス</string>
+    <string name="set_404">まずはスマホを設置しよう</string>
+    <string name="set_405">安全と、Amazon\nAlexaの快適な体験のために、パイオニアはあなたのスマートフォンを、手の届く範囲のカーマウントかクレードルに、しっかり固定して使用する事を推奨します。</string>
+    <string name="set_406">「Alexaの使い方」</string>
+    <string name="set_407">使い方のコツ</string>
+    <string name="set_408">AlexaボタンからAlexaを呼び出せます</string>
+    <string name="set_409">例えば、地図アプリで行き先を表示できます</string>
+    <string name="set_410">ロータリーキー長押しでPSSアプリに戻れます</string>
+    <string name="set_411">初めてみよう</string>
+    <string name="set_412">使い方</string>
     <string name="sta_001">Pioneer SmartSync</string>
     <string name="sta_004">CAUTION: </string>
     <string name="sta_005">Agree</string>
@@ -445,6 +455,7 @@
     <string name="sta_011">It is dangerous to view video while driving.  Please view only when parked.</string>
     <string name="sta_012">Will not display from the next time</string>
     <string name="sta_013">Due to the vehicle being in motion, video display is turned OFF.</string>
+    <string name="sta_014">Amazon Alexa機能をご利用することが出来ます</string>
     <string name="hom_006">System</string>
     <string name="hom_008">Audio</string>
     <string name="hom_012">Information</string>
