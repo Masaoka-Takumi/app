@@ -717,6 +717,12 @@
     <dimen name="alexa_setting_button_width">339dp</dimen>
     <dimen name="alexa_setting_button_Bottom_margin">56.5dp</dimen>
 
+    <!-- Alexa Tutorial-->
+    <dimen name="alexa_tutorial_title_text_size">19.2dp</dimen>
+    <dimen name="alexa_tutorial_description_text_size">14.1dp</dimen>
+    <dimen name="alexa_tutorial_usage_description_text_width">152.6dp</dimen>
+    <dimen name="alexa_tutorial_putting_phone_image_margin_horizontal">45.2dp</dimen>
+
     <!-- Alexa Screen -->
     <dimen name="alexa_screen_state_text_size">45.2dp</dimen>
     <dimen name="alexa_screen_voice_chrome_height">5.7dp</dimen>
