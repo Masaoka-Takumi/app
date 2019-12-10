@@ -266,7 +266,7 @@
     <string name="set_313">Fransızca</string>
     <string name="set_314">Amazon Alexa</string>
     <string name="set_315">Aygıtınız Alexa\'ya erişim içeriyor.\nKişiselleştirilmiş özelliklere erişmek için Amazon hesabınıza bağlanın.</string>
-    <string name="set_316">Alexa, sesinizi kullanarak müzik çalmanıza ve haberlere, maç skorlarına, hava durumuna ve daha fazlasına tamamen eller serbest şekilde ulaşmanıza olanak verir. Tek yapmanız gereken Alexa\'dan istemek.</string>
+    <string name="set_316">Alexa allows you to use your voice to play music, get the news, sports scores, check the weather, and more.  All you have to do is ask Alexa.</string>
     <string name="set_317">Amazon ile oturum aç</string>
     <string name="set_318">Denenecek Şeyler</string>
     <string name="set_319">Hava nasıl?\nAnlık Bilgilendirmemi yürüt\nEverest Dağının yüksekliği nedir?\nBugün yağmur yağacak mı?</string>
@@ -333,7 +333,18 @@
     <string name="set_389">Özel Buton Ayarları</string>
     <string name="set_393">Otomatik Bağlantı için Bekleniyor</string>
     <string name="set_394">Bu ayarı OFF konumuna getirmek, alıcınızın otomatik bağlanmasını önleyecektir.</string>
+    <string name="set_396">Pioneer Smart Sync uses your mobile device\'s microphone.</string>
     <string name="set_402">Anten Gücü</string>
+    <string name="set_403">Placement Guidance</string>
+    <string name="set_404">Let\'s start with setting your phone</string>
+    <string name="set_405">For your safety and optimal Amazon Alexa experience, we suggest using a cradle mount to secure your phone to be in arm\'s reach.</string>
+    <string name="set_406">How to use Alexa</string>
+    <string name="set_407">Tips</string>
+    <string name="set_408">Ask Alexa by tapping the Alexa button</string>
+    <string name="set_409">Using something like a Map app to show where to go</string>
+    <string name="set_410">Long press the rotary dial can easily take you back to PSS</string>
+    <string name="set_411">Let\'s get started</string>
+    <string name="set_412">How to use</string>
     <string name="sta_004">UYARI:</string>
     <string name="sta_005">Kabul</string>
     <string name="sta_008">Bir işlevi ancak bulunduğunuz yerde güvenli ve yasal olduğunda kullanın, yola ve çevrenize dikkat edin ve tüm trafik kurallarına uyun.\n\nBir akıllı telefonla çalıştırılan işlevler sadece sürücünün kullanabileceği araçlardır. \nSürücü her koşulda emniyetli ve duyarlı sürüş davranışını gözetmelidir</string>
@@ -342,6 +353,7 @@
     <string name="sta_011">Araba kullanırken video izlemek tehlikelidir. Lütfen sadece park halindeyken izleyiniz. </string>
     <string name="sta_012">Bir dahaki sefere gösterilmez</string>
     <string name="sta_013">Araç hareket halinde olduğundan, video gösterimi  kapatıldı. </string>
+    <string name="sta_014">You can now use Alexa</string>
     <string name="hom_006">Sistem</string>
     <string name="hom_008">Ses</string>
     <string name="hom_012">Bilgi</string>

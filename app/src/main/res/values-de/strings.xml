@@ -265,7 +265,7 @@
     <string name="set_313">Französisch</string>
     <string name="set_314">Amazon Alexa</string>
     <string name="set_315">Sie können mit Ihrem Gerät auf Alexa zugreifen.\nMelden Sie sich mit Ihrem Amazon-Konto an, um Zugriff auf personalisierte Funktionen zu erhalten.</string>
-    <string name="set_316">Mit Alexa können Sie Musik abspielen, Nachrichten, Sportergebnisse oder Wetterberichte abrufen – allein mithilfe Ihrer Stimme.Sie müssen Alexa nur danach fragen.</string>
+    <string name="set_316">Alexa allows you to use your voice to play music, get the news, sports scores, check the weather, and more.  All you have to do is ask Alexa.</string>
     <string name="set_317">Bei Amazon anmelden</string>
     <string name="set_318">Zum Ausprobieren</string>
     <string name="set_319">Wie wird das Wetter?\nMeine Kurzeinweisung wiedergeben\nWie hoch ist der Mount Everest?\nSoll es heute regnen?</string>
@@ -332,7 +332,18 @@
     <string name="set_389">Individuelle Taste</string>
     <string name="set_393">Warten auf Verbindung</string>
     <string name="set_394">Steht diese Einstellung auf AUS, erfolgt keine automatische Verbindung des Empfängers.</string>
+    <string name="set_396">Pioneer Smart Sync uses your mobile device\'s microphone.</string>
     <string name="set_402">Stromvers. Antenne</string>
+    <string name="set_403">Placement Guidance</string>
+    <string name="set_404">Let\'s start with setting your phone</string>
+    <string name="set_405">For your safety and optimal Amazon Alexa experience, we suggest using a cradle mount to secure your phone to be in arm\'s reach.</string>
+    <string name="set_406">How to use Alexa</string>
+    <string name="set_407">Tips</string>
+    <string name="set_408">Ask Alexa by tapping the Alexa button</string>
+    <string name="set_409">Using something like a Map app to show where to go</string>
+    <string name="set_410">Long press the rotary dial can easily take you back to PSS</string>
+    <string name="set_411">Let\'s get started</string>
+    <string name="set_412">How to use</string>
     <string name="sta_004">VORSICHT</string>
     <string name="sta_005">Akzeptieren</string>
     <string name="sta_008">Verwenden Sie eine Funktion nur, wenn dies an Ihrem Standort gefahrlos möglich und rechtlich zulässig ist, achten Sie auf die Straße und Ihre Umgebung und beachten Sie alle Verkehrsvorschriften.\n\nDie mit einem Smartphone bedienten Funktionen sind lediglich Hilfsmittel für den Fahrer. \nDer Fahrer ist jederzeit und unter allen Bedingungen für ein sicheres und vernünftiges Fahrverhalten verantwortlich</string>
@@ -341,6 +352,7 @@
     <string name="sta_011">Video schauen während der Fahrt ist gefährlich. Bitte nur im Stand nutzen.</string>
     <string name="sta_012">Wird nächstesmal nicht angezeigt</string>
     <string name="sta_013">Das Videodisplay steht auf AUS, da sich das Fahrzeug in Bewegung befindet.</string>
+    <string name="sta_014">You can now use Alexa</string>
     <string name="hom_006">System</string>
     <string name="hom_008">Audio</string>
     <string name="hom_012">Informationen</string>
