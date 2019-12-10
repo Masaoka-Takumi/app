@@ -95,7 +95,7 @@ public class AlexaExampleUsagePresenter  extends Presenter<AlexaExampleUsageView
         return params.mScreenId;
     }
 
-    public CarDeviceClassId getCarDeviceClassId() {
+    public CarDeviceClassId getLastConnectedCarDeviceClassId() {
         return mPreference.getLastConnectedCarDeviceClassId();
     }
 

@@ -12,13 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 
 public class AlexaTutorialPagerAdapter extends PagerAdapter {
-    private static final int PAGER_COUNT = 3;
     private LayoutInflater mLayoutInflater;
     private Context mContext;
+    private ArrayList<AlexaTutorialPage> mViewPagerList;
 
     /**
      * コンストラクタ
@@ -26,16 +28,17 @@ public class AlexaTutorialPagerAdapter extends PagerAdapter {
      * Context経由で取得する
      * @param context Context
      */
-    public AlexaTutorialPagerAdapter(Context context) {
+    public AlexaTutorialPagerAdapter(Context context, ArrayList<AlexaTutorialPage> arrayList) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
+        mViewPagerList = arrayList;
     }
 
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View view;
-        switch (AlexaTutorialPage.values()[position]){ // TODO #5200 もしpositionが配列外だと？
+        switch (mViewPagerList.get(position)){
             case GUIDANCE_OF_PUTTING_SMARTPHONE:
                 view = mLayoutInflater.inflate(R.layout.element_setting_alexa_guidance_of_putting_smartphone, container, false);
                 break;
@@ -62,7 +65,7 @@ public class AlexaTutorialPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return PAGER_COUNT;
+        return mViewPagerList.size();
     }
 
     @Override
@@ -89,7 +92,7 @@ public class AlexaTutorialPagerAdapter extends PagerAdapter {
     }
 
     @SuppressWarnings("deprecation")
-    public static CharSequence fromHtml(String html){
+    private static CharSequence fromHtml(String html){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
         } else {
@@ -101,19 +104,9 @@ public class AlexaTutorialPagerAdapter extends PagerAdapter {
      * Alexaチュートリアル画面の識別子
      */
     public enum AlexaTutorialPage {
-        GUIDANCE_OF_PUTTING_SMARTPHONE(0),
-        GUIDANCE_OF_USAGE(1),
-        GUIDANCE_OF_EXAMPLE_USAGE(2),
+        GUIDANCE_OF_PUTTING_SMARTPHONE, // 設置ガイダンス
+        GUIDANCE_OF_USAGE, // Alexaの使い方
+        GUIDANCE_OF_EXAMPLE_USAGE, // 使い方の例
         ;
-
-        private int mPageNum;
-
-        AlexaTutorialPage(int mPageNum) {
-            this.mPageNum = mPageNum;
-        }
-
-        public int getPageNum() {
-            return mPageNum;
-        }
     }
 }

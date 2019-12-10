@@ -97,6 +97,10 @@ public class AlexaSettingPresenter extends Presenter<AlexaSettingView>{
         mEventBus.post(new GoBackEvent());
     }
 
+    public boolean isSessionStarted() {
+        return mGetStatusHolder.execute().getSessionStatus() == SessionStatus.STARTED;
+    }
+
     /**
      * Back押下アクション
      */

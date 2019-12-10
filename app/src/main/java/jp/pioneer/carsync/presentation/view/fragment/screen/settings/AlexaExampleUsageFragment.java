@@ -1,12 +1,8 @@
 package jp.pioneer.carsync.presentation.view.fragment.screen.settings;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
-import android.text.method.MovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.viewpagerindicator.CirclePageIndicator;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -23,7 +21,6 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.application.di.component.FragmentComponent;
-import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.model.CarDeviceClassId;
 import jp.pioneer.carsync.presentation.presenter.AlexaExampleUsagePresenter;
 import jp.pioneer.carsync.presentation.view.AlexaExampleUsageView;
@@ -78,12 +75,8 @@ public class AlexaExampleUsageFragment extends AbstractScreenFragment<AlexaExamp
         mUnbinder = ButterKnife.bind(this, view);
 
         ScreenId beforeScreenId = mPresenter.getBeforeScreenId(getArguments());
-        if(beforeScreenId == ScreenId.ALEXA_SPLASH) {
-            mBackBtn.setVisibility(View.INVISIBLE);
-        }
-        Timber.i("AlexaExampleUsage beforeScreen=" + beforeScreenId);
-
-        mPagerAdapter = new AlexaTutorialPagerAdapter(getContext());
+        ArrayList<AlexaTutorialPagerAdapter.AlexaTutorialPage> arrayList = makeViewPagerList();
+        mPagerAdapter = new AlexaTutorialPagerAdapter(getContext(), arrayList);
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -92,37 +85,7 @@ public class AlexaExampleUsageFragment extends AbstractScreenFragment<AlexaExamp
 
             @Override
             public void onPageSelected(int i) {
-                switch (AlexaTutorialPagerAdapter.AlexaTutorialPage.values()[i]) {
-                    case GUIDANCE_OF_PUTTING_SMARTPHONE:
-//                        mDirectoryPass.setText(R.string.set_403);
-                        mDirectoryPass.setText("はじめよう");
-                        mNextBtn.setVisibility(View.VISIBLE);
-                        if(beforeScreenId == ScreenId.ALEXA_SETTING) {
-                            mBackBtn.setVisibility(View.VISIBLE);
-                        } else {
-                            mBackBtn.setVisibility(View.INVISIBLE);
-                        }
-                        break;
-                    case GUIDANCE_OF_USAGE:
-//                        mDirectoryPass.setText(R.string.set_406);
-                        mDirectoryPass.setText("使い方を知ろう");
-                        mBackBtn.setVisibility(View.VISIBLE);
-                        mNextBtn.setVisibility(View.VISIBLE);
-                        break;
-                    case GUIDANCE_OF_EXAMPLE_USAGE:
-                        mDirectoryPass.setText(R.string.set_318);
-                        mBackBtn.setVisibility(View.VISIBLE);
-                        if(beforeScreenId == ScreenId.ALEXA_SETTING) {
-                            mNextBtn.setVisibility(View.INVISIBLE);
-                        } else {
-                            mNextBtn.setVisibility(View.VISIBLE);
-                        }
-                        break;
-                    default:
-                        mBackBtn.setVisibility(View.INVISIBLE);
-                        mNextBtn.setVisibility(View.INVISIBLE);
-                        break;
-                }
+                updateTitleBar(arrayList.get(i), beforeScreenId);
             }
 
             @Override
@@ -131,7 +94,9 @@ public class AlexaExampleUsageFragment extends AbstractScreenFragment<AlexaExamp
         });
 
         mIndicator.setViewPager(mViewPager);
-
+        // 各Viewの初期設定
+        updateViewPagerIndicatorVisibility();
+        updateTitleBar(arrayList.get(0), beforeScreenId);
         return view;
     }
 
@@ -141,10 +106,6 @@ public class AlexaExampleUsageFragment extends AbstractScreenFragment<AlexaExamp
         mAmazonAlexaManager = AmazonAlexaManager.getInstance();
         if (mAmazonAlexaManager != null) {
             mAmazonAlexaManager.addAlexaCallback(mAlexaCallback);
-        }
-        Timber.i("AlexaExampleUsage ClassId=" + mPresenter.getCarDeviceClassId());
-        if(mPresenter.getCarDeviceClassId() == CarDeviceClassId.SPH) {
-            mViewPager.setCurrentItem(AlexaTutorialPagerAdapter.AlexaTutorialPage.GUIDANCE_OF_EXAMPLE_USAGE.getPageNum());
         }
     }
 
@@ -191,6 +152,76 @@ public class AlexaExampleUsageFragment extends AbstractScreenFragment<AlexaExamp
     public void onClickNextButton() {
         if(!onNextViewPagerAction()) {
             getPresenter().onNextAction();
+        }
+    }
+
+    /**
+     * ViewPagerに表示させるページのリストを作成する
+     * 最後に連携した車載機がDEHかどうかで表示するページ数が異なる
+     * @return ArrayList<AlexaTutorialPagerAdapter.AlexaTutorialPage>
+     */
+    private ArrayList<AlexaTutorialPagerAdapter.AlexaTutorialPage> makeViewPagerList() {
+        ArrayList<AlexaTutorialPagerAdapter.AlexaTutorialPage> arrayList = new ArrayList<>();
+        if(mPresenter.getLastConnectedCarDeviceClassId() == CarDeviceClassId.DEH) {
+            arrayList.add(AlexaTutorialPagerAdapter.AlexaTutorialPage.GUIDANCE_OF_PUTTING_SMARTPHONE);
+            arrayList.add(AlexaTutorialPagerAdapter.AlexaTutorialPage.GUIDANCE_OF_USAGE);
+        }
+        arrayList.add(AlexaTutorialPagerAdapter.AlexaTutorialPage.GUIDANCE_OF_EXAMPLE_USAGE);
+        return arrayList;
+    }
+
+    /**
+     * ViewPagerのIndicator表示非表示を設定する
+     * ViewPagerに表示させるページが1ページのみの場合は非表示、それより多い場合は表示する
+     */
+    private void updateViewPagerIndicatorVisibility() {
+        if(mPagerAdapter.getCount() <= 1) {
+            mIndicator.setVisibility(View.INVISIBLE);
+        } else {
+            mIndicator.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * ViewPagerに表示しているページおよび遷移元のScreenIdに応じて
+     * タイトルバーのBackボタン、タイトル、Nextボタンの表示設定を行う
+     * @param currentPage AlexaTutorialPagerAdapter.AlexaTutorialPage 現在ViewPagerで表示しているページ
+     * @param beforeScreenId ScreenId 遷移元のScreenId
+     */
+    private void updateTitleBar(AlexaTutorialPagerAdapter.AlexaTutorialPage currentPage, ScreenId beforeScreenId) {
+        switch (currentPage) {
+            case GUIDANCE_OF_PUTTING_SMARTPHONE:
+                mDirectoryPass.setText(R.string.set_403);
+                mNextBtn.setVisibility(View.VISIBLE);
+                if(beforeScreenId == ScreenId.ALEXA_SETTING) {
+                    mBackBtn.setVisibility(View.VISIBLE);
+                } else {
+                    mBackBtn.setVisibility(View.INVISIBLE);
+                }
+                break;
+            case GUIDANCE_OF_USAGE:
+                mDirectoryPass.setText(R.string.set_406);
+                mNextBtn.setVisibility(View.VISIBLE);
+                mBackBtn.setVisibility(View.VISIBLE);
+                break;
+            case GUIDANCE_OF_EXAMPLE_USAGE:
+                mDirectoryPass.setText(R.string.set_318);
+                if(beforeScreenId == ScreenId.ALEXA_SETTING) {
+                    mNextBtn.setVisibility(View.INVISIBLE);
+                    mBackBtn.setVisibility(View.VISIBLE);
+                } else {
+                    mNextBtn.setVisibility(View.VISIBLE);
+                    if(mPagerAdapter.getCount() >= 2) {
+                        mBackBtn.setVisibility(View.VISIBLE);
+                    } else {
+                        mBackBtn.setVisibility(View.INVISIBLE);
+                    }
+                }
+                break;
+            default:
+                mNextBtn.setVisibility(View.INVISIBLE);
+                mBackBtn.setVisibility(View.INVISIBLE);
+                break;
         }
     }
 

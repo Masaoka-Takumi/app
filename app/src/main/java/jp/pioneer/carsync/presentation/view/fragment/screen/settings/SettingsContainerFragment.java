@@ -31,6 +31,8 @@ import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.VideoPlayerDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.screen.AbstractScreenFragment;
 
+import static jp.pioneer.carsync.presentation.view.fragment.ScreenId.ALEXA_SETTING;
+import static jp.pioneer.carsync.presentation.view.fragment.ScreenId.ALEXA_SPLASH;
 import static jp.pioneer.carsync.presentation.view.fragment.ScreenId.EQ_PRO_SETTING;
 import static jp.pioneer.carsync.presentation.view.fragment.ScreenId.EQ_QUICK_SETTING;
 import static jp.pioneer.carsync.presentation.view.fragment.ScreenId.MENU_DISPLAY_LANGUAGE_DIALOG;
@@ -122,7 +124,6 @@ public class SettingsContainerFragment extends AbstractScreenFragment<SettingsCo
             if (screenId.isSettings()) {
                 getPresenter().requestExitMenu();
             }
-            // TODO #5200 ALEXA_EXAMPLE_USAGEへの遷移の場合、Bundleの遷移元ScreenIdを遷移先画面に伝えたい
             return true;
         }else{
             if(screenId == ScreenId.CAR_SAFETY_SETTINGS){
@@ -190,6 +191,9 @@ public class SettingsContainerFragment extends AbstractScreenFragment<SettingsCo
         if (mFragmentController.getScreenIdInContainer() == ScreenId.ALEXA_EXAMPLE_USAGE) {
             AlexaExampleUsageFragment fragment = (AlexaExampleUsageFragment) mFragmentController.getContainerFragment();
             if (fragment.onBackViewPagerAction()) {
+                return true;
+            } else if(fragment.getPresenter().getBeforeScreenId(fragment.getArguments()) != ALEXA_SETTING) {
+                // Alexa設定画面以外(Alexa Splash画面)から遷移してきた場合はなにもしない
                 return true;
             }
         }

@@ -6,6 +6,7 @@ import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -69,14 +70,13 @@ public class AlexaSettingFragment extends AbstractScreenFragment<AlexaSettingPre
         View view = inflater.inflate(R.layout.fragment_setting_alexa, container, false);
         mUnbinder = ButterKnife.bind(this, view);
 
-        mAdapter = new AlexaSettingAdapter(getContext(), new ArrayList<String>(){
-            {
-                add(getString(R.string.set_304));
-//                add(getString(R.string.set_412));
-                add("使い方"); // TODO #5200
-                add(getString(R.string.set_303));
-            }
-        });
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add(getString(R.string.set_304));
+        if(!mPresenter.isSessionStarted()) {
+            arrayList.add(getString(R.string.set_412));
+        }
+        arrayList.add(getString(R.string.set_303));
+        mAdapter = new AlexaSettingAdapter(getContext(), arrayList);
         mListView.setAdapter(mAdapter);
         return view;
     }
@@ -147,13 +147,22 @@ public class AlexaSettingFragment extends AbstractScreenFragment<AlexaSettingPre
     }
 
     @OnItemClick(R.id.list_view)
-    public void onListItemClick(int position) {
-        if(position==0) {
+    public void onClickListItem(AdapterView<?> parent, View view, int position, long id) {
+        if(position == 0) {
             getPresenter().showLanguageSelectDialog();
-        }else if(position == 1){
-            getPresenter().onNavigateAlexaUsage();
-        }else if(position==2){
+            return;
+        }
+        if(position == 1) {
+            if(!mPresenter.isSessionStarted()) {
+                getPresenter().onNavigateAlexaUsage();
+            } else {
+                getPresenter().showSignOutDialog();
+            }
+            return;
+        }
+        if(position == 2) {
             getPresenter().showSignOutDialog();
+            return;
         }
     }
 
