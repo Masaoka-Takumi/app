@@ -48,7 +48,7 @@ public class AlexaTutorialPagerAdapter extends PagerAdapter {
             case GUIDANCE_OF_EXAMPLE_USAGE:
             default:
                 view = mLayoutInflater.inflate(R.layout.element_setting_alexa_guidance_of_example_usage, container, false);
-                TextView linkTextView = view.findViewById(R.id.linkTextView);
+                TextView linkTextView = view.findViewById(R.id.text_view_link);
                 setLinkTextView(mContext, linkTextView);
                 break;
         }

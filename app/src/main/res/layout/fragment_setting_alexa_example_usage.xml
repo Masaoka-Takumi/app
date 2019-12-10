@@ -25,7 +25,7 @@
     <com.viewpagerindicator.CirclePageIndicator
         android:id="@+id/indicator"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/alexa_tutorial_circle_page_indicator_height"
         style="@style/AlexaTutorialCircleIndicator"
         app:layout_constraintTop_toBottomOf="@id/viewPager"
         app:layout_constraintRight_toRightOf="parent"

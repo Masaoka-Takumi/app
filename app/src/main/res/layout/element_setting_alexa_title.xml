@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/navigate_bar_height"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/alexa_setting_main_color"
     android:orientation="horizontal"
     android:layoutDirection="ltr">
@@ -17,7 +18,7 @@
         android:src="@drawable/p0002_backbtn_1nrm"
         android:visibility="visible"/>
 
-    <TextView
+    <me.grantland.widget.AutofitTextView
         android:id="@+id/directory_pass_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -31,7 +32,8 @@
         android:singleLine="true"
         android:text="@string/set_318"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/navigate_bar_path_text_size" />
+        android:textSize="@dimen/navigate_bar_path_text_size"
+        app:minTextSize="@dimen/min_text_size_8"/>
 
     <ImageView
         android:id="@+id/next_button"

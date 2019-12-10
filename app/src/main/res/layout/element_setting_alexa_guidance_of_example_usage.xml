@@ -4,29 +4,81 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="3ページ目"
-        android:textColor="@android:color/black"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/alexa_setting_image_width"
+        android:layout_height="@dimen/alexa_setting_image_height"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/alexa_setting_image_margin_top"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p1600_amazon_alexa_splash_logo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/linkTextView"
-        android:layout_width="wrap_content"
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/text_view1"
+        android:layout_width="@dimen/alexa_setting_description_text_width"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/alexa_setting_text_margin_top"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:lineSpacingMultiplier="@dimen/line_spacing_multiplier_1_2"
+        android:maxLines="7"
+        android:text="@string/set_319"
+        android:textColor="@color/alexa_setting_text_color"
+        android:textSize="@dimen/alexa_setting_description_text_size1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image" />
+
+    <View
+        android:id="@+id/horizontal_line"
+        android:layout_width="@dimen/alexa_setting_horizontal_line_width"
+        android:layout_height="1dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/alexa_setting_sub_text_color"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view1" />
+
+    <me.grantland.widget.AutofitTextView
+        android:id="@+id/text_view_link"
+        android:layout_width="@dimen/alexa_setting_horizontal_line_width"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:lineSpacingMultiplier="@dimen/line_spacing_multiplier_1_2"
+        android:maxLines="2"
         android:text="@string/set_320"
-        android:textColor="@color/alexa_setting_link_text_color"
+        android:textColor="@color/alexa_setting_sub_text_color"
+        android:textSize="@dimen/alexa_setting_description_text_size3"
+        app:layout_constraintBottom_toTopOf="@id/text_view_next"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontal_line"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <TextView
+        android:id="@+id/text_view_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:lineSpacingMultiplier="@dimen/line_spacing_multiplier_1_2"
+        android:maxLines="2"
+        android:textColor="@android:color/black"
+        android:text="@string/set_411"
+        android:textSize="@dimen/easy_pairing_add_device_button_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_link" />
 
 </android.support.constraint.ConstraintLayout>
