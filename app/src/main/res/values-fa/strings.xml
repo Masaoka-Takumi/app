@@ -263,7 +263,7 @@
     <string name="set_313">فرانسوی</string>
     <string name="set_314">Amazon Alexa</string>
     <string name="set_315">دستگاهتان قابلیت دسترسی به Alexa را دارد.\nبرای دسترسی به ویژگی‌های شخصی‌سازی‌شده، حساب Amazon خود را وصل کنید.</string>
-    <string name="set_316">Alexa به شما امکان می‌دهد با استفاده از صدایتان موسیقی پخش کنید و اخبار، نتایج مسابقات ورزشی، وضعیت هوا و موارد دیگر را دریافت کنید - همه بدون دخالت دست. تنها باید از Alexa بخواهید.</string>
+    <string name="set_316">Alexa allows you to use your voice to play music, get the news, sports scores, check the weather, and more.  All you have to do is ask Alexa.</string>
     <string name="set_317">ورود به سیستم با Amazon</string>
     <string name="set_318">مواردی که باید امتحان کنید</string>
     <string name="set_319">وضعیت هوا چطور است؟\nFlash Briefing من را پخش کن\n‏ارتفاع قله اورست چقدر است؟\nآیا امروز باران می‌بارد؟</string>
@@ -328,7 +328,18 @@
     <string name="set_389">تنظیمات دکمه سفارشی</string>
     <string name="set_393">در انتظار اتصال خودکار</string>
     <string name="set_394">خاموش کردن این تنظیم مانع از اتصال خودکار رسیور می شود.</string>
+    <string name="set_396">Pioneer Smart Sync uses your mobile device\'s microphone.</string>
     <string name="set_402">روشن/خاموش کردن آنتن</string>
+    <string name="set_403">Placement Guidance</string>
+    <string name="set_404">Let\'s start with setting your phone</string>
+    <string name="set_405">For your safety and optimal Amazon Alexa experience, we suggest using a cradle mount to secure your phone to be in arm\'s reach.</string>
+    <string name="set_406">How to use Alexa</string>
+    <string name="set_407">Tips</string>
+    <string name="set_408">Ask Alexa by tapping the Alexa button</string>
+    <string name="set_409">Using something like a Map app to show where to go</string>
+    <string name="set_410">Long press the rotary dial can easily take you back to PSS</string>
+    <string name="set_411">Let\'s get started</string>
+    <string name="set_412">How to use</string>
     <string name="sta_004">احتیاط:</string>
     <string name="sta_005">موافق</string>
     <string name="sta_008">تنها درصورتی از این عملکرد استفاده کنید که خطری وجود ندارد و استفاده از آن در منطقه شما مجاز است، به جاده و محیط اطرافتان توجه کنید و کلیه قوانین ترافیک را رعایت کنید.\n\nعملکردهایی که با یک گوشی هوشمند عمل می‌کنند، فقط ابزارهایی در دسترس راننده هستند. \nراننده باید تحت هر شرایطی، رفتار رانندگی ایمن و منطقی را رعایت کند</string>
@@ -337,6 +348,7 @@
     <string name="sta_011">تماشای ویدیو زمان رانندگی خطرناک است. لطفاً فقط زمان پارک کردن وسیله نقلیه، ویدیو تماشا کنید.</string>
     <string name="sta_012">از دفعه بعد نشان داده نمی شود</string>
     <string name="sta_013">از آنجا که وسیله نقلیه در حال حرکت است، نمایش ویدیو خاموش می شود.</string>
+    <string name="sta_014">You can now use Alexa</string>
     <string name="hom_006">سیستم</string>
     <string name="hom_008">صوتی</string>
     <string name="hom_012">اطلاعات</string>

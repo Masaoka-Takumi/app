@@ -266,7 +266,7 @@
     <string name="set_313">French</string>
     <string name="set_314">Amazon Alexa</string>
     <string name="set_315">Your device includes access to Alexa.\nConnect your Amazon account to access personalised features.</string>
-    <string name="set_316">Alexa allows you to use your voice to play music and get news, sports scores, weather and more—all hands-free.All you have to do is ask Alexa.</string>
+    <string name="set_316">Alexa allows you to use your voice to play music, get the news, sports scores, check the weather, and more.  All you have to do is ask Alexa.</string>
     <string name="set_317">Sign in with Amazon</string>
     <string name="set_318">Things to Try</string>
     <string name="set_319">What\'s the weather?\nPlay my Flash Briefing\nHow tall is Mt. Everest?\nIs it going to rain today?</string>
@@ -333,7 +333,18 @@
     <string name="set_389">Custom Button Settings</string>
     <string name="set_393">Waiting for Automatic Connection</string>
     <string name="set_394">Turn this setting OFF to prevent the receiver from automatically connecting.</string>
+    <string name="set_396">Pioneer Smart Sync uses your mobile device\'s microphone.</string>
     <string name="set_402">Antenna Power</string>
+    <string name="set_403">Placement Guidance</string>
+    <string name="set_404">Let\'s start with setting your phone</string>
+    <string name="set_405">For your safety and optimal Amazon Alexa experience, we suggest using a cradle mount to secure your phone to be in arm\'s reach.</string>
+    <string name="set_406">How to use Alexa</string>
+    <string name="set_407">Tips</string>
+    <string name="set_408">Ask Alexa by tapping the Alexa button</string>
+    <string name="set_409">Using something like a Map app to show where to go</string>
+    <string name="set_410">Long press the rotary dial can easily take you back to PSS</string>
+    <string name="set_411">Let\'s get started</string>
+    <string name="set_412">How to use</string>
     <string name="sta_004">CAUTION: </string>
     <string name="sta_005">Agree</string>
     <string name="sta_008">Only use a function when it is safe and legal in your location, pay attention to the road and your surroundings, and obey all traffic rules.\n\nFunctions operated with a smartphone are merely tools available to the driver. \nThe driver shall observe safe and sensible driving behaviour under all circumstances</string>
@@ -342,6 +353,7 @@
     <string name="sta_011">It is dangerous to view video whilst driving.  Please view only when parked.</string>
     <string name="sta_012">Will not display from the next time</string>
     <string name="sta_013">Due to the vehicle being in motion, video display is turned OFF.</string>
+    <string name="sta_014">You can now use Alexa</string>
     <string name="hom_006">System</string>
     <string name="hom_008">Audio</string>
     <string name="hom_012">Information</string>
