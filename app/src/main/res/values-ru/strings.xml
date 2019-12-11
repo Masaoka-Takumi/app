@@ -272,7 +272,6 @@
     <string name="set_313">Французский</string>
     <string name="set_314">Amazon Alexa</string>
     <string name="set_315">В вашем устройстве предусмотрено подключение к Alexa.\nПодключите вашу учетную запись Amazon, чтобы получить доступ к персональным функциям.</string>
-    <string name="set_316">Alexa allows you to use your voice to play music, get the news, sports scores, check the weather, and more.  All you have to do is ask Alexa.</string>
     <string name="set_317">Войти с помощью учетной записи Amazon</string>
     <string name="set_318">Рекомендации</string>
     <string name="set_319">Какая сегодня погода?\nВоспроизвести запись совещания\nКакова высота горы Эверест?\nСегодня будет дождь?</string>
@@ -339,18 +338,7 @@
     <string name="set_389">Настариваемая кнопка</string>
     <string name="set_393">Ожидается автоматическое подключение</string>
     <string name="set_394">Если отключить эту настройку, ресивер не будет соединяться автоматически.</string>
-    <string name="set_396">Pioneer Smart Sync uses your mobile device\'s microphone.</string>
     <string name="set_402">Питание антенны</string>
-    <string name="set_403">Placement Guidance</string>
-    <string name="set_404">Let\'s start with setting your phone</string>
-    <string name="set_405">For your safety and optimal Amazon Alexa experience, we suggest using a cradle mount to secure your phone to be in arm\'s reach.</string>
-    <string name="set_406">How to use Alexa</string>
-    <string name="set_407">Tips</string>
-    <string name="set_408">Ask Alexa by tapping the Alexa button</string>
-    <string name="set_409">Using something like a Map app to show where to go</string>
-    <string name="set_410">Long press the rotary dial can easily take you back to PSS</string>
-    <string name="set_411">Let\'s get started</string>
-    <string name="set_412">How to use</string>
     <string name="sta_004">ПРЕДУПРЕЖДЕНИЕ:</string>
     <string name="sta_005">OK</string>
     <string name="sta_008">Пожалуйста, используйте эту функцию только в безопасном месте, следите за дорогой и соблюдайте все правила дорожного движения.\n\nФункции смартфона - это всего лишь инструменты, доступные водителю. Водитель, в первую очередь, должен оценивать ситуацию и принимать решения с точки зрения безопасности движения.</string>
@@ -359,7 +347,6 @@
     <string name="sta_011">Пожалуйста, просматривайте видео, находясь на парковке.</string>
     <string name="sta_012">Больше не показывать</string>
     <string name="sta_013">Просмотр видео во время вождения запрещен.</string>
-    <string name="sta_014">You can now use Alexa</string>
     <string name="hom_006">Система</string>
     <string name="hom_008">Аудио</string>
     <string name="hom_012">Информация</string>
