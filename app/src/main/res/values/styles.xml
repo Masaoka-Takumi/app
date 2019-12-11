@@ -166,4 +166,13 @@
         <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
     </style>
 
+    <style name="AlexaTutorialCircleIndicator">
+        <item name="fillColor">@color/alexa_example_usage_circle_indicator_fill_color</item>
+        <item name="centered">true</item>
+        <item name="pageColor">@color/alexa_example_usage_circle_indicator_page_color</item>
+        <item name="strokeColor">@android:color/transparent</item>
+        <item name="radius">4dp</item>
+        <item name="snap">false</item>
+    </style>
+
 </resources>
