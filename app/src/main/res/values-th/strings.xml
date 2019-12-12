@@ -259,7 +259,7 @@
     <string name="set_313">ฝรั่งเศส</string>
     <string name="set_314">Amazon Alexa</string>
     <string name="set_315">อุปกรณ์ของคุณ สามารถใช้งาน Alexa ได้\nเชื่อมต่อบัญชี Amazon ของคุณเพื่อเข้าถึงข้อมูลส่วนตัว </string>
-    <string name="set_316">Alexa ช่วยให้คุณสามารถใช้เสียงสั่งงานในการเล่นเพลงและรับข่าว ผลการแข่งกีฬา สภาพอากาศและอื่น ๆ ได้ทั้งหมดด้วยการสั่งงานผ่านแฮนด์ฟรี ที่คุณต้องทำคือการสั่งการกับ Alexa</string>
+    <string name="set_316">Alexa allows you to use your voice to play music, get the news, sports scores, check the weather, and more.  All you have to do is ask Alexa.</string>
     <string name="set_317">ลงชื่อเข้าใช้ใน Amazon</string>
     <string name="set_318">สิ่งที่ต้องลองทำ</string>
     <string name="set_319">สภาพอากาศเป็นอย่างไร\nสรุปข้อความของฉันด่วน\nภูเขาเอเวอเรสต์สูงเท่าไหร่\nวันนี้ฝนจะตกหรือเปล่า</string>
@@ -326,7 +326,18 @@
     <string name="set_389">การตั้งค่าปุ่มที่กำหนดเอง</string>
     <string name="set_393">กำลังรอการเชื่อมต่ออัตโนมัติ</string>
     <string name="set_394">ปิดการตั้งค่านี้จะเป็นการป้องกันไม่ให้เครื่องเล่นเชื่อมต่อเองโดยอัตโนมัติ</string>
+    <string name="set_396">Pioneer Smart Sync uses your mobile device\'s microphone.</string>
     <string name="set_402">เปิดไฟเสาอากาศ</string>
+    <string name="set_403">Placement Guidance</string>
+    <string name="set_404">Let\'s start with setting your phone</string>
+    <string name="set_405">For your safety and optimal Amazon Alexa experience, we suggest using a cradle mount to secure your phone to be in arm\'s reach.</string>
+    <string name="set_406">How to use Alexa</string>
+    <string name="set_407">Tips</string>
+    <string name="set_408">Ask Alexa by tapping the Alexa button</string>
+    <string name="set_409">Using something like a Map app to show where to go</string>
+    <string name="set_410">Long press the rotary dial can easily take you back to PSS</string>
+    <string name="set_411">Let\'s get started</string>
+    <string name="set_412">How to use</string>
     <string name="sta_004">คำเตือน</string>
     <string name="sta_005">เห็นด้วย</string>
     <string name="sta_008">ใช้ฟังก์ชันต่อเมื่อปลอดภัยและถูกกฎหมายในประเทศของคุณ โปรดให้ความสนใจกับสภาพแวดล้อมในขณะขับขี่ และปฏิบัติตามกฎจราจร\n\nฟังก์ชันต่างๆ ที่ใช้งานร่วมกับสมาร์ทโฟน เป็นเพียงเครื่องมือที่คอยช่วยเหลือผู้ขับขี่เท่านั้น \nผู้ขับขี่จะต้องระวังความปลอดภัยด้วยตัวเอง และขับขี่ด้วยความระมัดระวังในทุกสภาพการณ์</string>
@@ -335,6 +346,7 @@
     <string name="sta_011">การชมรายการภาพยนตร์ ขณะขับรถเป็นอันตราย โปรดดูเฉพาะเมื่อจอด</string>
     <string name="sta_012">จะไม่แสดงในครั้งต่อไป</string>
     <string name="sta_013">เนื่องจากยานพาหนะกำลังเคลื่อนที่จอแสดงภาพยนตร์ ปิดการทำงาน</string>
+    <string name="sta_014">You can now use Alexa</string>
     <string name="hom_006">ตั้งค่าระบบ</string>
     <string name="hom_008">ตั้งค่าเสียง</string>
     <string name="hom_012">ข้อมูล</string>
