@@ -168,7 +168,10 @@
             </RelativeLayout>
 
         </LinearLayout>
-
+        <include
+            layout="@layout/element_tab_layout_dab"
+            android:id="@+id/tab_layout_dab"
+            android:visibility="visible"/>
         <View
             android:id="@+id/separator"
             android:layout_width="1.5dp"

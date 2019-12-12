@@ -113,7 +113,7 @@ public class TunerContract {
             /**
              * DABのユーザーPreset情報を取得する {@link QueryParams} 生成.
              *
-             * @return DABのお気に入り情報を取得するクエリーパラメータ
+             * @return DABのユーザーPreset情報を取得するクエリーパラメータ
              */
             @NonNull
             public static QueryParams createDabPreset(DabBandType dabBandType) {
@@ -124,6 +124,23 @@ public class TunerContract {
                                 + " AND " + Favorite.TUNER_BAND + " = ?"
                                 + " AND " + Favorite.TUNER_CHANNEL_KEY2 + " IS NOT NULL)",
                         new String[]{String.valueOf(MediaSourceType.DAB.code),String.valueOf(dabBandType.code)},
+                        Dab.SORT_ORDER,
+                        null
+                );
+            }
+            /**
+             * DABの全バンドユーザーPreset情報を取得する {@link QueryParams} 生成.
+             *
+             * @return DABの全バンドユーザーPreset情報を取得するクエリーパラメータ
+             */
+            @NonNull
+            public static QueryParams createDabPreset() {
+                return new QueryParams(
+                        Favorite.CONTENT_URI,
+                        Dab.PROJECTION,
+                        "(" + Favorite.SOURCE_ID + " = ? "
+                                + " AND " + Favorite.TUNER_CHANNEL_KEY2 + " IS NOT NULL)",
+                        new String[]{String.valueOf(MediaSourceType.DAB.code)},
                         Dab.SORT_ORDER,
                         null
                 );

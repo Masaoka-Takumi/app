@@ -45,13 +45,16 @@ import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
  */
 @PresenterLifeCycle
 public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerView> {
-
     /**
      * ラジオリストタブ
      */
     public enum RadioTabType {
         PRESET,     // プリセットリスト
         FAVORITE,   // お気に入りリスト
+        DAB_STATION,
+        DAB_PTY,
+        DAB_ENSEMBLE,
+        DAB_PRESET,
     }
 
     private static final String KEY_PREFERENCE_TAB = "radio_tab";
@@ -86,6 +89,9 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
         if (!holder.getProtocolSpec().isSphCarDevice()&&mSourceType == MediaSourceType.RADIO) {
             mTab = RadioTabType.FAVORITE;
             Optional.ofNullable(getView()).ifPresent(view -> view.onNavigate(ScreenId.RADIO_FAVORITE_LIST, Bundle.EMPTY));
+        }else if(holder.getProtocolSpec().isSphCarDevice()&&mSourceType == MediaSourceType.DAB){
+            mTab = RadioTabType.DAB_STATION;
+            Optional.ofNullable(getView()).ifPresent(view -> view.onNavigate(ScreenId.DAB_SERVICE_LIST, Bundle.EMPTY));
         }else{
             mTab = RadioTabType.PRESET;
             Optional.ofNullable(getView()).ifPresent(view -> view.onNavigate(ScreenId.RADIO_PRESET_LIST, Bundle.EMPTY));
@@ -144,7 +150,11 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
     public void onPresetAction() {
         mTab = RadioTabType.PRESET;
         updateView();
-        mEventBus.post(new NavigateEvent(ScreenId.RADIO_PRESET_LIST, Bundle.EMPTY));
+        if(mSourceType==MediaSourceType.DAB){
+            mEventBus.post(new NavigateEvent(ScreenId.DAB_SERVICE_LIST, Bundle.EMPTY));
+        }else {
+            mEventBus.post(new NavigateEvent(ScreenId.RADIO_PRESET_LIST, Bundle.EMPTY));
+        }
     }
 
     /**
@@ -156,12 +166,36 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
         mEventBus.post(new NavigateEvent(ScreenId.RADIO_FAVORITE_LIST, Bundle.EMPTY));
     }
 
+    public void onDabStationAction() {
+        mTab = RadioTabType.DAB_STATION;
+        updateView();
+        mEventBus.post(new NavigateEvent(ScreenId.DAB_SERVICE_LIST, Bundle.EMPTY));
+    }
+
+    public void onDabPtyAction() {
+        mTab = RadioTabType.DAB_PTY;
+        updateView();
+        mEventBus.post(new NavigateEvent(ScreenId.DAB_PTY_LIST, Bundle.EMPTY));
+    }
+
+    public void onDabEnsembleAction() {
+        mTab = RadioTabType.DAB_ENSEMBLE;
+        updateView();
+        mEventBus.post(new NavigateEvent(ScreenId.DAB_ENSEMBLE_LIST, Bundle.EMPTY));
+    }
+
+    public void onDabPresetAction() {
+        mTab = RadioTabType.DAB_PRESET;
+        updateView();
+        mEventBus.post(new NavigateEvent(ScreenId.RADIO_PRESET_LIST, Bundle.EMPTY));
+    }
+
     private void updateView() {
         StatusHolder holder = mStatusHolder.execute();
         mSourceType = holder.getCarDeviceStatus().sourceType;
 
         Optional.ofNullable(getView()).ifPresent(view -> {
-            view.setTabLayout(mSourceType);
+            view.setTabLayout(mSourceType,holder.getProtocolSpec().isSphCarDevice());
             if (mSourceType == MediaSourceType.RADIO) {
                 RadioInfo info = holder.getCarDeviceMediaInfoHolder().radioInfo;
                 if (mTunerStatus != info.tunerStatus) {
@@ -190,7 +224,8 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
                     }
                     mTunerStatus = info.tunerStatus;
                 }
-                if ((mTab == RadioTabType.PRESET)) {
+                if ((mTab == RadioTabType.PRESET||mTab == RadioTabType.DAB_STATION||mTab == RadioTabType.DAB_PTY
+                        ||mTab == RadioTabType.DAB_ENSEMBLE||mTab == RadioTabType.DAB_PRESET)) {
                     view.setUpdateButtonVisible(true);
                 } else {
                     view.setUpdateButtonVisible(false);
@@ -251,8 +286,21 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
                     Optional.ofNullable(getView()).ifPresent(view -> view.setTitle(mTab.name()));
                 }
             }
-        } else {
+        } else if(mTab == RadioTabType.FAVORITE) {
             Optional.ofNullable(getView()).ifPresent(view -> view.setTitle(mContext.getResources().getString(R.string.ply_013)));
+        }else if(mTab == RadioTabType.DAB_STATION){
+            Optional.ofNullable(getView()).ifPresent(view -> view.setTitle(mContext.getResources().getString(R.string.ply_100)));
+        }else if(mTab == RadioTabType.DAB_PTY){
+            Optional.ofNullable(getView()).ifPresent(view -> view.setTitle(mContext.getResources().getString(R.string.ply_101)));
+        }else if(mTab == RadioTabType.DAB_ENSEMBLE){
+            Optional.ofNullable(getView()).ifPresent(view -> view.setTitle(mContext.getResources().getString(R.string.ply_102)));
+        }else if(mTab == RadioTabType.DAB_PRESET){
+            mDabBand = holder.getCarDeviceMediaInfoHolder().dabInfo.band;
+            if (mDabBand != null) {
+                //Optional.ofNullable(getView()).ifPresent(view -> view.setTitle(mContext.getResources().getString(mRadioBand.label)));
+            } else {
+                Optional.ofNullable(getView()).ifPresent(view -> view.setTitle("Preset"));
+            }
         }
 
         // 右上×ボタンは、SiriusXM の場合のみ表示

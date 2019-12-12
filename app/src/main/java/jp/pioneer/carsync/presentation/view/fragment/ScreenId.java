@@ -34,6 +34,9 @@ public enum ScreenId {
     RADIO_PRESET_LIST(VoiceRecognitionSearchType.GLOBAL),                           // Preset list
     RADIO_FAVORITE_LIST(VoiceRecognitionSearchType.GLOBAL),                         // Favorite list
     DAB(VoiceRecognitionSearchType.GLOBAL),                                         // DAB
+    DAB_SERVICE_LIST(VoiceRecognitionSearchType.GLOBAL),                            // DAB Service list
+    DAB_PTY_LIST(VoiceRecognitionSearchType.GLOBAL),                                  // DAB Pty list
+    DAB_ENSEMBLE_LIST(VoiceRecognitionSearchType.GLOBAL),                           // DAB Ensemble list
     HD_RADIO(VoiceRecognitionSearchType.GLOBAL),                                    // HD Radio
     SIRIUS_XM(VoiceRecognitionSearchType.GLOBAL),                                   // Sirius XM
     USB(VoiceRecognitionSearchType.GLOBAL),                                         // USB

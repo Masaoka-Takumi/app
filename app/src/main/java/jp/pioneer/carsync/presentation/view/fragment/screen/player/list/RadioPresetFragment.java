@@ -1,6 +1,5 @@
 package jp.pioneer.carsync.presentation.view.fragment.screen.player.list;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
@@ -10,8 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -19,23 +16,21 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnItemClick;
 import butterknife.Unbinder;
 import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.application.di.component.FragmentComponent;
-import jp.pioneer.carsync.domain.content.TunerContract;
+import jp.pioneer.carsync.domain.model.DabBandType;
 import jp.pioneer.carsync.domain.model.HdRadioBandType;
 import jp.pioneer.carsync.domain.model.HdRadioPresetItem;
-import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.RadioBandType;
 import jp.pioneer.carsync.domain.model.SxmBandType;
 import jp.pioneer.carsync.presentation.model.AbstractPresetItem;
+import jp.pioneer.carsync.presentation.model.DabPresetItem;
 import jp.pioneer.carsync.presentation.model.RadioPresetItem;
 import jp.pioneer.carsync.presentation.model.SxmPresetItem;
 import jp.pioneer.carsync.presentation.presenter.RadioPresetPresenter;
 import jp.pioneer.carsync.presentation.view.RadioPresetView;
 import jp.pioneer.carsync.presentation.view.adapter.RadioPresetPageAdapter;
-import jp.pioneer.carsync.presentation.view.adapter.ServiceListAdapter;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.carsync.presentation.view.fragment.screen.AbstractScreenFragment;
 import jp.pioneer.carsync.presentation.view.widget.CustomLinePageIndicator;
@@ -50,9 +45,7 @@ public class RadioPresetFragment extends AbstractScreenFragment<RadioPresetPrese
     @Inject RadioPresetPresenter mPresenter;
     @BindView(R.id.viewPager) ViewPager mViewPager;
     @BindView(R.id.line_indicator) CustomLinePageIndicator mLineIndicator;
-    @BindView(R.id.list_view) ListView mListView;
     private RadioPresetPageAdapter mAdapter;
-    private ServiceListAdapter mServiceListAdapter;
     private Unbinder mUnbinder;
     private ArrayList<String> mBandTypeList = new ArrayList<>();
     /**
@@ -79,31 +72,24 @@ public class RadioPresetFragment extends AbstractScreenFragment<RadioPresetPrese
 
         View view = inflater.inflate(R.layout.fragment_dialog_preset_channel, container, false);
         mUnbinder = ButterKnife.bind(this, view);
-        if(getPresenter().getSourceType()== MediaSourceType.DAB){
-            mServiceListAdapter = new ServiceListAdapter(getContext(), null, false);
-            mListView.setVisibility(View.VISIBLE);
-            mListView.setAdapter(mServiceListAdapter);
-            mListView.setFastScrollEnabled(true);
-            mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        }else {
-            mAdapter = new RadioPresetPageAdapter(getActivity()) {
-                @Override
-                protected void onClickKey(int pch) {
-                    getPresenter().onSelectPresetNumber(pch);
-                }
-            };
-            mAdapter.setSphCarDevice(getPresenter().isSphCarDevice());
-            mViewPager.setAdapter(mAdapter);
+        mAdapter = new RadioPresetPageAdapter(getActivity()) {
+            @Override
+            protected void onClickKey(int pch) {
+                getPresenter().onSelectPresetNumber(pch);
+            }
+        };
+        mAdapter.setSphCarDevice(getPresenter().isSphCarDevice());
+        mViewPager.setAdapter(mAdapter);
 
-            mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-                @Override
-                public void onPageSelected(int position) {
-                    if (getParentFragment() != null) {
-                        ((RadioTabContainerFragment) getParentFragment()).setTitle(mBandTypeList.get(position));
-                    }
+        mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                if (getParentFragment() != null) {
+                    ((RadioTabContainerFragment) getParentFragment()).setTitle(mBandTypeList.get(position));
                 }
-            });
-        }
+            }
+        });
+
         return view;
     }
 
@@ -201,6 +187,22 @@ public class RadioPresetFragment extends AbstractScreenFragment<RadioPresetPrese
                     mBandTypeList.add(buf.toString());
                 }
             }
+            if (presetList.get(0) instanceof DabPresetItem) {
+                for (int i = 0; i < presetList.size(); i = i + PAGE_PRESET_ITEMS) {
+                    DabBandType band = null;
+                    StringBuilder buf = new StringBuilder();
+                    for(int h = 0;h < PAGE_PRESET_ITEMS;h++){
+                        if(band != ((DabPresetItem) presetList.get(i+h)).bandType){
+                            if(h!=0){
+                                buf.append("/");
+                            }
+                            band = ((DabPresetItem) presetList.get(i+h)).bandType;
+                            buf.append(getString(band.getLabel()));
+                        }
+                    }
+                    mBandTypeList.add(buf.toString());
+                }
+            }
         }
 
     }
@@ -230,30 +232,4 @@ public class RadioPresetFragment extends AbstractScreenFragment<RadioPresetPrese
         }
     }
 
-    @Override
-    public void setCursor(Cursor cursor) {
-        if(mServiceListAdapter !=null) {
-            mServiceListAdapter.swapCursor(cursor);
-            mServiceListAdapter.notifyDataSetChanged();
-        }
-    }
-
-    @Override
-    public void setSelectedPositionNotScroll(int position) {
-        mListView.setItemChecked(position, true);
-    }
-    /**
-     * 項目リスト選択
-     *
-     * @param parent   AdapterView
-     * @param view     View
-     * @param position int
-     * @param id       選択ID
-     */
-    @OnItemClick(R.id.list_view)
-    public void onClickListItem(AdapterView<?> parent, View view, int position, long id) {
-        Cursor cursor = (Cursor) mServiceListAdapter.getItem(position);
-        int selectIndex = TunerContract.ListItemContract.Dab.getListIndex(cursor);
-        getPresenter().onSelectList(selectIndex, cursor);
-    }
 }

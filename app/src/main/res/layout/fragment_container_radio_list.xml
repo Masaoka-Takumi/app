@@ -167,7 +167,10 @@
                     android:background="?android:attr/selectableItemBackground"/>
             </RelativeLayout>
         </LinearLayout>
-
+        <include
+            layout="@layout/element_tab_layout_dab"
+            android:id="@+id/tab_layout_dab"
+            android:visibility="visible"/>
         <View
             android:id="@+id/separator"
             android:layout_width="match_parent"

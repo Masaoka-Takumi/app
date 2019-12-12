@@ -3,7 +3,7 @@ package jp.pioneer.carsync.domain.util;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -16,8 +16,8 @@ import timber.log.Timber;
  */
 public class PresetChannelDictionary {
     private int mLifeTime;
-    private Map<PresetKey, Integer> mPresetChannelMap = new HashMap<>();
-    private Map<PresetKey, Integer> mPresetChannelMapSph = new HashMap<>();
+    private Map<PresetKey, Integer> mPresetChannelMap = new LinkedHashMap<>();
+    private Map<PresetKey, Integer> mPresetChannelMapSph = new LinkedHashMap<>();
     private long mLastCommandApplyTime;
     private MediaSourceType mCurrentSourceType;
     private int mCurrentBandCode;
@@ -320,10 +320,13 @@ public class PresetChannelDictionary {
         }
         return null;
     }
+    public Map<PresetKey, Integer> getInitialPresetInfo(){
+        return mPresetChannelMapSph;
+    }
 
     public static class PresetKey{
-        int source;
-        int band;
+        public int source;
+        public int band;
         /** 周波数. */
         public long frequency;
         /** 周波数index. */
