@@ -21,7 +21,8 @@ public class InitialSetting extends Setting {
     public RearOutputSetting rearOutputSetting;
     /** MENU表示言語. */
     public MenuDisplayLanguageType menuDisplayLanguageType;
-
+    /** DAB ANT PW設定.*/
+    public boolean dabAntennaPowerSetting;
     /**
      * コンストラクタ.
      */
@@ -39,6 +40,7 @@ public class InitialSetting extends Setting {
         rearOutputPreoutOutputSetting = RearOutputPreoutOutputSetting.REAR_REAR;
         rearOutputSetting = RearOutputSetting.REAR;
         menuDisplayLanguageType = MenuDisplayLanguageType.ENGLISH;
+        dabAntennaPowerSetting = false;
         clear();
         updateVersion();
     }
@@ -55,6 +57,7 @@ public class InitialSetting extends Setting {
                 .add("rearOutputPreoutOutputSetting", rearOutputPreoutOutputSetting)
                 .add("rearOutputSetting", rearOutputSetting)
                 .add("menuDisplayLanguageType", menuDisplayLanguageType)
+                .add("dabAntennaPowerSetting", dabAntennaPowerSetting)
                 .toString();
     }
 
@@ -67,6 +70,7 @@ public class InitialSetting extends Setting {
         public static final String REAR_OUTPUT_PREOUT_OUTPUT = "rear_output_preout_output";
         public static final String REAR_OUTPUT = "rear_output";
         public static final String MENU_DISPLAY_LANGUAGE = "menu_display_language";
+        public static final String DAB_ANTENNA_POWER = "dab_antenna_power";
 
         /**
          * 全てのタグを取得.
@@ -80,6 +84,7 @@ public class InitialSetting extends Setting {
                 add(REAR_OUTPUT_PREOUT_OUTPUT);
                 add(REAR_OUTPUT);
                 add(MENU_DISPLAY_LANGUAGE);
+                add(DAB_ANTENNA_POWER);
             }};
         }
     }

@@ -20,7 +20,8 @@ public class ListInfo extends SerialVersion {
     public String abcSearchWord;
     /** トランザクション情報. */
     public final TransactionInfo transactionInfo = new TransactionInfo();
-
+    /** ABCサーチ結果情報. */
+    public boolean  abcSearchResult;
 
     /**
      * コンストラクタ.
@@ -35,6 +36,7 @@ public class ListInfo extends SerialVersion {
     public void reset() {
         focusListIndex = 0;
         transactionInfo.reset();
+        abcSearchResult = false;
         updateVersion();
     }
 
@@ -46,6 +48,7 @@ public class ListInfo extends SerialVersion {
         return MoreObjects.toStringHelper("")
                 .add("focusListIndex", focusListIndex)
                 .add("transactionInfo", transactionInfo)
+                .add("abcSearchResult", abcSearchResult)
                 .toString();
     }
 

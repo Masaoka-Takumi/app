@@ -364,6 +364,7 @@ public class DeviceSpecResponsePacketHandler extends DataResponsePacketHandler {
         //  (RESERVED)
         // D36:サポート初期設定1
         b = data[36];
+        initialSettingSpec.dabAntennaPowerSupported = isBitOn(b, 5);
         initialSettingSpec.menuDisplayLanguageSettingSupported = isBitOn(b, 4);
         initialSettingSpec.rearOutputSettingSupported = isBitOn(b, 3);
         initialSettingSpec.rearOutputPreoutOutputSettingSupported = isBitOn(b, 2);

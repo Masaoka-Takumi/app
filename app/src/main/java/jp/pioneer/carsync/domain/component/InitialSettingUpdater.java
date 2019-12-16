@@ -52,4 +52,11 @@ public interface InitialSettingUpdater {
      * @throws NullPointerException {@code step}がnull
      */
     void setMenuDisplayLanguage(@NonNull MenuDisplayLanguageType type);
+
+    /**
+     * DAB ANT PW設定.
+     *
+     * @param isOn 設定
+     */
+    void setDabAntennaPower(boolean isOn);
 }

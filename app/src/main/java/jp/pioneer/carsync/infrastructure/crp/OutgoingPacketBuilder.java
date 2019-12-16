@@ -1089,7 +1089,28 @@ public class OutgoingPacketBuilder {
 
         return createWith(LIST_FOCUS_POSITION_CHANGE_REQUEST, data);
     }
+    /**
+     * ABCサーチ実行要求要求パケット生成.
+     *
+     * @param word サーチ文字
+     * @return 送信パケット
+     * @throws IllegalArgumentException {@code index}が0以下
+     */
+    @NonNull
+    public OutgoingPacket createDabAbcSearchExecuteRequest(String word) {
+        byte[] bytes;
+        try {
+            bytes = word.getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new IllegalArgumentException(e.getMessage());
+        }
 
+        byte[] data = {
+                0x00,
+                bytes[0]
+        };
+        return createWith(DAB_ABC_SEARCH_EXECUTE_REQUEST, data);
+    }
     /**
      * リスト情報更新通知パケット生成.
      *
@@ -2596,7 +2617,22 @@ public class OutgoingPacketBuilder {
 
         return createWith(MENU_DISPLAY_LANGUAGE_SETTING_NOTIFICATION, data);
     }
+    /**
+     * DAB ANT PW設定通知パケット生成.
+     *
+     * @param isOn DAB ANT PW設定
+     * @return 送信パケット
+     * @throws NullPointerException {@code step}がnull
+     */
+    @NonNull
+    public OutgoingPacket createDabAntennaPowerSettingNotification(boolean isOn) {
+        byte[] data = {
+                0x00,
+                isOn ? (byte) 0x01 : (byte) 0x00
+        };
 
+        return createWith(DAB_ANTENNA_POWER_SETTING_NOTIFICATION, data);
+    }
     /**
      * Super轟設定通知パケット生成.
      *
@@ -3681,6 +3717,16 @@ public class OutgoingPacketBuilder {
     @NonNull
     public OutgoingPacket createMenuDisplayLanguageSettingInfoRequest() {
         return createWith(MENU_DISPLAY_LANGUAGE_SETTING_INFO_REQUEST);
+    }
+
+    /**
+     * DAB ANT PW設定情報要求パケット生成.
+     *
+     * @return 送信パケット
+     */
+    @NonNull
+    public OutgoingPacket createDabAntennaPowerSettingInfoRequest() {
+        return createWith(DAB_ANTENNA_POWER_SETTING_INFO_REQUEST);
     }
 
     /**

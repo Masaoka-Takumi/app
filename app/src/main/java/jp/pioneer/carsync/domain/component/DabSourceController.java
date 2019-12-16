@@ -80,6 +80,13 @@ public interface DabSourceController extends SourceController {
     void selectFavorite(int index, @NonNull DabBandType bandType, int eid, long sid, int scids);
 
     /**
+     * ABCサーチ実行
+     *
+     * @param word サーチ文字
+     */
+    void executeAbcSearch(@NonNull String word);
+
+    /**
      * ボリュームアップ.
      */
     void volumeUp();

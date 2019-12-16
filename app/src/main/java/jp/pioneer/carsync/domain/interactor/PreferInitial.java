@@ -114,4 +114,22 @@ public class PreferInitial {
             mUpdater.setMenuDisplayLanguage(type);
         });
     }
+
+    /**
+     * DAB ANT PW設定.
+     * <p>
+     * DAB ANT PW設定が無効な場合何もしない
+     *
+     * @param isOn 設定
+     */
+    public void setDabAntennaPowerEnabled(boolean isOn) {
+        mHandler.post(() -> {
+            if (!mStatusHolder.getInitialSettingStatus().dabAntennaPowerEnabled) {
+                Timber.w("setDabAntennaPower() dab antenna power setting disabled.");
+                return;
+            }
+
+            mUpdater.setDabAntennaPower(isOn);
+        });
+    }
 }

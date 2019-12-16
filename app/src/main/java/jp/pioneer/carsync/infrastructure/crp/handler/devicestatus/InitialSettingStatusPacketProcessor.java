@@ -49,6 +49,7 @@ public class InitialSettingStatusPacketProcessor {
             byte b;
             // D1:有効初期設定1
             b = data[1];
+            status.dabAntennaPowerEnabled = spec.dabAntennaPowerSupported ? isBitOn(b, 5) : false;
             status.menuDisplayLanguageSettingEnabled = spec.menuDisplayLanguageSettingSupported ? isBitOn(b, 4) : false;
             status.rearOutputSettingEnabled = spec.rearOutputSettingSupported ? isBitOn(b, 3) : false;
             status.rearOutputPreoutOutputSettingEnabled = spec.rearOutputPreoutOutputSettingSupported ? isBitOn(b, 2) : false;

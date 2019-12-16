@@ -16,7 +16,8 @@ public class InitialSettingStatus extends SerialVersion {
     public boolean amStepSettingEnabled;
     /** FM STEP設定有効.*/
     public boolean fmStepSettingEnabled;
-
+    /** DAB ANT PW設定.*/
+    public boolean dabAntennaPowerEnabled;
     /**
      * コンストラクタ.
      */
@@ -33,6 +34,7 @@ public class InitialSettingStatus extends SerialVersion {
         rearOutputPreoutOutputSettingEnabled = false;
         amStepSettingEnabled = false;
         fmStepSettingEnabled = false;
+        dabAntennaPowerEnabled = false;
         updateVersion();
     }
 
@@ -47,6 +49,7 @@ public class InitialSettingStatus extends SerialVersion {
                 .add("rearOutputPreoutOutputSettingEnabled", rearOutputPreoutOutputSettingEnabled)
                 .add("amStepSettingEnabled", amStepSettingEnabled)
                 .add("fmStepSettingEnabled", fmStepSettingEnabled)
+                .add("dabAntennaPowerEnabled", dabAntennaPowerEnabled)
                 .toString();
     }
 }

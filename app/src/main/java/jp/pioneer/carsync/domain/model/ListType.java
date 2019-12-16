@@ -23,6 +23,18 @@ public enum ListType {
     LIST(0x02, MediaSourceType.APP_MUSIC, MediaSourceType.USB),
     /** ABCサーチリスト. */
     ABC_SEARCH_LIST(0x03, MediaSourceType.DAB, MediaSourceType.APP_MUSIC),
+    /* PTYリスト-News/Info */
+    PTY_NEWS_INFO_LIST(0x04, MediaSourceType.DAB),
+    /* PTYリスト-Popular */
+    PTY_POPULER_LIST(0x05, MediaSourceType.DAB),
+    /* PTYリスト-Classics */
+    PTY_CLASSICS_LIST(0x06, MediaSourceType.DAB),
+    /* PTYリスト-Others */
+    PTY_OYHERS_LIST(0x07, MediaSourceType.DAB),
+    /* Ensemble大分類リスト */
+    ENSEMBLE_CATEGORY(0x08, MediaSourceType.DAB),
+    /* EnsembleServiceリスト */
+    ENSEMBLE_LIST(0x09, MediaSourceType.DAB),
     /** 退場（リスト遷移通知コマンドの退場時に使用する。車載機の状態としては通知されないはず。）. */
     EXIT(0xFF)
     ;

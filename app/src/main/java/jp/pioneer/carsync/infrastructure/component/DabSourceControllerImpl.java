@@ -158,7 +158,18 @@ public class DabSourceControllerImpl extends SourceControllerImpl implements Dab
         OutgoingPacket packet = mPacketBuilder.createFavoriteDabSetCommand(index, bandType.getCode(), eid, sid, scids);
         mCarDeviceConnection.sendPacket(packet);
     }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void executeAbcSearch(@NonNull String word) {
+        checkNotNull(word);
+        Timber.i("executeAbcSearch() word = %s", word);
 
+        OutgoingPacket packet = mPacketBuilder.createDabAbcSearchExecuteRequest(word);
+        //Timber.d("packet:data[0]=%x ,data[1]=%x" , packet.data[0] , packet.data[1]);
+        mCarDeviceConnection.sendPacket(packet);
+    }
     /**
      * {@inheritDoc}
      */

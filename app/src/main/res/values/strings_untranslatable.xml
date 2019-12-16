@@ -126,6 +126,7 @@
     <string name="key_initial_am_step">am_step</string>
     <string name="key_initial_rear_output_preout_output">rear_output_preout_output</string>
     <string name="key_initial_rear_output">rear_output</string>
+    <string name="key_initial_antenna_power">antenna_power</string>
     <!-- Voice Recognition Setting -->
     <string name="key_voice_recognition_enabled">voice_recognition_enabled</string>
     <string name="key_voice_recognition_type">voice_recognition_type</string>

@@ -67,4 +67,15 @@ public interface InitialSettingView {
     void setRearOutputSetting(boolean isSupported,
                               boolean isEnabled,
                               @Nullable RearOutputSetting setting);
+
+    /**
+     * DAB Antenna Power設定.
+     *
+     * @param isSupported 対応しているか否か
+     * @param isEnabled   設定可能か否か
+     * @param setting     設定内容
+     */
+    void setAntennaPowerSetting(boolean isSupported,
+                              boolean isEnabled,
+                              boolean setting);
 }

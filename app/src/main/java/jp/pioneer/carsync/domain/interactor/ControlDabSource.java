@@ -2,6 +2,7 @@ package jp.pioneer.carsync.domain.interactor;
 
 import android.os.Handler;
 import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
@@ -189,6 +190,22 @@ public class ControlDabSource {
             }
 
             mSourceController.updateList();
+        });
+    }
+
+    /**
+     * ABCサーチ実行
+     *
+     * @param word サーチ文字
+     */
+    public void executeAbsSearch(@NonNull String word) {
+        mHandler.post(() -> {
+            if (!mSourceController.isActive()) {
+                Timber.w("executeAbsSearch() not active.");
+                return;
+            }
+
+            mSourceController.executeAbcSearch(word);
         });
     }
 
