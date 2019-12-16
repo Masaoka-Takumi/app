@@ -75,7 +75,6 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
     private DabBandType mDabBand;
     private HdRadioBandType mHdRadioBand;
     private TunerStatus mTunerStatus = null;
-
     /**
      * コンストラクタ
      */
@@ -87,17 +86,34 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
     void onInitialize() {
         StatusHolder holder = mStatusHolder.execute();
         mSourceType = holder.getCarDeviceStatus().sourceType;
-        if (!holder.getProtocolSpec().isSphCarDevice()&&mSourceType == MediaSourceType.RADIO) {
-            mTab = RadioTabType.FAVORITE;
-            Optional.ofNullable(getView()).ifPresent(view -> view.onNavigate(ScreenId.RADIO_FAVORITE_LIST, Bundle.EMPTY));
-        }else if(holder.getProtocolSpec().isSphCarDevice()&&mSourceType == MediaSourceType.DAB){
-            mTab = RadioTabType.DAB_STATION;
-            Optional.ofNullable(getView()).ifPresent(view -> view.onNavigate(ScreenId.DAB_SERVICE_LIST, Bundle.EMPTY));
-        }else{
-            mTab = RadioTabType.PRESET;
-            Optional.ofNullable(getView()).ifPresent(view -> view.onNavigate(ScreenId.RADIO_PRESET_LIST, Bundle.EMPTY));
-        }
-        updateView();
+        Optional.ofNullable(getView()).ifPresent(view -> {
+            if (!holder.getProtocolSpec().isSphCarDevice()&&mSourceType == MediaSourceType.RADIO) {
+                mTab = RadioTabType.FAVORITE;
+                view.onNavigate(ScreenId.RADIO_FAVORITE_LIST, Bundle.EMPTY);
+            }else if(holder.getProtocolSpec().isSphCarDevice()&&mSourceType == MediaSourceType.DAB){
+                mTab = holder.getAppStatus().dabListType;
+                switch (mTab) {
+                    case DAB_PTY:
+                        view.onNavigate(ScreenId.DAB_PTY_LIST, Bundle.EMPTY);
+                        break;
+                    case DAB_ENSEMBLE:
+                        view.onNavigate(ScreenId.DAB_ENSEMBLE_LIST, Bundle.EMPTY);
+                        break;
+                    case DAB_PRESET:
+                        view.onNavigate(ScreenId.RADIO_PRESET_LIST, Bundle.EMPTY);
+                        break;
+                    case DAB_STATION:
+                    default:
+                        view.onNavigate(ScreenId.DAB_SERVICE_LIST, Bundle.EMPTY);
+                        break;
+                }
+            }else{
+                mTab = RadioTabType.PRESET;
+                view.onNavigate(ScreenId.RADIO_PRESET_LIST, Bundle.EMPTY);
+            }
+            updateView();
+        });
+
     }
 
     @Override
@@ -126,7 +142,13 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
     void onPause() {
         mEventBus.unregister(this);
         mTunerStatus = null;
+        saveCategory();
         super.onPause();
+    }
+
+    private void saveCategory(){
+        StatusHolder holder = mStatusHolder.execute();
+        holder.getAppStatus().dabListType = mTab;
     }
 
     @Override
@@ -169,6 +191,7 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
 
     public void onDabStationAction() {
         mTab = RadioTabType.DAB_STATION;
+        saveCategory();
         updateView();
         mEventBus.post(new NavigateEvent(ScreenId.DAB_SERVICE_LIST, Bundle.EMPTY));
         mMediaCase.enterList(ListType.SERVICE_LIST);
@@ -176,12 +199,14 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
 
     public void onDabPtyAction() {
         mTab = RadioTabType.DAB_PTY;
+        saveCategory();
         updateView();
         mEventBus.post(new NavigateEvent(ScreenId.DAB_PTY_LIST, Bundle.EMPTY));
     }
 
     public void onDabEnsembleAction() {
         mTab = RadioTabType.DAB_ENSEMBLE;
+        saveCategory();
         updateView();
         mEventBus.post(new NavigateEvent(ScreenId.DAB_ENSEMBLE_LIST, Bundle.EMPTY));
         mMediaCase.enterList(ListType.ENSEMBLE_CATEGORY);
@@ -189,6 +214,7 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
 
     public void onDabPresetAction() {
         mTab = RadioTabType.DAB_PRESET;
+        saveCategory();
         updateView();
         mEventBus.post(new NavigateEvent(ScreenId.RADIO_PRESET_LIST, Bundle.EMPTY));
     }

@@ -196,7 +196,7 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
         Optional.ofNullable(getView()).ifPresent(view -> {
             if(!mCurrDab.isSearchStatus()) {
                 view.showGesture(GestureType.PCH_UP);
-                if(false&&isSphCarDevice()) {
+                if(isSphCarDevice()) {
                     int nextPreset = mSelectedPreset + 1;
                     if (nextPreset > 6) {
                         nextPreset = 1;
@@ -216,7 +216,7 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
         Optional.ofNullable(getView()).ifPresent(view -> {
             if(!mCurrDab.isSearchStatus()) {
                 view.showGesture(GestureType.PCH_DOWN);
-                if(false&&isSphCarDevice()) {
+                if(isSphCarDevice()) {
                     int previousPreset = mSelectedPreset - 1;
                     if (previousPreset <= 0) {
                         previousPreset = 6;
@@ -419,7 +419,7 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
                 view.setFavoriteVisible(false);
                 view.setServiceNumber("");
             }else {
-                view.setFavoriteVisible(!mCurrDab.timeShiftMode);
+                view.setFavoriteVisible(!mCurrDab.timeShiftMode&&!isSphCarDevice());
             }
             view.setTimeShiftVisible(mStatusHolder.execute().getCarDeviceSpec().timeShiftSupported);
             view.setTimeShift(mCurrDab.timeShiftMode,mCurrDab.timeShiftModeAvailable);
@@ -436,7 +436,7 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
             view.setFmLink(DabTextUtil.getFmLink(mContext, mCurrDab));
             view.setAntennaLevel((float) mCurrDab.antennaLevel / mCurrDab.maxAntennaLevel);
             view.setAdasEnabled((mPreference.isAdasEnabled()&&mPreference.getLastConnectedCarDeviceClassId()!= CarDeviceClassId.MARIN&&(mStatusHolder.execute().getAppStatus().adasPurchased||mPreference.getAdasTrialState() == AdasTrialState.TRIAL_DURING))||mPreference.isAdasPseudoCooperation());
-            view.setListEnabled(!mCurrDab.timeShiftMode&&status.listType != ListType.LIST_UNAVAILABLE);
+            view.setListEnabled(status.listType != ListType.LIST_UNAVAILABLE);
 
 /*            view.setServiceName("WWWWWWWWWWyyyyyyyyyyyyyyyyWWWWWWWWWWWWWWWWWWWWWWWW");
             view.setDynamicLabelText("WWWWWWWWWWWWWWWWljjjjjjjjjjjjjjjjjjjyyyyyyyyyyyxxxxxxxxxjjjjjjfhmhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhxxyhhyyyyyyyyyyyyyyy");

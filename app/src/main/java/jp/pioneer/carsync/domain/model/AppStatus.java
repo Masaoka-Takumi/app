@@ -5,6 +5,7 @@ import com.google.common.base.MoreObjects;
 import java.util.EnumSet;
 import java.util.Set;
 
+import jp.pioneer.carsync.presentation.presenter.RadioTabContainerPresenter;
 import jp.pioneer.carsync.presentation.view.fragment.screen.settings.AdasCalibrationSettingFragment;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
 
@@ -109,7 +110,8 @@ public class AppStatus {
     public MediaSourceType lastSourceBeforeYouTubeLink;
     /** YouTubeLinkWebView画面表示中 */
     public boolean isShowYouTubeLinkWebView;
-
+    /** 選択中DABリスト種別 */
+    public RadioTabContainerPresenter.RadioTabType dabListType;
     public AppStatus() {
         reset();
         isLaunchedThirdPartyAudioApp = false;
@@ -167,6 +169,7 @@ public class AppStatus {
         lastSourceOnTime = 0L;
         lastSourceBeforeYouTubeLink = null;
         isShowYouTubeLinkWebView = false;
+        dabListType =  RadioTabContainerPresenter.RadioTabType.DAB_STATION;
     }
 	/**
      * ADAS警告状態取得.
