@@ -93,4 +93,11 @@ public class UnconnectedContainerFragment extends AbstractScreenFragment<Unconne
     public void setBillingHelper() {
         ((MainActivity)getActivity()).setupBillingHelper();
     }
+
+    @Override
+    public void showAlexaAvailableConfirmDialog() {
+        if(getActivity() != null) {
+            ((MainActivity) getActivity()).showAlexaAvailableConfirmDialog();
+        }
+    }
 }

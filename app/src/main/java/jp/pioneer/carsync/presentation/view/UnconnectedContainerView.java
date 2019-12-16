@@ -7,4 +7,5 @@ import jp.pioneer.carsync.presentation.view.fragment.OnNavigateListener;
  */
 public interface UnconnectedContainerView extends OnNavigateListener {
     void setBillingHelper();
+    void showAlexaAvailableConfirmDialog();
 }

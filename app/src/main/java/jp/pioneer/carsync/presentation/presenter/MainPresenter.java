@@ -43,6 +43,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -112,6 +113,7 @@ import jp.pioneer.carsync.presentation.event.ShowCautionEvent;
 import jp.pioneer.carsync.presentation.event.StartGetRunningStatusEvent;
 import jp.pioneer.carsync.presentation.model.AdasTrialState;
 import jp.pioneer.carsync.presentation.model.SettingEntrance;
+import jp.pioneer.carsync.presentation.model.SimCountryIso;
 import jp.pioneer.carsync.presentation.model.UiColor;
 import jp.pioneer.carsync.presentation.util.Adas;
 import jp.pioneer.carsync.presentation.view.MainView;
@@ -147,6 +149,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
     public static final String TAG_DIALOG_ADAS_PURCHASE_ERROR = "adas_purchase_error";
     private static final String TAG_DIALOG_ADAS_BILLING_RESTORE_FAILURE = "adas_billing_restore_failure";
     private static final String TAG_DIALOG_ADAS_BILLING_RESTORE_SUCCESS = "adas_billing_restore_success";
+    public static final String TAG_DIALOG_ALEXA_AVAILABLE_CONFIRM = "alexa_confirm";
 
     @Inject Context mContext;
     @Inject EventBus mEventBus;
@@ -351,7 +354,11 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                         Timber.d("Overlay:setupBillingHelper");
                         view.setupBillingHelper();
                     } else {
-                        finishDeviceConnectionSuppress();
+                        if(isAlexaAvailableConfirmNeeded()) {
+                            showAlexaAvailableConfirmDialog();
+                        } else {
+                            finishDeviceConnectionSuppress();
+                        }
                     }
                 }
             }
@@ -1187,13 +1194,19 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
     }
 
     // MARK - ADAS
-    public void setAdasAvailable(boolean available){
+    public void setAdasAvailable(SimCountryIso simCountryIso){
+        List countryList = Arrays.asList(SimCountryIso.US, SimCountryIso.CA);
+        boolean available = !countryList.contains(simCountryIso);
         AppStatus appStatus = mStatusCase.execute().getAppStatus();
         if(appStatus.adasSimJudgement) {
             appStatus.isAdasAvailableCountry = available;
         }else{
             appStatus.isAdasAvailableCountry = true;
         }
+    }
+
+    public void onAlexaAvailableConfirm() {
+        mPreference.setIsAlexaAvailableConfirmShowed(true);
     }
 
     public void setPurchase(boolean isPurchased){
@@ -1408,6 +1421,23 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
             bundle.putInt(StatusPopupDialogFragment.NEGATIVE_TEXT, R.string.hom_034);
             mEventBus.post(new NavigateEvent(ScreenId.MAIN_STATUS_DIALOG, bundle));
         }
+    }
+
+    // Alexa機能利用ダイアログ表示処理
+    public void showAlexaAvailableConfirmDialog() {
+        Bundle bundle = new Bundle();
+        String text = mContext.getString(R.string.sta_014);
+        bundle.putString(StatusPopupDialogFragment.TAG, MainPresenter.TAG_DIALOG_ALEXA_AVAILABLE_CONFIRM);
+        bundle.putString(StatusPopupDialogFragment.MESSAGE, text);
+        bundle.putBoolean(StatusPopupDialogFragment.POSITIVE, true);
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                Optional.ofNullable(getView()).ifPresent(view -> {
+                    view.navigate(ScreenId.CAR_DEVICE_ERROR, bundle);
+                });
+            }
+        });
     }
 
     public void goAdasBilling() {
@@ -2597,6 +2627,37 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
     public void onCapabilitiesSendSuccess(){
         mPreference.setAlexaCapabilitiesSend(true);
+    }
+
+    public void setAlexaAvailable(SimCountryIso simCountryIso){
+        List countryList = Arrays.asList(SimCountryIso.US);
+        boolean available = countryList.contains(simCountryIso);
+        AppStatus appStatus = mStatusCase.execute().getAppStatus();
+        if(mPreference.isAlexaRequiredSimCheck()) {
+            appStatus.isAlexaAvailableCountry = available;
+        } else {
+            appStatus.isAlexaAvailableCountry = true;
+        }
+        if(!available)mPreference.setVoiceRecognitionType(VoiceRecognizeType.PIONEER_SMART_SYNC);
+    }
+
+    /**
+     * Alexa機能利用可能ダイアログを出すべきかどうかの判定
+     * TODO #5244 可能ならMainPと共通化
+     * @return
+     * {@code true}:
+     *      Alexa SIM判定を行う場合
+     *        Alexa機能が利用可能 かつ Alexa機能利用可能ダイアログを表示していない
+     *      Alexa SIM判定を行わない場合
+     *        Alexa機能利用可能ダイアログを表示していない
+     * {@code false}:それ以外
+     */
+    public boolean isAlexaAvailableConfirmNeeded() {
+        if(mPreference.isAlexaRequiredSimCheck()) {
+            return mStatusCase.execute().getAppStatus().isAlexaAvailableCountry && !mPreference.isAlexaAvailableConfirmShowed();
+        } else {
+            return !mPreference.isAlexaAvailableConfirmShowed();
+        }
     }
 
     public void onSetNaviDestination(Bundle args){

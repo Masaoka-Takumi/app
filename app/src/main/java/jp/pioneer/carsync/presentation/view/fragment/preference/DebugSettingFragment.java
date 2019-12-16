@@ -18,6 +18,7 @@ import jp.pioneer.carsync.domain.model.SmartPhoneInterruption;
 import jp.pioneer.carsync.presentation.model.TipsContentsEndpoint;
 import jp.pioneer.carsync.presentation.presenter.DebugSettingPresenter;
 import jp.pioneer.carsync.presentation.view.DebugSettingView;
+import jp.pioneer.carsync.presentation.view.activity.MainActivity;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.carsync.presentation.view.widget.NumberPickerPreference;
 import jp.pioneer.carsync.presentation.view.widget.NumberPickerPreferenceFloat;
@@ -59,6 +60,7 @@ public class DebugSettingFragment extends AbstractPreferenceFragment<DebugSettin
     private NumberPickerPreferenceFloat mAdasAccelerateZMax;
     private NumberPickerPreference mAdasFps;
     private SwitchPreferenceCompat mAdasCameraPreview;
+    private SwitchPreferenceCompat mAlexaSimJudgement;
     private final static SparseArrayCompat<SmartPhoneInterruption> INTERRUPT_LIST_ITEMS = new SparseArrayCompat<SmartPhoneInterruption>() {{
         put(0, SmartPhoneInterruption.LOW);
         put(1, SmartPhoneInterruption.MIDDLE);
@@ -250,6 +252,11 @@ public class DebugSettingFragment extends AbstractPreferenceFragment<DebugSettin
             getPresenter().onAdasCameraPreview((boolean)newValue);
             return true;
         });
+        mAlexaSimJudgement = (SwitchPreferenceCompat) findPreference("setting_debug_alexa_sim_judgement");
+        mAlexaSimJudgement.setOnPreferenceChangeListener(((preference, newValue) -> {
+            getPresenter().onAlexaSimJudgement((boolean)newValue);
+            return true;
+        }));
     }
     @Override
     public void onDisplayPreferenceDialog(Preference preference) {
@@ -409,5 +416,17 @@ public class DebugSettingFragment extends AbstractPreferenceFragment<DebugSettin
     @Override
     public void setAdasCameraPreview(boolean enabled) {
         mAdasCameraPreview.setChecked(enabled);
+    }
+
+    @Override
+    public void setAlexaSimJudgement(boolean value) {
+        mAlexaSimJudgement.setChecked(value);
+    }
+
+    @Override
+    public void recheckSim() {
+        if(getActivity() != null) {
+            ((MainActivity) getActivity()).checkSim();
+        }
     }
 }

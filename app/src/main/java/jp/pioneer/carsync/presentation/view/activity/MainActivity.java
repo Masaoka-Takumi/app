@@ -62,6 +62,7 @@ import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.application.di.component.ActivityComponent;
 import jp.pioneer.carsync.domain.model.CarDeviceErrorType;
 import jp.pioneer.carsync.presentation.controller.MainFragmentController;
+import jp.pioneer.carsync.presentation.model.SimCountryIso;
 import jp.pioneer.carsync.presentation.model.UiColor;
 import jp.pioneer.carsync.presentation.presenter.MainPresenter;
 import jp.pioneer.carsync.presentation.presenter.ReadingMessageDialogPresenter;
@@ -676,29 +677,10 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
     public void setCountryCode(){
         Timber.d("setCountryCode");
         String countryCode="";
-        boolean isAvailable = false;
 
-        String[] countryList = {"us","ca"};
-        final TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
-        int simState = 0;
-        if(tm!=null) {
-            simState = tm.getSimState();
-            Timber.d("simState=" + simState);
-            //SIMが刺さっていない場合は問答無用で使用不可
-			//GalaxyJ3ProでSIMが刺さっていない場合SIM_STATE_UNKNOWNが返る
-            switch (simState) {
-                case TelephonyManager.SIM_STATE_ABSENT: //SimState = “No Sim Found!”;
-                case TelephonyManager.SIM_STATE_UNKNOWN: //SimState = “Unknown SIM State!”;
-                    isAvailable = false;
-                    break;
-                case TelephonyManager.SIM_STATE_NETWORK_LOCKED: //SimState = “Network Locked!”;
-                case TelephonyManager.SIM_STATE_PIN_REQUIRED: //SimState = “PIN Required to access SIM!”;
-                case TelephonyManager.SIM_STATE_PUK_REQUIRED: //SimState = “PUK Required to access SIM!”; // Personal Unblocking Code
-                case TelephonyManager.SIM_STATE_READY:
-                default:
-                    isAvailable = true;
-                    break;
-            }
+        if(!canCheckSim()) {
+            // SIMが入っていない場合はなにもしない
+            return;
         }
 
         if(Build.VERSION.SDK_INT >= 22) {
@@ -725,22 +707,44 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
                 Timber.e("getActiveSubscriptionInfoList:SecurityException:" + e.getMessage());
             }
         }else{
+            final TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
             if(tm!=null) {
                 countryCode = tm.getSimCountryIso();
             }
         }
         Log.d("MainActivity: ", "CountryIso : " + countryCode);
-        if (countryCode != null && countryCode.length() == 2) { // SIM country code is available
-            for(String code : countryList){
-                if(code.equals(countryCode.toLowerCase(Locale.US))){
-                    isAvailable = false;
-                    break;
-                }
-            }
-        }
-        getPresenter().setAdasAvailable(isAvailable);
+
+        getPresenter().setAlexaAvailable(SimCountryIso.getEnum(countryCode));
+        getPresenter().setAdasAvailable(SimCountryIso.getEnum(countryCode));
     }
 
+    /**
+     * SIM状態の確認
+     * MainActivity#setCountry()で利用されることを想定
+     * @return {@code: true}:SIMが入っている {@code: false}:SIMが入っていない
+     */
+    private boolean canCheckSim() {
+        final TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+        if(tm == null) {
+            return false;
+        }
+
+        int simState = tm.getSimState();
+        Timber.d("simState=" + simState);
+        //SIMが刺さっていない場合は問答無用で使用不可
+        //GalaxyJ3ProでSIMが刺さっていない場合SIM_STATE_UNKNOWNが返る
+        switch (simState) {
+            case TelephonyManager.SIM_STATE_ABSENT: //SimState = “No Sim Found!”;
+            case TelephonyManager.SIM_STATE_UNKNOWN: //SimState = “Unknown SIM State!”;
+                return false;
+            case TelephonyManager.SIM_STATE_NETWORK_LOCKED: //SimState = “Network Locked!”;
+            case TelephonyManager.SIM_STATE_PIN_REQUIRED: //SimState = “PIN Required to access SIM!”;
+            case TelephonyManager.SIM_STATE_PUK_REQUIRED: //SimState = “PUK Required to access SIM!”; // Personal Unblocking Code
+            case TelephonyManager.SIM_STATE_READY:
+            default:
+                return true;
+        }
+    }
     /**
      * ステータスバーを非表示状態にします。
      */
@@ -1419,6 +1423,14 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
             }else if(tag.equals(MainPresenter.TAG_DIALOG_ADAS_BILLING_STATUS_ERROR)){
                 getPresenter().showAdasBillingStatusFailureDialog();
             }else if(tag.equals(MainPresenter.TAG_DIALOG_ADAS_BILLING_STATUS_FAILURE)){
+                if(getPresenter().isAlexaAvailableConfirmNeeded()) {
+                    getPresenter().showAlexaAvailableConfirmDialog();
+                } else {
+                    getPresenter().finishDeviceConnectionSuppress();
+                }
+            } else if(tag.equals(MainPresenter.TAG_DIALOG_ALEXA_AVAILABLE_CONFIRM)) {
+                // TODO #5244 Alexa機能利用ダイアログ OKクリック後
+                getPresenter().onAlexaAvailableConfirm();
                 getPresenter().finishDeviceConnectionSuppress();
             }
         }
@@ -1608,11 +1620,21 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
 
                 if (!result.isSuccess()) {
                     Log.d(TAG,"Problem setting up in-app billing");
-                    getPresenter().finishDeviceConnectionSuppress();
+                    // TODO #5244 失敗
+                    if(getPresenter().isAlexaAvailableConfirmNeeded()) {
+                        getPresenter().showAlexaAvailableConfirmDialog();
+                    } else {
+                        getPresenter().finishDeviceConnectionSuppress();
+                    }
                     return;
                 }
                 if (mHelper == null) {
-                    getPresenter().finishDeviceConnectionSuppress();
+                    // TODO #5244 失敗
+                    if(getPresenter().isAlexaAvailableConfirmNeeded()) {
+                        getPresenter().showAlexaAvailableConfirmDialog();
+                    } else {
+                        getPresenter().finishDeviceConnectionSuppress();
+                    }
                     return;
                 }
                 mIsBillingSetupFinished = true;
@@ -1636,11 +1658,17 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
             Log.d(TAG, "Query inventory finished.");
 
             if (mHelper == null) {
-                getPresenter().finishDeviceConnectionSuppress();
+                // TODO #5244 失敗
+                if(getPresenter().isAlexaAvailableConfirmNeeded()) {
+                    getPresenter().showAlexaAvailableConfirmDialog();
+                } else {
+                    getPresenter().finishDeviceConnectionSuppress();
+                }
                 return;
             }
             if (result.isFailure()) {
                 Log.d(TAG, "Error Query inventory: " + result);
+                // TODO #5244 失敗
                 getPresenter().showAdasBillingStatusErrorDialog();
                 getPresenter().setPurchase(mIsPremium);
                 return;
@@ -1650,11 +1678,17 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
             // mIsPremiumにbooleanで結果が返ってくるので、それに応じて変化、分岐させればいいです。
             Purchase premiumPurchase = inventory.getPurchase(PRODUCT_ID);
             if (premiumPurchase == null) {
+                // TODO #5244 失敗
                 getPresenter().showAdasBillingStatusErrorDialog();
                 mIsPremium = false;
             }else{
                 mIsPremium = true;
-                getPresenter().finishDeviceConnectionSuppress();
+                // TODO #5244 成功
+                if(getPresenter().isAlexaAvailableConfirmNeeded()) {
+                    getPresenter().showAlexaAvailableConfirmDialog();
+                } else {
+                    getPresenter().finishDeviceConnectionSuppress();
+                }
             }
             getPresenter().setPurchase(mIsPremium);
             Log.d(TAG, "User is " + (mIsPremium ? "PREMIUM" : "NOT PREMIUM"));
@@ -1840,6 +1874,13 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
             //mAmazonAlexaManager.finishAmazonAlexa(this);
             mAmazonAlexaManager.onActivityPause();
         }
+    }
+
+    /**
+     * Alexa機能利用可能ダイアログ表示(Tips画面用 UnconnectedContainerFragment)
+     */
+    public void showAlexaAvailableConfirmDialog() {
+        getPresenter().showAlexaAvailableConfirmDialog();
     }
 
     /**

@@ -88,6 +88,7 @@ public class DebugSettingPresenter extends Presenter<DebugSettingView> {
             view.setAdasAccelerateZMax(appStatus.adasAccelerateZRangeMax);
             view.setAdasFps(appStatus.adasFps);
             view.setAdasCameraPreview(appStatus.adasCameraView);
+            view.setAlexaSimJudgement(mPreference.isAlexaRequiredSimCheck());
         });
     }
 
@@ -293,5 +294,22 @@ public class DebugSettingPresenter extends Presenter<DebugSettingView> {
     public void onAdasCameraPreview(boolean newValue){
         mStatusCase.execute().getAppStatus().adasCameraView = newValue;
         Optional.ofNullable(getView()).ifPresent(view -> view.setAdasCameraPreview(newValue));
+    }
+
+    public void onAlexaSimJudgement(boolean newValue){
+        mPreference.setIsAlexaRequiredSimCheck(newValue);
+        {
+            // TODO #5244 デバッグ用
+            mPreference.setIsAlexaAvailableConfirmShowed(false);
+        }
+        Optional.ofNullable(getView()).ifPresent(view ->{
+            view.setAlexaSimJudgement(newValue);
+            if(newValue){
+                view.recheckSim();
+            }
+        });
+        if(!newValue) {
+            mStatusCase.execute().getAppStatus().isAlexaAvailableCountry = true;
+        }
     }
 }

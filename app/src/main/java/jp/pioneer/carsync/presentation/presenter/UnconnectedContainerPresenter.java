@@ -57,9 +57,33 @@ public class UnconnectedContainerPresenter extends Presenter<UnconnectedContaine
                     if(mPreference.isAdasBillingRecord()&&!mStatusCase.execute().getAppStatus().adasBillingCheck) {
                         Timber.d("Overlay:setBillingHelper");
                         view.setBillingHelper();
+                    } else {
+                        if(isAlexaAvailableConfirmNeeded()) {
+                            view.showAlexaAvailableConfirmDialog();
+                        }
                     }
                 });
             }
         });
     }
+
+    /**
+     * Alexa機能利用可能ダイアログを出すべきかどうかの判定
+     * TODO #5244 可能ならMainPと共通化
+     * @return
+     * {@code true}:
+     *      Alexa SIM判定を行う場合
+     *        Alexa機能が利用可能 かつ Alexa機能利用可能ダイアログを表示していない
+     *      Alexa SIM判定を行わない場合
+     *        Alexa機能利用可能ダイアログを表示していない
+     * {@code false}:それ以外
+     */
+    private boolean isAlexaAvailableConfirmNeeded() {
+        if(mPreference.isAlexaRequiredSimCheck()) {
+            return mStatusCase.execute().getAppStatus().isAlexaAvailableCountry && !mPreference.isAlexaAvailableConfirmShowed();
+        } else {
+            return !mPreference.isAlexaAvailableConfirmShowed();
+        }
+    }
+
 }

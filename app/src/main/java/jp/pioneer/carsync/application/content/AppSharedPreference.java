@@ -773,6 +773,24 @@ public class AppSharedPreference {
      * @see #setYouTubeLinkCautionNoDisplayAgain(boolean)
      */
     public static final String KEY_YOUTUBE_LINK_CAUTION_NO_DISPLAY_AGAIN = "youtube_link_caution_no_display_again";
+    /**
+     * Preferenceキー:Alexa機能利用可能ダイアログを表示したかどうか
+     * <p>
+     * 既定値:{@link #DEFAULT_IS_ALEXA_AVAILABLE_CONFIRM_SHOWED}
+     *
+     * @see #isAlexaAvailableConfirmShowed()
+     * @see #setIsAlexaAvailableConfirmShowed(boolean)
+     */
+    public static final String KEY_IS_ALEXA_AVAILABLE_CONFIRM_SHOWED = "is_alexa_available_confirm_showed";
+    /**
+     * Preferenceキー:Alexa SIM判定(対応国判定)を行うかどうか
+     * <p>
+     * 既定値:{@link #DEFAULT_IS_ALEXA_REQUIRED_SIM_CHECK}
+     *
+     * @see #isAlexaRequiredSimCheck()
+     * @see #setIsAlexaRequiredSimCheck(boolean)
+     */
+    public static final String KEY_IS_ALEXA_REQUIRED_SIM_CHECK = "is_alexa_need_sim_check";
 
     private static final boolean DEFAULT_LOG_ENABLED = false;
     private static final int DEFAULT_APP_VERSION_CODE = 1;
@@ -847,6 +865,8 @@ public class AppSharedPreference {
     private static final String DEFAULT_CUSTOM_KEY_MUSIC_APP = new Gson().toJson(new Application(MusicApp.GOOGLE_PLAY_MUSIC.getPackageName(), ""));;
     private static final boolean DEFAULT_YOUTUBE_LINK_SETTING_ENABLED = false;
     private static final boolean DEFAULT_YOUTUBE_LINK_CAUTION_NO_DISPLAY_AGAIN = false;
+    private static final boolean DEFAULT_IS_ALEXA_AVAILABLE_CONFIRM_SHOWED = false;
+    private static final boolean DEFAULT_IS_ALEXA_REQUIRED_SIM_CHECK = true;
     private final SharedPreferences mPreferences;
     private final Object mContent = new Object();
     private final WeakHashMap<OnAppSharedPreferenceChangeListener, Object> mListeners = new WeakHashMap<>();
@@ -2716,6 +2736,7 @@ public class AppSharedPreference {
             setAdasBillingRecord(DEFAULT_ADAS_BILLING_RECORD);
             return DEFAULT_ADAS_BILLING_RECORD;
         }
+//        return true;
     }
 
     /**
@@ -3454,6 +3475,68 @@ public class AppSharedPreference {
     public AppSharedPreference setYouTubeLinkCautionNoDisplayAgain(boolean isNoDisplayAgain){
         mPreferences.edit()
                 .putBoolean(KEY_YOUTUBE_LINK_CAUTION_NO_DISPLAY_AGAIN, isNoDisplayAgain)
+                .apply();
+        return this;
+    }
+
+    /**
+     * Alexa機能利用可能ダイアログを表示したかどうかのフラグ取得
+     *
+     * @return {@code true}:表示済み　{@code false}:未表示
+     * @see #setIsAlexaAvailableConfirmShowed(boolean)
+     * @see #KEY_IS_ALEXA_AVAILABLE_CONFIRM_SHOWED
+     */
+    public boolean isAlexaAvailableConfirmShowed(){
+        if(mPreferences.contains(KEY_IS_ALEXA_AVAILABLE_CONFIRM_SHOWED)) {
+            return mPreferences.getBoolean(KEY_IS_ALEXA_AVAILABLE_CONFIRM_SHOWED, DEFAULT_IS_ALEXA_AVAILABLE_CONFIRM_SHOWED);
+        } else {
+            setIsAlexaAvailableConfirmShowed(DEFAULT_IS_ALEXA_AVAILABLE_CONFIRM_SHOWED);
+            return DEFAULT_IS_ALEXA_AVAILABLE_CONFIRM_SHOWED;
+        }
+    }
+
+    /**
+     * Alexa機能利用可能ダイアログを表示したかどうかのフラグ設定
+     *
+     * @param isShowed {@code true}:表示済み　{@code false}:未表示
+     * @return 本オブジェクト
+     * @see #isAlexaAvailableConfirmShowed()
+     * @see #KEY_IS_ALEXA_AVAILABLE_CONFIRM_SHOWED
+     */
+    public AppSharedPreference setIsAlexaAvailableConfirmShowed(boolean isShowed){
+        mPreferences.edit()
+                .putBoolean(KEY_IS_ALEXA_AVAILABLE_CONFIRM_SHOWED, isShowed)
+                .apply();
+        return this;
+    }
+
+    /**
+     * Alexa SIM判定を行うかどうかのフラグ取得
+     *
+     * @return {@code true}:SIM判定実施する　{@code: false}:SIM判定実施しない
+     * @see #setIsAlexaRequiredSimCheck(boolean)
+     * @see #KEY_IS_ALEXA_REQUIRED_SIM_CHECK
+     */
+    public boolean isAlexaRequiredSimCheck(){
+        if(mPreferences.contains(KEY_IS_ALEXA_REQUIRED_SIM_CHECK)) {
+            return mPreferences.getBoolean(KEY_IS_ALEXA_REQUIRED_SIM_CHECK, DEFAULT_IS_ALEXA_REQUIRED_SIM_CHECK);
+        } else {
+            setIsAlexaRequiredSimCheck(DEFAULT_IS_ALEXA_REQUIRED_SIM_CHECK);
+            return DEFAULT_IS_ALEXA_REQUIRED_SIM_CHECK;
+        }
+    }
+
+    /**
+     * Alexa SIM判定を行うかどうかのフラグ設定
+     *
+     * @param needSimCheck {@code true}:SIM判定実施する　{@code false}:SIM判定実施しない
+     * @return 本オブジェクト
+     * @see #isAlexaRequiredSimCheck()
+     * @see #KEY_IS_ALEXA_REQUIRED_SIM_CHECK
+     */
+    public AppSharedPreference setIsAlexaRequiredSimCheck(boolean needSimCheck){
+        mPreferences.edit()
+                .putBoolean(KEY_IS_ALEXA_REQUIRED_SIM_CHECK, needSimCheck)
                 .apply();
         return this;
     }
