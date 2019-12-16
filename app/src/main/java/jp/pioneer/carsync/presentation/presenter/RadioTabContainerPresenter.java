@@ -29,6 +29,7 @@ import jp.pioneer.carsync.domain.model.DabBandType;
 import jp.pioneer.carsync.domain.model.DabInfo;
 import jp.pioneer.carsync.domain.model.HdRadioBandType;
 import jp.pioneer.carsync.domain.model.HdRadioInfo;
+import jp.pioneer.carsync.domain.model.ListType;
 import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.RadioBandType;
 import jp.pioneer.carsync.domain.model.RadioInfo;
@@ -170,6 +171,7 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
         mTab = RadioTabType.DAB_STATION;
         updateView();
         mEventBus.post(new NavigateEvent(ScreenId.DAB_SERVICE_LIST, Bundle.EMPTY));
+        mMediaCase.enterList(ListType.SERVICE_LIST);
     }
 
     public void onDabPtyAction() {
@@ -182,6 +184,7 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
         mTab = RadioTabType.DAB_ENSEMBLE;
         updateView();
         mEventBus.post(new NavigateEvent(ScreenId.DAB_ENSEMBLE_LIST, Bundle.EMPTY));
+        mMediaCase.enterList(ListType.ENSEMBLE_CATEGORY);
     }
 
     public void onDabPresetAction() {

@@ -82,13 +82,7 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
     private ArrayList<AbstractPresetItem> mUserPreset = new ArrayList<>();
     private Cursor mUserPresetCursor=null;
     private ArrayList<AbstractPresetItem> mRadioPresetList = new ArrayList<>();
-    /** 仮想的に作成するDBのカラム名 */
-/*    private static final String[] FROM = {
-            TunerContract.ListItemContract.ListItemBaseColumns._ID,
-            TunerContract.ListItemContract.ListItemBaseColumns.LIST_INDEX,
-            TunerContract.ListItemContract.ListItemBaseColumns.TEXT,
-    };
-    private MatrixCursor mCursor = new MatrixCursor(FROM);*/
+
     /**
      * コンストラクタ
      */

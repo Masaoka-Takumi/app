@@ -17,6 +17,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import javax.inject.Inject;
 
 import jp.pioneer.carsync.domain.event.ListInfoChangeEvent;
+import jp.pioneer.carsync.domain.interactor.ControlDabSource;
 import jp.pioneer.carsync.domain.interactor.ControlMediaList;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.model.DabBandType;
@@ -35,15 +36,26 @@ public class DabServiceListPresenter extends Presenter<DabServiceListView> imple
     @Inject GetStatusHolder mStatusHolder;
     @Inject ControlMediaList mMediaCase;
     @Inject CarDeviceMediaRepository mCarDeviceMediaRepository;
+    @Inject ControlDabSource mControlCase;
     private MediaSourceType mSourceType;
     private LoaderManager mLoaderManager;
     private DabBandType mDabBand;
+    /** 仮想的に作成するDBのカラム名 */
+/*   private static final String[] FROM = {
+            TunerContract.ListItemContract.ListItemBaseColumns._ID,
+            TunerContract.ListItemContract.ListItemBaseColumns.LIST_INDEX,
+            TunerContract.ListItemContract.ListItemBaseColumns.TEXT,
+    };
+    private MatrixCursor mCursor = new MatrixCursor(FROM);*/
     /**
      * コンストラクタ
      */
     @Inject
     public DabServiceListPresenter() {
-
+/*        mCursor.addRow(new String[]{"1", "1", "satousan"});
+        mCursor.addRow(new String[]{"2", "2", "suzukisan"});
+        mCursor.addRow(new String[]{"3", "3", "tanakasan"});
+        mCursor.moveToFirst();*/
     }
     @Override
     void onInitialize() {
@@ -124,6 +136,10 @@ public class DabServiceListPresenter extends Presenter<DabServiceListView> imple
     public synchronized void OnListInfoChangeEvent(ListInfoChangeEvent ev) {
         if(mSourceType == MediaSourceType.DAB) {
             updateFocus();
+/*            ListInfo info = mStatusHolder.execute().getListInfo();
+            if(info.abcSearchResult) {
+                updateFocus();
+            }*/
         }
     }
 
@@ -156,5 +172,9 @@ public class DabServiceListPresenter extends Presenter<DabServiceListView> imple
 
     public void onSelectList(int listIndex, Cursor cursor) {
         mMediaCase.selectListItem(listIndex);
+    }
+
+    public void executeAbcSearch(String word){
+        mControlCase.executeAbsSearch(word);
     }
 }

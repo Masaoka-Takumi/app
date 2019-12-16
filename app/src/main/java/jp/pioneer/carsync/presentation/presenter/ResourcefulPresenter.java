@@ -752,7 +752,10 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
     public void onListTypeChangeEvent(ListTypeChangeEvent event) {
         ListType type = mStatusHolder.getCarDeviceStatus().listType;
         if(mCurrentListType == null || mCurrentListType == ListType.NOT_LIST) {
-            if (type == ListType.PCH_LIST || type == ListType.LIST || type == ListType.ABC_SEARCH_LIST||type == ListType.SERVICE_LIST) {
+            if (type == ListType.PCH_LIST || type == ListType.LIST || type == ListType.ABC_SEARCH_LIST
+                    ||type == ListType.SERVICE_LIST || type == ListType.PTY_NEWS_INFO_LIST || type == ListType.PTY_POPULER_LIST
+                    || type == ListType.PTY_CLASSICS_LIST || type == ListType.PTY_OYHERS_LIST
+                    || type == ListType.ENSEMBLE_CATEGORY || type == ListType.ENSEMBLE_LIST) {
                 Optional.ofNullable(getView()).ifPresent(view -> {
                     if (AppUtil.isScreenOn(mContext)) {
                         view.dispatchEnterList();

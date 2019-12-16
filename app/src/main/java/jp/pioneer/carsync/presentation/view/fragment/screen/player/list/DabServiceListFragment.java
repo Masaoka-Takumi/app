@@ -9,12 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnItemClick;
 import butterknife.Unbinder;
 import jp.pioneer.carsync.R;
@@ -30,6 +32,7 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
         implements DabServiceListView {
     @Inject DabServiceListPresenter mPresenter;
     @BindView(R.id.list_view) ListView mListView;
+    @BindView(R.id.abc_search_bar) ImageView mSearchBar;
     private ServiceListAdapter mServiceListAdapter;
     private Unbinder mUnbinder;
     /**
@@ -53,7 +56,7 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list_music, container, false);
+        View view = inflater.inflate(R.layout.fragment_service_list, container, false);
         mUnbinder = ButterKnife.bind(this, view);
 
         mServiceListAdapter = new ServiceListAdapter(getContext(), null, false);
@@ -119,4 +122,8 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
         getPresenter().onSelectList(selectIndex, cursor);
     }
 
+    @OnClick(R.id.abc_search_bar)
+    public void onClickSearchBar(){
+        getPresenter().executeAbcSearch("A");
+    }
 }
