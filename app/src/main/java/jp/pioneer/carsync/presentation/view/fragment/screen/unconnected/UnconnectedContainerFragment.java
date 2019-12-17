@@ -100,4 +100,9 @@ public class UnconnectedContainerFragment extends AbstractScreenFragment<Unconne
             ((MainActivity) getActivity()).showAlexaAvailableConfirmDialog();
         }
     }
+
+    @Override
+    public ScreenId getScreenIdInContainer() {
+        return mFragmentController.getScreenIdInContainer();
+    }
 }

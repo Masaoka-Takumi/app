@@ -58,7 +58,8 @@ public class UnconnectedContainerPresenter extends Presenter<UnconnectedContaine
                         Timber.d("Overlay:setBillingHelper");
                         view.setBillingHelper();
                     } else {
-                        if(isAlexaAvailableConfirmNeeded()) {
+                        if(isAlexaAvailableConfirmNeeded() && view.getScreenIdInContainer() == ScreenId.TIPS) {
+                            // TODO #5244 非同期だけどいいの？
                             view.showAlexaAvailableConfirmDialog();
                         }
                     }
