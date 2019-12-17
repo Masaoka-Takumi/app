@@ -1,5 +1,7 @@
 package jp.pioneer.carsync.presentation.model;
 
+import java.util.Locale;
+
 public enum SimCountryIso {
     US("us"), // アメリカ
     CA("ca"), // カナダ
@@ -18,8 +20,11 @@ public enum SimCountryIso {
     }
 
     public static SimCountryIso getEnum(String countryIso) {
+        if(countryIso == null) {
+            return NO_AVAILABLE;
+        }
         for (SimCountryIso value : values()) {
-            if (value.getCountryIso().equals(countryIso)) {
+            if (value.getCountryIso().equals(countryIso.toLowerCase(Locale.US))) {
                 return value;
             }
         }

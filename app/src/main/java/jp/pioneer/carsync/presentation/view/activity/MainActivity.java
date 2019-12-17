@@ -676,12 +676,51 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
     @NeedsPermission(Manifest.permission.READ_PHONE_STATE)
     public void setCountryCode(){
         Timber.d("setCountryCode");
-        String countryCode="";
+        SimCountryIso simCountryIso = getCountryIso();
+        getPresenter().setAlexaAvailable(simCountryIso);
+        getPresenter().setAdasAvailable(simCountryIso);
+    }
 
-        if(!canCheckSim()) {
-            // SIMが入っていない場合はなにもしない
-            return;
+    /**
+     * SIM状態の確認
+     * MainActivity#getCountryIsoで利用されることを想定
+     * @return {@code: true}:SIMが入っている {@code: false}:SIMが入っていない
+     */
+    private boolean canCheckSim() {
+        final TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+        if(tm == null) {
+            return false;
         }
+
+        int simState = tm.getSimState();
+        Timber.d("simState=" + simState);
+        //SIMが刺さっていない場合は問答無用で使用不可
+        //GalaxyJ3ProでSIMが刺さっていない場合SIM_STATE_UNKNOWNが返る
+        switch (simState) {
+            case TelephonyManager.SIM_STATE_ABSENT: //SimState = “No Sim Found!”;
+            case TelephonyManager.SIM_STATE_UNKNOWN: //SimState = “Unknown SIM State!”;
+                return false;
+            case TelephonyManager.SIM_STATE_NETWORK_LOCKED: //SimState = “Network Locked!”;
+            case TelephonyManager.SIM_STATE_PIN_REQUIRED: //SimState = “PIN Required to access SIM!”;
+            case TelephonyManager.SIM_STATE_PUK_REQUIRED: //SimState = “PUK Required to access SIM!”; // Personal Unblocking Code
+            case TelephonyManager.SIM_STATE_READY:
+            default:
+                return true;
+        }
+    }
+
+    /**
+     * SIM判定処理
+     * 取得できない場合(MainActivity#canCheckSimで判定)や国が定義されていない場合は
+     * SimCountryIso#NO_AVAILABLEを返す
+     * @return SimCountryIso 対応した値、対応値がなければNO_AVAILABLE
+     */
+    private SimCountryIso getCountryIso() {
+        if(!canCheckSim()) {
+            return SimCountryIso.NO_AVAILABLE;
+        }
+
+        String countryCode="";
 
         if(Build.VERSION.SDK_INT >= 22) {
             final SubscriptionManager subscriptionManager;
@@ -714,37 +753,9 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
         }
         Log.d("MainActivity: ", "CountryIso : " + countryCode);
 
-        getPresenter().setAlexaAvailable(SimCountryIso.getEnum(countryCode));
-        getPresenter().setAdasAvailable(SimCountryIso.getEnum(countryCode));
+        return SimCountryIso.getEnum(countryCode);
     }
 
-    /**
-     * SIM状態の確認
-     * MainActivity#setCountry()で利用されることを想定
-     * @return {@code: true}:SIMが入っている {@code: false}:SIMが入っていない
-     */
-    private boolean canCheckSim() {
-        final TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
-        if(tm == null) {
-            return false;
-        }
-
-        int simState = tm.getSimState();
-        Timber.d("simState=" + simState);
-        //SIMが刺さっていない場合は問答無用で使用不可
-        //GalaxyJ3ProでSIMが刺さっていない場合SIM_STATE_UNKNOWNが返る
-        switch (simState) {
-            case TelephonyManager.SIM_STATE_ABSENT: //SimState = “No Sim Found!”;
-            case TelephonyManager.SIM_STATE_UNKNOWN: //SimState = “Unknown SIM State!”;
-                return false;
-            case TelephonyManager.SIM_STATE_NETWORK_LOCKED: //SimState = “Network Locked!”;
-            case TelephonyManager.SIM_STATE_PIN_REQUIRED: //SimState = “PIN Required to access SIM!”;
-            case TelephonyManager.SIM_STATE_PUK_REQUIRED: //SimState = “PUK Required to access SIM!”; // Personal Unblocking Code
-            case TelephonyManager.SIM_STATE_READY:
-            default:
-                return true;
-        }
-    }
     /**
      * ステータスバーを非表示状態にします。
      */
