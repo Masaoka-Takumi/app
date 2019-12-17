@@ -298,10 +298,6 @@ public class DebugSettingPresenter extends Presenter<DebugSettingView> {
 
     public void onAlexaSimJudgement(boolean newValue){
         mPreference.setIsAlexaRequiredSimCheck(newValue);
-        {
-            // TODO #5244 デバッグ用
-            mPreference.setIsAlexaAvailableConfirmShowed(false);
-        }
         Optional.ofNullable(getView()).ifPresent(view ->{
             view.setAlexaSimJudgement(newValue);
             if(newValue){

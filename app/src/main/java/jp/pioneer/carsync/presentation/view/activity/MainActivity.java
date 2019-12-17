@@ -1440,7 +1440,6 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
                     getPresenter().finishDeviceConnectionSuppress();
                 }
             } else if(tag.equals(MainPresenter.TAG_DIALOG_ALEXA_AVAILABLE_CONFIRM)) {
-                // TODO #5244 Alexa機能利用ダイアログ OKクリック後
                 getPresenter().onAlexaAvailableConfirm();
                 getPresenter().finishDeviceConnectionSuppress();
             }
@@ -1631,7 +1630,6 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
 
                 if (!result.isSuccess()) {
                     Log.d(TAG,"Problem setting up in-app billing");
-                    // TODO #5244 失敗
                     if(getPresenter().isAlexaAvailableConfirmNeeded()) {
                         getPresenter().showAlexaAvailableConfirmDialog();
                     } else {
@@ -1640,7 +1638,6 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
                     return;
                 }
                 if (mHelper == null) {
-                    // TODO #5244 失敗
                     if(getPresenter().isAlexaAvailableConfirmNeeded()) {
                         getPresenter().showAlexaAvailableConfirmDialog();
                     } else {
@@ -1669,7 +1666,6 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
             Log.d(TAG, "Query inventory finished.");
 
             if (mHelper == null) {
-                // TODO #5244 失敗
                 if(getPresenter().isAlexaAvailableConfirmNeeded()) {
                     getPresenter().showAlexaAvailableConfirmDialog();
                 } else {
@@ -1679,7 +1675,6 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
             }
             if (result.isFailure()) {
                 Log.d(TAG, "Error Query inventory: " + result);
-                // TODO #5244 失敗
                 getPresenter().showAdasBillingStatusErrorDialog();
                 getPresenter().setPurchase(mIsPremium);
                 return;
@@ -1689,12 +1684,10 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
             // mIsPremiumにbooleanで結果が返ってくるので、それに応じて変化、分岐させればいいです。
             Purchase premiumPurchase = inventory.getPurchase(PRODUCT_ID);
             if (premiumPurchase == null) {
-                // TODO #5244 失敗
                 getPresenter().showAdasBillingStatusErrorDialog();
                 mIsPremium = false;
             }else{
                 mIsPremium = true;
-                // TODO #5244 成功
                 if(getPresenter().isAlexaAvailableConfirmNeeded()) {
                     getPresenter().showAlexaAvailableConfirmDialog();
                 } else {

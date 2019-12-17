@@ -2736,7 +2736,6 @@ public class AppSharedPreference {
             setAdasBillingRecord(DEFAULT_ADAS_BILLING_RECORD);
             return DEFAULT_ADAS_BILLING_RECORD;
         }
-//        return true;
     }
 
     /**
