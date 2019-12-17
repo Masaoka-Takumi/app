@@ -1195,7 +1195,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
     // MARK - ADAS
     public void setAdasAvailable(SimCountryIso simCountryIso){
-        List countryList = Arrays.asList(SimCountryIso.US, SimCountryIso.CA);
+        List countryList = Arrays.asList(SimCountryIso.US, SimCountryIso.CA, SimCountryIso.NO_AVAILABLE);
         boolean available = !countryList.contains(simCountryIso);
         AppStatus appStatus = mStatusCase.execute().getAppStatus();
         if(appStatus.adasSimJudgement) {
