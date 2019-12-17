@@ -110,13 +110,9 @@ public class UnconnectedFragmentController {
     }
 
     public void clearBackStack() {
-        for(int i = 0;i<mFragmentManager.getBackStackEntryCount(); i++){
-            Fragment fragment = mFragmentManager.findFragmentById(mContainerViewId);
-            if(fragment instanceof TipsFragment){
-                return;
-            }
-
-            mFragmentManager.popBackStackImmediate();
+        if (mFragmentManager.getBackStackEntryCount() > 0) {
+            FragmentManager.BackStackEntry entry = mFragmentManager.getBackStackEntryAt(0);
+            mFragmentManager.popBackStack(entry.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     }
 
