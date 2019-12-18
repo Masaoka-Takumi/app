@@ -300,12 +300,7 @@ public class DebugSettingPresenter extends Presenter<DebugSettingView> {
         mPreference.setIsAlexaRequiredSimCheck(newValue);
         Optional.ofNullable(getView()).ifPresent(view ->{
             view.setAlexaSimJudgement(newValue);
-            if(newValue){
-                view.recheckSim();
-            }
+            view.recheckSim();
         });
-        if(!newValue) {
-            mStatusCase.execute().getAppStatus().isAlexaAvailableCountry = true;
-        }
     }
 }

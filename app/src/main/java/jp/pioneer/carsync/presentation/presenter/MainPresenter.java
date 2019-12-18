@@ -1425,6 +1425,9 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
     // Alexa機能利用ダイアログ表示処理
     public void showAlexaAvailableConfirmDialog() {
+        if(!mStatusCase.execute().getAppStatus().deviceConnectionSuppress) {
+            startDeviceConnectionSuppress();
+        }
         Bundle bundle = new Bundle();
         String text = mContext.getString(R.string.sta_014);
         bundle.putString(StatusPopupDialogFragment.TAG, MainPresenter.TAG_DIALOG_ALEXA_AVAILABLE_CONFIRM);
@@ -2643,11 +2646,16 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
         boolean available = countryList.contains(simCountryIso);
         if(mPreference.isAlexaRequiredSimCheck()) {
             appStatus.isAlexaAvailableCountry = available;
+            if(!available) {
+                // Alexaが利用不可能な場合は音声認識のタイプをPSSにする
+                mPreference.setVoiceRecognitionType(VoiceRecognizeType.PIONEER_SMART_SYNC);
+            }
         } else {
             appStatus.isAlexaAvailableCountry = true;
         }
-        if(!available) {
-            mPreference.setVoiceRecognitionType(VoiceRecognizeType.PIONEER_SMART_SYNC);
+        // Alexa利用可能ダイアログを出す必要がある場合は連携抑制開始
+        if(isAlexaAvailableConfirmNeeded() && !appStatus.deviceConnectionSuppress) {
+            startDeviceConnectionSuppress();
         }
     }
 
