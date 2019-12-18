@@ -2638,7 +2638,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
         }
 
         // デバッグ版ではデバッグ設定のSIM判定がONなら、その結果を採用する
-        // SIM判定がOFFの場合は常にAlexa利用可能とする
+        // SIM判定がOFFの場合は常にAlexa利用可能とする(SIM判定 DefaultはON)
         List countryList = Arrays.asList(SimCountryIso.US);
         boolean available = countryList.contains(simCountryIso);
         if(mPreference.isAlexaRequiredSimCheck()) {
@@ -2653,21 +2653,12 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
     /**
      * Alexa機能利用可能ダイアログを出すべきかどうかの判定
-     * TODO #5244 可能ならMainPと共通化
      * @return
-     * {@code true}:
-     *      Alexa SIM判定を行う場合
-     *        Alexa機能が利用可能 かつ Alexa機能利用可能ダイアログを表示していない
-     *      Alexa SIM判定を行わない場合
-     *        Alexa機能利用可能ダイアログを表示していない
-     * {@code false}:それ以外
+     * {@code true}:Alexa機能が利用可能かつAlexa機能利用可能ダイアログを未表示
+     * {@code false}:それ以外(Alexa機能が利用不可能またはAlexa機能利用可能ダイアログを表示済み)
      */
     public boolean isAlexaAvailableConfirmNeeded() {
-        if(mPreference.isAlexaRequiredSimCheck()) {
-            return mStatusCase.execute().getAppStatus().isAlexaAvailableCountry && !mPreference.isAlexaAvailableConfirmShowed();
-        } else {
-            return !mPreference.isAlexaAvailableConfirmShowed();
-        }
+        return mStatusCase.execute().getAppStatus().isAlexaAvailableCountry && !mPreference.isAlexaAvailableConfirmShowed();
     }
 
     public void onSetNaviDestination(Bundle args){
