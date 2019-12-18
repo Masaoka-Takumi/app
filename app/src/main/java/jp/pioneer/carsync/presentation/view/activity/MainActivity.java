@@ -62,6 +62,7 @@ import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.application.di.component.ActivityComponent;
 import jp.pioneer.carsync.domain.model.CarDeviceErrorType;
 import jp.pioneer.carsync.presentation.controller.MainFragmentController;
+import jp.pioneer.carsync.presentation.model.SimCountryIso;
 import jp.pioneer.carsync.presentation.model.UiColor;
 import jp.pioneer.carsync.presentation.presenter.MainPresenter;
 import jp.pioneer.carsync.presentation.presenter.ReadingMessageDialogPresenter;
@@ -675,31 +676,51 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
     @NeedsPermission(Manifest.permission.READ_PHONE_STATE)
     public void setCountryCode(){
         Timber.d("setCountryCode");
-        String countryCode="";
-        boolean isAvailable = false;
+        SimCountryIso simCountryIso = getCountryIso();
+        getPresenter().setAlexaAvailable(simCountryIso);
+        getPresenter().setAdasAvailable(simCountryIso);
+    }
 
-        String[] countryList = {"us","ca"};
+    /**
+     * SIM状態の確認
+     * MainActivity#getCountryIsoで利用されることを想定
+     * @return {@code: true}:SIMが入っている {@code: false}:SIMが入っていない
+     */
+    private boolean canCheckSim() {
         final TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
-        int simState = 0;
-        if(tm!=null) {
-            simState = tm.getSimState();
-            Timber.d("simState=" + simState);
-            //SIMが刺さっていない場合は問答無用で使用不可
-			//GalaxyJ3ProでSIMが刺さっていない場合SIM_STATE_UNKNOWNが返る
-            switch (simState) {
-                case TelephonyManager.SIM_STATE_ABSENT: //SimState = “No Sim Found!”;
-                case TelephonyManager.SIM_STATE_UNKNOWN: //SimState = “Unknown SIM State!”;
-                    isAvailable = false;
-                    break;
-                case TelephonyManager.SIM_STATE_NETWORK_LOCKED: //SimState = “Network Locked!”;
-                case TelephonyManager.SIM_STATE_PIN_REQUIRED: //SimState = “PIN Required to access SIM!”;
-                case TelephonyManager.SIM_STATE_PUK_REQUIRED: //SimState = “PUK Required to access SIM!”; // Personal Unblocking Code
-                case TelephonyManager.SIM_STATE_READY:
-                default:
-                    isAvailable = true;
-                    break;
-            }
+        if(tm == null) {
+            return false;
         }
+
+        int simState = tm.getSimState();
+        Timber.d("simState=" + simState);
+        //SIMが刺さっていない場合は問答無用で使用不可
+        //GalaxyJ3ProでSIMが刺さっていない場合SIM_STATE_UNKNOWNが返る
+        switch (simState) {
+            case TelephonyManager.SIM_STATE_ABSENT: //SimState = “No Sim Found!”;
+            case TelephonyManager.SIM_STATE_UNKNOWN: //SimState = “Unknown SIM State!”;
+                return false;
+            case TelephonyManager.SIM_STATE_NETWORK_LOCKED: //SimState = “Network Locked!”;
+            case TelephonyManager.SIM_STATE_PIN_REQUIRED: //SimState = “PIN Required to access SIM!”;
+            case TelephonyManager.SIM_STATE_PUK_REQUIRED: //SimState = “PUK Required to access SIM!”; // Personal Unblocking Code
+            case TelephonyManager.SIM_STATE_READY:
+            default:
+                return true;
+        }
+    }
+
+    /**
+     * SIM判定処理
+     * 取得できない場合(MainActivity#canCheckSimで判定)や国が定義されていない場合は
+     * SimCountryIso#NO_AVAILABLEを返す
+     * @return SimCountryIso 対応した値、対応値がなければNO_AVAILABLE
+     */
+    private SimCountryIso getCountryIso() {
+        if(!canCheckSim()) {
+            return SimCountryIso.NO_AVAILABLE;
+        }
+
+        String countryCode="";
 
         if(Build.VERSION.SDK_INT >= 22) {
             final SubscriptionManager subscriptionManager;
@@ -725,20 +746,14 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
                 Timber.e("getActiveSubscriptionInfoList:SecurityException:" + e.getMessage());
             }
         }else{
+            final TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
             if(tm!=null) {
                 countryCode = tm.getSimCountryIso();
             }
         }
         Log.d("MainActivity: ", "CountryIso : " + countryCode);
-        if (countryCode != null && countryCode.length() == 2) { // SIM country code is available
-            for(String code : countryList){
-                if(code.equals(countryCode.toLowerCase(Locale.US))){
-                    isAvailable = false;
-                    break;
-                }
-            }
-        }
-        getPresenter().setAdasAvailable(isAvailable);
+
+        return SimCountryIso.getEnum(countryCode);
     }
 
     /**
@@ -1419,6 +1434,13 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
             }else if(tag.equals(MainPresenter.TAG_DIALOG_ADAS_BILLING_STATUS_ERROR)){
                 getPresenter().showAdasBillingStatusFailureDialog();
             }else if(tag.equals(MainPresenter.TAG_DIALOG_ADAS_BILLING_STATUS_FAILURE)){
+                if(getPresenter().isAlexaAvailableConfirmNeeded()) {
+                    getPresenter().showAlexaAvailableConfirmDialog();
+                } else {
+                    getPresenter().finishDeviceConnectionSuppress();
+                }
+            } else if(tag.equals(MainPresenter.TAG_DIALOG_ALEXA_AVAILABLE_CONFIRM)) {
+                getPresenter().onAlexaAvailableConfirm();
                 getPresenter().finishDeviceConnectionSuppress();
             }
         }
@@ -1608,11 +1630,19 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
 
                 if (!result.isSuccess()) {
                     Log.d(TAG,"Problem setting up in-app billing");
-                    getPresenter().finishDeviceConnectionSuppress();
+                    if(getPresenter().isAlexaAvailableConfirmNeeded()) {
+                        getPresenter().showAlexaAvailableConfirmDialog();
+                    } else {
+                        getPresenter().finishDeviceConnectionSuppress();
+                    }
                     return;
                 }
                 if (mHelper == null) {
-                    getPresenter().finishDeviceConnectionSuppress();
+                    if(getPresenter().isAlexaAvailableConfirmNeeded()) {
+                        getPresenter().showAlexaAvailableConfirmDialog();
+                    } else {
+                        getPresenter().finishDeviceConnectionSuppress();
+                    }
                     return;
                 }
                 mIsBillingSetupFinished = true;
@@ -1636,7 +1666,11 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
             Log.d(TAG, "Query inventory finished.");
 
             if (mHelper == null) {
-                getPresenter().finishDeviceConnectionSuppress();
+                if(getPresenter().isAlexaAvailableConfirmNeeded()) {
+                    getPresenter().showAlexaAvailableConfirmDialog();
+                } else {
+                    getPresenter().finishDeviceConnectionSuppress();
+                }
                 return;
             }
             if (result.isFailure()) {
@@ -1654,7 +1688,11 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
                 mIsPremium = false;
             }else{
                 mIsPremium = true;
-                getPresenter().finishDeviceConnectionSuppress();
+                if(getPresenter().isAlexaAvailableConfirmNeeded()) {
+                    getPresenter().showAlexaAvailableConfirmDialog();
+                } else {
+                    getPresenter().finishDeviceConnectionSuppress();
+                }
             }
             getPresenter().setPurchase(mIsPremium);
             Log.d(TAG, "User is " + (mIsPremium ? "PREMIUM" : "NOT PREMIUM"));
@@ -1840,6 +1878,13 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
             //mAmazonAlexaManager.finishAmazonAlexa(this);
             mAmazonAlexaManager.onActivityPause();
         }
+    }
+
+    /**
+     * Alexa機能利用可能ダイアログ表示(Tips画面用 UnconnectedContainerFragment)
+     */
+    public void showAlexaAvailableConfirmDialog() {
+        getPresenter().showAlexaAvailableConfirmDialog();
     }
 
     /**

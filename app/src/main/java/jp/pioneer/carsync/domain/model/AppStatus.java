@@ -95,6 +95,8 @@ public class AppStatus {
     public boolean isShowAlexaDialog;
     /** Alexa画面表示前のソース */
     public MediaSourceType alexaPreviousSourceType;
+    /** Alexa対応国 */
+    public boolean isAlexaAvailableCountry;
     /** 音声認識画面表示中 */
     public boolean isShowSpeechRecognizerDialog;
     /** 連携の抑制状態 */
@@ -133,6 +135,7 @@ public class AppStatus {
         homeCenterViewAdas =false;
         adasCameraView = false;
         alexaAuthenticated=false;
+        isAlexaAvailableCountry = false;
         deviceConnectionSuppress = false;
         lastDirectSource = null;
         lastSourceOnTime = 0L;

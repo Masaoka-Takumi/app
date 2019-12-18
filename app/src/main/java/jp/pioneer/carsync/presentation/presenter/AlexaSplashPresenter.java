@@ -51,7 +51,7 @@ public class AlexaSplashPresenter extends Presenter<AlexaSplashView> {
             }
         });
         mPreference.setVoiceRecognitionType(VoiceRecognizeType.ALEXA);
-        mEventBus.post(new NavigateEvent(ScreenId.ALEXA_EXAMPLE_USAGE, createSettingsParams(mContext.getString(R.string.set_318))));
+        mEventBus.post(new NavigateEvent(ScreenId.ALEXA_EXAMPLE_USAGE, createSettingsParams(mContext.getString(R.string.set_318), ScreenId.ALEXA_SPLASH)));
     }
 
     public void onCapabilitiesSendSuccess(){
@@ -76,9 +76,10 @@ public class AlexaSplashPresenter extends Presenter<AlexaSplashView> {
         }
     }
 
-    private Bundle createSettingsParams(String pass) {
+    private Bundle createSettingsParams(String pass, ScreenId screenId) {
         SettingsParams params = new SettingsParams();
         params.pass = pass;
+        params.mScreenId = screenId;
         return params.toBundle();
     }
 }
