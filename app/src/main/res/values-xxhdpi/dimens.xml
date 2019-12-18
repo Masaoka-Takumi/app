@@ -289,6 +289,15 @@
     <dimen name="radio_preset_button_margin">-6dp</dimen>
     <dimen name="radio_preset_title_text_size">27dp</dimen>
 
+    <!-- DAB Service List -->
+    <dimen name="dab_abc_search_bar_width">58dp</dimen>
+    <dimen name="dab_abc_search_bar_portrait_height">509dp</dimen>
+    <dimen name="dab_abc_search_bar_landscape_height">307dp</dimen>
+    <dimen name="dab_abc_search_bar_portrait_margin">26.5dp</dimen>
+    <dimen name="dab_abc_search_bar_landscape_margin">20dp</dimen>
+    <dimen name="dab_abc_search_popup_width">158dp</dimen>
+    <dimen name="dab_abc_search_popup_text_size">96dp</dimen>
+
     <!-- Player List -->
     <dimen name="player_list_item_album_art_width_portrait">120dp</dimen>
     <dimen name="player_list_item_album_art_width_land">133dp</dimen>

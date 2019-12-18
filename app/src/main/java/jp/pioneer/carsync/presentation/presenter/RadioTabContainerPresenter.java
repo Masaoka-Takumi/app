@@ -40,6 +40,7 @@ import jp.pioneer.carsync.presentation.event.GoBackEvent;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
 import jp.pioneer.carsync.presentation.view.RadioTabContainerView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
+import timber.log.Timber;
 
 /**
  * Created by NSW00_008316 on 2017/05/19.
@@ -91,6 +92,28 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
                 mTab = RadioTabType.FAVORITE;
                 view.onNavigate(ScreenId.RADIO_FAVORITE_LIST, Bundle.EMPTY);
             }else if(holder.getProtocolSpec().isSphCarDevice()&&mSourceType == MediaSourceType.DAB){
+                ListType listType = mStatusHolder.execute().getCarDeviceStatus().listType;
+                Timber.d("listType="+ listType);
+                switch (listType){
+                    case SERVICE_LIST:
+                    case ABC_SEARCH_LIST:
+                        break;
+                    case PTY_NEWS_INFO_LIST:
+                    case PTY_POPULER_LIST:
+                    case PTY_CLASSICS_LIST:
+                    case PTY_OYHERS_LIST:
+                        view.onNavigate(ScreenId.DAB_SERVICE_LIST, Bundle.EMPTY);
+                        mTab = RadioTabType.DAB_PTY;
+                        return;
+                    case ENSEMBLE_LIST:
+                        view.onNavigate(ScreenId.DAB_SERVICE_LIST, Bundle.EMPTY);
+                        mTab = RadioTabType.DAB_ENSEMBLE;
+                        return;
+                    case  ENSEMBLE_CATEGORY:
+                        view.onNavigate(ScreenId.DAB_ENSEMBLE_LIST, Bundle.EMPTY);
+                        mTab = RadioTabType.DAB_ENSEMBLE;
+                        return;
+                }
                 mTab = holder.getAppStatus().dabListType;
                 switch (mTab) {
                     case DAB_PTY:
@@ -113,7 +136,6 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
             }
             updateView();
         });
-
     }
 
     @Override
@@ -135,6 +157,7 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
         if (!mEventBus.isRegistered(this)) {
             mEventBus.register(this);
         }
+        updateView();
         super.onResume();
     }
 
@@ -224,7 +247,7 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
         mSourceType = holder.getCarDeviceStatus().sourceType;
 
         Optional.ofNullable(getView()).ifPresent(view -> {
-            view.setTabLayout(mSourceType,holder.getProtocolSpec().isSphCarDevice());
+            view.setTabLayout(mSourceType, holder.getProtocolSpec().isSphCarDevice());
             if (mSourceType == MediaSourceType.RADIO) {
                 RadioInfo info = holder.getCarDeviceMediaInfoHolder().radioInfo;
                 if (mTunerStatus != info.tunerStatus) {

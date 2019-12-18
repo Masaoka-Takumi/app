@@ -2,6 +2,7 @@ package jp.pioneer.carsync.presentation.presenter;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
+import jp.pioneer.carsync.domain.content.TunerContract;
 import jp.pioneer.carsync.domain.event.ListInfoChangeEvent;
 import jp.pioneer.carsync.domain.interactor.ControlDabSource;
 import jp.pioneer.carsync.domain.interactor.ControlMediaList;
@@ -41,22 +43,27 @@ public class DabServiceListPresenter extends Presenter<DabServiceListView> imple
     private LoaderManager mLoaderManager;
     private DabBandType mDabBand;
     /** 仮想的に作成するDBのカラム名 */
-/*   private static final String[] FROM = {
+    private static final String[] FROM = {
             TunerContract.ListItemContract.ListItemBaseColumns._ID,
             TunerContract.ListItemContract.ListItemBaseColumns.LIST_INDEX,
             TunerContract.ListItemContract.ListItemBaseColumns.TEXT,
     };
-    private MatrixCursor mCursor = new MatrixCursor(FROM);*/
+    private MatrixCursor mCursor = new MatrixCursor(FROM);
+
     /**
      * コンストラクタ
      */
     @Inject
     public DabServiceListPresenter() {
-/*        mCursor.addRow(new String[]{"1", "1", "satousan"});
+        mCursor.addRow(new String[]{"1", "1", "satousan"});
         mCursor.addRow(new String[]{"2", "2", "suzukisan"});
         mCursor.addRow(new String[]{"3", "3", "tanakasan"});
-        mCursor.moveToFirst();*/
+        for(int i = 0;i<=30;i++){
+            mCursor.addRow(new String[]{"3", "3", "tanakasan"});
+        }
+        mCursor.moveToFirst();
     }
+
     @Override
     void onInitialize() {
         mSourceType = mStatusHolder.execute().getCarDeviceStatus().sourceType;
@@ -92,7 +99,7 @@ public class DabServiceListPresenter extends Presenter<DabServiceListView> imple
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle bundle) {
-        if(id == LOADER_ID_SERVICE_LIST) {
+        if (id == LOADER_ID_SERVICE_LIST) {
             if (mSourceType == MediaSourceType.DAB) {
                 return mCarDeviceMediaRepository.getDabList();
             }
@@ -103,9 +110,9 @@ public class DabServiceListPresenter extends Presenter<DabServiceListView> imple
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
         int id = loader.getId();
-        if(id == LOADER_ID_SERVICE_LIST) {
+        if (id == LOADER_ID_SERVICE_LIST) {
             if (mSourceType == MediaSourceType.DAB) {
-                Optional.ofNullable(getView()).ifPresent(view -> view.setCursor(cursor));
+                Optional.ofNullable(getView()).ifPresent(view -> view.setCursor(cursor, mStatusHolder.execute().getCarDeviceStatus().listType));
                 //onLoadFinishedが何度も呼ばれてsetCursorするとFocus表示が消えるため。
                 updateFocus();
             }
@@ -134,12 +141,12 @@ public class DabServiceListPresenter extends Presenter<DabServiceListView> imple
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public synchronized void OnListInfoChangeEvent(ListInfoChangeEvent ev) {
-        if(mSourceType == MediaSourceType.DAB) {
+        if (mSourceType == MediaSourceType.DAB) {
             updateFocus();
-/*            ListInfo info = mStatusHolder.execute().getListInfo();
-            if(info.abcSearchResult) {
-                updateFocus();
-            }*/
+            ListInfo info = mStatusHolder.execute().getListInfo();
+            Optional.ofNullable(getView()).ifPresent(view -> {
+                view.setAbcSearchResult(info.abcSearchResult);
+            });
         }
     }
 
@@ -159,7 +166,7 @@ public class DabServiceListPresenter extends Presenter<DabServiceListView> imple
         mLoaderManager.restartLoader(LOADER_ID_SERVICE_LIST, args, this);
     }
 
-    private void updateFocus(){
+    private void updateFocus() {
         StatusHolder holder = mStatusHolder.execute();
         ListInfo info = holder.getListInfo();
         int position = info.focusListIndex - 1;
@@ -174,7 +181,7 @@ public class DabServiceListPresenter extends Presenter<DabServiceListView> imple
         mMediaCase.selectListItem(listIndex);
     }
 
-    public void executeAbcSearch(String word){
-        mControlCase.executeAbsSearch(word);
+    public void executeAbcSearch(String searchText) {
+        mControlCase.executeAbsSearch(searchText);
     }
 }
