@@ -79,6 +79,7 @@
     <string name="setting_debug_adas_accelerate_z_range_max">キャリブレーション有効最大Z</string>
     <string name="setting_debug_adas_fps">ADASのFPS設定</string>
     <string name="setting_debug_adas_camera_view">ADASのカメラプレビュー表示</string>
+    <string name="setting_debug_alexa_sim_judgement">Alexa SIM判定</string>
 
     <!-- Amazon Alexa-->
     <string name="alexa_language_locale_english_us">en-US</string>

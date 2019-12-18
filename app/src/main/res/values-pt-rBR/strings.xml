@@ -265,7 +265,6 @@
     <string name="set_313">Francês</string>
     <string name="set_314">Amazon Alexa</string>
     <string name="set_315">O seu dispositivo inclui acesso à Alexa.\nConecte-se à sua conta da Amazon para acessar recursos personalizados.</string>
-    <string name="set_316">Alexa allows you to use your voice to play music, get the news, sports scores, check the weather, and more.  All you have to do is ask Alexa.</string>
     <string name="set_317">Conecte-se via Amazon</string>
     <string name="set_318">Coisas para experimentar</string>
     <string name="set_319">Como está o tempo?\nReproduza o meu Flash Briefing\nQual é a altura do Monte Everest?\nVai chover hoje?</string>
@@ -332,18 +331,7 @@
     <string name="set_389">Botão personalizado</string>
     <string name="set_393">Aguardando a conexão automática</string>
     <string name="set_394">Desabilitando esta configuração, a conexão automática com o rádio não ocorrerá</string>
-    <string name="set_396">Pioneer Smart Sync uses your mobile device\'s microphone.</string>
     <string name="set_402">Energia da antena</string>
-    <string name="set_403">Placement Guidance</string>
-    <string name="set_404">Let\'s start with setting your phone</string>
-    <string name="set_405">For your safety and optimal Amazon Alexa experience, we suggest using a cradle mount to secure your phone to be in arm\'s reach.</string>
-    <string name="set_406">How to use Alexa</string>
-    <string name="set_407">Tips</string>
-    <string name="set_408">Ask Alexa by tapping the Alexa button</string>
-    <string name="set_409">Using something like a Map app to show where to go</string>
-    <string name="set_410">Long press the rotary dial can easily take you back to PSS</string>
-    <string name="set_411">Let\'s get started</string>
-    <string name="set_412">How to use</string>
     <string name="sta_004">CUIDADO:</string>
     <string name="sta_005">Concordo</string>
     <string name="sta_008">Somente use uma função quando for seguro e permitido em seu local. Preste atenção na estrada e arredores, e obedeça a todas as regras de trânsito.\n\nFunções operadas com um smartphone são meramente ferramentas disponíveis ao motorista. \nO motorista deve observar um comportamento de dirigir seguro e sensato em todas as circunstâncias.</string>
@@ -352,7 +340,6 @@
     <string name="sta_011">É perigoso assistir ao vídeo enquanto dirige. Assista apenas quando estiver estacionado.</string>
     <string name="sta_012">Não será exibido na próxima vez</string>
     <string name="sta_013">A exibição do vídeo é desabilitada quando o veículo está em movimento.</string>
-    <string name="sta_014">You can now use Alexa</string>
     <string name="hom_006">Sistema</string>
     <string name="hom_008">Áudio</string>
     <string name="hom_012">Informações</string>

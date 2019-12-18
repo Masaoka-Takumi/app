@@ -1,6 +1,7 @@
 package jp.pioneer.carsync.presentation.view.fragment.screen.unconnected;
 
 import android.annotation.SuppressLint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -23,6 +24,8 @@ import jp.pioneer.carsync.presentation.view.TipsWebView;
 import jp.pioneer.carsync.presentation.view.activity.MainActivity;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.carsync.presentation.view.fragment.screen.AbstractScreenFragment;
+import jp.pioneer.carsync.presentation.view.fragment.screen.settings.SettingsContainerFragment;
+import timber.log.Timber;
 
 /**
  * Tips Web View 画面
@@ -54,7 +57,19 @@ public class TipsWebFragment extends AbstractScreenFragment<TipsWebPresenter, Ti
         mWebView.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                return false;
+                Uri requestURL = request.getUrl();
+                Timber.i("TipsWebF shouldOver Uri=%s scheme=%s, host=%s", requestURL, requestURL.getScheme(), requestURL.getHost());
+                return getPresenter().navigateScreen(request);
+            }
+
+            @SuppressWarnings("deprecation")
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                int position = url.indexOf("://");
+                String scheme = url.substring(0, position);
+                String host = url.substring(position + "://".length());
+                Timber.i("TipsWebF shouldOverrideUrlLoading deprecated url=%s scheme=%s, host=%s", url, scheme, host);
+                return getPresenter().navigateScreen(scheme, host);
             }
         });
         return view;
@@ -67,6 +82,12 @@ public class TipsWebFragment extends AbstractScreenFragment<TipsWebPresenter, Ti
         if(getActivity() instanceof MainActivity){
             ((MainActivity)getActivity()).hideStatusBar();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Timber.i("TipsWebF onDestroy");
     }
 
     @Override

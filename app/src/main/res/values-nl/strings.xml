@@ -266,7 +266,6 @@
     <string name="set_313">Frans</string>
     <string name="set_314">Amazon Alexa</string>
     <string name="set_315">Via uw apparaat krijgt u toegang tot Alexa.\nMaak verbinding met uw Amazon-account voor toegang tot gepersonaliseerde functies.</string>
-    <string name="set_316">Alexa allows you to use your voice to play music, get the news, sports scores, check the weather, and more.  All you have to do is ask Alexa.</string>
     <string name="set_317">Aanmelden met Amazon</string>
     <string name="set_318">Dingen om te proberen</string>
     <string name="set_319">Welk weer is het?\nMijn kort overzicht afspelen\nHoe hoog is Mount Everest?\nGaat het regenen vandaag?</string>
@@ -333,18 +332,7 @@
     <string name="set_389">Aangepaste instellingen per knop</string>
     <string name="set_393">Wachten op automatische verbinding</string>
     <string name="set_394">Als u deze instelling UIT zet, voorkomt u dat de autoradio automatisch verbinding maakt.</string>
-    <string name="set_396">Pioneer Smart Sync uses your mobile device\'s microphone.</string>
     <string name="set_402">DAB Antenne voeding</string>
-    <string name="set_403">Placement Guidance</string>
-    <string name="set_404">Let\'s start with setting your phone</string>
-    <string name="set_405">For your safety and optimal Amazon Alexa experience, we suggest using a cradle mount to secure your phone to be in arm\'s reach.</string>
-    <string name="set_406">How to use Alexa</string>
-    <string name="set_407">Tips</string>
-    <string name="set_408">Ask Alexa by tapping the Alexa button</string>
-    <string name="set_409">Using something like a Map app to show where to go</string>
-    <string name="set_410">Long press the rotary dial can easily take you back to PSS</string>
-    <string name="set_411">Let\'s get started</string>
-    <string name="set_412">How to use</string>
     <string name="sta_004">VOORZICHTIG:</string>
     <string name="sta_005">Akkoord</string>
     <string name="sta_008">Gebruik een functie alleen wanneer dit veilig en wettelijk kan op uw locatie. Let op de weg en uw omgeving en leef alle verkeersregels na.\n\nFuncties die worden gebruikt met een smartphone zijn slechts hulpmiddelen die beschikbaar zijn voor de bestuurder. \nDe bestuurder dient in alle omstandigheden op een veilige en verantwoorde manier te rijden.</string>
@@ -353,7 +341,6 @@
     <string name="sta_011">Het is gevaarlijk om video te kijken tijdens het rijden. Bekijk videos alleen als u geparkeerd staat. </string>
     <string name="sta_012">Wordt de volgende keer niet weergegeven</string>
     <string name="sta_013">Omdat het voertuig in beweging is, is de videoweergave UITGESCHAKELD.</string>
-    <string name="sta_014">You can now use Alexa</string>
     <string name="hom_006">Systeem</string>
     <string name="hom_008">Geluid</string>
     <string name="hom_012">Informatie</string>

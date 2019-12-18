@@ -97,5 +97,7 @@ public interface DebugSettingView {
     void setAdasAccelerateZMax(float value);
     void setAdasFps(int value);
     void setAdasCameraPreview(boolean enabled);
+    void setAlexaSimJudgement(boolean value);
+    void recheckSim();
 
 }

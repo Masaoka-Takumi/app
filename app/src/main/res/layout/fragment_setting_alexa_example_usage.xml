@@ -1,148 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:autofit="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <LinearLayout
+    <include
+        layout="@layout/element_setting_alexa_title"
+        android:id="@+id/alexa_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/navigate_bar_height"
-        android:background="@color/alexa_setting_main_color"
-        android:gravity="center_vertical"
-        android:layoutDirection="ltr"
-        android:orientation="horizontal">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/indicator"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/alexa_title" />
 
-        <ImageView
-            android:id="@+id/back_button"
-            android:layout_width="@dimen/navigate_bar_back_button_width"
-            android:layout_height="@dimen/navigate_bar_back_button_width"
-            android:layout_marginLeft="@dimen/navigate_bar_padding"
-            android:clickable="true"
-            android:focusable="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/p0002_backbtn_1nrm"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/directory_pass_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="18dp"
-            android:layout_weight="1"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif-light"
-            android:gravity="left|center_vertical"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:text="@string/set_318"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/navigate_bar_path_text_size" />
-
-        <ImageView
-            android:id="@+id/next_button"
-            android:layout_width="@dimen/navigate_bar_back_button_width"
-            android:layout_height="@dimen/navigate_bar_back_button_width"
-            android:layout_marginRight="@dimen/navigate_bar_padding"
-            android:clickable="true"
-            android:focusable="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/p1501_backbtn_1nrm"
-            android:visibility="visible" />
-    </LinearLayout>
-
-    <android.support.constraint.ConstraintLayout
+    <com.viewpagerindicator.CirclePageIndicator
+        android:id="@+id/indicator"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="@dimen/alexa_tutorial_circle_page_indicator_height"
+        style="@style/AlexaTutorialCircleIndicator"
+        app:layout_constraintTop_toBottomOf="@id/viewPager"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="@dimen/alexa_setting_image_width"
-            android:layout_height="@dimen/alexa_setting_image_height"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/alexa_setting_image_margin_top"
-            android:scaleType="fitCenter"
-            android:src="@drawable/p1600_amazon_alexa_splash_logo"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <me.grantland.widget.AutofitTextView
-            android:id="@+id/text_view1"
-            android:layout_width="@dimen/alexa_setting_description_text_width"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/alexa_setting_text_margin_top"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center"
-            android:lineSpacingMultiplier="@dimen/line_spacing_multiplier_1_2"
-            android:maxLines="7"
-            android:text="@string/set_319"
-            android:textColor="@color/alexa_setting_text_color"
-            android:textSize="@dimen/alexa_setting_description_text_size1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image" />
-
-        <View
-            android:id="@+id/horizontal_line"
-            android:layout_width="@dimen/alexa_setting_horizontal_line_width"
-            android:layout_height="1dp"
-            android:layout_marginTop="30dp"
-            android:background="@color/alexa_setting_sub_text_color"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view1" />
-
-        <me.grantland.widget.AutofitTextView
-            android:id="@+id/text_view_link"
-            android:layout_width="@dimen/alexa_setting_horizontal_line_width"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center"
-            android:lineSpacingMultiplier="@dimen/line_spacing_multiplier_1_2"
-            android:maxLines="2"
-            android:text="@string/set_320"
-            android:textColor="@color/alexa_setting_sub_text_color"
-            android:textSize="@dimen/alexa_setting_description_text_size3"
-            app:layout_constraintBottom_toTopOf="@+id/sign_in_btn_group"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/horizontal_line"
-            app:layout_constraintVertical_bias="0.1" />
-
-        <me.grantland.widget.AutofitLayout
-            android:id="@+id/sign_out_btn_group"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/easy_pairing_add_device_button_group_height"
-            android:layout_marginBottom="@dimen/alexa_setting_button_Bottom_margin"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintWidth_max="@dimen/alexa_setting_button_width">
-
-            <Button
-                android:id="@+id/sign_out_btn"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/alexa_setting_logout_color"
-                android:ellipsize="end"
-                android:fontFamily="sans-serif-light"
-                android:gravity="center"
-                android:maxLines="1"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:singleLine="true"
-                android:text="@string/set_321"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/easy_pairing_add_device_button_text_size"
-                autofit:minTextSize="@dimen/min_text_size_8" />
-        </me.grantland.widget.AutofitLayout>
-    </android.support.constraint.ConstraintLayout>
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

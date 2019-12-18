@@ -30,7 +30,9 @@ import jp.pioneer.carsync.presentation.view.fragment.OnGoBackListener;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.VideoPlayerDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.screen.AbstractScreenFragment;
+import jp.pioneer.carsync.presentation.view.fragment.screen.unconnected.UnconnectedContainerFragment;
 
+import static jp.pioneer.carsync.presentation.view.fragment.ScreenId.ALEXA_SETTING;
 import static jp.pioneer.carsync.presentation.view.fragment.ScreenId.EQ_PRO_SETTING;
 import static jp.pioneer.carsync.presentation.view.fragment.ScreenId.EQ_QUICK_SETTING;
 import static jp.pioneer.carsync.presentation.view.fragment.ScreenId.MENU_DISPLAY_LANGUAGE_DIALOG;
@@ -151,6 +153,10 @@ public class SettingsContainerFragment extends AbstractScreenFragment<SettingsCo
         }
 
         if (mFragmentController.getScreenIdInContainer() == ScreenId.SETTINGS_ENTRANCE) {
+            //Unconnected画面から遷移した場合はバックスタックで戻る
+            if(getParentFragment() != null && getParentFragment() instanceof UnconnectedContainerFragment){
+                return false;
+            }
             getPresenter().onCloseAction();
             return true;
         }
@@ -184,6 +190,16 @@ public class SettingsContainerFragment extends AbstractScreenFragment<SettingsCo
         if (mFragmentController.getScreenIdInContainer() == ScreenId.CAR_SAFETY_SETTINGS) {
             getPresenter().onGoSettingTop();
             return true;
+        }
+
+        if (mFragmentController.getScreenIdInContainer() == ScreenId.ALEXA_EXAMPLE_USAGE) {
+            AlexaExampleUsageFragment fragment = (AlexaExampleUsageFragment) mFragmentController.getContainerFragment();
+            if (fragment.onBackViewPagerAction()) {
+                return true;
+            } else if(fragment.getPresenter().getBeforeScreenId(fragment.getArguments()) != ALEXA_SETTING) {
+                // Alexa設定画面以外(Alexa Splash画面)から遷移してきた場合はなにもしない
+                return true;
+            }
         }
 
         if (mFragmentController.goBack()) {

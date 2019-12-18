@@ -67,8 +67,8 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
         Optional.ofNullable(getView()).ifPresent(view ->
         {
             //TODO:Alexaを塞ぐ
-            view.setVoiceRecognitionVisible(!mIsDebug);
-            view.setVoiceRecognitionTypeVisible(mIsDebug);
+            view.setVoiceRecognitionVisible(!(mIsDebug && appStatus.isAlexaAvailableCountry));
+            view.setVoiceRecognitionTypeVisible(mIsDebug && appStatus.isAlexaAvailableCountry);
             view.setVoiceRecognitionEnabled(mPreference.isVoiceRecognitionEnabled());
             view.setVoiceRecognitionType(mPreference.getVoiceRecognitionType());
             view.setVoiceRecognitionTypeEnabled(true);

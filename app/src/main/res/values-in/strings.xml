@@ -262,7 +262,6 @@
     <string name="set_313">Perancis</string>
     <string name="set_314">Amazon Alexa</string>
     <string name="set_315">Perangkat Anda mencakup akses ke Alexa. Hubungkan akun Amazon Anda untuk mengakses fitur pribadi.</string>
-    <string name="set_316">Alexa allows you to use your voice to play music, get the news, sports scores, check the weather, and more.  All you have to do is ask Alexa.</string>
     <string name="set_317">Masuk dengan Amazon</string>
     <string name="set_318">Hal yang Harus Dicoba</string>
     <string name="set_319">Bagaimana cuacanya?\nPutar Flash pengarahan \nBerapa tinggi Gunung Everest?\nApakah hari ini akan hujan?</string>
@@ -329,18 +328,7 @@
     <string name="set_389">Pengaturan tombol penyesuaian</string>
     <string name="set_393">Menunggu Koneksi Otomatis</string>
     <string name="set_394">Mematikan pengaturan ini akan membuat penerima tidak terhubung secara otomatis.</string>
-    <string name="set_396">Pioneer Smart Sync uses your mobile device\'s microphone.</string>
     <string name="set_402">Daya Antena</string>
-    <string name="set_403">Placement Guidance</string>
-    <string name="set_404">Let\'s start with setting your phone</string>
-    <string name="set_405">For your safety and optimal Amazon Alexa experience, we suggest using a cradle mount to secure your phone to be in arm\'s reach.</string>
-    <string name="set_406">How to use Alexa</string>
-    <string name="set_407">Tips</string>
-    <string name="set_408">Ask Alexa by tapping the Alexa button</string>
-    <string name="set_409">Using something like a Map app to show where to go</string>
-    <string name="set_410">Long press the rotary dial can easily take you back to PSS</string>
-    <string name="set_411">Let\'s get started</string>
-    <string name="set_412">How to use</string>
     <string name="sta_004">Peringatan</string>
     <string name="sta_005">Setuju</string>
     <string name="sta_008">Hanya gunakan fungsi saat aman dan legal di lokasi Anda, perhatikan jalan dan sekeliling Anda, serta patuhi semua aturan lalu lintas.\n\nFungsi yang dioperasikan dengan ponsel cerdas hanyalah alat yang tersedia untuk pengemudi. \nPengemudi harus memperhatikan perilaku berkendara yang aman dan bijaksana dalam semua situasi</string>
@@ -349,7 +337,6 @@
     <string name="sta_011">Berbahaya melihat video saat mengemudi. Harap melihat hanya sesudah parkir.</string>
     <string name="sta_012">tidak akan ditampilkan dari waktu berikutnya</string>
     <string name="sta_013">Karena kendaraan sedang bergerak, tampilan video dimatikan.</string>
-    <string name="sta_014">You can now use Alexa</string>
     <string name="hom_006">Sistem</string>
     <string name="hom_008">Audio</string>
     <string name="hom_012">Informasi</string>

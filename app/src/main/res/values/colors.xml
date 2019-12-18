@@ -83,4 +83,8 @@
     <color name="grey600">#757575</color>
     <color name="grey_800">#ff424242</color>
     <color name="time_shift_off">#B3FFFFFF</color>
+
+    <color name="alexa_example_usage_circle_indicator_fill_color">#00a5cf</color>
+    <color name="alexa_example_usage_circle_indicator_page_color">#4000a5cf</color>
+
 </resources>

@@ -71,8 +71,11 @@ public class OpeningPrivacyPolicyPresenter extends Presenter<OpeningPrivacyPolic
         StatusHolder holder = mGetStatusHolder.execute();
         //購入情報チェックが不要かつオーバーレイ権限がOKの場合連携抑制解除
         if(holder.getAppStatus().adasBillingCheck&&!(MainPresenter.sIsVersionQ&&!Settings.canDrawOverlays(mContext))) {
-            holder.getAppStatus().deviceConnectionSuppress = false;
-            mEventBus.post(new DeviceConnectionSuppressEvent());
+            // Alexa利用可能ダイアログを表示する必要がない場合は連携抑制解除
+            if(!isAlexaAvailableConfirmNeeded()) {
+                holder.getAppStatus().deviceConnectionSuppress = false;
+                mEventBus.post(new DeviceConnectionSuppressEvent());
+            }
         }
         if(mGetStatusHolder.execute().getSessionStatus() == SessionStatus.STARTED) {
             if (mPreference.isFirstInitialSettingCompletion()) {
@@ -101,5 +104,16 @@ public class OpeningPrivacyPolicyPresenter extends Presenter<OpeningPrivacyPolic
 
     private void setEnabledAgreeBtn(boolean isEnabled){
         Optional.ofNullable(getView()).ifPresent(view -> view.setEnabledAgreeBtn(isEnabled));
+    }
+
+    /**
+     * Alexa機能利用可能ダイアログを出すべきかどうかの判定
+     * TODO #5244 MainPresenterの同名メソッドと共通化したい
+     * @return
+     * {@code true}:Alexa機能が利用可能かつAlexa機能利用可能ダイアログを未表示
+     * {@code false}:それ以外(Alexa機能が利用不可能またはAlexa機能利用可能ダイアログを表示済み)
+     */
+    private boolean isAlexaAvailableConfirmNeeded() {
+        return mGetStatusHolder.execute().getAppStatus().isAlexaAvailableCountry && !mPreference.isAlexaAvailableConfirmShowed();
     }
 }
