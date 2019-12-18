@@ -166,7 +166,8 @@ public class SettingsEntrancePresenter extends Presenter<SettingsEntranceView> {
         mIconArray.add(R.drawable.p0973_icon_information);
         mEnableArray.add(true);
 
-        if(mIsDebug) {
+        // TODO Alexaを塞ぐ #5244
+        if(mIsDebug && mGetStatusHolder.execute().getAppStatus().isAlexaAvailableCountry) {
             mTitleArray.add(SettingEntrance.AMAZON_ALEXA);
             mIconArray.add(R.drawable.p0167_alexabtn_1nrm);
             mEnableArray.add(true);

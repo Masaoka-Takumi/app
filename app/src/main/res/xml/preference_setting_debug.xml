@@ -229,4 +229,10 @@
         android:title="@string/setting_debug_adas_camera_view"
         android:order="250"
         android:persistent="false" />
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="setting_debug_alexa_sim_judgement"
+        android:layout="@layout/element_preference_switch"
+        android:order="260"
+        android:persistent="false"
+        android:title="@string/setting_debug_alexa_sim_judgement" />
 </PreferenceScreen>

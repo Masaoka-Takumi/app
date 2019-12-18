@@ -57,9 +57,27 @@ public class UnconnectedContainerPresenter extends Presenter<UnconnectedContaine
                     if(mPreference.isAdasBillingRecord()&&!mStatusCase.execute().getAppStatus().adasBillingCheck) {
                         Timber.d("Overlay:setBillingHelper");
                         view.setBillingHelper();
+                    } else {
+                        if(isAlexaAvailableConfirmNeeded() && view.getScreenIdInContainer() == ScreenId.TIPS) {
+                            // TODO #5244 非同期だけどいいの？
+                            // デバッグ設定でAlexa SIM判定 OFFにできるため、設定画面の画面回転のたびに実行されてしまう
+                            view.showAlexaAvailableConfirmDialog();
+                        }
                     }
                 });
             }
         });
     }
+
+    /**
+     * Alexa機能利用可能ダイアログを出すべきかどうかの判定
+     * TODO #5244 MainPresenterの同名メソッドと共通化したい
+     * @return
+     * {@code true}:Alexa機能が利用可能かつAlexa機能利用可能ダイアログを未表示
+     * {@code false}:それ以外(Alexa機能が利用不可能またはAlexa機能利用可能ダイアログを表示済み)
+     */
+    private boolean isAlexaAvailableConfirmNeeded() {
+        return mStatusCase.execute().getAppStatus().isAlexaAvailableCountry && !mPreference.isAlexaAvailableConfirmShowed();
+    }
+
 }

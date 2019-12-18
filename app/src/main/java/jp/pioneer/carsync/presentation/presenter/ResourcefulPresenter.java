@@ -486,7 +486,9 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
                         }
                         if(appStatus.isShowAlexaDialog){
                             mEventBus.post(new AlexaVoiceRecognizeEvent());
-                        } else if (mPreference.isVoiceRecognitionEnabled()||mIsDebug) {
+                        } else if (mStatusHolder.getAppStatus().isAlexaAvailableCountry || mPreference.isVoiceRecognitionEnabled()) {
+                            // Alexa機能が利用可能なら音声認識は利用可能
+                            // Alexa機能が利用不可能なら音声認識機能の有効/無効を判定する
                             view.dispatchVoiceKey();
                         } else {
                             view.showError(mContext.getString(R.string.err_018));

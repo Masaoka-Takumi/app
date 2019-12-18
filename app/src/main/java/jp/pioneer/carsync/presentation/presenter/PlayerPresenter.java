@@ -677,7 +677,7 @@ public class PlayerPresenter<T> extends Presenter<T> {
                 break;
             case VOICE:
                 //TODO:Alexaを塞ぐ
-                if(mIsDebug) {
+                if(mIsDebug && mStatusHolder.execute().getAppStatus().isAlexaAvailableCountry) {
                     mAnalytics.sendShortCutActionEvent(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA?Analytics.AnalyticsShortcutAction.alexaLong:Analytics.AnalyticsShortcutAction.voiceLong, Analytics.AnalyticsActiveScreen.av_screen);
                     VoiceRecognizeType nextType = mPreference.getVoiceRecognitionType().toggle();
                     mPreference.setVoiceRecognitionType(nextType);
