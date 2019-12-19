@@ -139,7 +139,7 @@ import static jp.pioneer.carsync.domain.interactor.JudgeVoiceCommand.JudgeResult
 public class MainPresenter extends Presenter<MainView> implements AppSharedPreference.OnAppSharedPreferenceChangeListener, TextToSpeechController.Callback, RecognitionListener {
     private static final int RECOGNIZER_RESTART_REMIT = 2;
     private static final int RE_CALIBRATION_SESSION_COUNT_MAX = 15;//15回連携
-    public static final int EULA_PRIVACY_NEW_VERSION = 4;//利用規約最新バージョン
+    public static final int EULA_PRIVACY_NEW_VERSION = 5;//利用規約最新バージョン
     private static final int VERSION_CODE_1_5 = 8;//v1.5バージョンコード
     public static final int ALEXA_CAPABILITIES_NEW_VERSION = 5;//機能API最新バージョン
     public static final String TAG_DIALOG_ERROR = "error";
@@ -355,11 +355,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                         Timber.d("Overlay:setupBillingHelper");
                         view.setupBillingHelper();
                     } else {
-                        if(isAlexaAvailableConfirmNeeded()) {
-                            showAlexaAvailableConfirmDialog();
-                        } else {
-                            finishDeviceConnectionSuppress();
-                        }
+                        finishDeviceConnectionSuppress();
                     }
                 }
             }
@@ -396,7 +392,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
             mStatusCase.execute().getAppStatus().deviceConnectionSuppress = false;
         }
         //オーバーレイ権限不許可なら連携抑制のフラグを戻す（不許可時にフラグを戻しているため必要ない？）
-        if(MainPresenter.sIsVersionQ&&!Settings.canDrawOverlays(mContext)) {
+        if(MainPresenter.sIsVersionQ&&!Settings.canDrawOverlays(mContext)||isAlexaAvailableConfirmNeeded()) {
             mStatusCase.execute().getAppStatus().deviceConnectionSuppress = true;
         }
 
@@ -1089,7 +1085,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
         mIsInitializedReadText = false;
         mReadText.initialize(this);
 
-        if(mIsDebug) {
+        if(holder.getAppStatus().isAlexaAvailableCountry) {
             startAlexa();
         }
     }
@@ -1240,13 +1236,19 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
             return;
         }
         mStatusCase.execute().getAppStatus().adasBillingCheck = true;
+        if(isAlexaAvailableConfirmNeeded()) {
+            mStatusCase.execute().getAppStatus().deviceConnectionSuppress = true;
+            showAlexaAvailableConfirmDialog();
+            return;
+        }
+
         mStatusCase.execute().getAppStatus().deviceConnectionSuppress = false;
         mEventBus.post(new DeviceConnectionSuppressEvent());
     }
 
     public void suppressDeviceConnection(ScreenId screenId){
         AppStatus status = mStatusCase.execute().getAppStatus();
-		if((sIsVersionQ&&!Settings.canDrawOverlays(mContext))||!mPreference.isAgreedEulaPrivacyPolicy()) {
+		if((sIsVersionQ&&!Settings.canDrawOverlays(mContext))||!mPreference.isAgreedEulaPrivacyPolicy()||isAlexaAvailableConfirmNeeded()) {
            return;
         }
 		if(mPreference.isAdasBillingRecord()){
@@ -1426,9 +1428,6 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
     // Alexa機能利用ダイアログ表示処理
     public void showAlexaAvailableConfirmDialog() {
-        if(!mStatusCase.execute().getAppStatus().deviceConnectionSuppress) {
-            startDeviceConnectionSuppress();
-        }
         Bundle bundle = new Bundle();
         String text = mContext.getString(R.string.sta_014);
         bundle.putString(StatusPopupDialogFragment.TAG, MainPresenter.TAG_DIALOG_ALEXA_AVAILABLE_CONFIRM);
@@ -2635,11 +2634,6 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
     public void setAlexaAvailable(SimCountryIso simCountryIso){
         AppStatus appStatus = mStatusCase.execute().getAppStatus();
-        if(!mIsDebug) {
-            // リリース版ではAlexaは利用不可
-            appStatus.isAlexaAvailableCountry = false;
-            return;
-        }
 
         // デバッグ版ではデバッグ設定のSIM判定がONなら、その結果を採用する
         // SIM判定がOFFの場合は常にAlexa利用可能とする(SIM判定 DefaultはON)

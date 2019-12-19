@@ -131,7 +131,6 @@ public class PlayerPresenter<T> extends Presenter<T> {
             {R.drawable.p0165_phonebtn_1nrm, 0},//Phone
     };
     protected ArrayList<ShortcutKeyItem> mShortCutKeyList = new ArrayList<>();
-    private final static boolean mIsDebug = BuildConfig.DEBUG;
     private final static int YOUTUBE_LINK_ICON = R.drawable.p2001_youtubelink_btn_1nrm;
     private final static int CUSTOM_KEY_ICON = R.drawable.p2002_customkey_btn_1nrm;
 
@@ -678,7 +677,7 @@ public class PlayerPresenter<T> extends Presenter<T> {
                 break;
             case VOICE:
                 //TODO:Alexaを塞ぐ
-                if(mIsDebug && mStatusHolder.execute().getAppStatus().isAlexaAvailableCountry) {
+                if(mStatusHolder.execute().getAppStatus().isAlexaAvailableCountry) {
                     mAnalytics.sendShortCutActionEvent(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA?Analytics.AnalyticsShortcutAction.alexaLong:Analytics.AnalyticsShortcutAction.voiceLong, Analytics.AnalyticsActiveScreen.av_screen);
                     VoiceRecognizeType nextType = mPreference.getVoiceRecognitionType().toggle();
                     mPreference.setVoiceRecognitionType(nextType);

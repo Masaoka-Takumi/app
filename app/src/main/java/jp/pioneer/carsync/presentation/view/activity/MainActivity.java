@@ -337,9 +337,9 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
         if(mIsDebug) {
             // Logger初期化
             LogManager.getInstance().setup(this);
-            mAmazonAlexaManager = AmazonAlexaManager.getInstance();
-            mAmazonAlexaManager.setActivity(this);
         }
+        mAmazonAlexaManager = AmazonAlexaManager.getInstance();
+        mAmazonAlexaManager.setActivity(this);
 
     }
 
@@ -351,10 +351,8 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
         if (screen instanceof PlayerContainerFragment) {
             ((PlayerContainerFragment) screen).setActionCall(false);
         }
-        if(mIsDebug) {
-            if (mAmazonAlexaManager != null) {
-                mAmazonAlexaManager.autoLoginAlexa();
-            }
+        if (mAmazonAlexaManager != null) {
+            mAmazonAlexaManager.autoLoginAlexa();
         }
         super.onStart();
     }
@@ -595,11 +593,9 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
         mFragmentController.hideCarDeviceErrorDialog(getPresenter().getStackPopUp());
 
         getPresenter().showErrorDialog();
-        if(mIsDebug) {
-            if (mAmazonAlexaManager != null) {
-                mAmazonAlexaManager.addAlexaCallback(mAlexaCallback);
-                mAmazonAlexaManager.onActivityResume();
-            }
+        if (mAmazonAlexaManager != null) {
+            mAmazonAlexaManager.addAlexaCallback(mAlexaCallback);
+            mAmazonAlexaManager.onActivityResume();
         }
     }
 
@@ -617,10 +613,8 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
     @Override
     public void onPause() {
         super.onPause();
-        if(mIsDebug) {
-            if (mAmazonAlexaManager != null) {
-                mAmazonAlexaManager.removeAlexaCallback(mAlexaCallback);
-            }
+        if (mAmazonAlexaManager != null) {
+            mAmazonAlexaManager.removeAlexaCallback(mAlexaCallback);
         }
     }
 
@@ -1434,11 +1428,7 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
             }else if(tag.equals(MainPresenter.TAG_DIALOG_ADAS_BILLING_STATUS_ERROR)){
                 getPresenter().showAdasBillingStatusFailureDialog();
             }else if(tag.equals(MainPresenter.TAG_DIALOG_ADAS_BILLING_STATUS_FAILURE)){
-                if(getPresenter().isAlexaAvailableConfirmNeeded()) {
-                    getPresenter().showAlexaAvailableConfirmDialog();
-                } else {
-                    getPresenter().finishDeviceConnectionSuppress();
-                }
+                getPresenter().finishDeviceConnectionSuppress();
             } else if(tag.equals(MainPresenter.TAG_DIALOG_ALEXA_AVAILABLE_CONFIRM)) {
                 getPresenter().onAlexaAvailableConfirm();
                 getPresenter().finishDeviceConnectionSuppress();
@@ -1630,19 +1620,11 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
 
                 if (!result.isSuccess()) {
                     Log.d(TAG,"Problem setting up in-app billing");
-                    if(getPresenter().isAlexaAvailableConfirmNeeded()) {
-                        getPresenter().showAlexaAvailableConfirmDialog();
-                    } else {
-                        getPresenter().finishDeviceConnectionSuppress();
-                    }
+                    getPresenter().finishDeviceConnectionSuppress();
                     return;
                 }
                 if (mHelper == null) {
-                    if(getPresenter().isAlexaAvailableConfirmNeeded()) {
-                        getPresenter().showAlexaAvailableConfirmDialog();
-                    } else {
-                        getPresenter().finishDeviceConnectionSuppress();
-                    }
+                    getPresenter().finishDeviceConnectionSuppress();
                     return;
                 }
                 mIsBillingSetupFinished = true;
@@ -1666,11 +1648,7 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
             Log.d(TAG, "Query inventory finished.");
 
             if (mHelper == null) {
-                if(getPresenter().isAlexaAvailableConfirmNeeded()) {
-                    getPresenter().showAlexaAvailableConfirmDialog();
-                } else {
-                    getPresenter().finishDeviceConnectionSuppress();
-                }
+                getPresenter().finishDeviceConnectionSuppress();
                 return;
             }
             if (result.isFailure()) {
@@ -1688,11 +1666,7 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
                 mIsPremium = false;
             }else{
                 mIsPremium = true;
-                if(getPresenter().isAlexaAvailableConfirmNeeded()) {
-                    getPresenter().showAlexaAvailableConfirmDialog();
-                } else {
-                    getPresenter().finishDeviceConnectionSuppress();
-                }
+                getPresenter().finishDeviceConnectionSuppress();
             }
             getPresenter().setPurchase(mIsPremium);
             Log.d(TAG, "User is " + (mIsPremium ? "PREMIUM" : "NOT PREMIUM"));

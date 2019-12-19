@@ -286,7 +286,7 @@ public class SettingsContainerPresenter extends Presenter<SettingsContainerView>
     public void suppressDeviceConnection(ScreenId screenId){
         AppStatus status = mStatusHolder.execute().getAppStatus();
 
-        if((MainPresenter.sIsVersionQ&&!Settings.canDrawOverlays(mContext))||!mPreference.isAgreedEulaPrivacyPolicy()) {
+        if((MainPresenter.sIsVersionQ&&!Settings.canDrawOverlays(mContext))||!mPreference.isAgreedEulaPrivacyPolicy()||isAlexaAvailableConfirmNeeded()) {
             return;
         }
         if(mPreference.isAdasBillingRecord()){
@@ -307,5 +307,9 @@ public class SettingsContainerPresenter extends Presenter<SettingsContainerView>
                 }
             }
         }
+    }
+
+    public boolean isAlexaAvailableConfirmNeeded() {
+        return mStatusHolder.execute().getAppStatus().isAlexaAvailableCountry && !mPreference.isAlexaAvailableConfirmShowed();
     }
 }

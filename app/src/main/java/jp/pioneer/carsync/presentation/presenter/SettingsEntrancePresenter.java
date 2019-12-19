@@ -60,7 +60,6 @@ public class SettingsEntrancePresenter extends Presenter<SettingsEntranceView> {
     private ArrayList<Integer> mIconArray;
     private ArrayList<SettingEntrance> mTitleArray;
     private ArrayList<Boolean> mEnableArray;
-    private final static boolean mIsDebug = BuildConfig.DEBUG;
 
     @Inject
     public SettingsEntrancePresenter() {
@@ -167,7 +166,7 @@ public class SettingsEntrancePresenter extends Presenter<SettingsEntranceView> {
         mEnableArray.add(true);
 
         // TODO Alexaを塞ぐ #5244
-        if(mIsDebug && mGetStatusHolder.execute().getAppStatus().isAlexaAvailableCountry) {
+        if(mGetStatusHolder.execute().getAppStatus().isAlexaAvailableCountry) {
             mTitleArray.add(SettingEntrance.AMAZON_ALEXA);
             mIconArray.add(R.drawable.p0167_alexabtn_1nrm);
             mEnableArray.add(true);

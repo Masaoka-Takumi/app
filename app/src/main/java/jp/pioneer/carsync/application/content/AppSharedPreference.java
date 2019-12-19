@@ -2591,7 +2591,6 @@ public class AppSharedPreference {
      */
     @NonNull
     public VoiceRecognizeType getVoiceRecognitionType() {
-        if(!BuildConfig.DEBUG)return VoiceRecognizeType.PIONEER_SMART_SYNC;
         if (mPreferences.contains(KEY_VOICE_RECOGNITION_TYPE)) {
             String value = mPreferences.getString(KEY_VOICE_RECOGNITION_TYPE, DEFAULT_VOICE_RECOGNITION_TYPE);
             return VoiceRecognizeType.valueOf(value);

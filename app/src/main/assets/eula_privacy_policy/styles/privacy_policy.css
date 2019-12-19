@@ -35,6 +35,24 @@ p {
 .list_style_disc > li {
     line-height: 2;
 }
+.list_style_disc_large {
+    list-style: none;
+    padding-left: 20px;
+}
+.list_style_disc_large > li {
+    position: relative;
+    margin-bottom: 20px;
+}
+.list_style_disc_large > li::before {
+    content: '';
+    position: absolute;
+    top: 0.4em;
+    left: -1.4em;
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 100%;
+    background-color: #ffffff;
+}
 .rounded_ordered_list {
     position: relative;
     margin: 0;
