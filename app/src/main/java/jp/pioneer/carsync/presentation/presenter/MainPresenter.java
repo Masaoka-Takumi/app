@@ -355,11 +355,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                         Timber.d("Overlay:setupBillingHelper");
                         view.setupBillingHelper();
                     } else {
-                        if(isAlexaAvailableConfirmNeeded()) {
-                            showAlexaAvailableConfirmDialog();
-                        } else {
-                            finishDeviceConnectionSuppress();
-                        }
+                        finishDeviceConnectionSuppress();
                     }
                 }
             }
@@ -396,7 +392,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
             mStatusCase.execute().getAppStatus().deviceConnectionSuppress = false;
         }
         //オーバーレイ権限不許可なら連携抑制のフラグを戻す（不許可時にフラグを戻しているため必要ない？）
-        if(MainPresenter.sIsVersionQ&&!Settings.canDrawOverlays(mContext)) {
+        if(MainPresenter.sIsVersionQ&&!Settings.canDrawOverlays(mContext)||isAlexaAvailableConfirmNeeded()) {
             mStatusCase.execute().getAppStatus().deviceConnectionSuppress = true;
         }
 
@@ -1240,13 +1236,19 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
             return;
         }
         mStatusCase.execute().getAppStatus().adasBillingCheck = true;
+        if(isAlexaAvailableConfirmNeeded()) {
+            mStatusCase.execute().getAppStatus().deviceConnectionSuppress = true;
+            showAlexaAvailableConfirmDialog();
+            return;
+        }
+
         mStatusCase.execute().getAppStatus().deviceConnectionSuppress = false;
         mEventBus.post(new DeviceConnectionSuppressEvent());
     }
 
     public void suppressDeviceConnection(ScreenId screenId){
         AppStatus status = mStatusCase.execute().getAppStatus();
-		if((sIsVersionQ&&!Settings.canDrawOverlays(mContext))||!mPreference.isAgreedEulaPrivacyPolicy()) {
+		if((sIsVersionQ&&!Settings.canDrawOverlays(mContext))||!mPreference.isAgreedEulaPrivacyPolicy()||isAlexaAvailableConfirmNeeded()) {
            return;
         }
 		if(mPreference.isAdasBillingRecord()){
@@ -1426,9 +1428,6 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
     // Alexa機能利用ダイアログ表示処理
     public void showAlexaAvailableConfirmDialog() {
-        if(!mStatusCase.execute().getAppStatus().deviceConnectionSuppress) {
-            startDeviceConnectionSuppress();
-        }
         Bundle bundle = new Bundle();
         String text = mContext.getString(R.string.sta_014);
         bundle.putString(StatusPopupDialogFragment.TAG, MainPresenter.TAG_DIALOG_ALEXA_AVAILABLE_CONFIRM);
