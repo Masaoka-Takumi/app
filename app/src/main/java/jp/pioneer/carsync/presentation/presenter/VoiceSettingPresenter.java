@@ -41,7 +41,7 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
     @Inject Context mContext;
     @Inject EventBus mEventBus;
     @Inject AnalyticsEventManager mAnalytics;
-    public final static boolean mIsDebug = BuildConfig.DEBUG;
+
     /**
      * コンストラクタ
      */
@@ -67,8 +67,8 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
         Optional.ofNullable(getView()).ifPresent(view ->
         {
             //TODO:Alexaを塞ぐ
-            view.setVoiceRecognitionVisible(!(mIsDebug && appStatus.isAlexaAvailableCountry));
-            view.setVoiceRecognitionTypeVisible(mIsDebug && appStatus.isAlexaAvailableCountry);
+            view.setVoiceRecognitionVisible(!appStatus.isAlexaAvailableCountry);
+            view.setVoiceRecognitionTypeVisible(appStatus.isAlexaAvailableCountry);
             view.setVoiceRecognitionEnabled(mPreference.isVoiceRecognitionEnabled());
             view.setVoiceRecognitionType(mPreference.getVoiceRecognitionType());
             view.setVoiceRecognitionTypeEnabled(true);

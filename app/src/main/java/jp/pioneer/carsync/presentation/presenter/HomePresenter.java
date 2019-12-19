@@ -186,7 +186,6 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
     private SxmMediaInfo mCurrSxm;
     private SxmBandType mSxmBand;
     private DabInfo mCurrDab;
-    private final static boolean mIsDebug = BuildConfig.DEBUG;
     private final static int YOUTUBE_LINK_ICON = R.drawable.p2001_youtubelink_btn_1nrm;
     private final static int CUSTOM_KEY_ICON = R.drawable.p2002_customkey_btn_1nrm;
 
@@ -425,7 +424,7 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
                 break;
             case VOICE:
                 //TODO:Alexaを塞ぐ
-                if(mIsDebug && mGetCase.execute().getAppStatus().isAlexaAvailableCountry) {
+                if(mGetCase.execute().getAppStatus().isAlexaAvailableCountry) {
                     mAnalytics.sendShortCutActionEvent(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA?Analytics.AnalyticsShortcutAction.alexaLong:Analytics.AnalyticsShortcutAction.voiceLong, Analytics.AnalyticsActiveScreen.home_screen);
                     VoiceRecognizeType nextType = mPreference.getVoiceRecognitionType().toggle();
                     mPreference.setVoiceRecognitionType(nextType);

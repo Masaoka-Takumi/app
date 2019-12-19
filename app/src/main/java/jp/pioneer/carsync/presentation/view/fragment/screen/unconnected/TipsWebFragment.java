@@ -65,7 +65,13 @@ public class TipsWebFragment extends AbstractScreenFragment<TipsWebPresenter, Ti
             @SuppressWarnings("deprecation")
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                // TODO #5244 文字列からUriに変換すれば簡単に書ける
                 int position = url.indexOf("://");
+                if(position == -1) {
+                    // TODO #5244 urlが相対パスだと以降の処理ができないので
+                    //  (そもそも相対パスのリンクを踏んだ時にurlが相対パスになるのか不明だが)
+                    return false;
+                }
                 String scheme = url.substring(0, position);
                 String host = url.substring(position + "://".length());
                 Timber.i("TipsWebF shouldOverrideUrlLoading deprecated url=%s scheme=%s, host=%s", url, scheme, host);

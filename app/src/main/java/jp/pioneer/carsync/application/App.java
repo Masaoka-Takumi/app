@@ -145,7 +145,7 @@ public class App extends Application {
         if (mPreference.isAdasBillingRecord()) {
             mStatusCase.execute().getAppStatus().deviceConnectionSuppress = true;
             mStatusCase.execute().getAppStatus().adasBillingCheck = false;
-        } else if((MainPresenter.sIsVersionQ&&!Settings.canDrawOverlays(getApplicationContext()))||!mPreference.isAgreedEulaPrivacyPolicy()){
+        } else if((MainPresenter.sIsVersionQ && !Settings.canDrawOverlays(getApplicationContext())) || !mPreference.isAgreedEulaPrivacyPolicy() || isAlexaAvailableConfirmNeeded()){
             mStatusCase.execute().getAppStatus().deviceConnectionSuppress = true;
             mStatusCase.execute().getAppStatus().adasBillingCheck = true;
         } else {
@@ -284,4 +284,16 @@ public class App extends Application {
         protected void onPostExecute(Void result) {
         }
     }
+
+    /**
+     * Alexa機能利用可能ダイアログを出すべきかどうかの判定
+     * TODO #5244 MainPresenterの同名メソッドと共通化したい
+     * @return
+     * {@code true}:Alexa機能が利用可能かつAlexa機能利用可能ダイアログを未表示
+     * {@code false}:それ以外(Alexa機能が利用不可能またはAlexa機能利用可能ダイアログを表示済み)
+     */
+    private boolean isAlexaAvailableConfirmNeeded() {
+        return mStatusCase.execute().getAppStatus().isAlexaAvailableCountry && !mPreference.isAlexaAvailableConfirmShowed();
+    }
+
 }

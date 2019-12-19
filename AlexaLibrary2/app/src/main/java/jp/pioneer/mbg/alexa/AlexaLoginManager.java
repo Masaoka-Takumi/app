@@ -323,6 +323,8 @@ public class AlexaLoginManager {
         } catch (JSONException e) {
             // handle exception here
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -340,67 +342,73 @@ public class AlexaLoginManager {
             // プロダクトID
             scopeData.put("productID", PRODUCT_ID);
             // TODO:デバイス名などを入れる箇所があっても良いと思うが公式サイトからは見当らない
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        // 認証状態が残っている場合、トークンを取得
-        Scope[] scopes = { ScopeFactory.scopeNamed("alexa:all", scopeData) };
-        AuthorizationManager.getToken(mActivity, scopes, new Listener<AuthorizeResult, AuthError>() {
 
-            /**
-             * 判定に成功
-             * @param result
-             */
-            @Override
-            public void onSuccess(AuthorizeResult result) {
-                if (DBG) android.util.Log.d(TAG, "AuthorizationManager.getToken()#onSuccess() - AutoLogin");
-                final String accessToken = result.getAccessToken();
-                if (accessToken != null) {
-                    // トークン有り
-                    if (DBG) android.util.Log.d(TAG, " - AuthorizationManager.getToken(): accessToken = " + accessToken);
-                    isSignedIn = true;
-                    if (mAlexaLoginCallback != null && mHandler != null) {
-                        mHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                mAlexaLoginCallback.onAutoLoginSuccess(accessToken);
-                            }
-                        });
+            // 認証状態が残っている場合、トークンを取得
+            Scope[] scopes = {ScopeFactory.scopeNamed("alexa:all", scopeData)};
+            AuthorizationManager.getToken(mActivity, scopes, new Listener<AuthorizeResult, AuthError>() {
+
+                /**
+                 * 判定に成功
+                 *
+                 * @param result
+                 */
+                @Override
+                public void onSuccess(AuthorizeResult result) {
+                    if (DBG)
+                        android.util.Log.d(TAG, "AuthorizationManager.getToken()#onSuccess() - AutoLogin");
+                    final String accessToken = result.getAccessToken();
+                    if (accessToken != null) {
+                        // トークン有り
+                        if (DBG)
+                            android.util.Log.d(TAG, " - AuthorizationManager.getToken(): accessToken = " + accessToken);
+                        isSignedIn = true;
+                        if (mAlexaLoginCallback != null && mHandler != null) {
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mAlexaLoginCallback.onAutoLoginSuccess(accessToken);
+                                }
+                            });
+                        }
+                    } else {
+                        // トークン無し
+                        if (DBG)
+                            android.util.Log.d(TAG, " - AuthorizationManager.getToken(): Token is null!");
+                        isSignedIn = false;
+                        if (mAlexaLoginCallback != null && mHandler != null) {
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mAlexaLoginCallback.onAutoLoginFailed();
+                                }
+                            });
+                        }
                     }
-                } else {
-                    // トークン無し
-                    if (DBG) android.util.Log.d(TAG, " - AuthorizationManager.getToken(): Token is null!");
+                }
+
+                /**
+                 * 判定失敗
+                 *
+                 * @param ae
+                 */
+                @Override
+                public void onError(AuthError ae) {
+                    if (DBG)
+                        android.util.Log.d(TAG, "AuthorizationManager.getToken()#onError() - AutoLogin, ae = " + ae);
                     isSignedIn = false;
                     if (mAlexaLoginCallback != null && mHandler != null) {
                         mHandler.post(new Runnable() {
                             @Override
                             public void run() {
-                                mAlexaLoginCallback.onAutoLoginFailed();
+                                mAlexaLoginCallback.onAutoLoginError();
                             }
                         });
                     }
                 }
-            }
-
-            /**
-             * 判定失敗
-             * @param ae
-             */
-            @Override
-            public void onError(AuthError ae) {
-                if (DBG) android.util.Log.d(TAG, "AuthorizationManager.getToken()#onError() - AutoLogin, ae = " + ae);
-                isSignedIn = false;
-                if (mAlexaLoginCallback != null && mHandler != null) {
-                    mHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mAlexaLoginCallback.onAutoLoginError();
-                        }
-                    });
-                }
-            }
-        });
-
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -503,9 +511,9 @@ public class AlexaLoginManager {
     private int mRetryCount = 0;
 
     /*
-        * Capabilities API送信
-        *
-        * */
+     * Capabilities API送信
+     *
+     * */
     public void sendCapabilities() {
         if (DBG) android.util.Log.i(TAG, "sendCapabilities()");
         AlexaEventManager.sendCapabilities(mActivity, TokenManager.getToken(), new AlexaEventManager.AlexaCallback() {
