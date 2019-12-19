@@ -15,7 +15,7 @@
         android:layout_marginRight="40dp"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
-        android:maxLines="1"
+        android:maxLines="2"
         android:text="@string/set_404"
         android:textColor="@android:color/black"
         android:textSize="@dimen/alexa_tutorial_title_text_size"
