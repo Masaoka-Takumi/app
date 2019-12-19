@@ -173,7 +173,7 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
     AmazonAlexaManager mAmazonAlexaManager;
     private AlexaCallback mAlexaCallback = new AlexaCallback();
     private MediaSourceType mLastSourceType = null; // FlurryAnalytics Sourceタイプ記憶用
-    private final static boolean mIsDebug = BuildConfig.DEBUG;
+
     /**
      * コンストラクタ
      */
@@ -289,12 +289,10 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
         checkAmStepSettingChange();
 
         //TODO:Alexaを塞ぐ
-        if(mIsDebug) {
-            mAmazonAlexaManager = AmazonAlexaManager.getInstance();
-            if (mAmazonAlexaManager != null) {
-                Timber.d("addAlexaCallback");
-                mAmazonAlexaManager.addAlexaCallback(mAlexaCallback);
-            }
+        mAmazonAlexaManager = AmazonAlexaManager.getInstance();
+        if (mAmazonAlexaManager != null) {
+            Timber.d("addAlexaCallback");
+            mAmazonAlexaManager.addAlexaCallback(mAlexaCallback);
         }
 
         // YouTubeLinkに関するショートカット表示更新のためにイベントを投げる
@@ -403,12 +401,10 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
         mGetRunningStatusCase.stop();
         mControlImpactDetector.stopDetection();
         Timber.d("finishAlexaConnection");
-        if(mIsDebug) {
-            mAmazonAlexaManager = AmazonAlexaManager.getInstance();
-            // Alexa 切断処理
-            if (mAmazonAlexaManager != null) {
-                mAmazonAlexaManager.onActivityPause();
-            }
+        mAmazonAlexaManager = AmazonAlexaManager.getInstance();
+        // Alexa 切断処理
+        if (mAmazonAlexaManager != null) {
+            mAmazonAlexaManager.onActivityPause();
         }
         mAnalytics.finishAnalytics();
     }
@@ -479,12 +475,10 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
                         break;
                     case VOICE:
                         //TODO:Alexaを塞ぐ
-                        if(mIsDebug) {
-                            mAmazonAlexaManager = AmazonAlexaManager.getInstance();
-                            if (mAmazonAlexaManager != null) {
-                                Timber.d("addAlexaCallback");
-                                mAmazonAlexaManager.addAlexaCallback(mAlexaCallback);
-                            }
+                        mAmazonAlexaManager = AmazonAlexaManager.getInstance();
+                        if (mAmazonAlexaManager != null) {
+                            Timber.d("addAlexaCallback");
+                            mAmazonAlexaManager.addAlexaCallback(mAlexaCallback);
                         }
                         if(appStatus.isShowAlexaDialog){
                             mEventBus.post(new AlexaVoiceRecognizeEvent());

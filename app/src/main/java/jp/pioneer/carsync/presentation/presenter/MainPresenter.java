@@ -1089,7 +1089,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
         mIsInitializedReadText = false;
         mReadText.initialize(this);
 
-        if(mIsDebug) {
+        if(holder.getAppStatus().isAlexaAvailableCountry) {
             startAlexa();
         }
     }
@@ -2635,11 +2635,6 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
     public void setAlexaAvailable(SimCountryIso simCountryIso){
         AppStatus appStatus = mStatusCase.execute().getAppStatus();
-        if(!mIsDebug) {
-            // リリース版ではAlexaは利用不可
-            appStatus.isAlexaAvailableCountry = false;
-            return;
-        }
 
         // デバッグ版ではデバッグ設定のSIM判定がONなら、その結果を採用する
         // SIM判定がOFFの場合は常にAlexa利用可能とする(SIM判定 DefaultはON)

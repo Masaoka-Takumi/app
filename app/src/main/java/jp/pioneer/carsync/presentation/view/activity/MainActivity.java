@@ -337,9 +337,9 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
         if(mIsDebug) {
             // Logger初期化
             LogManager.getInstance().setup(this);
-            mAmazonAlexaManager = AmazonAlexaManager.getInstance();
-            mAmazonAlexaManager.setActivity(this);
         }
+        mAmazonAlexaManager = AmazonAlexaManager.getInstance();
+        mAmazonAlexaManager.setActivity(this);
 
     }
 
@@ -351,10 +351,8 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
         if (screen instanceof PlayerContainerFragment) {
             ((PlayerContainerFragment) screen).setActionCall(false);
         }
-        if(mIsDebug) {
-            if (mAmazonAlexaManager != null) {
-                mAmazonAlexaManager.autoLoginAlexa();
-            }
+        if (mAmazonAlexaManager != null) {
+            mAmazonAlexaManager.autoLoginAlexa();
         }
         super.onStart();
     }
@@ -595,11 +593,9 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
         mFragmentController.hideCarDeviceErrorDialog(getPresenter().getStackPopUp());
 
         getPresenter().showErrorDialog();
-        if(mIsDebug) {
-            if (mAmazonAlexaManager != null) {
-                mAmazonAlexaManager.addAlexaCallback(mAlexaCallback);
-                mAmazonAlexaManager.onActivityResume();
-            }
+        if (mAmazonAlexaManager != null) {
+            mAmazonAlexaManager.addAlexaCallback(mAlexaCallback);
+            mAmazonAlexaManager.onActivityResume();
         }
     }
 
@@ -617,10 +613,8 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
     @Override
     public void onPause() {
         super.onPause();
-        if(mIsDebug) {
-            if (mAmazonAlexaManager != null) {
-                mAmazonAlexaManager.removeAlexaCallback(mAlexaCallback);
-            }
+        if (mAmazonAlexaManager != null) {
+            mAmazonAlexaManager.removeAlexaCallback(mAlexaCallback);
         }
     }
 
