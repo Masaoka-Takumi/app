@@ -334,10 +334,8 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
             //SpeechRecognizer生成
             getPresenter().initSpeechRecognizer();
         }
-        if(mIsDebug) {
-            // Logger初期化
-            LogManager.getInstance().setup(this);
-        }
+        // Logger初期化
+        LogManager.getInstance().setup(this);
         mAmazonAlexaManager = AmazonAlexaManager.getInstance();
         mAmazonAlexaManager.setActivity(this);
 
