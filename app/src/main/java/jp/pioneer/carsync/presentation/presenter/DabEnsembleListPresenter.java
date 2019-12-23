@@ -165,8 +165,9 @@ public class DabEnsembleListPresenter extends Presenter<DabEnsembleListView> imp
     }
 
     public void onSelectList(int listIndex, Cursor cursor) {
-        mMediaCase.enterList(ListType.ENSEMBLE_LIST);
         mMediaCase.selectListItem(listIndex);
+        //TODO:入場要求必要？
+        //mMediaCase.enterList(ListType.ENSEMBLE_LIST);
         Bundle bundle = new Bundle();
         bundle.putBoolean("stack", true);
         mEventBus.post(new NavigateEvent(ScreenId.DAB_SERVICE_LIST, bundle));

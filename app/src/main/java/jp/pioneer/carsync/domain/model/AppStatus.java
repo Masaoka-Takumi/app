@@ -142,6 +142,7 @@ public class AppStatus {
         lastDirectSource = null;
         lastSourceOnTime = 0L;
         lastSourceBeforeYouTubeLink = null;
+        dabListType =  RadioTabContainerPresenter.RadioTabType.DAB_STATION;
     }
 
     /**
@@ -169,7 +170,6 @@ public class AppStatus {
         lastSourceOnTime = 0L;
         lastSourceBeforeYouTubeLink = null;
         isShowYouTubeLinkWebView = false;
-        dabListType =  RadioTabContainerPresenter.RadioTabType.DAB_STATION;
     }
 	/**
      * ADAS警告状態取得.

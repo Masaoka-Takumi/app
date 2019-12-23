@@ -1090,7 +1090,7 @@ public class OutgoingPacketBuilder {
         return createWith(LIST_FOCUS_POSITION_CHANGE_REQUEST, data);
     }
     /**
-     * ABCサーチ実行要求要求パケット生成.
+     * ABCサーチ実行要求パケット生成.
      *
      * @param word サーチ文字
      * @return 送信パケット

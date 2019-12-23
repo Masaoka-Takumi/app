@@ -20,7 +20,7 @@ public class ListInfo extends SerialVersion {
     public String abcSearchWord;
     /** トランザクション情報. */
     public final TransactionInfo transactionInfo = new TransactionInfo();
-    /** ABCサーチ結果情報. */
+    /** DAB ABCサーチ結果情報. */
     public boolean  abcSearchResult;
 
     /**

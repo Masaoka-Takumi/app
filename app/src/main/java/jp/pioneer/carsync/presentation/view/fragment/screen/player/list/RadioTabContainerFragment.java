@@ -450,4 +450,8 @@ public class RadioTabContainerFragment extends AbstractDialogFragment<RadioTabCo
         getPresenter().onStatusCloseAction();
     }
 
+    @Override
+    public void closeDialog(){
+        this.dismiss();
+    }
 }

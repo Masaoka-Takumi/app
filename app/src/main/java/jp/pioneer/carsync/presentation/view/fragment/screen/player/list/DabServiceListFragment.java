@@ -58,6 +58,17 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
     private float mBarMarginY; //Barの縦幅画像枠とのマージン
     private int mOrientation;
     private final Handler mHandler = new Handler();
+    private Runnable mDelayFunc = new Runnable() {
+        @Override
+        public void run() {
+            if(mAbcSearchPopup.getVisibility()==View.VISIBLE) {
+                AlphaAnimation alphaFadeout = new AlphaAnimation(1.0f, 0.0f);
+                alphaFadeout.setDuration(500);
+                alphaFadeout.setFillAfter(true);
+                mAbcSearchPopup.startAnimation(alphaFadeout);
+            }
+        }
+    };
     /**
      * コンストラクタ
      */
@@ -90,7 +101,7 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
 
         mAbcSearchBar.setVisibility(View.INVISIBLE);
         mAbcSearchPopup.setVisibility(View.INVISIBLE);
-
+        mTouchView.setEnabled(false);
         mIsFirstDrawn = false;
         mGlobalLayoutListener = () -> {
             Timber.i("OnGlobalLayoutListener#onGlobalLayout() " +
@@ -131,6 +142,8 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        mTouchView.getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
+        mHandler.removeCallbacks(mDelayFunc);
         mUnbinder.unbind();
     }
 
@@ -151,7 +164,7 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
     }
 
     @Override
-    public void setCursor(Cursor cursor, ListType listType) {
+    public void setCursor(Cursor cursor, ListType listType, boolean isSph) {
         if (mServiceListAdapter != null) {
             mServiceListAdapter.swapCursor(cursor);
             mServiceListAdapter.notifyDataSetChanged();
@@ -160,16 +173,19 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
         if (listType == ListType.SERVICE_LIST||listType == ListType.ABC_SEARCH_LIST) {
             mListView.setVerticalScrollBarEnabled(false);
             mListView.setFastScrollEnabled(false);
-            if(cursor.getCount() > 0){
+            if(cursor.getCount() > 0&&isSph){
                 mAbcSearchBar.setVisibility(View.VISIBLE);
+                mTouchView.setEnabled(true);
             }else{
                 mAbcSearchBar.setVisibility(View.INVISIBLE);
+                mTouchView.setEnabled(false);
             }
         }else{
             mAbcSearchBar.setVisibility(View.INVISIBLE);
             mListView.setVerticalScrollBarEnabled(true);
             mListView.setFastScrollEnabled(true);
             mAbcSearchPopup.setVisibility(View.INVISIBLE);
+            mTouchView.setEnabled(false);
         }
     }
 
@@ -180,7 +196,7 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
 
     @Override
     public void setAbcSearchResult(boolean result) {
-        //mAbcSearchPopup.setVisibility(View.INVISIBLE);
+        mAbcSearchPopup.setVisibility(View.INVISIBLE);
         if(!result){
             Toast.makeText(getActivity(), R.string.ply_107, Toast.LENGTH_SHORT).show();
         }
@@ -206,7 +222,7 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
         private boolean isTouch = false;//タッチ中か
         private final String[] alphabet = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"};
 
-        public DragViewListener() {
+        private DragViewListener() {
         }
 
         @Override
@@ -254,15 +270,7 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
                     if (isTouch) {
                         getPresenter().executeAbcSearch(mSearchText.getText().toString());
                         isTouch = false;
-                        mHandler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                AlphaAnimation alphaFadeout = new AlphaAnimation(1.0f, 0.0f);
-                                alphaFadeout.setDuration(500);
-                                alphaFadeout.setFillAfter(true);
-                                mAbcSearchPopup.startAnimation(alphaFadeout);
-                            }
-                        }, 500);
+                        mHandler.postDelayed(mDelayFunc, 500);
                         return true;
                     }
                     break;

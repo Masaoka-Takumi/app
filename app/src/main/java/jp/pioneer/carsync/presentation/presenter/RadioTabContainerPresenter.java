@@ -38,6 +38,7 @@ import jp.pioneer.carsync.domain.model.SxmBandType;
 import jp.pioneer.carsync.domain.model.TunerStatus;
 import jp.pioneer.carsync.presentation.event.GoBackEvent;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
+import jp.pioneer.carsync.presentation.view.PlayerTabContainerView;
 import jp.pioneer.carsync.presentation.view.RadioTabContainerView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import timber.log.Timber;
@@ -91,44 +92,56 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
             if (!holder.getProtocolSpec().isSphCarDevice()&&mSourceType == MediaSourceType.RADIO) {
                 mTab = RadioTabType.FAVORITE;
                 view.onNavigate(ScreenId.RADIO_FAVORITE_LIST, Bundle.EMPTY);
-            }else if(holder.getProtocolSpec().isSphCarDevice()&&mSourceType == MediaSourceType.DAB){
-                ListType listType = mStatusHolder.execute().getCarDeviceStatus().listType;
-                Timber.d("listType="+ listType);
-                switch (listType){
-                    case SERVICE_LIST:
-                    case ABC_SEARCH_LIST:
-                        break;
-                    case PTY_NEWS_INFO_LIST:
-                    case PTY_POPULER_LIST:
-                    case PTY_CLASSICS_LIST:
-                    case PTY_OYHERS_LIST:
-                        view.onNavigate(ScreenId.DAB_SERVICE_LIST, Bundle.EMPTY);
-                        mTab = RadioTabType.DAB_PTY;
-                        return;
-                    case ENSEMBLE_LIST:
-                        view.onNavigate(ScreenId.DAB_SERVICE_LIST, Bundle.EMPTY);
-                        mTab = RadioTabType.DAB_ENSEMBLE;
-                        return;
-                    case  ENSEMBLE_CATEGORY:
-                        view.onNavigate(ScreenId.DAB_ENSEMBLE_LIST, Bundle.EMPTY);
-                        mTab = RadioTabType.DAB_ENSEMBLE;
-                        return;
-                }
-                mTab = holder.getAppStatus().dabListType;
-                switch (mTab) {
-                    case DAB_PTY:
-                        view.onNavigate(ScreenId.DAB_PTY_LIST, Bundle.EMPTY);
-                        break;
-                    case DAB_ENSEMBLE:
-                        view.onNavigate(ScreenId.DAB_ENSEMBLE_LIST, Bundle.EMPTY);
-                        break;
-                    case DAB_PRESET:
-                        view.onNavigate(ScreenId.RADIO_PRESET_LIST, Bundle.EMPTY);
-                        break;
-                    case DAB_STATION:
-                    default:
-                        view.onNavigate(ScreenId.DAB_SERVICE_LIST, Bundle.EMPTY);
-                        break;
+            }else if(mSourceType == MediaSourceType.DAB) {
+                if(holder.getProtocolSpec().isSphCarDevice()) {
+                    ListType listType = mStatusHolder.execute().getCarDeviceStatus().listType;
+                    Timber.d("listType=" + listType);
+                    Bundle bundle = new Bundle();
+                    switch (listType) {
+                        case PTY_NEWS_INFO_LIST:
+                        case PTY_POPULER_LIST:
+                        case PTY_CLASSICS_LIST:
+                        case PTY_OYHERS_LIST:
+                            mTab = RadioTabType.DAB_PTY;
+                            view.onNavigate(ScreenId.DAB_PTY_LIST, Bundle.EMPTY);
+                            bundle.putBoolean("stack", true);
+                            view.onNavigate(ScreenId.DAB_SERVICE_LIST, bundle);
+                            return;
+                        case ENSEMBLE_LIST:
+                            mTab = RadioTabType.DAB_ENSEMBLE;
+                            view.onNavigate(ScreenId.DAB_ENSEMBLE_LIST, Bundle.EMPTY);
+                            bundle.putBoolean("stack", true);
+                            view.onNavigate(ScreenId.DAB_SERVICE_LIST, bundle);
+                            return;
+                        case ENSEMBLE_CATEGORY:
+                            mTab = RadioTabType.DAB_ENSEMBLE;
+                            view.onNavigate(ScreenId.DAB_ENSEMBLE_LIST, Bundle.EMPTY);
+                            return;
+                        case SERVICE_LIST:
+                        case ABC_SEARCH_LIST:
+                        default:
+                            break;
+                    }
+                    mTab = holder.getAppStatus().dabListType;
+                    switch (mTab) {
+                        case DAB_PTY:
+                            view.onNavigate(ScreenId.DAB_PTY_LIST, Bundle.EMPTY);
+                            break;
+                        case DAB_ENSEMBLE:
+                            //上で抜けるので通らないはず
+                            view.onNavigate(ScreenId.DAB_ENSEMBLE_LIST, Bundle.EMPTY);
+                            break;
+                        case DAB_PRESET:
+                            view.onNavigate(ScreenId.RADIO_PRESET_LIST, Bundle.EMPTY);
+                            break;
+                        case DAB_STATION:
+                        default:
+                            view.onNavigate(ScreenId.DAB_SERVICE_LIST, Bundle.EMPTY);
+                            break;
+                    }
+                }else{
+                    mTab = RadioTabType.PRESET;
+                    view.onNavigate(ScreenId.DAB_SERVICE_LIST, Bundle.EMPTY);
                 }
             }else{
                 mTab = RadioTabType.PRESET;
@@ -187,7 +200,11 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
 
     @Override
     public void onClose() {
-        mEventBus.post(new GoBackEvent());
+        if(mSourceType==MediaSourceType.DAB&&mStatusHolder.execute().getProtocolSpec().isSphCarDevice()){
+            Optional.ofNullable(getView()).ifPresent(RadioTabContainerView::closeDialog);
+        }else {
+            mEventBus.post(new GoBackEvent());
+        }
     }
 
     /**

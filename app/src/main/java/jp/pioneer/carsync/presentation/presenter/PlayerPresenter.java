@@ -224,7 +224,22 @@ public class PlayerPresenter<T> extends Presenter<T> {
             }
         } else if (status.sourceType.isListSupported()) {
             if(status.sourceType == MediaSourceType.DAB){
-                mMediaCase.enterList(ListType.SERVICE_LIST);
+                if(mStatusHolder.execute().getProtocolSpec().isSphCarDevice()) {
+                    RadioTabContainerPresenter.RadioTabType tab = mStatusHolder.execute().getAppStatus().dabListType;
+                    switch (tab) {
+                        case DAB_ENSEMBLE:
+                            mMediaCase.enterList(ListType.ENSEMBLE_CATEGORY);
+                            break;
+                        case DAB_PTY:
+                        case DAB_PRESET:
+                        case DAB_STATION:
+                        default:
+                            mMediaCase.enterList(ListType.SERVICE_LIST);
+                            break;
+                    }
+                }else{
+                    mMediaCase.enterList(ListType.SERVICE_LIST);
+                }
             } else if(status.listType.canEnter()) {
                 mMediaCase.enterList(ListType.LIST);
             } else {

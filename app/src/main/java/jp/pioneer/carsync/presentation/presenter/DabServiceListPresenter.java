@@ -18,17 +18,20 @@ import org.greenrobot.eventbus.ThreadMode;
 import javax.inject.Inject;
 
 import jp.pioneer.carsync.domain.content.TunerContract;
+import jp.pioneer.carsync.domain.event.CrpDabAbcSearchResultEvent;
 import jp.pioneer.carsync.domain.event.ListInfoChangeEvent;
 import jp.pioneer.carsync.domain.interactor.ControlDabSource;
 import jp.pioneer.carsync.domain.interactor.ControlMediaList;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.model.DabBandType;
 import jp.pioneer.carsync.domain.model.ListInfo;
+import jp.pioneer.carsync.domain.model.ListType;
 import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.StatusHolder;
 import jp.pioneer.carsync.domain.repository.CarDeviceMediaRepository;
 import jp.pioneer.carsync.infrastructure.crp.event.CrpListUpdateEvent;
 import jp.pioneer.carsync.presentation.view.DabServiceListView;
+import timber.log.Timber;
 
 public class DabServiceListPresenter extends Presenter<DabServiceListView> implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String KEY_BAND_TYPE = "band_type";
@@ -112,7 +115,7 @@ public class DabServiceListPresenter extends Presenter<DabServiceListView> imple
         int id = loader.getId();
         if (id == LOADER_ID_SERVICE_LIST) {
             if (mSourceType == MediaSourceType.DAB) {
-                Optional.ofNullable(getView()).ifPresent(view -> view.setCursor(cursor, mStatusHolder.execute().getCarDeviceStatus().listType));
+                Optional.ofNullable(getView()).ifPresent(view -> view.setCursor(cursor, mStatusHolder.execute().getCarDeviceStatus().listType,mStatusHolder.execute().getProtocolSpec().isSphCarDevice()));
                 //onLoadFinishedが何度も呼ばれてsetCursorするとFocus表示が消えるため。
                 updateFocus();
             }
@@ -143,6 +146,17 @@ public class DabServiceListPresenter extends Presenter<DabServiceListView> imple
     public synchronized void OnListInfoChangeEvent(ListInfoChangeEvent ev) {
         if (mSourceType == MediaSourceType.DAB) {
             updateFocus();
+        }
+    }
+    /**
+     * DAB ABCサーチ実行要求に対する応答
+     *
+     * @param ev ABCサーチ要求応答イベント
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public  void onCrpDabAbcSearchResultEvent(CrpDabAbcSearchResultEvent ev) {
+        if(mStatusHolder.execute().getProtocolSpec().isSphCarDevice()) {
+            Timber.d("CrpDabAbcSearchResultEvent");
             ListInfo info = mStatusHolder.execute().getListInfo();
             Optional.ofNullable(getView()).ifPresent(view -> {
                 view.setAbcSearchResult(info.abcSearchResult);

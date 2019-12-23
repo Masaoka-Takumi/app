@@ -8,9 +8,13 @@ public interface DabServiceListView {
     /**
      * アダプター設定
      *
-     * @param cursor カーソル
+     * @param cursor   カーソル
+     * @param listType ListType
+     * @param isSph    専用機かどうか
      */
-    void setCursor(Cursor cursor, ListType listType);
+    void setCursor(Cursor cursor, ListType listType, boolean isSph);
+
     void setSelectedPositionNotScroll(int position);
+
     void setAbcSearchResult(boolean result);
 }

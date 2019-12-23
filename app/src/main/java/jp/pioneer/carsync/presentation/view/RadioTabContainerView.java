@@ -64,4 +64,7 @@ public interface RadioTabContainerView extends OnNavigateListener {
      * @param isVisible
      */
     void setCloseButtonVisible(boolean isVisible);
+
+    void closeDialog();
+
 }
