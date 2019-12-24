@@ -88,10 +88,6 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
      */
     @Inject
     public RadioPresetPresenter() {
-/*        mCursor.addRow(new String[]{"1", "1", "satousan"});
-        mCursor.addRow(new String[]{"2", "2", "suzukisan"});
-        mCursor.addRow(new String[]{"3", "3", "tanakasan"});
-        mCursor.moveToFirst();*/
     }
 
     @Override
@@ -172,7 +168,6 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
     }
 
     private ArrayList<AbstractPresetItem> createPresetList(Cursor data) {
-        //SparseArray<String> preset = new SparseArray<>();
         StatusHolder holder = mStatusHolder.execute();
         ArrayList<AbstractPresetItem> presetList = new ArrayList<>();
         boolean isEof = data.moveToFirst();
@@ -312,9 +307,6 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
             }
         }else if (mSourceType == MediaSourceType.DAB) {
             return;
-/*            if (mDabBand != null) {
-                args.putByte(KEY_BAND_TYPE, (byte) (mDabBand.getCode() & 0xFF));
-            }*/
         }else if (mSourceType == MediaSourceType.HD_RADIO) {
             if (mHdRadioBand != null) {
                 args.putByte(KEY_BAND_TYPE, (byte) (mHdRadioBand.getCode() & 0xFF));
@@ -332,9 +324,7 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
     public synchronized void OnListInfoChangeEvent(ListInfoChangeEvent ev) {
         if (mSourceType == MediaSourceType.RADIO||mSourceType == MediaSourceType.SIRIUS_XM||mSourceType == MediaSourceType.HD_RADIO) {
             updateSelected();
-        }/*else if(mSourceType == MediaSourceType.DAB) {
-            updateFocus();
-        }*/
+        }
     }
 
     /**
@@ -437,11 +427,14 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
             }
             updateDabPresetList();
         }
-
     }
-
+    
+    /**
+     * DAB PCHリスト作成
+     */
     private void updateDabPresetList(){
         ArrayList<AbstractPresetItem> presetList = new ArrayList<>();
+        //初期PCHリスト取得
         Map<PresetChannelDictionary.PresetKey, Integer> initialPreset = mStatusHolder.execute().getPresetChannelDictionary().getInitialPresetInfo();
         for (PresetChannelDictionary.PresetKey key : initialPreset.keySet()) {
             int number = 0;
@@ -458,7 +451,6 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
             for (int i = 0; i < mUserPreset.size(); i++) {
                 DabPresetItem userPreset = (DabPresetItem) mUserPreset.get(i);
                 DabBandType presetBand = userPreset.bandType;
-                //登録用Bandで比較
                 if(presetBand==DabBandType.valueOf((byte)key.band) && userPreset.presetNumber==number) {
                     presetList.add(userPreset);
                     isUserPreset = true;
@@ -476,7 +468,7 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
     /**
      * PCH選局
      */
-    public void onSelectPreset(int presetIndex){
+    private void onSelectPreset(int presetIndex){
         boolean isExist = false;
         if(mUserPresetCursor!=null) {
             mUserPresetCursor.moveToPosition(-1);
@@ -509,7 +501,7 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
     /**
      * PCH選局(KM997のDAB用)
      */
-    public void onSelectPresetDab(int presetIndex){
+    private void onSelectPresetDab(int presetIndex){
         if(isSphCarDevice()) {
             boolean isExist = false;
             DabBandType presetBand = DabBandType.valueOf((byte)((presetIndex-1)/6));
@@ -549,8 +541,6 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
                 }
             }
             mMediaCase.exitList();
-        }else{
-            //mMediaCase.selectListItem(presetIndex);
         }
     }
 }
