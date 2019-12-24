@@ -170,7 +170,8 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
             mServiceListAdapter.notifyDataSetChanged();
         }
         Timber.d("cursor.getCount()=" + cursor.getCount() + ",listType=" + listType);
-        if (listType == ListType.SERVICE_LIST||listType == ListType.ABC_SEARCH_LIST) {
+        if (listType == ListType.SERVICE_LIST) {
+            mAbcSearchPopup.setVisibility(View.INVISIBLE);
             mListView.setVerticalScrollBarEnabled(false);
             mListView.setFastScrollEnabled(false);
             if(cursor.getCount() > 0&&isSph){
@@ -196,8 +197,8 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
 
     @Override
     public void setAbcSearchResult(boolean result) {
-        mAbcSearchPopup.setVisibility(View.INVISIBLE);
         if(!result){
+            mAbcSearchPopup.setVisibility(View.INVISIBLE);
             Toast.makeText(getActivity(), R.string.ply_107, Toast.LENGTH_SHORT).show();
         }
     }

@@ -113,8 +113,8 @@ public class MediaListControllerImpl implements MediaListController {
             return;
         }
 
-        // DABはMediaListSelectTaskを使用しない
-        if (listItem instanceof ListInfo.DabListItem) {
+        // DABはMediaListSelectTaskを使用しない（Ensemble大分類以外）
+        if (listItem instanceof ListInfo.DabListItem&&status.listType!=ListType.ENSEMBLE_CATEGORY) {
             ListInfo.DabListItem item = (ListInfo.DabListItem) listItem;
             mCarDeviceConnection.sendPacket(mPacketBuilder.createDabListItemSelectedNotification(
                     item.index, item.eid, item.sid, item.scids));

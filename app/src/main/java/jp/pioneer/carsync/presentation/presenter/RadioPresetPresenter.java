@@ -21,8 +21,10 @@ import javax.inject.Inject;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.content.TunerContract;
+import jp.pioneer.carsync.domain.event.DabInfoChangeEvent;
 import jp.pioneer.carsync.domain.event.ListInfoChangeEvent;
 import jp.pioneer.carsync.domain.event.LocationMeshCodeChangeEvent;
+import jp.pioneer.carsync.domain.interactor.ControlDabSource;
 import jp.pioneer.carsync.domain.interactor.ControlMediaList;
 import jp.pioneer.carsync.domain.interactor.ControlRadioSource;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
@@ -147,7 +149,7 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
             if (mSourceType == MediaSourceType.RADIO) {
                 return mTunerCase.getFavoriteList(TunerContract.FavoriteContract.QueryParamsBuilder.createRadioPreset());
             }else if (mSourceType == MediaSourceType.DAB) {
-                return mTunerCase.getFavoriteList(TunerContract.FavoriteContract.QueryParamsBuilder.createDabPreset());
+                return mTunerCase.getFavoriteList(TunerContract.FavoriteContract.QueryParamsBuilder.createDabPreset(mDabBand));
             }
         }
         return null;
@@ -342,6 +344,19 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
         mMediaCase.selectListItem(listIndex);
     }
 
+    /** DAB情報変更通知イベントハンドラ
+     *
+     * @param event DAB情報変更通知イベント
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onDabInfoChangeEvent(DabInfoChangeEvent event) {
+        StatusHolder holder = mStatusHolder.execute();
+        if(holder.getCarDeviceMediaInfoHolder().dabInfo.band!=mDabBand){
+            mDabBand =holder.getCarDeviceMediaInfoHolder().dabInfo.band;
+            getUserPresetList();
+        }
+    }
+
     private void updateSelected(){
         StatusHolder holder = mStatusHolder.execute();
         ListInfo info = holder.getListInfo();
@@ -428,7 +443,7 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
             updateDabPresetList();
         }
     }
-    
+
     /**
      * DAB PCHリスト作成
      */
@@ -437,28 +452,32 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
         //初期PCHリスト取得
         Map<PresetChannelDictionary.PresetKey, Integer> initialPreset = mStatusHolder.execute().getPresetChannelDictionary().getInitialPresetInfo();
         for (PresetChannelDictionary.PresetKey key : initialPreset.keySet()) {
-            int number = 0;
-            Integer numberInteger;
-            numberInteger = initialPreset.get(key);
-            if (numberInteger != null) {
-                number = numberInteger;
-            };
-            String freqName = FrequencyUtil.toString(mContext, key.frequency, TunerFrequencyUnit.MHZ);
-            DabPresetItem preset = new DabPresetItem(DabBandType.valueOf((byte)key.band), number, "", freqName, false);
-
-            //ユーザー登録Presetがあれば差し替え
-            boolean isUserPreset = false;
-            for (int i = 0; i < mUserPreset.size(); i++) {
-                DabPresetItem userPreset = (DabPresetItem) mUserPreset.get(i);
-                DabBandType presetBand = userPreset.bandType;
-                if(presetBand==DabBandType.valueOf((byte)key.band) && userPreset.presetNumber==number) {
-                    presetList.add(userPreset);
-                    isUserPreset = true;
-                    break;
+            //現Bandのみのリスト
+            if(DabBandType.valueOf((byte)key.band) == mDabBand) {
+                int number = 0;
+                Integer numberInteger;
+                numberInteger = initialPreset.get(key);
+                if (numberInteger != null) {
+                    number = numberInteger;
                 }
-            }
-            if(!isUserPreset){
-                presetList.add(preset);
+                ;
+                String freqName = FrequencyUtil.toString(mContext, key.frequency, TunerFrequencyUnit.MHZ);
+                DabPresetItem preset = new DabPresetItem(DabBandType.valueOf((byte) key.band), number, "", freqName, false);
+
+                //ユーザー登録Presetがあれば差し替え
+                boolean isUserPreset = false;
+                for (int i = 0; i < mUserPreset.size(); i++) {
+                    DabPresetItem userPreset = (DabPresetItem) mUserPreset.get(i);
+                    DabBandType presetBand = userPreset.bandType;
+                    if (presetBand == DabBandType.valueOf((byte) key.band) && userPreset.presetNumber == number) {
+                        presetList.add(userPreset);
+                        isUserPreset = true;
+                        break;
+                    }
+                }
+                if (!isUserPreset) {
+                    presetList.add(preset);
+                }
             }
         }
         Optional.ofNullable(getView()).ifPresent(view -> view.setPresetList(presetList));
@@ -498,20 +517,20 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
             mMediaCase.selectListItem(presetIndex);
         }
     }
+
     /**
      * PCH選局(KM997のDAB用)
      */
     private void onSelectPresetDab(int presetIndex){
-        if(isSphCarDevice()) {
+        if (isSphCarDevice() && presetIndex >= 1 && presetIndex <= 6) {
             boolean isExist = false;
-            DabBandType presetBand = DabBandType.valueOf((byte)((presetIndex-1)/6));
             if (mUserPresetCursor != null) {
                 mUserPresetCursor.moveToPosition(-1);
                 while (mUserPresetCursor.moveToNext()) {
                     DabBandType band = TunerContract.FavoriteContract.Dab.getBandType(mUserPresetCursor);
                     int presetNumber = TunerContract.FavoriteContract.Dab.getPresetNumber(mUserPresetCursor);
                     //ユーザー登録PCHリストのBandとPresetNumberが一致すればユーザー登録PCHが存在する
-                    if ((presetBand == band)&&((presetIndex-1)%6+1 == presetNumber)) {
+                    if ((mDabBand == band) && (presetIndex == presetNumber)) {
                         isExist = true;
                         break;
                     }
@@ -529,12 +548,12 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
                 //初期PCHリストで選局
                 PresetChannelDictionary.PresetKey presetKey = mStatusHolder.execute().getPresetChannelDictionary().getInitialPresetInfo(
                         MediaSourceType.DAB,
-                        presetBand.code,
-                        (presetIndex-1)%6+1);
-                if(presetKey!=null) {
+                        mDabBand.code,
+                        presetIndex);
+                if (presetKey != null) {
                     mDabCase.selectFavorite(
                             presetKey.index,
-                            presetBand,
+                            mDabBand,
                             presetKey.eid,
                             presetKey.sid,
                             presetKey.scids);

@@ -2,6 +2,7 @@ package jp.pioneer.carsync.presentation.presenter;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
+import jp.pioneer.carsync.domain.content.TunerContract;
 import jp.pioneer.carsync.domain.event.ListInfoChangeEvent;
 import jp.pioneer.carsync.domain.interactor.ControlMediaList;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
@@ -42,22 +44,22 @@ public class DabEnsembleListPresenter extends Presenter<DabEnsembleListView> imp
     private LoaderManager mLoaderManager;
     private DabBandType mDabBand;
     /** 仮想的に作成するDBのカラム名 */
-/*   private static final String[] FROM = {
+   private static final String[] FROM = {
             TunerContract.ListItemContract.ListItemBaseColumns._ID,
             TunerContract.ListItemContract.ListItemBaseColumns.LIST_INDEX,
             TunerContract.ListItemContract.ListItemBaseColumns.TEXT,
     };
-    private MatrixCursor mCursor = new MatrixCursor(FROM);*/
+    private MatrixCursor mCursor = new MatrixCursor(FROM);
 
     /**
      * コンストラクタ
      */
     @Inject
     public DabEnsembleListPresenter() {
-/*        mCursor.addRow(new String[]{"1", "1", "satousan"});
+        mCursor.addRow(new String[]{"1", "1", "satousan"});
         mCursor.addRow(new String[]{"2", "2", "suzukisan"});
         mCursor.addRow(new String[]{"3", "3", "tanakasan"});
-        mCursor.moveToFirst();*/
+        mCursor.moveToFirst();
     }
 
     @Override
@@ -70,7 +72,7 @@ public class DabEnsembleListPresenter extends Presenter<DabEnsembleListView> imp
         if (!mEventBus.isRegistered(this)) {
             mEventBus.register(this);
         }
-        updatePresetList();
+        updateEnsembleList();
     }
 
     @Override
@@ -122,7 +124,7 @@ public class DabEnsembleListPresenter extends Presenter<DabEnsembleListView> imp
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public synchronized void onCrpListUpdateEvent(CrpListUpdateEvent ev) {
-        updatePresetList();
+        updateEnsembleList();
     }
 
     /**
@@ -137,7 +139,7 @@ public class DabEnsembleListPresenter extends Presenter<DabEnsembleListView> imp
         }
     }
 
-    private void updatePresetList() {
+    private void updateEnsembleList() {
         StatusHolder holder = mStatusHolder.execute();
         mSourceType = mStatusHolder.execute().getCarDeviceStatus().sourceType;
         if (mSourceType == MediaSourceType.DAB) {

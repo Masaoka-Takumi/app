@@ -38,12 +38,9 @@ public class DabAbcSearchExecutePacketProcessor {
             byte[] data = checkNotNull(packet).getData();
             checkPacketDataLength(data, DATA_LENGTH);
 
-            ListInfo info = mStatusHolder.getListInfo();
             // D1:結果
-            info.abcSearchResult = (ubyteToInt(data[1]) == 0x01);
-            Timber.d("process() abcSearchResult = " + info.abcSearchResult);
-            info.updateVersion();
-            return Boolean.TRUE;
+            Timber.d("process() abcSearchResult = " + (ubyteToInt(data[1]) == 0x01));
+            return (ubyteToInt(data[1]) == 0x01)?Boolean.TRUE:Boolean.FALSE;
         } catch (BadPacketException | IllegalArgumentException e) {
             Timber.e(e, "process()");
             return Boolean.FALSE;

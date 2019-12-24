@@ -157,9 +157,8 @@ public class DabServiceListPresenter extends Presenter<DabServiceListView> imple
     public  void onCrpDabAbcSearchResultEvent(CrpDabAbcSearchResultEvent ev) {
         if(mStatusHolder.execute().getProtocolSpec().isSphCarDevice()) {
             Timber.d("CrpDabAbcSearchResultEvent");
-            ListInfo info = mStatusHolder.execute().getListInfo();
             Optional.ofNullable(getView()).ifPresent(view -> {
-                view.setAbcSearchResult(info.abcSearchResult);
+                view.setAbcSearchResult(ev.result);
             });
         }
     }

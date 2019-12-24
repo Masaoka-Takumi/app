@@ -57,7 +57,7 @@ public class DabPtyListFragment extends AbstractScreenFragment<DabPtyListPresent
         if (context != null) {
             String[] items = {context.getString(R.string.ply_103), context.getString(R.string.ply_104), context.getString(R.string.ply_105), context.getString(R.string.ply_106)};
             ArrayAdapter<String> itemsAdapter =
-                    new ArrayAdapter<>(context, R.layout.element_list_item_usb, R.id.title_text, items);
+                    new ArrayAdapter<>(context, R.layout.element_list_item_title_autofit, R.id.title_text, items);
             mListView.setAdapter(itemsAdapter);
         }
         mListView.setFastScrollEnabled(true);
