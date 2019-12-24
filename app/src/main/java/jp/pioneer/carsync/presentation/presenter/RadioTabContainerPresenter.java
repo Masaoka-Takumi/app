@@ -25,6 +25,7 @@ import jp.pioneer.carsync.domain.interactor.ControlMediaList;
 import jp.pioneer.carsync.domain.interactor.ControlRadioSource;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.model.AppStatusChangeEvent;
+import jp.pioneer.carsync.domain.model.CarDeviceStatus;
 import jp.pioneer.carsync.domain.model.DabBandType;
 import jp.pioneer.carsync.domain.model.DabInfo;
 import jp.pioneer.carsync.domain.model.HdRadioBandType;
@@ -153,15 +154,8 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
 
     @Override
     void onTakeView() {
-        StatusHolder holder = mStatusHolder.execute();
-        mSourceType = holder.getCarDeviceStatus().sourceType;
         Optional.ofNullable(getView()).ifPresent(view -> {
             view.setColor(mPreference.getUiColor().getResource());
-            if(mSourceType == MediaSourceType.RADIO) {
-                view.setTabVisible(!holder.getProtocolSpec().isSphCarDevice());
-            }else{
-                view.setTabVisible(true);
-            }
         });
     }
 
@@ -196,6 +190,13 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
     @Override
     void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putString(KEY_PREFERENCE_TAB, mTab.name());
+    }
+
+    /**
+     * 閉じる処理.
+     */
+    public void onBackAction(){
+        mEventBus.post(new GoBackEvent());
     }
 
     @Override
@@ -294,9 +295,10 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
                     mTunerStatus = info.tunerStatus;
                 }
                 if ((mTab == RadioTabType.PRESET||mTab == RadioTabType.DAB_STATION||mTab == RadioTabType.DAB_PTY
-                        ||mTab == RadioTabType.DAB_ENSEMBLE||mTab == RadioTabType.DAB_PRESET)) {
+                        ||mTab == RadioTabType.DAB_ENSEMBLE)) {
                     view.setUpdateButtonVisible(true);
                 } else {
+                    //DAB-01-02:DAB Favorite list画面/DAB Preset List画面(KM997と連携中)はUpdateボタン非表示
                     view.setUpdateButtonVisible(false);
                 }
                 view.setBsmButtonVisible(false);

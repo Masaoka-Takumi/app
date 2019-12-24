@@ -131,17 +131,6 @@ public class RadioTabContainerFragment extends AbstractDialogFragment<RadioTabCo
     }
 
     @Override
-    public void setTabVisible(boolean isVisible){
-        if(isVisible) {
-            mTabLayout.setVisibility(View.VISIBLE);
-            mSeparater.setVisibility(View.VISIBLE);
-        }else{
-            mTabLayout.setVisibility(View.GONE);
-            mSeparater.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
     public void setTabLayout(MediaSourceType type,boolean isSph) {
         if(type == MediaSourceType.RADIO&&isSph){
             mTabLayout.setVisibility(View.GONE);
@@ -320,8 +309,16 @@ public class RadioTabContainerFragment extends AbstractDialogFragment<RadioTabCo
     /**
      * 戻るボタン押下イベント
      */
-    @OnClick({R.id.back_button, R.id.close_button})
+    @OnClick(R.id.back_button)
     public void onClickBackButton() {
+        getPresenter().onBackAction();
+    }
+
+    /**
+     * 閉じるボタン押下イベント
+     */
+    @OnClick( R.id.close_button)
+    public void onClickCloseButton() {
         getPresenter().onCloseAction();
     }
 

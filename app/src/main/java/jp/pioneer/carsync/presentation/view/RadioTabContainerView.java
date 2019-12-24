@@ -11,7 +11,6 @@ import jp.pioneer.carsync.presentation.view.fragment.OnNavigateListener;
  */
 
 public interface RadioTabContainerView extends OnNavigateListener {
-    void setTabVisible(boolean isVisible);
     void setTabLayout(MediaSourceType type,boolean isSph);
     /**
      * 表示中タブタイトルの設定
