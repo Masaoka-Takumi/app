@@ -36,6 +36,8 @@ import timber.log.Timber;
 
 /**
  * AlexaSettingFragment
+ * TODO 他設定画面と同様にAbstractPreferenceFragmentで画面を作る
+ *       (過去、そうできない理由があったが今は問題ないため)
  */
 
 public class AlexaSettingFragment extends AbstractScreenFragment<AlexaSettingPresenter, AlexaSettingView>
@@ -106,14 +108,6 @@ public class AlexaSettingFragment extends AbstractScreenFragment<AlexaSettingPre
         return ScreenId.ALEXA_SETTING;
     }
 
-    @OnClick(R.id.back_button)
-    public void onClickBackButton() {
-        getPresenter().onBackAction();
-    }
-    @OnClick(R.id.close_button)
-    public void onClickCloseButton() {
-        getPresenter().onCloseAction();
-    }
     @Override
     public void onClose(StatusPopupDialogFragment fragment, String tag) {
 
