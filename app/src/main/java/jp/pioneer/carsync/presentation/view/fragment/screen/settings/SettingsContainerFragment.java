@@ -357,7 +357,7 @@ public class SettingsContainerFragment extends AbstractScreenFragment<SettingsCo
     private void updateNavigateBar(ScreenId id) {
         if(id.isDialog())return;
         if (id == ScreenId.ADAS_TUTORIAL||id == ScreenId.CALIBRATION_SETTING||id == ScreenId.CALIBRATION_SETTING_FITTING||id == ScreenId.VIDEO_PLAYER
-                ||id == ScreenId.ALEXA_SETTING||id == ScreenId.ALEXA_SPLASH||id == ScreenId.ALEXA_EXAMPLE_USAGE) {
+                ||id == ScreenId.ALEXA_SPLASH||id == ScreenId.ALEXA_EXAMPLE_USAGE) {
             mNavigateBar.setVisibility(View.GONE);
         } else {
             mNavigateBar.setVisibility(View.VISIBLE);

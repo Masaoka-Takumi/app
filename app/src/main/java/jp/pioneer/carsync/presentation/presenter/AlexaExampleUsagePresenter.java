@@ -70,7 +70,7 @@ public class AlexaExampleUsagePresenter  extends Presenter<AlexaExampleUsageView
     public void setAlexaLanguage(int position){
         AlexaLanguageType type = AlexaLanguageType.valueOf((byte)position);
         mPreference.setAlexaLanguage(type);
-        mEventBus.post(new NavigateEvent(ScreenId.ALEXA_SETTING, Bundle.EMPTY));
+        mEventBus.post(new NavigateEvent(ScreenId.ALEXA_SETTING, createSettingsParams(mContext.getString(R.string.set_302))));
     }
 
     public void showSignOutDialog(){

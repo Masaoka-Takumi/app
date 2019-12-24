@@ -101,24 +101,6 @@ public class AlexaSettingPresenter extends Presenter<AlexaSettingView>{
         return mGetStatusHolder.execute().getSessionStatus() == SessionStatus.STARTED;
     }
 
-    /**
-     * Back押下アクション
-     */
-    public void onBackAction() {
-        mEventBus.post(new GoBackEvent());
-    }
-
-    /**
-     * Close押下アクション
-     */
-    public void onCloseAction() {
-        if (mGetStatusHolder.execute().getSessionStatus() == SessionStatus.STARTED) {
-            mEventBus.post(new NavigateEvent(ScreenId.HOME_CONTAINER));
-        } else {
-            mEventBus.post(new NavigateEvent(ScreenId.UNCONNECTED_CONTAINER));
-        }
-    }
-
     private Bundle createSettingsParams(String pass) {
         SettingsParams params = new SettingsParams();
         params.pass = pass;
