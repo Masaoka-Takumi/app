@@ -30,6 +30,7 @@ import android.support.v4.content.ContextCompat;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -668,9 +669,8 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
     @NeedsPermission(Manifest.permission.READ_PHONE_STATE)
     public void setCountryCode(){
         Timber.d("setCountryCode");
-        SimCountryIso simCountryIso = getCountryIso();
-        getPresenter().setAlexaAvailable(simCountryIso);
-        getPresenter().setAdasAvailable(simCountryIso);
+        getPresenter().setAlexaAvailable(getCountryIso(true));
+        getPresenter().setAdasAvailable(getCountryIso(false));
     }
 
     /**
@@ -703,11 +703,13 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
 
     /**
      * SIM判定処理
-     * 取得できない場合(MainActivity#canCheckSimで判定)や国が定義されていない場合は
-     * SimCountryIso#NO_AVAILABLEを返す
-     * @return SimCountryIso 対応した値、対応値がなければNO_AVAILABLE
+     * SIMが挿入されていない場合({@link MainActivity#canCheckSim}で判定)は{@link SimCountryIso#NO_AVAILABLE}
+     * 未定義の国情報の場合は{@link SimCountryIso#NO_DEFINE}を返す
+     * @param retryGetSimCountryIso
+     *  {@link SubscriptionInfo#getCountryIso}が空文字列の場合、{@link TelephonyManager#getSimCountryIso()}での取得を試みるかどうか
+     * @return SimCountryIso 対応した値、対応値がない場合は{@link SimCountryIso#NO_DEFINE}
      */
-    private SimCountryIso getCountryIso() {
+    private SimCountryIso getCountryIso(boolean retryGetSimCountryIso) {
         if(!canCheckSim()) {
             return SimCountryIso.NO_AVAILABLE;
         }
@@ -716,12 +718,14 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
 
         if(Build.VERSION.SDK_INT >= 22) {
             final SubscriptionManager subscriptionManager;
+
             if(Build.VERSION.SDK_INT >= 23) {
                 subscriptionManager = getSystemService(SubscriptionManager.class);
             }else{
                 // API 22以下のために使用
                 subscriptionManager = (SubscriptionManager) getSystemService(TELEPHONY_SUBSCRIPTION_SERVICE);
             }
+
             try {
                 final List<SubscriptionInfo> activeSubscriptionInfoList = subscriptionManager.getActiveSubscriptionInfoList();
 
@@ -731,12 +735,23 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
 
                     for (SubscriptionInfo subscriptionInfo : activeSubscriptionInfoList) {
                         countryCode = subscriptionInfo.getCountryIso();
-                        Log.d("MainActivity: ", "iccId :" + subscriptionInfo.getIccId() + " , name : " + subscriptionInfo.getDisplayName());
+                        Log.d("MainActivity: ", "simSlotIndex=" + subscriptionInfo.getSimSlotIndex() + ", carrierName=" + subscriptionInfo.getCarrierName()
+                                + ", countryIso=" + countryCode + ", iccId=" + subscriptionInfo.getIccId() + " , displayName=" + subscriptionInfo.getDisplayName());
+
+                        // SubscriptionInfoから取得できなかった場合はTelephonyManagerから取得を試みる
+                        if(retryGetSimCountryIso && TextUtils.isEmpty(countryCode)) {
+                            TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+                            if(tm != null) {
+                                countryCode = tm.getSimCountryIso();
+                                Log.d("MainActivity: ", "simState=" + tm.getSimState() + ", simCountryIso=" + countryCode);
+                            }
+                        }
                     }
                 }
             }catch (SecurityException e){
                 Timber.e("getActiveSubscriptionInfoList:SecurityException:" + e.getMessage());
             }
+
         }else{
             final TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
             if(tm!=null) {
