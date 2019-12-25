@@ -225,13 +225,15 @@ public class PlayerPresenter<T> extends Presenter<T> {
         } else if (status.sourceType.isListSupported()) {
             if(status.sourceType == MediaSourceType.DAB){
                 if(mStatusHolder.execute().getProtocolSpec().isSphCarDevice()) {
-                    RadioTabContainerPresenter.RadioTabType tab = mStatusHolder.execute().getAppStatus().dabListType;
+                    RadioTabContainerPresenter.RadioTabType tab = mPreference.getDabSphListTabSelected();
                     switch (tab) {
                         case DAB_ENSEMBLE:
                             mMediaCase.enterList(ListType.ENSEMBLE_CATEGORY);
                             break;
                         case DAB_PTY:
                         case DAB_PRESET:
+                            onShowList();
+                            break;
                         case DAB_STATION:
                         default:
                             mMediaCase.enterList(ListType.SERVICE_LIST);

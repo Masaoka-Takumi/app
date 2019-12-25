@@ -88,7 +88,7 @@ public class RadioTabContainerFragment extends AbstractDialogFragment<RadioTabCo
         setCancelable(false);
         dialog.setOnKeyListener((dialog1, keyCode, event) -> {
             if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-                getPresenter().onCloseAction();
+                getPresenter().onBackAction();
                 return true;
             }
             return false;

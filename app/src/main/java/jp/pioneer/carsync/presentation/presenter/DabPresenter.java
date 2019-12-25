@@ -138,8 +138,9 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
         Optional.ofNullable(getView()).ifPresent(view -> {
             if(!view.isShowRadioTabContainer()) {
                 mEventBus.post(new BackgroundChangeEvent(true));
+                //すでにラジオリストダイアログを表示中は再表示しない
+                mEventBus.post(new NavigateEvent(ScreenId.RADIO_LIST_CONTAINER, Bundle.EMPTY));
             }
-            mEventBus.post(new NavigateEvent(ScreenId.RADIO_LIST_CONTAINER, Bundle.EMPTY));
         });
 
     }

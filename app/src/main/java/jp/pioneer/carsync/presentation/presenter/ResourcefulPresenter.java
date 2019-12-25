@@ -754,7 +754,7 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
         if(mCurrentListType == null || mCurrentListType == ListType.NOT_LIST) {
             if (type == ListType.PCH_LIST || type == ListType.LIST || type == ListType.ABC_SEARCH_LIST
                     ||type == ListType.SERVICE_LIST || type == ListType.PTY_NEWS_INFO_LIST || type == ListType.PTY_POPULER_LIST
-                    || type == ListType.PTY_CLASSICS_LIST || type == ListType.PTY_OYHERS_LIST
+                    || type == ListType.PTY_CLASSICS_LIST || type == ListType.PTY_OTHERS_LIST
                     || type == ListType.ENSEMBLE_CATEGORY || type == ListType.ENSEMBLE_LIST) {
                 Optional.ofNullable(getView()).ifPresent(view -> {
                     if (AppUtil.isScreenOn(mContext)) {

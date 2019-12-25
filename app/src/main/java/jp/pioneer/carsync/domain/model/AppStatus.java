@@ -110,8 +110,8 @@ public class AppStatus {
     public MediaSourceType lastSourceBeforeYouTubeLink;
     /** YouTubeLinkWebView画面表示中 */
     public boolean isShowYouTubeLinkWebView;
-    /** 選択中DABリスト種別 */
-    public RadioTabContainerPresenter.RadioTabType dabListType;
+    /** RadioList表示中 */
+    public boolean isShowRadioTabContainer;
     public AppStatus() {
         reset();
         isLaunchedThirdPartyAudioApp = false;
@@ -142,7 +142,6 @@ public class AppStatus {
         lastDirectSource = null;
         lastSourceOnTime = 0L;
         lastSourceBeforeYouTubeLink = null;
-        dabListType =  RadioTabContainerPresenter.RadioTabType.DAB_STATION;
     }
 
     /**
@@ -170,6 +169,7 @@ public class AppStatus {
         lastSourceOnTime = 0L;
         lastSourceBeforeYouTubeLink = null;
         isShowYouTubeLinkWebView = false;
+        isShowRadioTabContainer = false;
     }
 	/**
      * ADAS警告状態取得.

@@ -19,6 +19,7 @@ import javax.inject.Inject;
 
 import jp.pioneer.carsync.domain.content.TunerContract;
 import jp.pioneer.carsync.domain.event.ListInfoChangeEvent;
+import jp.pioneer.carsync.domain.event.ListTypeChangeEvent;
 import jp.pioneer.carsync.domain.interactor.ControlMediaList;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.model.DabBandType;
@@ -168,10 +169,7 @@ public class DabEnsembleListPresenter extends Presenter<DabEnsembleListView> imp
 
     public void onSelectList(int listIndex, Cursor cursor) {
         mMediaCase.selectListItem(listIndex);
-        //TODO:入場要求必要？
-        //mMediaCase.enterList(ListType.ENSEMBLE_LIST);
-        Bundle bundle = new Bundle();
-        bundle.putBoolean("stack", true);
-        mEventBus.post(new NavigateEvent(ScreenId.DAB_SERVICE_LIST, bundle));
+        //Debug
+        //mEventBus.post(new ListTypeChangeEvent());
     }
 }

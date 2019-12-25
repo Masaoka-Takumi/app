@@ -43,6 +43,7 @@ import jp.pioneer.carsync.presentation.model.ImpactNotificationMethod;
 import jp.pioneer.carsync.presentation.model.TipsContentsEndpoint;
 import jp.pioneer.carsync.presentation.model.UiColor;
 import jp.pioneer.carsync.presentation.model.YouTubeLinkSearchItem;
+import jp.pioneer.carsync.presentation.presenter.RadioTabContainerPresenter;
 import jp.pioneer.carsync.presentation.util.YouTubeLinkActionHandler;
 import jp.pioneer.carsync.presentation.view.adapter.YouTubeLinkSearchItemAdapter;
 
@@ -824,6 +825,15 @@ public class AppSharedPreference {
      * @see #setDisplaySmartPhoneControlCommand(boolean)
      */
     public static final String KEY_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND = "is_display_smart_phone_control_command";
+    /**
+     * Preferenceキー:専用機DABList画面の選択タブ
+     * <p>
+     * 既定値:{@link #DEFAULT_DAB_SPH_LIST_TAB_SELECTED}
+     *
+     * @see #getDabSphListTabSelected()
+     * @see #setDabSphListTabSelected(RadioTabContainerPresenter.RadioTabType)
+     */
+    public static final String KEY_DAB_SPH_LIST_TAB_SELECTED = "dab_sph_list_tab_selected";
 
     private static final boolean DEFAULT_LOG_ENABLED = false;
     private static final int DEFAULT_APP_VERSION_CODE = 1;
@@ -904,7 +914,8 @@ public class AppSharedPreference {
     private static final boolean DEFAULT_IS_ALEXA_REQUIRED_SIM_CHECK = true;
     private static final boolean DEFAULT_YOUTUBE_LINK_SEARCH_ITEM_SETTING = true;
     private static final boolean DEFAULT_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND = false;
-
+    private static final String DEFAULT_DAB_SPH_LIST_TAB_SELECTED = RadioTabContainerPresenter.RadioTabType.DAB_STATION.name();
+    
     private final SharedPreferences mPreferences;
     private final Object mContent = new Object();
     private final WeakHashMap<OnAppSharedPreferenceChangeListener, Object> mListeners = new WeakHashMap<>();
@@ -3578,6 +3589,42 @@ public class AppSharedPreference {
     public AppSharedPreference setYouTubeLinkCautionNoDisplayAgain(boolean isNoDisplayAgain){
         mPreferences.edit()
                 .putBoolean(KEY_YOUTUBE_LINK_CAUTION_NO_DISPLAY_AGAIN, isNoDisplayAgain)
+                .apply();
+        return this;
+    }
+    /**
+     * 専用機DABList画面の選択タブ取得.
+     *
+     * @return RadioTabContainerPresenter.RadioTabType
+     * @see #setDabSphListTabSelected(RadioTabContainerPresenter.RadioTabType)
+     * @see #KEY_DAB_SPH_LIST_TAB_SELECTED
+     */
+    @NonNull
+    public RadioTabContainerPresenter.RadioTabType getDabSphListTabSelected() {
+        if (mPreferences.contains(KEY_DAB_SPH_LIST_TAB_SELECTED)) {
+            String value = mPreferences.getString(KEY_DAB_SPH_LIST_TAB_SELECTED, DEFAULT_DAB_SPH_LIST_TAB_SELECTED);
+            return RadioTabContainerPresenter.RadioTabType.valueOf(value);
+        } else {
+            RadioTabContainerPresenter.RadioTabType type = RadioTabContainerPresenter.RadioTabType.valueOf(DEFAULT_DAB_SPH_LIST_TAB_SELECTED);
+            setDabSphListTabSelected(type);
+            return type;
+        }
+    }
+
+    /**
+     * 専用機DABList画面の選択タブ設定.
+     *
+     * @param type RadioTabContainerPresenter.RadioTabType
+     * @return 本オブジェクト
+     * @see #getDabSphListTabSelected()
+     * @see #KEY_DAB_SPH_LIST_TAB_SELECTED
+     */
+    @NonNull
+    public AppSharedPreference setDabSphListTabSelected(@NonNull RadioTabContainerPresenter.RadioTabType type) {
+        checkNotNull(type);
+
+        mPreferences.edit()
+                .putString(KEY_DAB_SPH_LIST_TAB_SELECTED, type.name())
                 .apply();
         return this;
     }

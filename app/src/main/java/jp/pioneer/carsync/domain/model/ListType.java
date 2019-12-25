@@ -30,7 +30,7 @@ public enum ListType {
     /* PTYリスト-Classics */
     PTY_CLASSICS_LIST(0x06, MediaSourceType.DAB),
     /* PTYリスト-Others */
-    PTY_OYHERS_LIST(0x07, MediaSourceType.DAB),
+    PTY_OTHERS_LIST(0x07, MediaSourceType.DAB),
     /* Ensemble大分類リスト */
     ENSEMBLE_CATEGORY(0x08, MediaSourceType.DAB),
     /* EnsembleServiceリスト */

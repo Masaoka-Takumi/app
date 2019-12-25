@@ -7,6 +7,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
+import jp.pioneer.carsync.domain.event.ListTypeChangeEvent;
 import jp.pioneer.carsync.domain.interactor.ControlMediaList;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.model.ListType;
@@ -20,7 +21,7 @@ public class DabPtyListPresenter extends Presenter<DabPtyListView> {
     @Inject GetStatusHolder mStatusHolder;
     @Inject ControlMediaList mMediaCase;
 
-    public static final ListType[] listTypes = new ListType[]{ListType.PTY_NEWS_INFO_LIST,ListType.PTY_POPULER_LIST,ListType.PTY_CLASSICS_LIST,ListType.PTY_OYHERS_LIST};
+    private static final ListType[] listTypes = new ListType[]{ListType.PTY_NEWS_INFO_LIST,ListType.PTY_POPULER_LIST,ListType.PTY_CLASSICS_LIST,ListType.PTY_OTHERS_LIST};
     /**
      * コンストラクタ
      */
@@ -30,11 +31,10 @@ public class DabPtyListPresenter extends Presenter<DabPtyListView> {
     }
 
     public void onSelectList(int listIndex) {
-        Bundle bundle = new Bundle();
-        bundle.putBoolean("stack",true);
-        mEventBus.post(new NavigateEvent(ScreenId.DAB_SERVICE_LIST, bundle));
         if(listIndex<listTypes.length) {
             mMediaCase.enterList(listTypes[listIndex]);
+            //Debug
+            //mEventBus.post(new ListTypeChangeEvent());
         }
     }
 }
