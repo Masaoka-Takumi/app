@@ -272,8 +272,8 @@ public class PresetChannelDictionary {
         return number;
     }
 
-    public int findPresetChannelNumberDabSph(@NonNull MediaSourceType source, int bandCode, int eid,long sid,int scids) {
-        PresetKey key = createKey(source, bandCode, 0,eid,sid,scids);
+    public int findPresetChannelNumberDabSph(@NonNull MediaSourceType source, int bandCode,long frequency, int eid,long sid,int scids) {
+        PresetKey key = createKey(source, bandCode, frequency,eid,sid,scids);
         return findPresetChannelNumberSph(key);
     }
 
@@ -281,9 +281,10 @@ public class PresetChannelDictionary {
         int number = -1;
         Integer value = null;
         for (PresetKey presetKey : mPresetChannelMapSph.keySet()) {
-            //周波数indexとfrequencyは専用機PCH点灯判定から除く
+            //frequencyも専用機PCH点灯判定に含む
             if (presetKey.source == key.source
                     && presetKey.band == key.band
+                    && presetKey.frequency == key.frequency
                     && presetKey.eid == key.eid
                     && presetKey.sid == key.sid
                     && presetKey.scids == key.scids) {
