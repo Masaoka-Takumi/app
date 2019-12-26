@@ -192,6 +192,7 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
 
     @Override
     public void setSelectedPositionNotScroll(int position) {
+        mAbcSearchPopup.setVisibility(View.INVISIBLE);
         mListView.setItemChecked(position, true);
     }
 
