@@ -2,9 +2,13 @@ package jp.pioneer.carsync.infrastructure.crp.handler.controlcommand;
 
 import android.support.annotation.NonNull;
 
+import com.google.common.base.Objects;
+
+import jp.pioneer.carsync.domain.event.CrpDabAbcSearchResultEvent;
 import jp.pioneer.carsync.domain.model.ListInfo;
 import jp.pioneer.carsync.domain.model.StatusHolder;
 import jp.pioneer.carsync.infrastructure.crp.BadPacketException;
+import jp.pioneer.carsync.infrastructure.crp.CarRemoteSession;
 import jp.pioneer.carsync.infrastructure.crp.IncomingPacket;
 import timber.log.Timber;
 
@@ -33,14 +37,15 @@ public class DabAbcSearchExecutePacketProcessor {
      * @return {@link Boolean#TRUE}:成功。{@link Boolean#FALSE}:それ以外。
      * @throws NullPointerException {@code packet}がnull
      */
-    public Boolean process(@NonNull IncomingPacket packet) {
+    public Boolean process(@NonNull IncomingPacket packet, CarRemoteSession session) {
         try {
             byte[] data = checkNotNull(packet).getData();
             checkPacketDataLength(data, DATA_LENGTH);
 
             // D1:結果
             Timber.d("process() abcSearchResult = " + (ubyteToInt(data[1]) == 0x01));
-            return (ubyteToInt(data[1]) == 0x01)?Boolean.TRUE:Boolean.FALSE;
+            session.publishEvent(new CrpDabAbcSearchResultEvent((ubyteToInt(data[1]) == 0x01)));
+            return Boolean.TRUE;
         } catch (BadPacketException | IllegalArgumentException e) {
             Timber.e(e, "process()");
             return Boolean.FALSE;

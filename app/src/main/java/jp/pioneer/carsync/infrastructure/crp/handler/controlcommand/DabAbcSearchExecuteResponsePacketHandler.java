@@ -32,7 +32,9 @@ public class DabAbcSearchExecuteResponsePacketHandler extends DataResponsePacket
      */
     @Override
     public void handle(@NonNull IncomingPacket packet) throws Exception {
-        setResult(mPacketProcessor.process(packet));
-        mSession.publishEvent(new CrpDabAbcSearchResultEvent(Objects.equal(getResult(), Boolean.TRUE)));
+        setResult(mPacketProcessor.process(packet,mSession));
+        if (Objects.equal(getResult(), Boolean.TRUE)) {
+            //何もしない
+        }
     }
 }
