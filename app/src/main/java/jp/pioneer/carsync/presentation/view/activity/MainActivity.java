@@ -737,14 +737,14 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
                         countryCode = subscriptionInfo.getCountryIso();
                         Log.d("MainActivity: ", "simSlotIndex=" + subscriptionInfo.getSimSlotIndex() + ", carrierName=" + subscriptionInfo.getCarrierName()
                                 + ", countryIso=" + countryCode + ", iccId=" + subscriptionInfo.getIccId() + " , displayName=" + subscriptionInfo.getDisplayName());
+                    }
 
-                        // SubscriptionInfoから取得できなかった場合はTelephonyManagerから取得を試みる
-                        if(retryGetSimCountryIso && TextUtils.isEmpty(countryCode)) {
-                            TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
-                            if(tm != null) {
-                                countryCode = tm.getSimCountryIso();
-                                Log.d("MainActivity: ", "simState=" + tm.getSimState() + ", simCountryIso=" + countryCode);
-                            }
+                    // SubscriptionInfoから取得できなかった場合はTelephonyManagerから取得を試みる
+                    if(retryGetSimCountryIso && TextUtils.isEmpty(countryCode)) {
+                        TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+                        if(tm != null) {
+                            countryCode = tm.getSimCountryIso();
+                            Log.d("MainActivity: ", "simState=" + tm.getSimState() + ", simCountryIso=" + countryCode);
                         }
                     }
                 }
