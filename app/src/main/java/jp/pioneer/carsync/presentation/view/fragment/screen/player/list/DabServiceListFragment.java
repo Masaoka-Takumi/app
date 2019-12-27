@@ -272,7 +272,7 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
                     if (isTouch) {
                         getPresenter().executeAbcSearch(mSearchText.getText().toString());
                         isTouch = false;
-                        mHandler.postDelayed(mDelayFunc, 500);
+                        mHandler.postDelayed(mDelayFunc, 3000);
                         return true;
                     }
                     break;

@@ -129,14 +129,13 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
                             view.onNavigate(ScreenId.DAB_ENSEMBLE_LIST, Bundle.EMPTY);
                             break;
                         case NOT_LIST:
+                        default:
                             mTab = mPreference.getDabSphListTabSelected();
                             if(mTab==RadioTabType.DAB_PTY){
                                 mEventBus.post(new NavigateEvent(ScreenId.DAB_PTY_LIST, Bundle.EMPTY));
                             } else if (mTab == RadioTabType.DAB_PRESET) {
                                 mEventBus.post(new NavigateEvent(ScreenId.RADIO_PRESET_LIST, Bundle.EMPTY));
                             }
-                            break;
-                        default:
                             break;
                     }
                 }else{
@@ -166,7 +165,7 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
         }
         mStatusHolder.execute().getAppStatus().isShowRadioTabContainer = true;
         updateView();
-        //dispatchEnterListしてPausea→Resume復帰した場合もリスト更新をする
+        //dispatchEnterListしてPause→Resume復帰した場合もリスト更新をする
         if (mStatusHolder.execute().getCarDeviceStatus().listType != mListType) {
             mListType = mStatusHolder.execute().getCarDeviceStatus().listType;
             Timber.d("onResume():listType=" + mListType);
