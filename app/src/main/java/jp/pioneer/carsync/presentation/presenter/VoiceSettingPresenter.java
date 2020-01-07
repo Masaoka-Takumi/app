@@ -103,6 +103,10 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
         mEventBus.post(new NavigateEvent(ScreenId.SELECT_DIALOG, bundle));
     }
 
+    /**
+     * 音声認識入力切替設定ダイアログで項目選択後の処理？
+     * @param position
+     */
     public void setVoiceRecognizeType(int position){
         VoiceRecognizeType nextType = VoiceRecognizeType.valueOf(position);
         mPreference.setVoiceRecognitionType(nextType);
@@ -139,6 +143,16 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
         Optional.ofNullable(getView()).ifPresent(view -> view.setVoiceRecognitionMicType(nextType));
     }
 
+    /**
+     * 音声認識設定画面の文言例の表示/非表示設定値を生成
+     * @param type VoiceRecognizeType
+     * @return {@code true}:表示 {@code false}:非表示
+     */
+    public boolean isVoiceRecognitionDescriptionEnabled(VoiceRecognizeType type) {
+        boolean isAlexaAvailableCountry = mStatusCase.execute().getAppStatus().isAlexaAvailableCountry;
+        return type == VoiceRecognizeType.PIONEER_SMART_SYNC || !isAlexaAvailableCountry;
+    }
+    
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPhoneSettingStatusChangeEvent(PhoneSettingStatusChangeEvent event) {
         updateView();
