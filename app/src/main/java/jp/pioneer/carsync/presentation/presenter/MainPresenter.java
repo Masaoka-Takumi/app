@@ -2641,10 +2641,6 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
         boolean available = countryList.contains(simCountryIso);
         if(mPreference.isAlexaRequiredSimCheck()) {
             appStatus.isAlexaAvailableCountry = available;
-            if(!available) {
-                // Alexaが利用不可能な場合は音声認識のタイプをPSSにする
-                mPreference.setVoiceRecognitionType(VoiceRecognizeType.PIONEER_SMART_SYNC);
-            }
         } else {
             appStatus.isAlexaAvailableCountry = true;
         }
