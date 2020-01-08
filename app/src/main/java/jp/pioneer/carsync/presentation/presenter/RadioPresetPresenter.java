@@ -33,6 +33,7 @@ import jp.pioneer.carsync.domain.interactor.SelectDabFavorite;
 import jp.pioneer.carsync.domain.interactor.SelectRadioFavorite;
 import jp.pioneer.carsync.domain.model.CarDeviceDestinationInfo;
 import jp.pioneer.carsync.domain.model.DabBandType;
+import jp.pioneer.carsync.domain.model.DabInfo;
 import jp.pioneer.carsync.domain.model.HdRadioBandType;
 import jp.pioneer.carsync.domain.model.HdRadioInfo;
 import jp.pioneer.carsync.domain.model.HdRadioPresetItem;
@@ -460,8 +461,8 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
                 if (numberInteger != null) {
                     number = numberInteger;
                 }
-                ;
-                String freqName = FrequencyUtil.toString(mContext, key.frequency, TunerFrequencyUnit.MHZ);
+                DabInfo currDab = mStatusHolder.execute().getCarDeviceMediaInfoHolder().dabInfo;
+                String freqName = FrequencyUtil.toString(mContext, key.frequency, currDab.frequencyUnit);
                 DabPresetItem preset = new DabPresetItem(DabBandType.valueOf((byte) key.band), number, "", freqName, false);
 
                 //ユーザー登録Presetがあれば差し替え
