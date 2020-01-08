@@ -72,9 +72,9 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
             view.setVoiceRecognitionEnabled(mPreference.isVoiceRecognitionEnabled());
             view.setVoiceRecognitionType(mPreference.getVoiceRecognitionType());
             view.setVoiceRecognitionTypeEnabled(true);
-			view.setVoiceRecognitionMicTypeVisible(mStatusCase.execute().getPhoneSettingStatus().hfDevicesCountStatus != ConnectedDevicesCountStatus.NONE);
-            view.setVoiceRecognitionMicTypeEnabled(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.PIONEER_SMART_SYNC);
-            if(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA){
+            view.setVoiceRecognitionMicTypeVisible(mStatusCase.execute().getPhoneSettingStatus().hfDevicesCountStatus != ConnectedDevicesCountStatus.NONE);
+            view.setVoiceRecognitionMicTypeEnabled(isVoiceRecognitionMicTypeEnabled());
+            if(mStatusCase.execute().getAppStatus().isAlexaAvailableCountry && mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA){
                 view.setVoiceRecognitionMicType(VoiceRecognizeMicType.PHONE);
             }else{
                 view.setVoiceRecognitionMicType(mPreference.getVoiceRecognitionMicType());
@@ -88,6 +88,9 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
      */
     public void onVoiceRecognitionChange(boolean isValue) {
         mPreference.setVoiceRecognitionEnabled(isValue);
+        Optional.ofNullable(getView()).ifPresent(view -> {
+            view.setVoiceRecognitionMicTypeEnabled(isVoiceRecognitionMicTypeEnabled());
+        });
     }
 
     /**
@@ -104,7 +107,7 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
     }
 
     /**
-     * 音声認識入力切替設定ダイアログで項目選択後の処理？
+     * 音声認識入力切替設定ダイアログで項目選択後の処理
      * @param position
      */
     public void setVoiceRecognizeType(int position){
@@ -112,8 +115,8 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
         mPreference.setVoiceRecognitionType(nextType);
         Optional.ofNullable(getView()).ifPresent(view -> {
             view.setVoiceRecognitionType(nextType);
-            view.setVoiceRecognitionMicTypeEnabled(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.PIONEER_SMART_SYNC);
-            if(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA){
+            view.setVoiceRecognitionMicTypeEnabled(isVoiceRecognitionMicTypeEnabled());
+            if(mStatusCase.execute().getAppStatus().isAlexaAvailableCountry && mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA){
                 view.setVoiceRecognitionMicType(VoiceRecognizeMicType.PHONE);
             }else{
                 view.setVoiceRecognitionMicType(mPreference.getVoiceRecognitionMicType());
@@ -152,7 +155,19 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
         boolean isAlexaAvailableCountry = mStatusCase.execute().getAppStatus().isAlexaAvailableCountry;
         return type == VoiceRecognizeType.PIONEER_SMART_SYNC || !isAlexaAvailableCountry;
     }
-    
+
+    /**
+     * 設定項目「音声認識の使用マイク」のアクティブ/非アクティブの設定値を生成
+     * @return {@code true}:アクティブ {@code false}:非アクティブ
+     */
+    private boolean isVoiceRecognitionMicTypeEnabled() {
+        if(mStatusCase.execute().getAppStatus().isAlexaAvailableCountry) {
+            return mPreference.getVoiceRecognitionType() == VoiceRecognizeType.PIONEER_SMART_SYNC;
+        } else {
+            return mPreference.isVoiceRecognitionEnabled();
+        }
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPhoneSettingStatusChangeEvent(PhoneSettingStatusChangeEvent event) {
         updateView();
