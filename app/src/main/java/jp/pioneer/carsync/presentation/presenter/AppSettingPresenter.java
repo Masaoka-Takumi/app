@@ -30,7 +30,6 @@ public class AppSettingPresenter extends Presenter<AppSettingView> {
     @Inject Context mContext;
     @Inject EventBus mEventBus;
     @Inject GetStatusHolder mGetStatusHolder;
-
     @Inject YouTubeLinkStatus mYouTubeLinkStatus;
 
     /**
