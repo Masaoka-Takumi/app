@@ -58,17 +58,7 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
     private float mBarMarginY; //Barの縦幅画像枠とのマージン
     private int mOrientation;
     private final Handler mHandler = new Handler();
-    private Runnable mDelayFunc = new Runnable() {
-        @Override
-        public void run() {
-            if(mAbcSearchPopup.getVisibility()==View.VISIBLE) {
-                AlphaAnimation alphaFadeout = new AlphaAnimation(1.0f, 0.0f);
-                alphaFadeout.setDuration(500);
-                alphaFadeout.setFillAfter(true);
-                mAbcSearchPopup.startAnimation(alphaFadeout);
-            }
-        }
-    };
+
     /**
      * コンストラクタ
      */
@@ -143,7 +133,6 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
     public void onDestroyView() {
         super.onDestroyView();
         mTouchView.getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
-        mHandler.removeCallbacks(mDelayFunc);
         mUnbinder.unbind();
     }
 
@@ -272,7 +261,6 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
                     if (isTouch) {
                         getPresenter().executeAbcSearch(mSearchText.getText().toString());
                         isTouch = false;
-                        mHandler.postDelayed(mDelayFunc, 3000);
                         return true;
                     }
                     break;
