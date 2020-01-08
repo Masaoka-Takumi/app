@@ -1584,7 +1584,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                 return;
             }
             StatusHolder holder = mStatusCase.execute();
-            if(mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
+            if(getAppStatus().isAlexaAvailableCountry && mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
                 if(view.isShowAlexaDialog()){
                     view.dismissAlexaDialog();
                 }

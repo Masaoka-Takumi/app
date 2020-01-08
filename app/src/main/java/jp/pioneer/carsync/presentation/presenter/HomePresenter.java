@@ -331,7 +331,10 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
             case VOICE:
                 Timber.d("onVoiceAction");
                 mShortcutCase.execute(ShortcutKey.VOICE);
-                mAnalytics.sendShortCutActionEvent(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA?Analytics.AnalyticsShortcutAction.alexaShort:Analytics.AnalyticsShortcutAction.voiceShort, Analytics.AnalyticsActiveScreen.home_screen);
+                mAnalytics.sendShortCutActionEvent(
+                        mGetCase.execute().getAppStatus().isAlexaAvailableCountry && mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA
+                                ? Analytics.AnalyticsShortcutAction.alexaShort : Analytics.AnalyticsShortcutAction.voiceShort,
+                        Analytics.AnalyticsActiveScreen.home_screen);
                 break;
             case NAVI:
                 Timber.d("onNavigateAction");
@@ -1345,7 +1348,7 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
                 }
             }
             if(item.key==ShortcutKey.VOICE){
-                if(mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
+                if(mGetCase.execute().getAppStatus().isAlexaAvailableCountry && mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
                     item.imageResource = R.drawable.p0167_alexabtn_1nrm;
                 }else{
                     item.imageResource = R.drawable.p0162_vrbtn_1nrm;
