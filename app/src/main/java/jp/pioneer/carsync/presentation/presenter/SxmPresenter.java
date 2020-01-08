@@ -524,7 +524,7 @@ public class SxmPresenter extends PlayerPresenter<SxmView> implements LoaderMana
         Optional.ofNullable(getView()).ifPresent(view ->{
             AppStatus appStatus = mStatusHolder.execute().getAppStatus();
             boolean notificationQueued = false;
-            if(mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
+            if(appStatus.isAlexaAvailableCountry && mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
                 notificationQueued = mStatusHolder.execute().getAppStatus().alexaNotification;
             }
             view.setAlexaNotification(notificationQueued);

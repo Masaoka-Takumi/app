@@ -123,7 +123,7 @@ public class SourceOffPresenter extends PlayerPresenter<SourceOffView> {
         Optional.ofNullable(getView()).ifPresent(view ->{
             AppStatus appStatus = mGetCase.execute().getAppStatus();
             boolean notificationQueued = false;
-            if(mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
+            if(appStatus.isAlexaAvailableCountry && mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
                 notificationQueued = mGetCase.execute().getAppStatus().alexaNotification;
             }
             view.setAlexaNotification(notificationQueued);
