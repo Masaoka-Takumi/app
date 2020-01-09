@@ -3,6 +3,7 @@ package jp.pioneer.carsync.presentation.util;
 import javax.inject.Inject;
 
 import jp.pioneer.carsync.application.content.AppSharedPreference;
+import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.model.VoiceRecognizeType;
 
 /**
@@ -12,6 +13,7 @@ public class ShortCutKeyEnabledStatus {
 
     @Inject AppSharedPreference mPreference;
     @Inject YouTubeLinkStatus mYouTubeLinkStatus;
+    @Inject GetStatusHolder mGetStatusHolder;
 
     @Inject
     public ShortCutKeyEnabledStatus() {
@@ -28,7 +30,8 @@ public class ShortCutKeyEnabledStatus {
         // アプリ設定のショートカットボタン設定がONか
         boolean isShortCutButtonEnabled = mPreference.isShortCutButtonEnabled();
         // 音声認識がAlexaかどうか
-        boolean isVoiceRecognitionAlexa = mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA;
+        boolean isVoiceRecognitionAlexa = mGetStatusHolder.execute().getAppStatus().isAlexaAvailableCountry
+                && mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA;
         // YouTubeLink機能がONかどうか
         boolean isYouTubeLinkEnabled = mYouTubeLinkStatus.isYouTubeLinkEnabled();
 
