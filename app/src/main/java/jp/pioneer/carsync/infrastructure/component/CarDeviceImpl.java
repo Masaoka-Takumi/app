@@ -305,7 +305,10 @@ public class CarDeviceImpl implements CarDevice, AppSharedPreference.OnAppShared
     @Subscribe
     public synchronized void onSmartPhoneControlCommandEvent(SmartPhoneControlCommandEvent ev) {
         AppStatus appStatus = mStatusHolder.getAppStatus();
-        if(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA&&ev.command== SmartPhoneControlCommand.VR&&!mStatusHolder.getProtocolSpec().isSphCarDevice())return;
+        if(mStatusHolder.getAppStatus().isAlexaAvailableCountry && mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA
+                && ev.command == SmartPhoneControlCommand.VR && !mStatusHolder.getProtocolSpec().isSphCarDevice()) {
+            return;
+        }
         if(appStatus.isTransitionedHomeScreen && appStatus.isAgreedCaution) {
             ShortcutKey key;
             switch (ev.command) {
