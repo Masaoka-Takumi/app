@@ -734,6 +734,15 @@ public class PlayerPresenter<T> extends Presenter<T> {
         updateAlexaNotification();
     }
 
+    protected boolean isNeedUpdateAlexaNotification() {
+        AppStatus appStatus = mStatusHolder.execute().getAppStatus();
+        boolean notificationQueued = false;
+        if(appStatus.isAlexaAvailableCountry && mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA) {
+            notificationQueued = appStatus.alexaNotification;
+        }
+        return notificationQueued;
+    }
+
     protected void updateAlexaNotification() {
     }
 

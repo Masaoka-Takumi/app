@@ -500,12 +500,7 @@ public class HdRadioPresenter extends PlayerPresenter<HdRadioView> implements Lo
     protected void updateAlexaNotification() {
         super.updateAlexaNotification();
         Optional.ofNullable(getView()).ifPresent(view ->{
-            AppStatus appStatus = mStatusHolder.execute().getAppStatus();
-            boolean notificationQueued = false;
-            if(appStatus.isAlexaAvailableCountry && mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
-                notificationQueued = mStatusHolder.execute().getAppStatus().alexaNotification;
-            }
-            view.setAlexaNotification(notificationQueued);
+            view.setAlexaNotification(isNeedUpdateAlexaNotification());
         });
     }
 
