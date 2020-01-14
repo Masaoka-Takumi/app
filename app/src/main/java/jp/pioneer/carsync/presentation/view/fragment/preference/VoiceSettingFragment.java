@@ -152,7 +152,7 @@ public class VoiceSettingFragment extends AbstractPreferenceFragment<VoiceSettin
     @Override
     public void setVoiceRecognitionType(VoiceRecognizeType type) {
         mVoiceRecognitionType.setSummary(type.label);
-        mVoiceRecognitionDescription.setVisible(mPresenter.isVoiceRecognitionDescriptionEnabled(type));
+        mVoiceRecognitionDescription.setVisible(mPresenter.isVoiceRecognitionDescriptionVisible(type));
     }
 
     @Override

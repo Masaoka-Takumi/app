@@ -153,7 +153,7 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
      * @param type VoiceRecognizeType
      * @return {@code true}:表示 {@code false}:非表示
      */
-    public boolean isVoiceRecognitionDescriptionEnabled(VoiceRecognizeType type) {
+    public boolean isVoiceRecognitionDescriptionVisible(VoiceRecognizeType type) {
         boolean isAlexaAvailableCountry = mStatusCase.execute().getAppStatus().isAlexaAvailableCountry;
         return type == VoiceRecognizeType.PIONEER_SMART_SYNC || !isAlexaAvailableCountry;
     }
