@@ -101,6 +101,7 @@ import jp.pioneer.carsync.presentation.event.SessionCompletedEvent;
 import jp.pioneer.carsync.presentation.model.AdasTrialState;
 import jp.pioneer.carsync.presentation.model.ShortcutKeyItem;
 import jp.pioneer.carsync.presentation.util.Adas;
+import jp.pioneer.carsync.presentation.util.AlexaAvailableStatus;
 import jp.pioneer.carsync.presentation.util.AndroidMusicTextUtil;
 import jp.pioneer.carsync.presentation.util.BtAudioTextUtil;
 import jp.pioneer.carsync.presentation.util.CdTextUtil;
@@ -153,6 +154,7 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
     @Inject YouTubeLinkStatus mYouTubeLinkStatus;
     @Inject ShortCutKeyEnabledStatus mShortCutKeyEnabledStatus;
     @Inject AnalyticsEventManager mAnalytics;
+    @Inject AlexaAvailableStatus mAlexaAvailableStatus;
     private List<Notification> mNotifications;
     private PermissionParams mParams;
     private static final ShortcutKey[] KEY_INDEX = new ShortcutKey[]{
@@ -332,7 +334,7 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
                 Timber.d("onVoiceAction");
                 mShortcutCase.execute(ShortcutKey.VOICE);
                 mAnalytics.sendShortCutActionEvent(
-                        mGetCase.execute().getAppStatus().isAlexaAvailableCountry && mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA
+                        mAlexaAvailableStatus.isVoiceRecognitionTypeAlexaAndAvailable()
                                 ? Analytics.AnalyticsShortcutAction.alexaShort : Analytics.AnalyticsShortcutAction.voiceShort,
                         Analytics.AnalyticsActiveScreen.home_screen);
                 break;
@@ -1248,7 +1250,7 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
         Optional.ofNullable(getView()).ifPresent(view ->{
             AppStatus appStatus = mGetCase.execute().getAppStatus();
             boolean notificationQueued = false;
-            if(appStatus.isAlexaAvailableCountry && mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
+            if(mAlexaAvailableStatus.isVoiceRecognitionTypeAlexaAndAvailable()){
                 notificationQueued = mGetCase.execute().getAppStatus().alexaNotification;
             }
             view.setAlexaNotification(notificationQueued);
@@ -1348,7 +1350,7 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
                 }
             }
             if(item.key==ShortcutKey.VOICE){
-                if(mGetCase.execute().getAppStatus().isAlexaAvailableCountry && mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
+                if(mAlexaAvailableStatus.isVoiceRecognitionTypeAlexaAndAvailable()){
                     item.imageResource = R.drawable.p0167_alexabtn_1nrm;
                 }else{
                     item.imageResource = R.drawable.p0162_vrbtn_1nrm;

@@ -14,6 +14,7 @@ public class ShortCutKeyEnabledStatus {
     @Inject AppSharedPreference mPreference;
     @Inject YouTubeLinkStatus mYouTubeLinkStatus;
     @Inject GetStatusHolder mGetStatusHolder;
+    @Inject AlexaAvailableStatus mAlexaAvailableStatus;
 
     @Inject
     public ShortCutKeyEnabledStatus() {
@@ -29,9 +30,8 @@ public class ShortCutKeyEnabledStatus {
     public boolean isShortCutKeyEnabled(){
         // アプリ設定のショートカットボタン設定がONか
         boolean isShortCutButtonEnabled = mPreference.isShortCutButtonEnabled();
-        // 音声認識がAlexaかどうか
-        boolean isVoiceRecognitionAlexa = mGetStatusHolder.execute().getAppStatus().isAlexaAvailableCountry
-                && mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA;
+        // 音声認識がAlexaで利用可能かどうか
+        boolean isVoiceRecognitionAlexa = mAlexaAvailableStatus.isVoiceRecognitionTypeAlexaAndAvailable();
         // YouTubeLink機能がONかどうか
         boolean isYouTubeLinkEnabled = mYouTubeLinkStatus.isYouTubeLinkEnabled();
 

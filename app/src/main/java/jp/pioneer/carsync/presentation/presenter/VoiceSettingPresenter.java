@@ -25,6 +25,7 @@ import jp.pioneer.carsync.domain.model.ConnectedDevicesCountStatus;
 import jp.pioneer.carsync.domain.model.VoiceRecognizeMicType;
 import jp.pioneer.carsync.domain.model.VoiceRecognizeType;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
+import jp.pioneer.carsync.presentation.util.AlexaAvailableStatus;
 import jp.pioneer.carsync.presentation.view.VoiceSettingView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.SingleChoiceDialogFragment;
@@ -41,6 +42,7 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
     @Inject Context mContext;
     @Inject EventBus mEventBus;
     @Inject AnalyticsEventManager mAnalytics;
+    @Inject AlexaAvailableStatus mAlexaAvailableStatus;
 
     /**
      * コンストラクタ
@@ -74,7 +76,7 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
             view.setVoiceRecognitionTypeEnabled(true);
             view.setVoiceRecognitionMicTypeVisible(mStatusCase.execute().getPhoneSettingStatus().hfDevicesCountStatus != ConnectedDevicesCountStatus.NONE);
             view.setVoiceRecognitionMicTypeEnabled(isVoiceRecognitionMicTypeEnabled());
-            if(mStatusCase.execute().getAppStatus().isAlexaAvailableCountry && mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA){
+            if(mAlexaAvailableStatus.isVoiceRecognitionTypeAlexaAndAvailable()){
                 view.setVoiceRecognitionMicType(VoiceRecognizeMicType.PHONE);
             }else{
                 view.setVoiceRecognitionMicType(mPreference.getVoiceRecognitionMicType());
@@ -116,7 +118,7 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
         Optional.ofNullable(getView()).ifPresent(view -> {
             view.setVoiceRecognitionType(nextType);
             view.setVoiceRecognitionMicTypeEnabled(isVoiceRecognitionMicTypeEnabled());
-            if(mStatusCase.execute().getAppStatus().isAlexaAvailableCountry && mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA){
+            if(mAlexaAvailableStatus.isVoiceRecognitionTypeAlexaAndAvailable()){
                 view.setVoiceRecognitionMicType(VoiceRecognizeMicType.PHONE);
             }else{
                 view.setVoiceRecognitionMicType(mPreference.getVoiceRecognitionMicType());

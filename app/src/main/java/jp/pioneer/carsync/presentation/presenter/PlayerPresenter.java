@@ -73,6 +73,7 @@ import jp.pioneer.carsync.presentation.event.BackgroundChangeEvent;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
 import jp.pioneer.carsync.presentation.model.ShortcutKeyItem;
 import jp.pioneer.carsync.presentation.model.SoundFxItem;
+import jp.pioneer.carsync.presentation.util.AlexaAvailableStatus;
 import jp.pioneer.carsync.presentation.util.CustomKeyActionHandler;
 import jp.pioneer.carsync.presentation.util.YouTubeLinkActionHandler;
 import jp.pioneer.carsync.presentation.util.YouTubeLinkStatus;
@@ -104,6 +105,7 @@ public class PlayerPresenter<T> extends Presenter<T> {
     @Inject YouTubeLinkActionHandler mYouTubeLinkActionHandler;
     @Inject YouTubeLinkStatus mYouTubeLinkStatus;
     @Inject AnalyticsEventManager mAnalytics;
+    @Inject AlexaAvailableStatus mAlexaAvailableStatus;
     private final Handler mHandler = new Handler();
     List<SoundFxSettingEqualizerType> mEqArray = new ArrayList<>();
     List<SoundFxItem> mSoundFxArray = new ArrayList<SoundFxItem>(){{
@@ -615,7 +617,7 @@ public class PlayerPresenter<T> extends Presenter<T> {
                 Timber.d("onVoiceAction");
                 mShortcutCase.execute(ShortcutKey.VOICE);
                 mAnalytics.sendShortCutActionEvent(
-                        mStatusHolder.execute().getAppStatus().isAlexaAvailableCountry && mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA
+                        mAlexaAvailableStatus.isVoiceRecognitionTypeAlexaAndAvailable()
                                 ? Analytics.AnalyticsShortcutAction.alexaShort : Analytics.AnalyticsShortcutAction.voiceShort,
                         Analytics.AnalyticsActiveScreen.av_screen);
                 break;
@@ -737,7 +739,7 @@ public class PlayerPresenter<T> extends Presenter<T> {
     protected boolean isNeedUpdateAlexaNotification() {
         AppStatus appStatus = mStatusHolder.execute().getAppStatus();
         boolean notificationQueued = false;
-        if(appStatus.isAlexaAvailableCountry && mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA) {
+        if(mAlexaAvailableStatus.isVoiceRecognitionTypeAlexaAndAvailable()) {
             notificationQueued = appStatus.alexaNotification;
         }
         return notificationQueued;
@@ -817,7 +819,7 @@ public class PlayerPresenter<T> extends Presenter<T> {
                 }
             }
             if(item.key==ShortcutKey.VOICE){
-                if(mStatusHolder.execute().getAppStatus().isAlexaAvailableCountry && mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
+                if(mAlexaAvailableStatus.isVoiceRecognitionTypeAlexaAndAvailable()){
                     item.imageResource = R.drawable.p0167_alexabtn_1nrm;
                 }else{
                     item.imageResource = R.drawable.p0162_vrbtn_1nrm;
