@@ -76,8 +76,8 @@ public class CustomLinePageIndicatorPreset extends LinearLayout implements PageI
             return;
         }
         this.removeAllViews();
-
-        for (int i = 0; i < count; i++) {
+        //最後のDummyPageは表示しない
+        for (int i = 0; i < count-1; i++) {
             FrameLayout frameLayout = new FrameLayout(getContext());
             LinearLayout.LayoutParams frameParams;
             ImageView image1 = new ImageView(getContext());
