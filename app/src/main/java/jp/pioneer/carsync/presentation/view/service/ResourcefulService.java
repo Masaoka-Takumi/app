@@ -36,6 +36,7 @@ import javax.inject.Inject;
 import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.application.di.component.ServiceComponent;
 import jp.pioneer.carsync.domain.model.AndroidMusicMediaInfo;
+import jp.pioneer.carsync.domain.model.BaseApp;
 import jp.pioneer.carsync.domain.model.MarinApp;
 import jp.pioneer.carsync.domain.model.NaviApp;
 import jp.pioneer.carsync.infrastructure.component.BroadcastReceiverImpl;
@@ -212,7 +213,10 @@ public class ResourcefulService extends AbstractService<ResourcefulPresenter, Re
 
         if(!TextUtils.isEmpty(packageName)) {
             try {
-                MarinApp navi = MarinApp.fromPackageName(packageName);
+                BaseApp navi = MarinApp.fromPackageNameNoThrow(packageName);
+                if(navi==null){
+                    navi = NaviApp.fromPackageName(packageName);
+                }
                 Intent intent = navi.createMainIntent(getApplicationContext());
                 startActivity(intent);
 

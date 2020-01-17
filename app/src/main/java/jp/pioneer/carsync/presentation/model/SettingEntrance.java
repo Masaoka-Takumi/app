@@ -10,7 +10,6 @@ public enum SettingEntrance {
     SYSTEM(R.string.hom_006),
     VOICE(R.string.hom_016),
     NAVIGATION(R.string.hom_017),
-    MARIN(R.string.hom_036),
     MESSAGE(R.string.hom_018),
     PHONE(R.string.hom_019),
     CAR_SAFETY(R.string.hom_020),

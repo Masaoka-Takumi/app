@@ -11,7 +11,7 @@ import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public enum MarinApp {
+public enum MarinApp implements BaseApp{
     /** Buoyweather. */
     BUOY_WEATHER("com.buoyweather.android", MarinAppCategory.WEATHER),
     /** AccuWeather: Weather Alerts. */

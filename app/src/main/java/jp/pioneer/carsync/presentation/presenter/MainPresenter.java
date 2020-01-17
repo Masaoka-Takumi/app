@@ -82,6 +82,7 @@ import jp.pioneer.carsync.domain.interactor.PrepareReadNotification;
 import jp.pioneer.carsync.domain.interactor.PrepareSpeechRecognizer;
 import jp.pioneer.carsync.domain.interactor.ReadText;
 import jp.pioneer.carsync.domain.model.AppStatus;
+import jp.pioneer.carsync.domain.model.BaseApp;
 import jp.pioneer.carsync.domain.model.CarDeviceClassId;
 import jp.pioneer.carsync.domain.model.CarDeviceSpec;
 import jp.pioneer.carsync.domain.model.CarDeviceStatus;
@@ -2121,11 +2122,6 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                                 isNavigateEntrance = true;
                             }
                             break;
-                        case SETTINGS_NAVIGATION:
-                            if(mPreference.getLastConnectedCarDeviceClassId()==CarDeviceClassId.MARIN){
-                                params.pass=SettingEntrance.MARIN.getResource();
-                            }
-                            break;
                     }
 
                     if (isNavigateEntrance) {
@@ -2163,7 +2159,10 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
         Optional.ofNullable(getView()).ifPresent(view -> {
             if (mPreference.getLastConnectedCarDeviceClassId() == CarDeviceClassId.MARIN) {
                 try {
-                    MarinApp navi = MarinApp.fromPackageName(mPreference.getNavigationMarinApp().packageName);
+                    BaseApp navi = MarinApp.fromPackageNameNoThrow(mPreference.getNavigationMarinApp().packageName);
+                    if(navi==null){
+                        navi = NaviApp.fromPackageName(mPreference.getNavigationMarinApp().packageName);
+                    }
                     Intent intent = navi.createMainIntent(mContext);
                     view.startMarin(intent);
                 } catch (IllegalArgumentException e) {
