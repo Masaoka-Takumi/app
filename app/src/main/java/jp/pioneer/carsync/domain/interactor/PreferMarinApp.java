@@ -39,7 +39,10 @@ public class PreferMarinApp {
                 fishingPackageNames.add(marinApp.getPackageName());
             }
         }
-
+        //Marin用App一覧には車載器用NaviAppも含める
+        for (NaviApp naviApp : NaviApp.values()) {
+            packageNames.add(naviApp.getPackageName());
+        }
         PACKAGE_NAMES = packageNames.toArray(new String[0]);
         WEATHER_PACKAGE_NAMES = weatherPackageNames.toArray(new String[0]);
         BOATING_PACKAGE_NAMES = boatingPackageNames.toArray(new String[0]);
@@ -61,7 +64,7 @@ public class PreferMarinApp {
      * <P>
      * 本アプリと連携対象となっているナビアプリのうち、インストール
      * されているアプリの一覧を取得する。
-     * 連携対象となるのは、{@link NaviApp}で定義されたアプリである。
+     * 連携対象となるのは、{@link NaviApp}と{@link MarinApp}で定義されたアプリである。
      *
      * @return インストールされているナビアプリに関する {@link ApplicationInfo} のリスト
      */
@@ -75,7 +78,7 @@ public class PreferMarinApp {
      * <P>
      * 本アプリと連携対象となっているナビアプリのうち、インストール
      * されているアプリの一覧を取得する。
-     * 連携対象となるのは、{@link NaviApp}で定義されたアプリである。
+     * 連携対象となるのは、{@link MarinApp}で定義されたアプリである。
      *
      * @return インストールされているナビアプリに関する {@link ApplicationInfo} のリスト
      */
@@ -89,7 +92,7 @@ public class PreferMarinApp {
      * <P>
      * 本アプリと連携対象となっているナビアプリのうち、インストール
      * されているアプリの一覧を取得する。
-     * 連携対象となるのは、{@link NaviApp}で定義されたアプリである。
+     * 連携対象となるのは、{@link MarinApp}で定義されたアプリである。
      *
      * @return インストールされているナビアプリに関する {@link ApplicationInfo} のリスト
      */
@@ -103,7 +106,7 @@ public class PreferMarinApp {
      * <P>
      * 本アプリと連携対象となっているナビアプリのうち、インストール
      * されているアプリの一覧を取得する。
-     * 連携対象となるのは、{@link NaviApp}で定義されたアプリである。
+     * 連携対象となるのは、{@link MarinApp}で定義されたアプリである。
      *
      * @return インストールされているナビアプリに関する {@link ApplicationInfo} のリスト
      */

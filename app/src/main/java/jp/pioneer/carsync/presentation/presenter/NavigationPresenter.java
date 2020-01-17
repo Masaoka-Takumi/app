@@ -27,6 +27,7 @@ import jp.pioneer.carsync.domain.interactor.PreferNaviApp;
 import jp.pioneer.carsync.domain.interactor.PreferNaviGuideVoice;
 import jp.pioneer.carsync.domain.model.CarDeviceClassId;
 import jp.pioneer.carsync.domain.model.CarDeviceSpec;
+import jp.pioneer.carsync.domain.model.NaviApp;
 import jp.pioneer.carsync.domain.model.NaviGuideVoiceSetting;
 import jp.pioneer.carsync.domain.model.StatusHolder;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
@@ -60,6 +61,7 @@ public class NavigationPresenter extends Presenter<NavigationView> {
             mTypeArray.add(mContext.getString(R.string.set_326));
             mTypeArray.add(mContext.getString(R.string.set_327));
             mTypeArray.add(mContext.getString(R.string.set_328));
+            mTypeArray.add(mContext.getString(R.string.set_145));
         }else{
             mTypeArray.add(mContext.getString(R.string.set_145));
         }
@@ -110,8 +112,9 @@ public class NavigationPresenter extends Presenter<NavigationView> {
         NaviGuideVoiceSetting setting = holder.getNaviGuideVoiceSetting();
 
         Optional.ofNullable(getView()).ifPresent(view -> {
+            List<ApplicationInfo> naviApps = mNaviCase.getInstalledTargetAppList();
             if(mPreference.getLastConnectedCarDeviceClassId()== CarDeviceClassId.MARIN){
-                List<ApplicationInfo> naviApps = mMarinCase.getInstalledTargetAppList();
+                List<ApplicationInfo> allNaviApps = mMarinCase.getInstalledTargetAppList();
                 List<ApplicationInfo> weatherApps = mMarinCase.getInstalledWeatherTargetAppList();
                 List<ApplicationInfo> boatingApps = mMarinCase.getInstalledBoatingTargetAppList();
                 List<ApplicationInfo> fishingApps = mMarinCase.getInstalledFishingTargetAppList();
@@ -120,10 +123,10 @@ public class NavigationPresenter extends Presenter<NavigationView> {
                         weatherApps,
                         boatingApps,
                         fishingApps,
-                        getSelectedApplication(naviApps)
+                        naviApps,
+                        getSelectedApplication(allNaviApps)
                 );
             }else{
-                List<ApplicationInfo> naviApps = mNaviCase.getInstalledTargetAppList();
                 view.setApplicationList(
                         naviApps,
                         getSelectedApplication(naviApps)
@@ -146,7 +149,6 @@ public class NavigationPresenter extends Presenter<NavigationView> {
         String packageName;
         if(mPreference.getLastConnectedCarDeviceClassId()== CarDeviceClassId.MARIN){
             packageName = mPreference.getNavigationMarinApp().packageName;
-
         }else{
             packageName= mPreference.getNavigationApp().packageName;
         }
@@ -171,6 +173,10 @@ public class NavigationPresenter extends Presenter<NavigationView> {
         AppSharedPreference.Application naviApp = new AppSharedPreference.Application(packageName, label);
         if(mPreference.getLastConnectedCarDeviceClassId()== CarDeviceClassId.MARIN){
             mPreference.setNavigationMarinApp(naviApp);
+            //AlexaのNavigationで使用するため、マリン車載器以外のNaviAppにも設定
+            if(NaviApp.fromPackageNameNoThrow(app.packageName)!=null){
+                mPreference.setNavigationApp(naviApp);
+            }
         }else{
             mPreference.setNavigationApp(naviApp);
         }

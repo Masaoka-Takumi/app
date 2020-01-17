@@ -101,11 +101,7 @@ public class SettingsEntrancePresenter extends Presenter<SettingsEntranceView> {
         mIconArray.add(R.drawable.p0092_icon);
         mEnableArray.add(true);
 
-        if(mPreference.getLastConnectedCarDeviceClassId()==CarDeviceClassId.MARIN){
-            mTitleArray.add(SettingEntrance.MARIN);
-        }else{
-            mTitleArray.add(SettingEntrance.NAVIGATION);
-        }
+        mTitleArray.add(SettingEntrance.NAVIGATION);
 
         mIconArray.add(R.drawable.p0093_icon);
         mEnableArray.add(true);
@@ -208,7 +204,6 @@ public class SettingsEntrancePresenter extends Presenter<SettingsEntranceView> {
                 onVoiceAction();
                 break;
             case NAVIGATION:
-            case MARIN:
                 onNavigationAction();
                 break;
             case MESSAGE:
@@ -297,13 +292,7 @@ public class SettingsEntrancePresenter extends Presenter<SettingsEntranceView> {
      * Navigationボタン押下時の処理
      */
     private void onNavigationAction() {
-        String title;
-        if(mPreference.getLastConnectedCarDeviceClassId()==CarDeviceClassId.MARIN){
-            title = mContext.getString(R.string.hom_036);
-        }else{
-            title = mContext.getString(R.string.set_144);
-        }
-        mEventBus.post(new NavigateEvent(ScreenId.SETTINGS_NAVIGATION, createSettingsParams(title)));
+        mEventBus.post(new NavigateEvent(ScreenId.SETTINGS_NAVIGATION, createSettingsParams(mContext.getString(R.string.set_144))));
     }
 
     /**

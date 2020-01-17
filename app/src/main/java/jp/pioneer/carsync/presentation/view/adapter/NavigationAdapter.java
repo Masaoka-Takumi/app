@@ -30,8 +30,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class NavigationAdapter extends BaseExpandableListAdapter {
     public static final int APPLICATION_LIST = 0;
-    public static final int MIXING_SETTING = 1;
-    public static final int MIXING_VOLUME = 2;
+    public static final int WEATHER_APPLICATION_LIST = 0;
+    public static final int BOATING_APPLICATION_LIST = 1;
+    public static final int FISHING_APPLICATION_LIST = 2;
+    public static final int MARIN_NAVI_APPLICATION_LIST = 3;
     public static int mixingSettingIndex = 1;
     public static int mixingVolumeIndex = 2;
     private Context mContext;
@@ -42,26 +44,29 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
     private List<ApplicationInfo> mFishingApps = new ArrayList<>();
     private LayoutInflater mLayoutInflater;
     private int mOrientation;
-    @Nullable private ApplicationInfo mSelectedApp;
+    @Nullable
+    private ApplicationInfo mSelectedApp;
     private boolean mIsMixingSettingEnabled;
     private boolean mMixingSetting;
     private boolean mIsMixingVolumeEnabled;
-    @Nullable private NaviGuideVoiceVolumeSetting mMixingVolume;
+    @Nullable
+    private NaviGuideVoiceVolumeSetting mMixingVolume;
     private boolean mIsMarin = false;
+
     /**
      * コンストラクタ.
      */
     public NavigationAdapter(@NonNull Context context, @NonNull ArrayList<String> objects, boolean isMarin) {
-        mContext = checkNotNull(context) ;
+        mContext = checkNotNull(context);
         mLayoutInflater = LayoutInflater.from(context);
         mTypeArray = checkNotNull(objects);
         mIsMarin = isMarin;
         Configuration config = mContext.getResources().getConfiguration();
         mOrientation = config.orientation;
-        if(mIsMarin){
-            mixingSettingIndex = 3;
-            mixingVolumeIndex = 4;
-        }else{
+        if (mIsMarin) {
+            mixingSettingIndex = MARIN_NAVI_APPLICATION_LIST + 1;
+            mixingVolumeIndex = MARIN_NAVI_APPLICATION_LIST + 2;
+        } else {
             mixingSettingIndex = 1;
             mixingVolumeIndex = 2;
         }
@@ -70,10 +75,10 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
     /**
      * アプリケーション情報設定.
      *
-     * @param apps インストール済アプリケーション一覧
+     * @param apps        インストール済アプリケーション一覧
      * @param selectedApp 選択されているアプリケーション
      */
-    public void setApps(@NonNull List<ApplicationInfo> apps, @Nullable ApplicationInfo selectedApp){
+    public void setApps(@NonNull List<ApplicationInfo> apps, @Nullable ApplicationInfo selectedApp) {
         checkNotNull(apps);
 
         mApps.clear();
@@ -81,16 +86,18 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
         mSelectedApp = selectedApp;
         notifyDataSetChanged();
     }
+
     /**
-     * アプリケーション情報設定.
+     * アプリケーション情報設定.(Marin用)
      *
      * @param weatherApps インストール済アプリケーション一覧
      * @param selectedApp 選択されているアプリケーション
      */
-    public void setMarinApps(@NonNull List<ApplicationInfo> weatherApps, @NonNull List<ApplicationInfo> boatingApps,  List<ApplicationInfo> fishingApps, @Nullable ApplicationInfo selectedApp){
-		checkNotNull(weatherApps);
+    public void setMarinApps(@NonNull List<ApplicationInfo> weatherApps, @NonNull List<ApplicationInfo> boatingApps, @NonNull List<ApplicationInfo> fishingApps, @NonNull List<ApplicationInfo> naviApps, @Nullable ApplicationInfo selectedApp) {
+        checkNotNull(weatherApps);
         checkNotNull(boatingApps);
         checkNotNull(fishingApps);
+        checkNotNull(naviApps);
         mWeatherApps.clear();
         mWeatherApps = weatherApps;
         mBoatingApps.clear();
@@ -98,6 +105,8 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
         mFishingApps.clear();
         mFishingApps = fishingApps;
         mSelectedApp = selectedApp;
+        mApps.clear();
+        mApps = naviApps;
         notifyDataSetChanged();
     }
 
@@ -105,9 +114,9 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
      * ナビガイド音声設定.
      *
      * @param isEnabled 設定が可能か否か
-     * @param setting 設定内容
+     * @param setting   設定内容
      */
-    public void setMixingSetting(boolean isEnabled, boolean setting){
+    public void setMixingSetting(boolean isEnabled, boolean setting) {
         mIsMixingSettingEnabled = isEnabled;
         mMixingSetting = setting;
         notifyDataSetChanged();
@@ -118,7 +127,7 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
      *
      * @return ナビガイド音声設定
      */
-    public boolean getMixingSetting(){
+    public boolean getMixingSetting() {
         return mMixingSetting;
     }
 
@@ -126,9 +135,9 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
      * ナビガイド音声ボリューム設定.
      *
      * @param isEnabled 設定可能か否か
-     * @param setting 設定内容
+     * @param setting   設定内容
      */
-    public void setMixingVolume(boolean isEnabled, @Nullable NaviGuideVoiceVolumeSetting setting){
+    public void setMixingVolume(boolean isEnabled, @Nullable NaviGuideVoiceVolumeSetting setting) {
         mIsMixingVolumeEnabled = isEnabled;
         mMixingVolume = setting;
         notifyDataSetChanged();
@@ -140,7 +149,7 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
      * @return ナビガイド音声ボリューム設定
      */
     @Nullable
-    public NaviGuideVoiceVolumeSetting getMixingVolume(){
+    public NaviGuideVoiceVolumeSetting getMixingVolume() {
         return mMixingVolume;
     }
 
@@ -149,7 +158,7 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
      *
      * @return ナビガイド音声設定可能か否か
      */
-    public boolean getMixingVolumeEnabled(){
+    public boolean getMixingVolumeEnabled() {
         return mIsMixingVolumeEnabled;
     }
 
@@ -172,29 +181,35 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        if(mIsMarin) {
-            if (groupPosition == 0) {
+        if (mIsMarin) {
+            if (groupPosition == WEATHER_APPLICATION_LIST) {
                 if (mWeatherApps.size() > 0) {
                     return mWeatherApps.size();
                 } else {
                     return 1;
                 }
-            } else if(groupPosition == 1){
+            } else if (groupPosition == BOATING_APPLICATION_LIST) {
                 if (mBoatingApps.size() > 0) {
                     return mBoatingApps.size();
                 } else {
                     return 1;
                 }
-            } else if(groupPosition == 2){
+            } else if (groupPosition == FISHING_APPLICATION_LIST) {
                 if (mFishingApps.size() > 0) {
                     return mFishingApps.size();
+                } else {
+                    return 1;
+                }
+            } else if (groupPosition == MARIN_NAVI_APPLICATION_LIST) {
+                if (mApps.size() > 0) {
+                    return mApps.size();
                 } else {
                     return 1;
                 }
             } else {
                 return 0;
             }
-        }else {
+        } else {
             if (groupPosition == APPLICATION_LIST) {
                 if (mApps.size() > 0) {
                     return mApps.size();
@@ -214,21 +229,25 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        if(mIsMarin) {
-            if (groupPosition == 0) {
+        if (mIsMarin) {
+            if (groupPosition == WEATHER_APPLICATION_LIST) {
                 if (mWeatherApps.size() > 0) {
                     return mWeatherApps.get(childPosition);
                 }
-            } else if(groupPosition == 1){
+            } else if (groupPosition == BOATING_APPLICATION_LIST) {
                 if (mBoatingApps.size() > 0) {
                     return mBoatingApps.get(childPosition);
                 }
-            } else if(groupPosition == 2){
+            } else if (groupPosition == FISHING_APPLICATION_LIST) {
                 if (mFishingApps.size() > 0) {
                     return mFishingApps.get(childPosition);
                 }
+            } else if (groupPosition == MARIN_NAVI_APPLICATION_LIST) {
+                if (mApps.size() > 0) {
+                    return mApps.get(childPosition);
+                }
             }
-        }else{
+        } else {
             if (groupPosition == APPLICATION_LIST) {
                 if (mApps.size() > 0) {
                     return mApps.get(childPosition);
@@ -255,60 +274,60 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-            if(groupPosition==mixingSettingIndex){
-                MixingViewHolder switchHolder;
-                if (convertView == null || !(convertView.getTag() instanceof MixingViewHolder)) {
-                    convertView = mLayoutInflater.inflate(R.layout.element_list_item_switch, parent, false);
-                    switchHolder = new MixingViewHolder(convertView);
-                    convertView.setTag(switchHolder);
-                } else {
-                    switchHolder = (MixingViewHolder) convertView.getTag();
-                }
-                switchHolder.mTitle.setText(mTypeArray.get(groupPosition));
-                switchHolder.mTitle.setEnabled(mIsMixingSettingEnabled);
-                switchHolder.mSwitch.setEnabled(mIsMixingSettingEnabled);
-                switchHolder.mSwitch.setChecked(mMixingSetting);
-                switchHolder.mSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> onClickSwitch(isChecked));
-                convertView.setEnabled(mIsMixingSettingEnabled);
-            }else if(groupPosition == mixingVolumeIndex){
-                VolumeViewHolder summaryHolder;
-                if (convertView == null || !(convertView.getTag() instanceof VolumeViewHolder)) {
-                    convertView = mLayoutInflater.inflate(R.layout.element_list_item_summary, parent, false);
-                    summaryHolder = new VolumeViewHolder(convertView);
-                    convertView.setTag(summaryHolder);
-                } else {
-                    summaryHolder = (VolumeViewHolder) convertView.getTag();
-                }
-
-                if (mMixingVolume != null) {
-                    summaryHolder.mSummary.setText(mMixingVolume.label);
-                    summaryHolder.mSummary.setVisibility(View.VISIBLE);
-                } else {
-                    summaryHolder.mSummary.setText("");
-                    summaryHolder.mSummary.setVisibility(View.GONE);
-                }
-                summaryHolder.mTitle.setText(mTypeArray.get(groupPosition));
-                summaryHolder.mTitle.setEnabled(mIsMixingVolumeEnabled);
-                summaryHolder.mSummary.setEnabled(mIsMixingVolumeEnabled);
-                convertView.setEnabled(mIsMixingVolumeEnabled);
-                summaryHolder.separatorBottom.setVisibility(View.VISIBLE);
-            }else{
-                NavigationAppViewHolder groupHolder;
-                if (convertView == null || !(convertView.getTag() instanceof NavigationAppViewHolder)) {
-                    convertView = mLayoutInflater.inflate(R.layout.element_list_item_summary, parent, false);
-                    groupHolder = new NavigationAppViewHolder(convertView);
-                    groupHolder.mSeparator.setVisibility(View.INVISIBLE);
-                    convertView.setTag(groupHolder);
-                } else {
-                    groupHolder = (NavigationAppViewHolder) convertView.getTag();
-                }
-                if(groupPosition!=0){
-                    groupHolder.mSeparator.setVisibility(View.VISIBLE);
-                }
-                groupHolder.mTitle.setText(mTypeArray.get(groupPosition));
-                groupHolder.mSummary.setText("");
-                groupHolder.mSummary.setVisibility(View.GONE);
+        if (groupPosition == mixingSettingIndex) {
+            MixingViewHolder switchHolder;
+            if (convertView == null || !(convertView.getTag() instanceof MixingViewHolder)) {
+                convertView = mLayoutInflater.inflate(R.layout.element_list_item_switch, parent, false);
+                switchHolder = new MixingViewHolder(convertView);
+                convertView.setTag(switchHolder);
+            } else {
+                switchHolder = (MixingViewHolder) convertView.getTag();
             }
+            switchHolder.mTitle.setText(mTypeArray.get(groupPosition));
+            switchHolder.mTitle.setEnabled(mIsMixingSettingEnabled);
+            switchHolder.mSwitch.setEnabled(mIsMixingSettingEnabled);
+            switchHolder.mSwitch.setChecked(mMixingSetting);
+            switchHolder.mSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> onClickSwitch(isChecked));
+            convertView.setEnabled(mIsMixingSettingEnabled);
+        } else if (groupPosition == mixingVolumeIndex) {
+            VolumeViewHolder summaryHolder;
+            if (convertView == null || !(convertView.getTag() instanceof VolumeViewHolder)) {
+                convertView = mLayoutInflater.inflate(R.layout.element_list_item_summary, parent, false);
+                summaryHolder = new VolumeViewHolder(convertView);
+                convertView.setTag(summaryHolder);
+            } else {
+                summaryHolder = (VolumeViewHolder) convertView.getTag();
+            }
+
+            if (mMixingVolume != null) {
+                summaryHolder.mSummary.setText(mMixingVolume.label);
+                summaryHolder.mSummary.setVisibility(View.VISIBLE);
+            } else {
+                summaryHolder.mSummary.setText("");
+                summaryHolder.mSummary.setVisibility(View.GONE);
+            }
+            summaryHolder.mTitle.setText(mTypeArray.get(groupPosition));
+            summaryHolder.mTitle.setEnabled(mIsMixingVolumeEnabled);
+            summaryHolder.mSummary.setEnabled(mIsMixingVolumeEnabled);
+            convertView.setEnabled(mIsMixingVolumeEnabled);
+            summaryHolder.separatorBottom.setVisibility(View.VISIBLE);
+        } else {
+            NavigationAppViewHolder groupHolder;
+            if (convertView == null || !(convertView.getTag() instanceof NavigationAppViewHolder)) {
+                convertView = mLayoutInflater.inflate(R.layout.element_list_item_summary, parent, false);
+                groupHolder = new NavigationAppViewHolder(convertView);
+                groupHolder.mSeparator.setVisibility(View.INVISIBLE);
+                convertView.setTag(groupHolder);
+            } else {
+                groupHolder = (NavigationAppViewHolder) convertView.getTag();
+            }
+            if (groupPosition != 0) {
+                groupHolder.mSeparator.setVisibility(View.VISIBLE);
+            }
+            groupHolder.mTitle.setText(mTypeArray.get(groupPosition));
+            groupHolder.mSummary.setText("");
+            groupHolder.mSummary.setVisibility(View.GONE);
+        }
 
         return convertView;
     }
@@ -316,127 +335,60 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
     @SuppressWarnings("deprecation")
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        if(mIsMarin){
+        List<ApplicationInfo> apps = new ArrayList<>();
+        if (mIsMarin) {
             switch (groupPosition) {
-                case 0:
-                    if (mWeatherApps.size() > 0) {
-                        AppViewHolder holder;
-                        if (convertView == null || !(convertView.getTag() instanceof AppViewHolder)) {
-                            convertView = mLayoutInflater.inflate(R.layout.element_list_item_navi_app, parent, false);
-                            holder = new AppViewHolder(convertView);
-                            convertView.setTag(holder);
-                        } else {
-                            holder = (AppViewHolder) convertView.getTag();
-                        }
-                        ApplicationInfo app = mWeatherApps.get(childPosition);
-                        if (app != null) {
-                            PackageManager pm = mContext.getPackageManager();
-                            holder.mAppIcon.setImageDrawable(app.loadIcon(pm));
-                            holder.mAppName.setText(app.loadLabel(pm));
-
-                            if (mSelectedApp!=null&&mSelectedApp.packageName.equals(app.packageName)) {
-                                holder.mCheckIcon.setVisibility(View.VISIBLE);
-                            } else {
-                                holder.mCheckIcon.setVisibility(View.INVISIBLE);
-                            }
-                        }
-                        holder.separatorBottom.setVisibility(View.GONE);
-                    } else {
-                        convertView = setNotExistAppCell(groupPosition,childPosition,convertView,parent);
-                    }
+                case WEATHER_APPLICATION_LIST:
+                    apps = mWeatherApps;
                     break;
-                case 1:
-                    if (mBoatingApps.size() > 0) {
-                        AppViewHolder holder;
-                        if (convertView == null || !(convertView.getTag() instanceof AppViewHolder)) {
-                            convertView = mLayoutInflater.inflate(R.layout.element_list_item_navi_app, parent, false);
-                            holder = new AppViewHolder(convertView);
-                            convertView.setTag(holder);
-                        } else {
-                            holder = (AppViewHolder) convertView.getTag();
-                        }
-                        ApplicationInfo app = mBoatingApps.get(childPosition);
-                        if (app != null) {
-                            PackageManager pm = mContext.getPackageManager();
-                            holder.mAppIcon.setImageDrawable(app.loadIcon(pm));
-                            holder.mAppName.setText(app.loadLabel(pm));
-
-                            if (mSelectedApp!=null&&mSelectedApp.packageName.equals(app.packageName)) {
-                                holder.mCheckIcon.setVisibility(View.VISIBLE);
-                            } else {
-                                holder.mCheckIcon.setVisibility(View.INVISIBLE);
-                            }
-                        }
-                        holder.separatorBottom.setVisibility(View.GONE);
-
-                    } else {
-                        convertView =  setNotExistAppCell(groupPosition,childPosition,convertView,parent);
-                    }
+                case BOATING_APPLICATION_LIST:
+                    apps = mBoatingApps;
                     break;
-                case 2:
-                    if (mFishingApps.size() > 0) {
-                        AppViewHolder holder;
-                        if (convertView == null || !(convertView.getTag() instanceof AppViewHolder)) {
-                            convertView = mLayoutInflater.inflate(R.layout.element_list_item_navi_app, parent, false);
-                            holder = new AppViewHolder(convertView);
-                            convertView.setTag(holder);
-                        } else {
-                            holder = (AppViewHolder) convertView.getTag();
-                        }
-                        ApplicationInfo app = mFishingApps.get(childPosition);
-                        if (app != null) {
-                            PackageManager pm = mContext.getPackageManager();
-                            holder.mAppIcon.setImageDrawable(app.loadIcon(pm));
-                            holder.mAppName.setText(app.loadLabel(pm));
-
-                            if (mSelectedApp!=null&&mSelectedApp.packageName.equals(app.packageName)) {
-                                holder.mCheckIcon.setVisibility(View.VISIBLE);
-                            } else {
-                                holder.mCheckIcon.setVisibility(View.INVISIBLE);
-                            }
-                        }
-                        holder.separatorBottom.setVisibility(View.GONE);
-                        if (getGroupCount() == 3 && getChildrenCount(groupPosition) - 1 == childPosition) {
-                            holder.separatorBottom.setVisibility(View.VISIBLE);
-                        }
-                    } else {
-                        convertView = setNotExistAppCell(groupPosition,childPosition,convertView,parent);
-                    }
+                case FISHING_APPLICATION_LIST:
+                    apps = mFishingApps;
+                    break;
+                case MARIN_NAVI_APPLICATION_LIST:
+                    apps = mApps;
                     break;
             }
-        }else {
-            if (mApps.size() > 0) {
-                AppViewHolder holder;
-                if (convertView == null || !(convertView.getTag() instanceof AppViewHolder)) {
-                    convertView = mLayoutInflater.inflate(R.layout.element_list_item_navi_app, parent, false);
-                    holder = new AppViewHolder(convertView);
-                    convertView.setTag(holder);
-                } else {
-                    holder = (AppViewHolder) convertView.getTag();
-                }
-                ApplicationInfo app = mApps.get(childPosition);
-                if (app != null) {
-                    PackageManager pm = mContext.getPackageManager();
-                    holder.mAppIcon.setImageDrawable(app.loadIcon(pm));
-                    holder.mAppName.setText(app.loadLabel(pm));
-
-                    if (mSelectedApp == app) {
-                        holder.mCheckIcon.setVisibility(View.VISIBLE);
-                    } else {
-                        holder.mCheckIcon.setVisibility(View.INVISIBLE);
-                    }
-                }
-                holder.separatorBottom.setVisibility(View.GONE);
-                if (getGroupCount() == 1 && getChildrenCount(groupPosition) - 1 == childPosition) {
-                    holder.separatorBottom.setVisibility(View.VISIBLE);
-                }
+        } else {
+            apps = mApps;
+        }
+        if (apps.size() > 0) {
+            AppViewHolder holder;
+            if (convertView == null || !(convertView.getTag() instanceof AppViewHolder)) {
+                convertView = mLayoutInflater.inflate(R.layout.element_list_item_navi_app, parent, false);
+                holder = new AppViewHolder(convertView);
+                convertView.setTag(holder);
             } else {
-                convertView = setNotExistAppCell(groupPosition,childPosition,convertView,parent);
+                holder = (AppViewHolder) convertView.getTag();
             }
+            ApplicationInfo app = apps.get(childPosition);
+            if (app != null) {
+                PackageManager pm = mContext.getPackageManager();
+                holder.mAppIcon.setImageDrawable(app.loadIcon(pm));
+                holder.mAppName.setText(app.loadLabel(pm));
+
+                if (mSelectedApp != null && mSelectedApp.packageName.equals(app.packageName)) {
+                    holder.mCheckIcon.setVisibility(View.VISIBLE);
+                } else {
+                    holder.mCheckIcon.setVisibility(View.INVISIBLE);
+                }
+            }
+            holder.separatorBottom.setVisibility(View.GONE);
+            if ((!mIsMarin && getGroupCount() == APPLICATION_LIST + 1 && getChildrenCount(groupPosition) - 1 == childPosition)
+                    || (mIsMarin && groupPosition == MARIN_NAVI_APPLICATION_LIST
+                    && getGroupCount() == MARIN_NAVI_APPLICATION_LIST + 1
+                    && getChildrenCount(groupPosition) - 1 == childPosition)) {
+                holder.separatorBottom.setVisibility(View.VISIBLE);
+            }
+        } else {
+            convertView = setNotExistAppCell(groupPosition, childPosition, convertView, parent);
         }
         return convertView;
     }
-    private View setNotExistAppCell(int groupPosition, int childPosition, View convertView, ViewGroup parent){
+
+    private View setNotExistAppCell(int groupPosition, int childPosition, View convertView, ViewGroup parent) {
         NotExistAppViewHolder holder;
         if (convertView == null || !(convertView.getTag() instanceof NotExistAppViewHolder)) {
             convertView = mLayoutInflater.inflate(R.layout.element_list_item_summary, parent, false);
@@ -471,11 +423,12 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
         holder.mSummary.setText("");
         holder.mSummary.setVisibility(View.GONE);
         holder.separatorBottom.setVisibility(View.GONE);
-        if ((!mIsMarin&&getGroupCount() == 1)||(mIsMarin&&groupPosition==2&&getGroupCount() == 3)) {
+        if ((!mIsMarin && getGroupCount() == APPLICATION_LIST + 1) || (mIsMarin && groupPosition == MARIN_NAVI_APPLICATION_LIST && getGroupCount() == MARIN_NAVI_APPLICATION_LIST + 1)) {
             holder.separatorBottom.setVisibility(View.VISIBLE);
         }
         return convertView;
     }
+
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
@@ -483,9 +436,12 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
 
     // MARK - view holder
     static class NavigationAppViewHolder {
-        @BindView(R.id.titleText) AutofitTextView mTitle;
-        @BindView(R.id.summaryText) TextView mSummary;
-        @BindView(R.id.separator) View mSeparator;
+        @BindView(R.id.titleText)
+        AutofitTextView mTitle;
+        @BindView(R.id.summaryText)
+        TextView mSummary;
+        @BindView(R.id.separator)
+        View mSeparator;
 
         public NavigationAppViewHolder(View itemView) {
             ButterKnife.bind(this, itemView);
@@ -493,8 +449,10 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
     }
 
     static class MixingViewHolder {
-        @BindView(R.id.titleText) AutofitTextView mTitle;
-        @BindView(R.id.switchWidget) SwitchCompat mSwitch;
+        @BindView(R.id.titleText)
+        AutofitTextView mTitle;
+        @BindView(R.id.switchWidget)
+        SwitchCompat mSwitch;
 
         public MixingViewHolder(View itemView) {
             ButterKnife.bind(this, itemView);
@@ -502,31 +460,47 @@ public class NavigationAdapter extends BaseExpandableListAdapter {
     }
 
     static class VolumeViewHolder {
-        @BindView(R.id.titleText) AutofitTextView mTitle;
-        @BindView(R.id.summaryText) TextView mSummary;
-        @BindView(R.id.separator) View mSeparator;
-        @BindView(R.id.separator_bottom) View separatorBottom;
+        @BindView(R.id.titleText)
+        AutofitTextView mTitle;
+        @BindView(R.id.summaryText)
+        TextView mSummary;
+        @BindView(R.id.separator)
+        View mSeparator;
+        @BindView(R.id.separator_bottom)
+        View separatorBottom;
+
         public VolumeViewHolder(View itemView) {
             ButterKnife.bind(this, itemView);
         }
     }
 
     static class AppViewHolder {
-        @BindView(R.id.app_icon) ImageView mAppIcon;
-        @BindView(R.id.app_name) AutofitTextView mAppName;
-        @BindView(R.id.check_icon) ImageView mCheckIcon;
-        @BindView(R.id.separator) View mSeparator;
-        @BindView(R.id.separator_bottom) View separatorBottom;
+        @BindView(R.id.app_icon)
+        ImageView mAppIcon;
+        @BindView(R.id.app_name)
+        AutofitTextView mAppName;
+        @BindView(R.id.check_icon)
+        ImageView mCheckIcon;
+        @BindView(R.id.separator)
+        View mSeparator;
+        @BindView(R.id.separator_bottom)
+        View separatorBottom;
+
         AppViewHolder(View itemView) {
             ButterKnife.bind(this, itemView);
         }
     }
 
     static class NotExistAppViewHolder {
-        @BindView(R.id.titleText) AutofitTextView mTitle;
-        @BindView(R.id.summaryText) TextView mSummary;
-        @BindView(R.id.separator) View mSeparator;
-        @BindView(R.id.separator_bottom) View separatorBottom;
+        @BindView(R.id.titleText)
+        AutofitTextView mTitle;
+        @BindView(R.id.summaryText)
+        TextView mSummary;
+        @BindView(R.id.separator)
+        View mSeparator;
+        @BindView(R.id.separator_bottom)
+        View separatorBottom;
+
         public NotExistAppViewHolder(View itemView) {
             ButterKnife.bind(this, itemView);
         }

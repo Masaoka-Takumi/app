@@ -21,7 +21,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * <p>
  * 本アプリと連携するナビアプリの定義。
  */
-public enum NaviApp {
+public enum NaviApp implements BaseApp{
     /** Google Maps. */
     GOOGLE_MAP("com.google.android.apps.maps") {
         /**

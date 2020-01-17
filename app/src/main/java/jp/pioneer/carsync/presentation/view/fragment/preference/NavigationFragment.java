@@ -118,10 +118,13 @@ public class NavigationFragment extends AbstractScreenFragment<NavigationPresent
         };
 
         mListView.setAdapter(mAdapter);
-        mListView.expandGroup(0);
         if(isMarin) {
-            mListView.expandGroup(1);
-            mListView.expandGroup(2);
+            mListView.expandGroup(NavigationAdapter.WEATHER_APPLICATION_LIST);
+            mListView.expandGroup(NavigationAdapter.BOATING_APPLICATION_LIST);
+            mListView.expandGroup(NavigationAdapter.FISHING_APPLICATION_LIST);
+            mListView.expandGroup(NavigationAdapter.MARIN_NAVI_APPLICATION_LIST);
+        }else{
+            mListView.expandGroup(NavigationAdapter.APPLICATION_LIST);
         }
     }
 
@@ -134,11 +137,12 @@ public class NavigationFragment extends AbstractScreenFragment<NavigationPresent
     }
 
     @Override
-    public void setApplicationList(List<ApplicationInfo> weatherApps, List<ApplicationInfo> boatingApps, List<ApplicationInfo> fishingApps, @Nullable ApplicationInfo selectedApp) {
+    public void setApplicationList(List<ApplicationInfo> weatherApps, List<ApplicationInfo> boatingApps, List<ApplicationInfo> fishingApps,List<ApplicationInfo> naviApps, @Nullable ApplicationInfo selectedApp) {
         mAdapter.setMarinApps(
                 weatherApps,
                 boatingApps,
                 fishingApps,
+                naviApps,
                 selectedApp
         );
     }
