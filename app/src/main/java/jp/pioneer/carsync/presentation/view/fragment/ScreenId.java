@@ -154,6 +154,7 @@ public enum ScreenId {
     YOUTUBE_LINK_CAUTION(VoiceRecognitionSearchType.GLOBAL),                        // YouTubeLink Caution
     YOUTUBE_LINK_WEBVIEW(VoiceRecognitionSearchType.GLOBAL),                        // YouTubeLink WebView
     YOUTUBE_LINK_CONTAINER(VoiceRecognitionSearchType.GLOBAL),                      // YouTubeLink Container
+    YOUTUBE_LINK_SEARCH_ITEM(VoiceRecognitionSearchType.GLOBAL),                      // YouTubeLink Search Item Dialog
  ;
 
     private VoiceRecognitionSearchType mVoiceRecognitionSearchType;
@@ -311,6 +312,7 @@ public enum ScreenId {
             case PROMPT_AUTHORITY_PERMISSION:
             case CUSTOM_KEY_SETTING:
             case YOUTUBE_LINK_CONTAINER:
+            case YOUTUBE_LINK_SEARCH_ITEM:
                 return true;
             default:
                 return false;

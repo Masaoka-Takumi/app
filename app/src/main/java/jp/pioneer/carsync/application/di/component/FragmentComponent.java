@@ -6,6 +6,7 @@ import jp.pioneer.carsync.application.di.module.FragmentModule;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.CustomKeySettingDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.YouTubeLinkCautionFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.YouTubeLinkContainerFragment;
+import jp.pioneer.carsync.presentation.view.fragment.dialog.YouTubeLinkSearchItemDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.YouTubeLinkWebViewFragment;
 import jp.pioneer.carsync.presentation.view.fragment.preference.HdRadioSettingFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.AccidentDetectDialogFragment;
@@ -166,6 +167,7 @@ public interface FragmentComponent {
     void inject(YouTubeLinkContainerFragment fragment);
     void inject(YouTubeLinkCautionFragment fragment);
     void inject(YouTubeLinkWebViewFragment fragment);
+    void inject(YouTubeLinkSearchItemDialogFragment fragment);
     // UNCONNECTED
     void inject(UnconnectedContainerFragment fragment);
     void inject(TipsFragment fragment);

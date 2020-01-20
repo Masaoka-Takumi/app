@@ -652,8 +652,8 @@ public class PlayerPresenter<T> extends Presenter<T> {
                 break;
             case SOURCE:
                 if(mYouTubeLinkStatus.isYouTubeLinkEnabled()) {
-                    // なにもしない
-                    Timber.i("YouTubeLinkIcon LongKeyAction");
+                    // YouTube Link検索対象切り替えを表示する
+                    mEventBus.post(new NavigateEvent(ScreenId.YOUTUBE_LINK_SEARCH_ITEM, Bundle.EMPTY));
                     mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.youtubeLinkLong, Analytics.AnalyticsActiveScreen.av_screen);
                 } else {
                     // カスタムキー割当画面の表示

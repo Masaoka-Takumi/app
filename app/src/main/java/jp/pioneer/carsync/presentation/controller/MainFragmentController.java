@@ -36,6 +36,7 @@ import jp.pioneer.carsync.presentation.view.fragment.dialog.SingleChoiceDialogFr
 import jp.pioneer.carsync.presentation.view.fragment.dialog.SpeechRecognizerDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.StatusPopupDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.YouTubeLinkContainerFragment;
+import jp.pioneer.carsync.presentation.view.fragment.dialog.YouTubeLinkSearchItemDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.screen.contacts.ContactsContainerFragment;
 import jp.pioneer.carsync.presentation.view.fragment.screen.home.HomeContainerFragment;
 import jp.pioneer.carsync.presentation.view.fragment.screen.home.OpeningEulaFragment;
@@ -70,12 +71,13 @@ public class MainFragmentController {
     private static final String TAG_DIALOG_PROMPT_AUTHORITY_PERMISSION = "prompt_authority_permission";
     private static final String TAG_DIALOG_CUSTOM_KEY_SETTING = "custom_key_setting";
     private static final String TAG_DIALOG_YOUTUBE_LINK_CONTAINER = "youtube_link_container";
+    private static final String TAG_DIALOG_YOUTUBE_LINK_SEARCH_ITEM = "youtube_link_search_item";
     private static final String[] KEY_DEVICE_ERROR_DIALOGS = new String[]{
         MainPresenter.TAG_DIALOG_SXM_SUBSCRIPTION_UPDATE, CarDeviceErrorType.AMP_ERROR.toString(), CarDeviceErrorType.CHECK_USB.toString(), CarDeviceErrorType.CHECK_TUNER.toString(), CarDeviceErrorType.CHECK_ANTENNA.toString()
     };
     private static final String TAG_DIALOG_NORMAL = "dialog_normal";
     private static final String[] KEY_DIALOGS = new String[]{
-            TAG_DIALOG_NORMAL, TAG_DIALOG_ALEXA, TAG_DIALOG_CUSTOM_KEY_SETTING
+            TAG_DIALOG_NORMAL, TAG_DIALOG_ALEXA, TAG_DIALOG_CUSTOM_KEY_SETTING,TAG_DIALOG_YOUTUBE_LINK_SEARCH_ITEM
     };
     @Inject FragmentManager mFragmentManager;
     @IdRes private int mContainerViewId;
@@ -252,6 +254,10 @@ public class MainFragmentController {
                 return true;
             case YOUTUBE_LINK_CONTAINER:
                 showYouTubeLinkContainerDialog(fragment, args);
+                return true;
+            case YOUTUBE_LINK_SEARCH_ITEM:
+                showYouTubeLinkSearchItemDialog(fragment, args);
+                return true;
             default:
                 return false;
         }
@@ -318,6 +324,7 @@ public class MainFragmentController {
     public boolean isShowCaution() {
         return (mFragmentManager.findFragmentByTag(TAG_DIALOG_CAUTION) != null);
     }
+
     /**
      * Alexaダイアログ表示
      *
@@ -826,6 +833,15 @@ public class MainFragmentController {
         createYouTubeLinkContainerDialogFragment(fragment, args).show(mFragmentManager, TAG_DIALOG_YOUTUBE_LINK_CONTAINER);
     }
 
+    /**
+     * YouTubeLinkSearchItemDialog画面表示
+     * @param fragment 表示する画面のインスタンス
+     * @param args      Bundle 引き継ぎ情報
+     */
+    private void showYouTubeLinkSearchItemDialog(Fragment fragment, Bundle args){
+        createYouTubeLinkSearchItemDialogFragment(fragment, args).show(mFragmentManager, TAG_DIALOG_YOUTUBE_LINK_SEARCH_ITEM);
+    }
+
     @VisibleForTesting
     Fragment createOpeningFragment(Bundle args) {
         return OpeningFragment.newInstance(args);
@@ -948,5 +964,10 @@ public class MainFragmentController {
     @VisibleForTesting
     DialogFragment createYouTubeLinkContainerDialogFragment(Fragment fragment, Bundle args){
         return YouTubeLinkContainerFragment.newInstance(args);
+    }
+
+    @VisibleForTesting
+    DialogFragment createYouTubeLinkSearchItemDialogFragment(Fragment fragment, Bundle args){
+        return YouTubeLinkSearchItemDialogFragment.newInstance(fragment, args);
     }
 }
