@@ -175,7 +175,7 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
     private void showBandChangeNotification(){
         DabBandType bandType = mStatusHolder.execute().getCarDeviceMediaInfoHolder().dabInfo.band;
         Optional.ofNullable(getView()).ifPresent(view -> {
-            if(bandType != mDabBand) {
+            if(mDabBand!=null&&bandType != mDabBand) {
                 view.displayEqFxMessage(mContext.getString(bandType.getLabel()));
                 mDabBand = bandType;
             }

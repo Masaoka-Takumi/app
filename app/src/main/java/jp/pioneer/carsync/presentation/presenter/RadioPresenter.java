@@ -200,7 +200,7 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
     private void showBandChangeNotification(){
         RadioBandType bandType = mStatusHolder.execute().getCarDeviceMediaInfoHolder().radioInfo.band;
         Optional.ofNullable(getView()).ifPresent(view -> {
-            if(bandType != mRadioBand) {
+            if(mRadioBand!=null&&bandType != mRadioBand) {
                 view.displayEqFxMessage(mContext.getString(bandType.getLabel()));
                 mRadioBand = bandType;
             }
