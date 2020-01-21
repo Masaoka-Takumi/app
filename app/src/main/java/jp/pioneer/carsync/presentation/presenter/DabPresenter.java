@@ -35,6 +35,7 @@ import jp.pioneer.carsync.domain.model.DabInfo;
 import jp.pioneer.carsync.domain.model.ListType;
 import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.PlaybackMode;
+import jp.pioneer.carsync.domain.model.RadioBandType;
 import jp.pioneer.carsync.domain.model.RadioInfo;
 import jp.pioneer.carsync.domain.model.StatusHolder;
 import jp.pioneer.carsync.domain.model.TunerStatus;
@@ -148,6 +149,7 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onDabInfoChangeEvent(DabInfoChangeEvent event) {
+        showBandChangeNotification();
         updateView();
     }
 
@@ -168,6 +170,16 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAdasErrorEvent(AdasErrorEvent event) {
         setAdasIcon();
+    }
+
+    private void showBandChangeNotification(){
+        DabBandType bandType = mStatusHolder.execute().getCarDeviceMediaInfoHolder().dabInfo.band;
+        Optional.ofNullable(getView()).ifPresent(view -> {
+            if(bandType != mDabBand) {
+                view.displayEqFxMessage(mContext.getString(bandType.getLabel()));
+                mDabBand = bandType;
+            }
+        });
     }
 
     /**

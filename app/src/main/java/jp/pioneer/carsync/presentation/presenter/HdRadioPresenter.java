@@ -154,6 +154,7 @@ public class HdRadioPresenter extends PlayerPresenter<HdRadioView> implements Lo
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onHdRadioInfoChangeEvent(HdRadioInfoChangeEvent event) {
+        showBandChangeNotification();
         updateView();
     }
 
@@ -176,6 +177,15 @@ public class HdRadioPresenter extends PlayerPresenter<HdRadioView> implements Lo
         setAdasIcon();
     }
 
+    private void showBandChangeNotification(){
+        HdRadioBandType bandType = mStatusHolder.execute().getCarDeviceMediaInfoHolder().hdRadioInfo.band;
+        Optional.ofNullable(getView()).ifPresent(view -> {
+            if(bandType != mHdRadioBand) {
+                view.displayEqFxMessage(mContext.getString(bandType.getLabel()));
+                mHdRadioBand = bandType;
+            }
+        });
+    }
     /**
      * 次のプリセット番号へ
      */
