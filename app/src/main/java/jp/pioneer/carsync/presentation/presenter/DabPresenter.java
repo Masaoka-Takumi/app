@@ -446,7 +446,12 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
     protected void updateAlexaNotification() {
         super.updateAlexaNotification();
         Optional.ofNullable(getView()).ifPresent(view ->{
-            view.setAlexaNotification(isNeedUpdateAlexaNotification());
+            AppStatus appStatus = mStatusHolder.execute().getAppStatus();
+            boolean notificationQueued = false;
+            if(mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
+                notificationQueued = mStatusHolder.execute().getAppStatus().alexaNotification;
+            }
+            view.setAlexaNotification(notificationQueued);
         });
     }
 

@@ -12,13 +12,13 @@ import javax.inject.Inject;
 import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
-import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.model.VoiceRecognizeType;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
 import jp.pioneer.carsync.presentation.util.YouTubeLinkStatus;
 import jp.pioneer.carsync.presentation.view.AppSettingView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.StatusPopupDialogFragment;
+import timber.log.Timber;
 
 /**
  * App設定画面のPresenter
@@ -29,7 +29,6 @@ public class AppSettingPresenter extends Presenter<AppSettingView> {
     @Inject AppSharedPreference mPreference;
     @Inject Context mContext;
     @Inject EventBus mEventBus;
-    @Inject GetStatusHolder mGetStatusHolder;
     @Inject YouTubeLinkStatus mYouTubeLinkStatus;
 
     /**
@@ -42,28 +41,14 @@ public class AppSettingPresenter extends Presenter<AppSettingView> {
     @Override
     void onTakeView() {
         Optional.ofNullable(getView()).ifPresent(view -> {
-            view.setShortCutSettingEnabled(isShortCutSettingEnabled());
+            view.setShortCutSettingEnabled( !(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA
+                                            ||mYouTubeLinkStatus.isYouTubeLinkEnabled()) );
             view.setShortCutEnabled(mPreference.isShortCutButtonEnabled());
             view.setAlbumArtEnabled(mPreference.isAlbumArtEnabled());
             view.setGenreCardEnabled(mPreference.isGenreCardEnabled());
             view.setPlaylistCardEnabled(mPreference.isPlaylistCardEnabled());
             view.setAppServiceResidentEnabled(mPreference.isAppServiceResident());
         });
-    }
-
-    /**
-     * ショートカットボタン設定項目のアクティブ/非アクティブの設定
-     * Alexa利用可能なら、音声認識がAlexa or YouTubeLink設定ONのときは非アクティブ化
-     * Alexa利用不可能なら、YouTubeLink設定ONのときは非アクティブ化
-     * それ以外はアクティブ化
-     * @return {@code true}:アクティブ {@code false}:非アクティブ
-     */
-    private boolean isShortCutSettingEnabled() {
-        if(mGetStatusHolder.execute().getAppStatus().isAlexaAvailableCountry) {
-            return !(mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA || mYouTubeLinkStatus.isYouTubeLinkEnabled());
-        } else {
-            return !mYouTubeLinkStatus.isYouTubeLinkEnabled();
-        }
     }
 
     /**
