@@ -113,7 +113,6 @@ public class YouTubeLinkSearchItemDialogPresenter extends Presenter<YouTubeLinkS
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMediaSourceTypeChangeEvent(MediaSourceTypeChangeEvent ev) {
-        mCurrentSourceType = mGetStatusHolder.execute().getCarDeviceStatus().sourceType;
-        updateView();
+        Optional.ofNullable(getView()).ifPresent(YouTubeLinkSearchItemDialogView::callbackClose);
     }
 }
