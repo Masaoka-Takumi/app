@@ -235,4 +235,10 @@
         android:order="260"
         android:persistent="false"
         android:title="@string/setting_debug_alexa_sim_judgement" />
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="setting_debug_smart_phone_control_command"
+        android:layout="@layout/element_preference_switch"
+        android:order="270"
+        android:persistent="false"
+        android:title="@string/setting_debug_smart_phone_control_command" />
 </PreferenceScreen>

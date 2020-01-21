@@ -508,6 +508,13 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
     public void onSmartPhoneControlCommandEvent(SmartPhoneControlCommandEvent ev){
         Optional.ofNullable(getView()).ifPresent(view -> {
             AppStatus appStatus = mStatusHolder.getAppStatus();
+            String commandText = mContext.getString(ev.command.label) + " ";
+            if(ev.command.commandStatusCode==0x01){
+                commandText += mContext.getString(R.string.control_command_long);
+            }else{
+                commandText += mContext.getString(R.string.control_command_short);
+            }
+            view.showShortToast(commandText);
             if(appStatus.isTransitionedHomeScreen && AppUtil.isScreenOn(mContext)) {
                 switch (ev.command) {
                     case AV:

@@ -61,6 +61,7 @@ public class DebugSettingFragment extends AbstractPreferenceFragment<DebugSettin
     private NumberPickerPreference mAdasFps;
     private SwitchPreferenceCompat mAdasCameraPreview;
     private SwitchPreferenceCompat mAlexaSimJudgement;
+    private SwitchPreferenceCompat mSmartPhoneControlComand;
     private final static SparseArrayCompat<SmartPhoneInterruption> INTERRUPT_LIST_ITEMS = new SparseArrayCompat<SmartPhoneInterruption>() {{
         put(0, SmartPhoneInterruption.LOW);
         put(1, SmartPhoneInterruption.MIDDLE);
@@ -255,6 +256,12 @@ public class DebugSettingFragment extends AbstractPreferenceFragment<DebugSettin
         mAlexaSimJudgement = (SwitchPreferenceCompat) findPreference("setting_debug_alexa_sim_judgement");
         mAlexaSimJudgement.setOnPreferenceChangeListener(((preference, newValue) -> {
             getPresenter().onAlexaSimJudgement((boolean)newValue);
+            return true;
+        }));
+
+        mSmartPhoneControlComand = (SwitchPreferenceCompat) findPreference("setting_debug_smart_phone_control_command");
+        mSmartPhoneControlComand.setOnPreferenceChangeListener(((preference, newValue) -> {
+            //getPresenter().onAlexaSimJudgement((boolean)newValue);
             return true;
         }));
     }

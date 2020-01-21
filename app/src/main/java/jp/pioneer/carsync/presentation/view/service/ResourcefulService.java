@@ -417,6 +417,11 @@ public class ResourcefulService extends AbstractService<ResourcefulPresenter, Re
     }
 
     @Override
+    public void showShortToast(String str) {
+        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void hideSongNotification() {
         mSongChangeToastController.hideNotification();
     }
