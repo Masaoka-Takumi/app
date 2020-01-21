@@ -123,7 +123,18 @@ public class SxmPresenter extends PlayerPresenter<SxmView> implements LoaderMana
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSxmInfoChangeEvent(SxmInfoChangeEvent event) {
+        showBandChangeNotification();
         updateView();
+    }
+
+    private void showBandChangeNotification(){
+        SxmBandType bandType = mStatusHolder.execute().getCarDeviceMediaInfoHolder().sxmMediaInfo.band;
+        Optional.ofNullable(getView()).ifPresent(view -> {
+            if(bandType != mSxmBand) {
+                view.displayEqFxMessage(mContext.getString(bandType.getLabel()));
+                mSxmBand = bandType;
+            }
+        });
     }
 
     /**
