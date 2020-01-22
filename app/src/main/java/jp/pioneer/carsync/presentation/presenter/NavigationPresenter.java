@@ -173,10 +173,6 @@ public class NavigationPresenter extends Presenter<NavigationView> {
         AppSharedPreference.Application naviApp = new AppSharedPreference.Application(packageName, label);
         if(mPreference.getLastConnectedCarDeviceClassId()== CarDeviceClassId.MARIN){
             mPreference.setNavigationMarinApp(naviApp);
-            //AlexaのNavigationで使用するため、マリン車載器以外のNaviAppにも設定
-            if(NaviApp.fromPackageNameNoThrow(app.packageName)!=null){
-                mPreference.setNavigationApp(naviApp);
-            }
         }else{
             mPreference.setNavigationApp(naviApp);
         }

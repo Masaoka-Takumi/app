@@ -2157,41 +2157,46 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
     private void searchNavi(@Nullable String[] searchText) {
         Optional.ofNullable(getView()).ifPresent(view -> {
+            BaseApp baseApp = null;
             if (mPreference.getLastConnectedCarDeviceClassId() == CarDeviceClassId.MARIN) {
                 try {
-                    BaseApp navi = MarinApp.fromPackageNameNoThrow(mPreference.getNavigationMarinApp().packageName);
-                    if(navi==null){
-                        navi = NaviApp.fromPackageName(mPreference.getNavigationMarinApp().packageName);
+                    baseApp = MarinApp.fromPackageNameNoThrow(mPreference.getNavigationMarinApp().packageName);
+                    if (baseApp != null) {
+                        Intent intent = baseApp.createMainIntent(mContext);
+                        view.startMarin(intent);
+                        return;
                     }
-                    Intent intent = navi.createMainIntent(mContext);
-                    view.startMarin(intent);
+                    baseApp = NaviApp.fromPackageName(mPreference.getNavigationMarinApp().packageName);
                 } catch (IllegalArgumentException e) {
                     view.showToast(mContext.getString(R.string.err_035));
                 }
             } else {
                 try {
-                    NaviApp navi = NaviApp.fromPackageName(mPreference.getNavigationApp().packageName);
-                    if (searchText != null && !searchText[0].isEmpty()) {
-                        // 音声認識検索 - ナビ起動(ルート案内)
-                        mLocationCase.execute(searchText[0], new GetAddressFromLocationName.Callback() {
-                            @Override
-                            public void onSuccess(@NonNull Address addresses) {
-                                Intent intent = navi.createNavigationIntent(addresses.getLatitude(), addresses.getLongitude(), searchText[0], mContext);
-                                view.startNavigation(intent);
-                            }
-
-                            @Override
-                            public void onError(@NonNull GetAddressFromLocationName.Error error) {
-                                Intent intent = navi.createMainIntent(mContext);
-                                view.startNavigation(intent);
-                            }
-                        });
-                    } else {
-                        Intent intent = navi.createMainIntent(mContext);
-                        view.startNavigation(intent);
-                    }
+                    baseApp = NaviApp.fromPackageName(mPreference.getNavigationApp().packageName);
                 } catch (IllegalArgumentException e) {
                     view.showToast(mContext.getString(R.string.err_007));
+                }
+            }
+            if (baseApp instanceof NaviApp) {
+                NaviApp naviApp = (NaviApp) baseApp;
+                if (searchText != null && !searchText[0].isEmpty()) {
+                    // 音声認識検索 - ナビ起動(ルート案内)
+                    mLocationCase.execute(searchText[0], new GetAddressFromLocationName.Callback() {
+                        @Override
+                        public void onSuccess(@NonNull Address addresses) {
+                            Intent intent = naviApp.createNavigationIntent(addresses.getLatitude(), addresses.getLongitude(), searchText[0], mContext);
+                            view.startNavigation(intent);
+                        }
+
+                        @Override
+                        public void onError(@NonNull GetAddressFromLocationName.Error error) {
+                            Intent intent = naviApp.createMainIntent(mContext);
+                            view.startNavigation(intent);
+                        }
+                    });
+                } else {
+                    Intent intent = naviApp.createMainIntent(mContext);
+                    view.startNavigation(intent);
                 }
             }
         });
