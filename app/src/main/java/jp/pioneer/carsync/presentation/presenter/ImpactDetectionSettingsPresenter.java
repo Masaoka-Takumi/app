@@ -28,8 +28,8 @@ import jp.pioneer.carsync.presentation.view.fragment.dialog.StatusPopupDialogFra
  */
 @PresenterLifeCycle
 public class ImpactDetectionSettingsPresenter extends Presenter<ImpactDetectionSettingsView> {
-    public static final String DIALOG_TAG = "impact_detect_alert";
-
+    public static final String DIALOG_TAG_CONTACT_ALERT = "impact_detect_contact_alert";
+    public static final String DIALOG_TAG_CONTACT_CONFIRM = "impact_detect_contact_confirm";
     @Inject Context mContext;
     @Inject AppSharedPreference mPreference;
     @Inject EventBus mEventBus;
@@ -71,11 +71,14 @@ public class ImpactDetectionSettingsPresenter extends Presenter<ImpactDetectionS
         Optional.ofNullable(getView()).ifPresent(view -> view.setImpactDetectionEnabled(newValue));
     }
 
+    /**
+     * 連絡先設定済確認
+     */
     public void checkContactNumber(){
         if(TextUtils.isEmpty(mPreference.getImpactNotificationContactNumber())) {
             showAlertDialog();
         }else{
-            Optional.ofNullable(getView()).ifPresent(view -> view.checkPermission());
+            showContactConfirmDialog();
         }
     }
 
@@ -97,11 +100,28 @@ public class ImpactDetectionSettingsPresenter extends Presenter<ImpactDetectionS
         mEventBus.post(new NavigateEvent(ScreenId.IMPACT_DETECTION_CONTACT_REGISTER_SETTING, params.toBundle()));
     }
 
+    /**
+     * SET-06-02-D01:連絡先未設定ダイアログ
+     */
     private void showAlertDialog(){
         mHandler.post(() -> {
             Bundle bundle = new Bundle();
-            bundle.putString(StatusPopupDialogFragment.TAG, DIALOG_TAG);
+            bundle.putString(StatusPopupDialogFragment.TAG, DIALOG_TAG_CONTACT_ALERT);
             bundle.putString(StatusPopupDialogFragment.MESSAGE, mContext.getString(R.string.set_280));
+            bundle.putBoolean(StatusPopupDialogFragment.POSITIVE, true);
+            bundle.putBoolean(StatusPopupDialogFragment.NEGATIVE, false);
+            mEventBus.post(new NavigateEvent(ScreenId.STATUS_DIALOG, bundle));
+        });
+    }
+
+    /**
+     * SET-06-02-D02:通知先連絡確認ダイアログ
+     */
+    public void showContactConfirmDialog(){
+        mHandler.post(() -> {
+            Bundle bundle = new Bundle();
+            bundle.putString(StatusPopupDialogFragment.TAG, DIALOG_TAG_CONTACT_CONFIRM);
+            bundle.putString(StatusPopupDialogFragment.MESSAGE, mContext.getString(R.string.set_395));
             bundle.putBoolean(StatusPopupDialogFragment.POSITIVE, true);
             bundle.putBoolean(StatusPopupDialogFragment.NEGATIVE, false);
             mEventBus.post(new NavigateEvent(ScreenId.STATUS_DIALOG, bundle));
