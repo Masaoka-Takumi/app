@@ -176,7 +176,7 @@ public class RadioStationNameUtil {
         }
     }
 
-    public static String loadJSONFromAsset(Context context, String filename) {
+    private static String loadJSONFromAsset(Context context, String filename) {
         String json = null;
         try {
             InputStream is = context.getAssets().open(filename);

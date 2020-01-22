@@ -6,9 +6,11 @@ import android.text.TextUtils;
 import java.util.Locale;
 
 import jp.pioneer.carsync.R;
+import jp.pioneer.carsync.domain.model.CarDeviceDestinationInfo;
 import jp.pioneer.carsync.domain.model.CarDeviceStatus;
 import jp.pioneer.carsync.domain.model.CarRunningStatus;
 import jp.pioneer.carsync.domain.model.ListInfo;
+import jp.pioneer.carsync.domain.model.RadioBandType;
 import jp.pioneer.carsync.domain.model.RadioInfo;
 
 /**
@@ -33,7 +35,21 @@ public class RadioTextUtil {
         }
     }
 
-    public static String getPsInfoForMiniPlayer(Context context, CarDeviceStatus status, RadioInfo info) {
+    public static String getPsInfoForFavorite(int deviceDestination, CarRunningStatus runningStatus, RadioInfo info) {
+        String psInfoText;
+        if(deviceDestination == CarDeviceDestinationInfo.JP.code){
+            psInfoText = RadioTextUtil.getPsInfoForListJP(runningStatus, info.band, info.currentFrequency);
+        }else{
+            psInfoText = TextUtils.isEmpty(info.psInfo) ? "" : info.psInfo;
+        }
+        return psInfoText;
+    }
+
+    public static String getPsInfoForListJP(CarRunningStatus status, RadioBandType band, long frequency) {
+        return RadioStationNameUtil.getStationName(status,band,frequency);
+    }
+
+    public static String getPsInfoForMiniPlayer(Context context, int deviceDestination, CarRunningStatus status, RadioInfo info) {
         String text;
         if(info.rdsInterruptionType != null) {
             switch (info.rdsInterruptionType) {
@@ -48,41 +64,46 @@ public class RadioTextUtil {
                     break;
                 case NORMAL:
                 default:
-                    text = getPsInfoForPlayer(context, status, info);
+                    text = getPsInfoForPlayer(context, deviceDestination, status, info);
                     break;
             }
         } else {
-            text = getPsInfoForPlayer(context, status, info);
+            text = getPsInfoForPlayer(context, deviceDestination, status, info);
         }
 
         return text;
     }
 
-    public static String getPsInfoForPlayer(Context context, CarDeviceStatus status, RadioInfo info) {
+    public static String getPsInfoForPlayer(Context context, int deviceDestination, CarRunningStatus status, RadioInfo info) {
         String text;
-        switch(info.tunerStatus){
-            case BSM:
-                text = context.getString(R.string.ply_012);
-                break;
-            case PI_SEARCH:
-            case SEEK:
-                text = context.getString(R.string.ply_030);
-                break;
-            case PTY_SEARCH:
-                text = context.getString(R.string.ply_042);
-                break;
-            default:
-                if(!TextUtils.isEmpty(info.psInfo) &&
-                        (info.getBand() != null && info.getBand().isFMVariant())){
-                    text = info.psInfo;
-                } else {
-                    text = EMPTY;
-                }
-                break;
+        if (deviceDestination == CarDeviceDestinationInfo.JP.code) {
+            text = getPsInfoForPlayerJP(context, status, info);
+        } else {
+            switch (info.tunerStatus) {
+                case BSM:
+                    text = context.getString(R.string.ply_012);
+                    break;
+                case PI_SEARCH:
+                case SEEK:
+                    text = context.getString(R.string.ply_030);
+                    break;
+                case PTY_SEARCH:
+                    text = context.getString(R.string.ply_042);
+                    break;
+                default:
+                    if (!TextUtils.isEmpty(info.psInfo) &&
+                            (info.getBand() != null && info.getBand().isFMVariant())) {
+                        text = info.psInfo;
+                    } else {
+                        text = EMPTY;
+                    }
+                    break;
+            }
         }
         return text;
     }
-    public static String getPsInfoForJP(Context context, CarRunningStatus status, RadioInfo info) {
+
+    public static String getPsInfoForPlayerJP(Context context, CarRunningStatus status, RadioInfo info) {
         String text;
         switch(info.tunerStatus){
             case BSM:

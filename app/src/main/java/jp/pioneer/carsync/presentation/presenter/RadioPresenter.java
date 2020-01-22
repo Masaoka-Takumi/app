@@ -274,7 +274,8 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
             } else {
                 StatusHolder holder = mStatusHolder.execute();
                 CarDeviceStatus status = holder.getCarDeviceStatus();
-                mTunerCase.registerFavorite(TunerContract.FavoriteContract.UpdateParamsBuilder.createRadio(mCurrRadio, status.seekStep, mContext));
+                String psInfoText = RadioTextUtil.getPsInfoForFavorite(mPreference.getLastConnectedCarDeviceDestination(),holder.getCarRunningStatus(),mCurrRadio);
+                mTunerCase.registerFavorite(TunerContract.FavoriteContract.UpdateParamsBuilder.createRadio(mCurrRadio, status.seekStep, mContext, psInfoText));
             }
         }
     }
@@ -306,7 +307,7 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
                     updateShortcutButton();
                     onUpdateSoundFxButton();
                 }
-                view.setRdsInterruption(mCurrRadio.rdsInterruptionType, RadioTextUtil.getPsInfoForPlayer(mContext, status, mCurrRadio));
+                view.setRdsInterruption(mCurrRadio.rdsInterruptionType, RadioTextUtil.getPsInfoForPlayer(mContext, mPreference.getLastConnectedCarDeviceDestination(),holder.getCarRunningStatus(), mCurrRadio));
                 mInterruptionType = mCurrRadio.rdsInterruptionType;
             }
             if (mTunerStatus != mCurrRadio.tunerStatus) {
@@ -340,12 +341,7 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
                 view.setFavoriteVisible(!isSphCarDevice());
             }
             view.setStatus(mCurrRadio.tunerStatus);
-            String psInfoText;
-            if(true||mPreference.getLastConnectedCarDeviceDestination()==CarDeviceDestinationInfo.JP.code){
-                psInfoText = RadioTextUtil.getPsInfoForJP(mContext, holder.getCarRunningStatus(), mCurrRadio);
-            }else{
-                psInfoText = RadioTextUtil.getPsInfoForPlayer(mContext, status, mCurrRadio);
-            }
+            String psInfoText = RadioTextUtil.getPsInfoForPlayer(mContext, mPreference.getLastConnectedCarDeviceDestination(),holder.getCarRunningStatus(), mCurrRadio);
             view.setPsInformation(psInfoText);
             view.setMusicInfo(psInfoText,(String) RadioTextUtil.getPtyInfoForPlayer(mContext, mCurrRadio),RadioTextUtil.getArtistNameForPlayer(mContext, mCurrRadio));
             view.setAntennaLevel((float) mCurrRadio.antennaLevel / mCurrRadio.maxAntennaLevel);
@@ -581,7 +577,8 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
         if(!mCurrRadio.isSearchStatus()&&isSphCarDevice()) {
         	StatusHolder holder = mStatusHolder.execute();
         	CarDeviceStatus status = holder.getCarDeviceStatus();
-            mTunerCase.registerFavorite(TunerContract.FavoriteContract.UpdateParamsBuilder.createRadioPreset(mCurrRadio, presetNumber, status.seekStep, mContext));
+            String psInfoText = RadioTextUtil.getPsInfoForFavorite(mPreference.getLastConnectedCarDeviceDestination(),holder.getCarRunningStatus(),mCurrRadio);
+            mTunerCase.registerFavorite(TunerContract.FavoriteContract.UpdateParamsBuilder.createRadioPreset(mCurrRadio, presetNumber, status.seekStep, mContext,psInfoText));
             saveLastAmStepSetting();
         }
     }

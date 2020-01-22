@@ -159,6 +159,7 @@ public class TunerContract {
              * @param info     ラジオ情報
              * @param seekStep TunerSeekStep
              * @param context  コンテキスト
+             * @param infoText  psInfo/JP放送局
              * @return 引数の情報からお気に入り情報に登録又は更新する更新パラメータ
              * @throws NullPointerException     {@code info}がnull
              * @throws NullPointerException     {@code seekStep}がnull
@@ -167,7 +168,7 @@ public class TunerContract {
              * @throws IllegalArgumentException {@code info.currentFrequency}が0以下の値
              */
             @NonNull
-            public static UpdateParams createRadio(@NonNull RadioInfo info, @NonNull TunerSeekStep seekStep, @NonNull Context context) {
+            public static UpdateParams createRadio(@NonNull RadioInfo info, @NonNull TunerSeekStep seekStep, @NonNull Context context,@NonNull String infoText) {
                 checkNotNull(info);
                 checkNotNull(seekStep);
                 checkNotNull(context);
@@ -185,7 +186,7 @@ public class TunerContract {
 
                 ContentValues values = new ContentValues();
                 values.put(Favorite.SOURCE_ID, MediaSourceType.RADIO.code);
-                values.put(Favorite.NAME, TextUtils.isEmpty(info.psInfo) ? "" : info.psInfo);
+                values.put(Favorite.NAME, infoText);
                 values.put(Favorite.DESCRIPTION, description);
                 values.put(Favorite.TUNER_CHANNEL_KEY1, info.currentFrequency);
                 values.put(Favorite.TUNER_FREQUENCY_INDEX, info.index);
@@ -221,6 +222,7 @@ public class TunerContract {
              * @param info     ラジオ情報
              * @param seekStep TunerSeekStep
              * @param context  コンテキスト
+             * @param infoText  psInfo/JP放送局
              * @return 引数の情報からお気に入り情報に登録又は更新する更新パラメータ
              * @throws NullPointerException     {@code info}がnull
              * @throws NullPointerException     {@code seekStep}がnull
@@ -229,7 +231,7 @@ public class TunerContract {
              * @throws IllegalArgumentException {@code info.currentFrequency}が0以下の値
              */
             @NonNull
-            public static UpdateParams createRadioPreset(@NonNull RadioInfo info, @NonNull int presetNumber,@NonNull TunerSeekStep seekStep, @NonNull Context context) {
+            public static UpdateParams createRadioPreset(@NonNull RadioInfo info, @NonNull int presetNumber,@NonNull TunerSeekStep seekStep, @NonNull Context context,@NonNull String infoText) {
                 checkNotNull(info);
                 checkNotNull(seekStep);
                 checkNotNull(context);
@@ -247,7 +249,7 @@ public class TunerContract {
 
                 ContentValues values = new ContentValues();
                 values.put(Favorite.SOURCE_ID, MediaSourceType.RADIO.code);
-                values.put(Favorite.NAME, TextUtils.isEmpty(info.psInfo) ? "" : info.psInfo);
+                values.put(Favorite.NAME, infoText);
                 values.put(Favorite.DESCRIPTION, description);
                 values.put(Favorite.TUNER_CHANNEL_KEY1, info.currentFrequency);
                 values.put(Favorite.TUNER_CHANNEL_KEY2, presetNumber);
