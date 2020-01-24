@@ -261,7 +261,7 @@ public class DebugSettingFragment extends AbstractPreferenceFragment<DebugSettin
 
         mSmartPhoneControlComand = (SwitchPreferenceCompat) findPreference("setting_debug_smart_phone_control_command");
         mSmartPhoneControlComand.setOnPreferenceChangeListener(((preference, newValue) -> {
-            //getPresenter().onAlexaSimJudgement((boolean)newValue);
+            getPresenter().onSmartPhoneControlComand((boolean)newValue);
             return true;
         }));
     }
@@ -436,4 +436,10 @@ public class DebugSettingFragment extends AbstractPreferenceFragment<DebugSettin
             ((MainActivity) getActivity()).checkSim();
         }
     }
+
+    @Override
+    public void setSmartPhoneControlComand(boolean value) {
+        mSmartPhoneControlComand.setChecked(value);
+    }
+
 }
