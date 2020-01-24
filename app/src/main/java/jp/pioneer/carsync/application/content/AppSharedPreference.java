@@ -827,7 +827,7 @@ public class AppSharedPreference {
     private static final boolean DEFAULT_READ_NOTIFICATION_ENABLED = false;
     private static final String DEFAULT_READ_NOTIFICATION_APPS = new Gson().toJson(new Application[0]);
     private static final String DEFAULT_NAVIGATION_APP = new Gson().toJson(new Application(NaviApp.GOOGLE_MAP.getPackageName(), ""));
-    private static final String DEFAULT_NAVIGATION_MARIN_APP = new Gson().toJson(new Application(NaviApp.GOOGLE_MAP.getPackageName(), ""));
+    private static final String DEFAULT_NAVIGATION_MARIN_APP = null;
     private static final String DEFAULT_DIRECT_CALL_CONTACT_LOOKUP = "";
     private static final long DEFAULT_DIRECT_CALL_CONTACT_NUMBER_ID = -1;
     private static final boolean DEFAULT_ALBUM_ART_ENABLED = true;
@@ -2143,15 +2143,12 @@ public class AppSharedPreference {
      * @see #setNavigationMarinApp(Application)
      * @see #KEY_NAVIGATION_APP
      */
-    @NonNull
     public Application getNavigationMarinApp() {
         if (mPreferences.contains(KEY_NAVIGATION_MARIN_APP)) {
             String value = mPreferences.getString(KEY_NAVIGATION_MARIN_APP, DEFAULT_NAVIGATION_MARIN_APP);
             return new Gson().fromJson(value, Application.class);
         } else {
-            Application naviApp = new Gson().fromJson(DEFAULT_NAVIGATION_MARIN_APP, Application.class);
-            setNavigationMarinApp(naviApp);
-            return naviApp;
+            return null;
         }
     }
 

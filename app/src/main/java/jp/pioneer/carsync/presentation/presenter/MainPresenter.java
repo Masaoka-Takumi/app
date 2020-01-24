@@ -2160,13 +2160,17 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
             BaseApp baseApp = null;
             if (mPreference.getLastConnectedCarDeviceClassId() == CarDeviceClassId.MARIN) {
                 try {
-                    baseApp = MarinApp.fromPackageNameNoThrow(mPreference.getNavigationMarinApp().packageName);
-                    if (baseApp != null) {
-                        Intent intent = baseApp.createMainIntent(mContext);
-                        view.startMarin(intent);
-                        return;
+                    if(mPreference.getNavigationMarinApp() == null){
+                        view.showToast(mContext.getString(R.string.err_035));
+                    }else {
+                        baseApp = MarinApp.fromPackageNameNoThrow(mPreference.getNavigationMarinApp().packageName);
+                        if (baseApp != null) {
+                            Intent intent = baseApp.createMainIntent(mContext);
+                            view.startMarin(intent);
+                            return;
+                        }
+                        baseApp = NaviApp.fromPackageName(mPreference.getNavigationMarinApp().packageName);
                     }
-                    baseApp = NaviApp.fromPackageName(mPreference.getNavigationMarinApp().packageName);
                 } catch (IllegalArgumentException e) {
                     view.showToast(mContext.getString(R.string.err_035));
                 }

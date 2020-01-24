@@ -1,5 +1,6 @@
 package jp.pioneer.carsync.presentation.presenter;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
@@ -146,9 +147,12 @@ public class NavigationPresenter extends Presenter<NavigationView> {
 
     @Nullable
     private ApplicationInfo getSelectedApplication(List<ApplicationInfo> naviApps) {
-        String packageName;
+        String packageName = null;
         if(mPreference.getLastConnectedCarDeviceClassId()== CarDeviceClassId.MARIN){
-            packageName = mPreference.getNavigationMarinApp().packageName;
+            AppSharedPreference.Application application = mPreference.getNavigationMarinApp();
+            if(application != null) {
+                packageName = application.packageName;
+            }
         }else{
             packageName= mPreference.getNavigationApp().packageName;
         }
