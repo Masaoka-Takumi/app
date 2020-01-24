@@ -450,9 +450,13 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
                         }
                         break;
                     case NAVI:
-                        if(mPreference.getLastConnectedCarDeviceClassId()==CarDeviceClassId.MARIN){
-                            view.dispatchNaviMarinKey(mPreference.getNavigationMarinApp().packageName);
-                        }else{
+                        if (mPreference.getLastConnectedCarDeviceClassId() == CarDeviceClassId.MARIN) {
+                            if (mPreference.getNavigationMarinApp() == null) {
+                                view.showError(mContext.getString(R.string.err_035));
+                            } else {
+                                view.dispatchNaviMarinKey(mPreference.getNavigationMarinApp().packageName);
+                            }
+                        } else {
                             view.dispatchNaviKey(mPreference.getNavigationApp().packageName);
                         }
                         break;

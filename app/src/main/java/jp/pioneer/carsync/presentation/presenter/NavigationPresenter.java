@@ -1,5 +1,6 @@
 package jp.pioneer.carsync.presentation.presenter;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import jp.pioneer.carsync.domain.interactor.PreferNaviApp;
 import jp.pioneer.carsync.domain.interactor.PreferNaviGuideVoice;
 import jp.pioneer.carsync.domain.model.CarDeviceClassId;
 import jp.pioneer.carsync.domain.model.CarDeviceSpec;
+import jp.pioneer.carsync.domain.model.NaviApp;
 import jp.pioneer.carsync.domain.model.NaviGuideVoiceSetting;
 import jp.pioneer.carsync.domain.model.StatusHolder;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
@@ -60,6 +62,7 @@ public class NavigationPresenter extends Presenter<NavigationView> {
             mTypeArray.add(mContext.getString(R.string.set_326));
             mTypeArray.add(mContext.getString(R.string.set_327));
             mTypeArray.add(mContext.getString(R.string.set_328));
+            mTypeArray.add(mContext.getString(R.string.set_145));
         }else{
             mTypeArray.add(mContext.getString(R.string.set_145));
         }
@@ -110,8 +113,9 @@ public class NavigationPresenter extends Presenter<NavigationView> {
         NaviGuideVoiceSetting setting = holder.getNaviGuideVoiceSetting();
 
         Optional.ofNullable(getView()).ifPresent(view -> {
+            List<ApplicationInfo> naviApps = mNaviCase.getInstalledTargetAppList();
             if(mPreference.getLastConnectedCarDeviceClassId()== CarDeviceClassId.MARIN){
-                List<ApplicationInfo> naviApps = mMarinCase.getInstalledTargetAppList();
+                List<ApplicationInfo> allNaviApps = mMarinCase.getInstalledTargetAppList();
                 List<ApplicationInfo> weatherApps = mMarinCase.getInstalledWeatherTargetAppList();
                 List<ApplicationInfo> boatingApps = mMarinCase.getInstalledBoatingTargetAppList();
                 List<ApplicationInfo> fishingApps = mMarinCase.getInstalledFishingTargetAppList();
@@ -120,10 +124,10 @@ public class NavigationPresenter extends Presenter<NavigationView> {
                         weatherApps,
                         boatingApps,
                         fishingApps,
-                        getSelectedApplication(naviApps)
+                        naviApps,
+                        getSelectedApplication(allNaviApps)
                 );
             }else{
-                List<ApplicationInfo> naviApps = mNaviCase.getInstalledTargetAppList();
                 view.setApplicationList(
                         naviApps,
                         getSelectedApplication(naviApps)
@@ -143,10 +147,12 @@ public class NavigationPresenter extends Presenter<NavigationView> {
 
     @Nullable
     private ApplicationInfo getSelectedApplication(List<ApplicationInfo> naviApps) {
-        String packageName;
+        String packageName = null;
         if(mPreference.getLastConnectedCarDeviceClassId()== CarDeviceClassId.MARIN){
-            packageName = mPreference.getNavigationMarinApp().packageName;
-
+            AppSharedPreference.Application application = mPreference.getNavigationMarinApp();
+            if(application != null) {
+                packageName = application.packageName;
+            }
         }else{
             packageName= mPreference.getNavigationApp().packageName;
         }

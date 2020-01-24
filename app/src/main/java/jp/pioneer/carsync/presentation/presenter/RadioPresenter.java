@@ -174,6 +174,7 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRadioInfoChangeEvent(RadioInfoChangeEvent event) {
+        showBandChangeNotification();
         updateView();
     }
 
@@ -194,6 +195,16 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAdasErrorEvent(AdasErrorEvent event) {
         setAdasIcon();
+    }
+
+    private void showBandChangeNotification(){
+        RadioBandType bandType = mStatusHolder.execute().getCarDeviceMediaInfoHolder().radioInfo.band;
+        Optional.ofNullable(getView()).ifPresent(view -> {
+            if(mRadioBand!=null&&bandType != mRadioBand) {
+                view.displayEqFxMessage(mContext.getString(bandType.getLabel()));
+                mRadioBand = bandType;
+            }
+        });
     }
 
     public void showPtySelect(){

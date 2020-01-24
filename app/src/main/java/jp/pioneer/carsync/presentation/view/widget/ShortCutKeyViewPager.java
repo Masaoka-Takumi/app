@@ -12,7 +12,7 @@ public class ShortCutKeyViewPager extends ViewPager{
     // スワイプに必要な移動距離
     private static final float SWIPE_THRESHOLD = 50.0f;
     private float initialXValue;
-
+    private boolean directionRightOnly;
     private boolean isPagingEnabled = false;
     private GestureDetector  mSwipeDetector;
     private ShortCutKeyViewPager.OnGestureListener mListener;
@@ -56,9 +56,11 @@ public class ShortCutKeyViewPager extends ViewPager{
         // ここでtrueを返すとイベントはここで終了
         // ここでfalseを返すと子ViewのonClickやらonLongClickやら
         //Timber.d("onTouchEvent:action = " + event.getAction());
-        if (mSwipeDetector != null && mSwipeDetector.onTouchEvent(event)) {
+        if (!this.IsSwipeAllowed(event)) return false;
+
+/*        if (mSwipeDetector != null && mSwipeDetector.onTouchEvent(event)) {
             return true;
-        }
+        }*/
         return this.isPagingEnabled && super.onTouchEvent(event);
     }
 
@@ -68,14 +70,15 @@ public class ShortCutKeyViewPager extends ViewPager{
         // タッチされたらまずonInterceptTouchEventが呼ばれる
         // ここでtrueを返せば親ViewのonTouchEvent
         // ここでfalseを返せば子ViewのonClickやらonLongClickやら
-        if (event.getAction() == MotionEvent.ACTION_DOWN ||event.getAction() == MotionEvent.ACTION_CANCEL || event.getAction() == MotionEvent.ACTION_UP) {
+        if (!this.IsSwipeAllowed(event)) return false;
+
+/*        if (event.getAction() == MotionEvent.ACTION_DOWN ||event.getAction() == MotionEvent.ACTION_CANCEL || event.getAction() == MotionEvent.ACTION_UP) {
             mSwipeDetector.onTouchEvent(event);
             return false;
         }
        if (mSwipeDetector != null && mSwipeDetector.onTouchEvent(event)) {
             return true;
-        }
-
+        }*/
         return this.isPagingEnabled && super.onInterceptTouchEvent(event);
     }
 
@@ -83,6 +86,32 @@ public class ShortCutKeyViewPager extends ViewPager{
         this.isPagingEnabled = b;
     }
 
+    private boolean IsSwipeAllowed(MotionEvent event) {
+        if (!this.directionRightOnly) return true;
+
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            initialXValue = event.getX();
+            return true;
+        }
+
+        if (event.getAction() == MotionEvent.ACTION_MOVE) {
+            try {
+                float diffX = event.getX() - initialXValue;
+                if (diffX > 0 && directionRightOnly) {
+                    // swipe from left to right detected
+                    return false;
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        }
+
+        return true;
+    }
+
+    public void setAllowedSwipeRightOnly(boolean directionRightOnly) {
+        this.directionRightOnly = directionRightOnly;
+    }
     /**
      * 通知先設定
      *

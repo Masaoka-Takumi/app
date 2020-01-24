@@ -17,6 +17,7 @@ import javax.inject.Inject;
 
 import jp.pioneer.carsync.application.content.Analytics;
 import jp.pioneer.carsync.application.content.AnalyticsEventManager;
+import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.domain.event.CarDeviceStatusChangeEvent;
 import jp.pioneer.carsync.domain.event.MediaSourceTypeChangeEvent;
 import jp.pioneer.carsync.domain.interactor.ControlSource;
@@ -31,6 +32,7 @@ import jp.pioneer.carsync.domain.model.ParkingStatus;
 import jp.pioneer.carsync.domain.model.PlaybackMode;
 import jp.pioneer.carsync.domain.model.StatusHolder;
 import jp.pioneer.carsync.presentation.event.SourceChangeReasonEvent;
+import jp.pioneer.carsync.presentation.model.YouTubeLinkSearchItem;
 import jp.pioneer.carsync.presentation.view.YouTubeLinkWebViewView;
 import jp.pioneer.mbg.alexa.AlexaInterface.AlexaIfDirectiveItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
@@ -42,6 +44,8 @@ public class YouTubeLinkWebViewPresenter extends Presenter<YouTubeLinkWebViewVie
     @Inject GetStatusHolder mGetStatusHolder;
     @Inject ControlSource mControlSource;
     @Inject AnalyticsEventManager mAnalytics;
+    @Inject
+    AppSharedPreference mPreference;
     private static final String BASE_YOUTUBE_LINK_URL = "https://m.youtube.com/results?search_query=";
     private static final String NO_TITLE = "No Title";
     private static final String NO_ARTIST = "No Artist";
@@ -229,16 +233,23 @@ public class YouTubeLinkWebViewPresenter extends Presenter<YouTubeLinkWebViewVie
         String tag1 = "";
         String tag2 = "";
         String separator = " "; // 半角スペース
+        boolean artistTag = mPreference.getYouTubeLinkSearchItemSetting(YouTubeLinkSearchItem.ARTIST);
+        boolean musicTitleTag = mPreference.getYouTubeLinkSearchItemSetting(YouTubeLinkSearchItem.MUSIC_TITLE);
+
         switch(sourceType){
             case RADIO:
-                tag1 = carDeviceMediaInfoHolder.radioInfo.psInfo;
+                if(mPreference.getYouTubeLinkSearchItemSetting(YouTubeLinkSearchItem.INFORMATION)) {
+                    tag1 = carDeviceMediaInfoHolder.radioInfo.psInfo;
+                }
                 break;
             case DAB:
-                tag1 = carDeviceMediaInfoHolder.dabInfo.dynamicLabel;
+                if(mPreference.getYouTubeLinkSearchItemSetting(YouTubeLinkSearchItem.DYNAMIC_LABEL)) {
+                    tag1 = carDeviceMediaInfoHolder.dabInfo.dynamicLabel;
+                }
                 break;
             case USB:
-                tag1 = carDeviceMediaInfoHolder.usbMediaInfo.artistName;
-                tag2 = carDeviceMediaInfoHolder.usbMediaInfo.songTitle;
+                tag1 = artistTag?carDeviceMediaInfoHolder.usbMediaInfo.artistName:"";
+                tag2 = musicTitleTag?carDeviceMediaInfoHolder.usbMediaInfo.songTitle:"";
 
                 // 検索Tag情報なし扱いかを判定
                 if(NO_ARTIST.equals(tag1) || NO_USB_DEVICE.equals(tag1)){
@@ -252,12 +263,12 @@ public class YouTubeLinkWebViewPresenter extends Presenter<YouTubeLinkWebViewVie
                 }
                 break;
             case CD:
-                tag1 = carDeviceMediaInfoHolder.cdInfo.artistName;
-                tag2 = carDeviceMediaInfoHolder.cdInfo.trackNumber;
+                tag1 = artistTag?carDeviceMediaInfoHolder.cdInfo.artistName:"";
+                tag2 = musicTitleTag?carDeviceMediaInfoHolder.cdInfo.trackNumber:"";
                 break;
             case SPOTIFY:
-                tag1 = carDeviceMediaInfoHolder.spotifyMediaInfo.artistName;
-                tag2 = carDeviceMediaInfoHolder.spotifyMediaInfo.trackNameOrSpotifyError;
+                tag1 = artistTag?carDeviceMediaInfoHolder.spotifyMediaInfo.artistName:"";
+                tag2 = musicTitleTag?carDeviceMediaInfoHolder.spotifyMediaInfo.trackNameOrSpotifyError:"";
                 break;
             case APP_MUSIC:
                 AppStatus appStatus = mGetStatusHolder.execute().getAppStatus();
@@ -265,21 +276,21 @@ public class YouTubeLinkWebViewPresenter extends Presenter<YouTubeLinkWebViewVie
                     // AppMusic(local)
                     // FIXME アーティスト情報なしの場合は"<unknown>"が入る、
                     //  YouTubeの仕様上"<",">"が入ると検索Tag情報なし扱いになる
-                    tag1 = carDeviceMediaInfoHolder.androidMusicMediaInfo.artistName;
-                    tag2 = carDeviceMediaInfoHolder.androidMusicMediaInfo.songTitle;
+                    tag1 = artistTag?carDeviceMediaInfoHolder.androidMusicMediaInfo.artistName:"";
+                    tag2 = musicTitleTag?carDeviceMediaInfoHolder.androidMusicMediaInfo.songTitle:"";
                     break;
                 } else if(appStatus.appMusicAudioMode == AudioMode.ALEXA) {
                     // AppMusic(Alexa)
                     RenderPlayerInfoItem renderPlayerInfoItem = appStatus.playerInfoItem;
                     AlexaIfDirectiveItem.Content content = renderPlayerInfoItem.content;
-                    tag1 = content.getTitleSubtext1(); // アーティスト
-                    tag2 = content.getTitle(); // 曲名
+                    tag1 = artistTag?content.getTitleSubtext1():""; // アーティスト
+                    tag2 = musicTitleTag?content.getTitle():""; // 曲名
                     break;
                 }
             case BT_AUDIO:
                 BtAudioInfo btAudioInfo = carDeviceMediaInfoHolder.btAudioInfo;
-                tag1 = btAudioInfo.artistName;
-                tag2 = btAudioInfo.songTitle;
+                tag1 = artistTag?btAudioInfo.artistName:"";
+                tag2 = musicTitleTag?btAudioInfo.songTitle:"";
                 PlaybackMode playbackMode = btAudioInfo.playbackMode;
 
                 // 検索Tag情報なし扱いかを判定
@@ -331,7 +342,6 @@ public class YouTubeLinkWebViewPresenter extends Presenter<YouTubeLinkWebViewVie
             });
         }
     }
-
 
     /**
      * YouTubeLinkWebView画面表示状態でソースが切り替わったら画面を閉じる

@@ -34,9 +34,10 @@ public interface NavigationView {
      * @param weatherApps weatherアプリケーション一覧
      * @param boatingApps boatingアプリケーション一覧
      * @param fishingApps fishingアプリケーション一覧
+     * @param naviApps naviアプリケーション一覧
      * @param selectedApp 選択されているアプリケーション
      */
-    void setApplicationList(List<ApplicationInfo> weatherApps, List<ApplicationInfo> boatingApps, List<ApplicationInfo> fishingApps,
+    void setApplicationList( List<ApplicationInfo> weatherApps, List<ApplicationInfo> boatingApps, List<ApplicationInfo> fishingApps, List<ApplicationInfo> naviApps,
                             @Nullable ApplicationInfo selectedApp);
     /**
      * Navi Guidance設定.

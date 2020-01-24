@@ -41,7 +41,9 @@ import jp.pioneer.carsync.presentation.model.CustomKey;
 import jp.pioneer.carsync.presentation.model.ImpactNotificationMethod;
 import jp.pioneer.carsync.presentation.model.TipsContentsEndpoint;
 import jp.pioneer.carsync.presentation.model.UiColor;
+import jp.pioneer.carsync.presentation.model.YouTubeLinkSearchItem;
 import jp.pioneer.carsync.presentation.util.YouTubeLinkActionHandler;
+import jp.pioneer.carsync.presentation.view.adapter.YouTubeLinkSearchItemAdapter;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static jp.pioneer.carsync.domain.content.AppMusicContract.QueryParamsBuilder.createAllSongs;
@@ -825,7 +827,7 @@ public class AppSharedPreference {
     private static final boolean DEFAULT_READ_NOTIFICATION_ENABLED = false;
     private static final String DEFAULT_READ_NOTIFICATION_APPS = new Gson().toJson(new Application[0]);
     private static final String DEFAULT_NAVIGATION_APP = new Gson().toJson(new Application(NaviApp.GOOGLE_MAP.getPackageName(), ""));
-    private static final String DEFAULT_NAVIGATION_MARIN_APP = new Gson().toJson(new Application(NaviApp.GOOGLE_MAP.getPackageName(), ""));
+    private static final String DEFAULT_NAVIGATION_MARIN_APP = null;
     private static final String DEFAULT_DIRECT_CALL_CONTACT_LOOKUP = "";
     private static final long DEFAULT_DIRECT_CALL_CONTACT_NUMBER_ID = -1;
     private static final boolean DEFAULT_ALBUM_ART_ENABLED = true;
@@ -867,6 +869,8 @@ public class AppSharedPreference {
     private static final boolean DEFAULT_YOUTUBE_LINK_CAUTION_NO_DISPLAY_AGAIN = false;
     private static final boolean DEFAULT_IS_ALEXA_AVAILABLE_CONFIRM_SHOWED = false;
     private static final boolean DEFAULT_IS_ALEXA_REQUIRED_SIM_CHECK = true;
+    private static final boolean DEFAULT_YOUTUBE_LINK_SEARCH_ITEM_SETTING = true;
+
     private final SharedPreferences mPreferences;
     private final Object mContent = new Object();
     private final WeakHashMap<OnAppSharedPreferenceChangeListener, Object> mListeners = new WeakHashMap<>();
@@ -2139,15 +2143,12 @@ public class AppSharedPreference {
      * @see #setNavigationMarinApp(Application)
      * @see #KEY_NAVIGATION_APP
      */
-    @NonNull
     public Application getNavigationMarinApp() {
         if (mPreferences.contains(KEY_NAVIGATION_MARIN_APP)) {
             String value = mPreferences.getString(KEY_NAVIGATION_MARIN_APP, DEFAULT_NAVIGATION_MARIN_APP);
             return new Gson().fromJson(value, Application.class);
         } else {
-            Application naviApp = new Gson().fromJson(DEFAULT_NAVIGATION_MARIN_APP, Application.class);
-            setNavigationMarinApp(naviApp);
-            return naviApp;
+            return null;
         }
     }
 
@@ -3535,6 +3536,36 @@ public class AppSharedPreference {
     public AppSharedPreference setIsAlexaRequiredSimCheck(boolean needSimCheck){
         mPreferences.edit()
                 .putBoolean(KEY_IS_ALEXA_REQUIRED_SIM_CHECK, needSimCheck)
+                .apply();
+        return this;
+    }
+
+    /**
+     * YouTube検索対象設定取得
+     *
+     * @return 設定
+     * @see #setYouTubeLinkSearchItemSetting(YouTubeLinkSearchItem, boolean)
+     */
+    public boolean getYouTubeLinkSearchItemSetting(YouTubeLinkSearchItem item) {
+        if (mPreferences.contains(item.toString())) {
+            return mPreferences.getBoolean(item.toString(), DEFAULT_YOUTUBE_LINK_SEARCH_ITEM_SETTING);
+        } else {
+            setYouTubeLinkSearchItemSetting(item, DEFAULT_YOUTUBE_LINK_SEARCH_ITEM_SETTING);
+            return DEFAULT_YOUTUBE_LINK_SEARCH_ITEM_SETTING;
+        }
+    }
+
+    /**
+     * YouTube検索対象設定
+     *
+     * @param item    検索対象種別
+     * @param setting 　設定
+     * @return 本オブジェクト
+     * @see #getYouTubeLinkSearchItemSetting(YouTubeLinkSearchItem)
+     */
+    public AppSharedPreference setYouTubeLinkSearchItemSetting(YouTubeLinkSearchItem item, boolean setting) {
+        mPreferences.edit()
+                .putBoolean(item.toString(), setting)
                 .apply();
         return this;
     }
