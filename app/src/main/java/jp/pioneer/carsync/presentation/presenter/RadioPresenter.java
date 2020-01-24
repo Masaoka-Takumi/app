@@ -569,12 +569,7 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
     protected void updateAlexaNotification() {
         super.updateAlexaNotification();
         Optional.ofNullable(getView()).ifPresent(view ->{
-            AppStatus appStatus = mStatusHolder.execute().getAppStatus();
-            boolean notificationQueued = false;
-            if(mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
-                notificationQueued = mStatusHolder.execute().getAppStatus().alexaNotification;
-            }
-            view.setAlexaNotification(notificationQueued);
+            view.setAlexaNotification(isNeedUpdateAlexaNotification());
         });
     }
 

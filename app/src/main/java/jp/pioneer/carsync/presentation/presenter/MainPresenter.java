@@ -120,6 +120,7 @@ import jp.pioneer.carsync.presentation.model.SettingEntrance;
 import jp.pioneer.carsync.presentation.model.SimCountryIso;
 import jp.pioneer.carsync.presentation.model.UiColor;
 import jp.pioneer.carsync.presentation.util.Adas;
+import jp.pioneer.carsync.presentation.util.AlexaAvailableStatus;
 import jp.pioneer.carsync.presentation.view.MainView;
 import jp.pioneer.carsync.presentation.view.activity.MainActivity;
 import jp.pioneer.carsync.presentation.view.argument.SearchContentParams;
@@ -173,6 +174,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
     @Inject CarDeviceConnection mCarDeviceConnection;
     @Inject ControlAppMusicSource mControlAppMusicSource;
     @Inject AnalyticsEventManager mAnalytics;
+    @Inject AlexaAvailableStatus mAlexaAvailableStatus;
     private PrepareSpeechRecognizer.FinishBluetoothHeadset mFinishBluetoothHeadset;
     private VoiceCommand mResentVoiceCommand;
     private boolean mIsRecognizerRestarted = false;
@@ -1585,7 +1587,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                 return;
             }
             StatusHolder holder = mStatusCase.execute();
-            if(mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
+            if(mAlexaAvailableStatus.isVoiceRecognitionTypeAlexaAndAvailable()){
                 if(view.isShowAlexaDialog()){
                     view.dismissAlexaDialog();
                 }
@@ -2649,10 +2651,6 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
         boolean available = countryList.contains(simCountryIso);
         if(mPreference.isAlexaRequiredSimCheck()) {
             appStatus.isAlexaAvailableCountry = available;
-            if(!available) {
-                // Alexaが利用不可能な場合は音声認識のタイプをPSSにする
-                mPreference.setVoiceRecognitionType(VoiceRecognizeType.PIONEER_SMART_SYNC);
-            }
         } else {
             appStatus.isAlexaAvailableCountry = true;
         }

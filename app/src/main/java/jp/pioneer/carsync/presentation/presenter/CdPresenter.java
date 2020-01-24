@@ -227,12 +227,7 @@ public class CdPresenter extends PlayerPresenter<CdView> {
     protected void updateAlexaNotification() {
         super.updateAlexaNotification();
         Optional.ofNullable(getView()).ifPresent(view ->{
-            AppStatus appStatus = mGetCase.execute().getAppStatus();
-            boolean notificationQueued = false;
-            if(mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
-                notificationQueued = mGetCase.execute().getAppStatus().alexaNotification;
-            }
-            view.setAlexaNotification(notificationQueued);
+            view.setAlexaNotification(isNeedUpdateAlexaNotification());
         });
     }
 
