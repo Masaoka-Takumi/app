@@ -172,6 +172,10 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
     public void onStart() {
         super.onStart();
         Timber.d("onStart");
+        if(mIsBack) {
+            callbackClose();
+            return;
+        }
         initView();
         isSpeaking = false;
         isPersistIndicator = false;
@@ -230,6 +234,12 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
                 manager.speechStop();
             }
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
     }
 
     /**
@@ -315,7 +325,9 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    mStateTextView.setText(R.string.alx_001);
+                    if(mStateTextView!=null) {
+                        mStateTextView.setText(R.string.alx_001);
+                    }
                 }
             });
         }
@@ -346,8 +358,10 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            mAlexaBtnGroup.setVisibility(View.VISIBLE);
-                            mStateTextView.setText("");
+                            if(mAlexaBtnGroup!=null&&mStateTextView!=null) {
+                                mAlexaBtnGroup.setVisibility(View.VISIBLE);
+                                mStateTextView.setText("");
+                            }
                         }
                     });
                 }
@@ -357,8 +371,10 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        mAlexaBtnGroup.setVisibility(View.VISIBLE);
-                        mStateTextView.setText(R.string.alx_002);
+                        if(mAlexaBtnGroup!=null&&mStateTextView!=null) {
+                            mAlexaBtnGroup.setVisibility(View.VISIBLE);
+                            mStateTextView.setText(R.string.alx_002);
+                        }
                     }
                 });
                 mCommunicationLayoutHandler.setLargeVoiceChromeStatus(CustomVoiceChromeView.VoiceChromeType.THINKING);
@@ -387,7 +403,9 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    mAlexaBtnGroup.setVisibility(View.VISIBLE);
+                    if(mAlexaBtnGroup!=null) {
+                        mAlexaBtnGroup.setVisibility(View.VISIBLE);
+                    }
                 }
             });
         }
@@ -539,8 +557,10 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        mStateTextView.setText(R.string.alx_003);
-                        mVoiceChrome.setVisibility(View.VISIBLE);
+                        if(mStateTextView!=null&&mVoiceChrome!=null) {
+                            mStateTextView.setText(R.string.alx_003);
+                            mVoiceChrome.setVisibility(View.VISIBLE);
+                        }
                     }
                 });
             //}
@@ -712,7 +732,9 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                mAlexaBtnGroup.setVisibility(visibility);
+                if(mAlexaBtnGroup!=null) {
+                    mAlexaBtnGroup.setVisibility(visibility);
+                }
             }
         });
     }
@@ -782,12 +804,13 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
             } else {
                 mmIsRecognizeMode = true;
             }
-
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    mVoiceChrome.setVisibility(View.VISIBLE);
-                    mAlexaBtnGroup.setVisibility(View.INVISIBLE);
+                    if(mVoiceChrome!=null&&mAlexaBtnGroup!=null) {
+                        mVoiceChrome.setVisibility(View.VISIBLE);
+                        mAlexaBtnGroup.setVisibility(View.INVISIBLE);
+                    }
                 }
             });
         }
@@ -805,7 +828,9 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    mAlexaBtnGroup.setVisibility(View.VISIBLE);
+                    if(mAlexaBtnGroup!=null) {
+                        mAlexaBtnGroup.setVisibility(View.VISIBLE);
+                    }
                 }
             });
         }

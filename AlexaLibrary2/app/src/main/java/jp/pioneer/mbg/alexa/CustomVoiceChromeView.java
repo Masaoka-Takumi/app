@@ -41,7 +41,7 @@ public class CustomVoiceChromeView extends View {
     /** ログ出力用タグ. */
     private static final String TAG = CustomVoiceChromeView.class.getSimpleName();
     /** ログの出力フラグ. */
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
 
     /** 更新回数 */
     private static final double MAX_UPDATE_COUNT = 8;
