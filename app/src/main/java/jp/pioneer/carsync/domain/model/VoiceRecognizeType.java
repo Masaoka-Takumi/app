@@ -8,20 +8,34 @@ import jp.pioneer.carsync.R;
  *　音声認識種別
  */
 public enum VoiceRecognizeType {
-    /** Alexa */
-    ALEXA(0, R.string.set_324){
+
+    /**
+     * Pioneer Smart Sync
+     */
+    PIONEER_SMART_SYNC(0, R.string.set_325) {
+        @Override
+        public VoiceRecognizeType toggle() {
+            return GOOGLE_ASSISTANT;
+        }
+    },
+    /**
+     * Google Assistant
+     */
+    GOOGLE_ASSISTANT(1, R.string.set_415) {
+        @Override
+        public VoiceRecognizeType toggle() {
+            return ALEXA;
+        }
+    },
+    /**
+     * Alexa
+     */
+    ALEXA(2, R.string.set_324) {
         @Override
         public VoiceRecognizeType toggle() {
             return PIONEER_SMART_SYNC;
         }
     },
-    /** Pioneer Smart Sync */
-    PIONEER_SMART_SYNC(1, R.string.set_325){
-        @Override
-        public VoiceRecognizeType toggle() {
-            return ALEXA;
-        }
-    }
     ;
 
     public final int code;
