@@ -81,6 +81,7 @@ public class DeviceSpecResponsePacketHandler extends DataResponsePacketHandler {
             byte[] data = packet.getData();
 
             int majorVer = mStatusHolder.getProtocolSpec().getConnectingProtocolVersion().major;
+            int minorVer = mStatusHolder.getProtocolSpec().getConnectingProtocolVersion().minor;
             checkPacketDataLength(data, getDataLength(majorVer));
             CarDeviceSpec carDeviceSpec = mStatusHolder.getCarDeviceSpec();
             byte b;
@@ -130,6 +131,9 @@ public class DeviceSpecResponsePacketHandler extends DataResponsePacketHandler {
 
             if (majorVer >= 4) {
                 v4(data, carDeviceSpec);
+                if (majorVer > 4 || minorVer >= 1) {
+                    v4_1(data, carDeviceSpec);
+                }
             }
 
             Timber.d("handle() CarDeviceSpec = " + carDeviceSpec);
@@ -398,6 +402,13 @@ public class DeviceSpecResponsePacketHandler extends DataResponsePacketHandler {
 
         // 有効イコライザー
         soundFxSettingSpec.supportedEqualizers = ENABLE_EQUALIZERS.get(audioSettingSpec.presetEqualizerVariation);
+    }
+
+    private void v4_1(byte[] data, CarDeviceSpec carDeviceSpec) {
+        byte b;
+        // D10:ソース拡張機能1
+        b = data[10];
+        carDeviceSpec.androidVrSupported = isBitOn(b, 2);
     }
 
     private void addIfSupported(Set<MediaSourceType> sources, byte b, int bit, MediaSourceType type) {

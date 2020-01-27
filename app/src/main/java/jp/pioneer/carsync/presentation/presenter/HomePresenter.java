@@ -190,7 +190,6 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
     private DabInfo mCurrDab;
     private final static int YOUTUBE_LINK_ICON = R.drawable.p2001_youtubelink_btn_1nrm;
     private final static int CUSTOM_KEY_ICON = R.drawable.p2002_customkey_btn_1nrm;
-
     @Inject
     public HomePresenter() {
         for (int i = 0; i < KEY_INDEX.length; i++) {
@@ -428,13 +427,17 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
                 }
                 break;
             case VOICE:
-                //TODO:Alexaを塞ぐ
-                if(mGetCase.execute().getAppStatus().isAlexaAvailableCountry) {
-                    mAnalytics.sendShortCutActionEvent(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA?Analytics.AnalyticsShortcutAction.alexaLong:Analytics.AnalyticsShortcutAction.voiceLong, Analytics.AnalyticsActiveScreen.home_screen);
-                    VoiceRecognizeType nextType = mPreference.getVoiceRecognitionType().toggle();
-                    mPreference.setVoiceRecognitionType(nextType);
-                    mEventBus.post(new VoiceRecognitionTypeChangeEvent());
+                if(!mGetCase.execute().getCarDeviceStatus().androidVrEnabled) {
+                    if (mGetCase.execute().getAppStatus().isAlexaAvailableCountry) {
+                        mAnalytics.sendShortCutActionEvent(mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA ? Analytics.AnalyticsShortcutAction.alexaLong : Analytics.AnalyticsShortcutAction.voiceLong, Analytics.AnalyticsActiveScreen.home_screen);
+                        VoiceRecognizeType nextType = mPreference.getVoiceRecognitionType().toggle();
+                        mPreference.setVoiceRecognitionType(nextType);
+                        mEventBus.post(new VoiceRecognitionTypeChangeEvent());
+                    }
+                }else{
+                    mEventBus.post(new NavigateEvent(ScreenId.VOICE_RECOGNIZE_TYPE_DIALOG, Bundle.EMPTY));
                 }
+
                 break;
             default:
                 break;
@@ -1287,7 +1290,11 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
         Optional.ofNullable(getView()).ifPresent(view ->{
             view.setShortCutButtonEnabled(mShortCutKeyEnabledStatus.isShortCutKeyEnabled());
             view.setShortcutKeyItems(mShortCutKeyList);
-            if(type==VoiceRecognizeType.ALEXA) {
+            if (!mGetCase.execute().getCarDeviceStatus().androidVrEnabled) {
+                if (type == VoiceRecognizeType.ALEXA) {
+                    view.displayVoiceMessage(mContext.getString(type.label));
+                }
+            } else {
                 view.displayVoiceMessage(mContext.getString(type.label));
             }
         });

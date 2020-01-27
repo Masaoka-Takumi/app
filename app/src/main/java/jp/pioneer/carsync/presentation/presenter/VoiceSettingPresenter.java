@@ -24,6 +24,7 @@ import jp.pioneer.carsync.domain.event.PhoneSettingStatusChangeEvent;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.model.AppStatus;
 import jp.pioneer.carsync.domain.model.AudioMode;
+import jp.pioneer.carsync.domain.model.CarDeviceSpec;
 import jp.pioneer.carsync.domain.model.ConnectedDevicesCountStatus;
 import jp.pioneer.carsync.domain.model.SessionStatus;
 import jp.pioneer.carsync.domain.model.VoiceRecognizeMicType;
@@ -47,7 +48,7 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
     @Inject EventBus mEventBus;
     @Inject AnalyticsEventManager mAnalytics;
     @Inject AlexaAvailableStatus mAlexaAvailableStatus;
-    private boolean mIsGoogleVRAvailable = true;
+    private boolean mIsAndroidVRAvailable = false;
     private ArrayList<VoiceRecognizeType> mVoiceTypeList = new ArrayList<>();
 
     /**
@@ -62,6 +63,7 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
         if (!mEventBus.isRegistered(this)) {
             mEventBus.register(this);
         }
+        mIsAndroidVRAvailable = mStatusCase.execute().getCarDeviceSpec().androidVrSupported;
         updateView();
     }
 
@@ -74,8 +76,8 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
         AppStatus appStatus = mStatusCase.execute().getAppStatus();
         mVoiceTypeList.clear();
         mVoiceTypeList.add(VoiceRecognizeType.PIONEER_SMART_SYNC);
-        if(mIsGoogleVRAvailable){
-            mVoiceTypeList.add(VoiceRecognizeType.GOOGLE_ASSISTANT);
+        if(mIsAndroidVRAvailable){
+            mVoiceTypeList.add(VoiceRecognizeType.ANDROID_VR);
         }
         if(mStatusCase.execute().getAppStatus().isAlexaAvailableCountry){
             mVoiceTypeList.add(VoiceRecognizeType.ALEXA);
@@ -83,7 +85,7 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
         Optional.ofNullable(getView()).ifPresent(view ->
         {
             //「Siri非対応車載機」または「連携中Siri/Google VR動作可能機能に対応していない車載機」と連携中の場合
-            if (!mIsGoogleVRAvailable) {
+            if (!mIsAndroidVRAvailable) {
                 view.setVoiceRecognitionVisible(!appStatus.isAlexaAvailableCountry);
                 view.setVoiceRecognitionTypeVisible(appStatus.isAlexaAvailableCountry);
                 view.setVoiceRecognitionMicTypeEnabled(isVoiceRecognitionMicTypeEnabled());
@@ -99,7 +101,7 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
 
             if(mAlexaAvailableStatus.isVoiceRecognitionTypeAlexaAndAvailable()){
                 view.setVoiceRecognitionMicType(VoiceRecognizeMicType.PHONE);
-            }else if(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.GOOGLE_ASSISTANT){
+            }else if(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ANDROID_VR){
                 view.setVoiceRecognitionMicType(VoiceRecognizeMicType.HEADSET);
             }else{
                 view.setVoiceRecognitionMicType(mPreference.getVoiceRecognitionMicType());
@@ -152,7 +154,7 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
                 }
             }
         }
-        if(nextType==VoiceRecognizeType.GOOGLE_ASSISTANT){
+        if(nextType==VoiceRecognizeType.ANDROID_VR){
             Toast.makeText(mContext, R.string.err_038, Toast.LENGTH_LONG).show();
         }
         mPreference.setVoiceRecognitionType(nextType);
@@ -176,7 +178,7 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
      */
     public boolean isVoiceRecognitionDescriptionVisible(VoiceRecognizeType type) {
         boolean isAlexaAvailableCountry = mStatusCase.execute().getAppStatus().isAlexaAvailableCountry;
-        return type == VoiceRecognizeType.PIONEER_SMART_SYNC || (!mIsGoogleVRAvailable&&!isAlexaAvailableCountry);
+        return type == VoiceRecognizeType.PIONEER_SMART_SYNC || (!mIsAndroidVRAvailable&&!isAlexaAvailableCountry);
     }
 
     /**
@@ -193,13 +195,13 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
             }
         }
         //GoogleVR対応→GoogleVR非対応車載機接続時ケア不要？
-        if (mPreference.getVoiceRecognitionType() == VoiceRecognizeType.GOOGLE_ASSISTANT) {
-            if (mIsGoogleVRAvailable) {
-                return VoiceRecognizeType.GOOGLE_ASSISTANT;
+/*        if (mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ANDROID_VR) {
+            if (mIsAndroidVRAvailable) {
+                return VoiceRecognizeType.ANDROID_VR;
             } else {
                 return VoiceRecognizeType.PIONEER_SMART_SYNC;
             }
-        }
+        }*/
         return mPreference.getVoiceRecognitionType();
     }
 

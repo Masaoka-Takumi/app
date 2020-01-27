@@ -215,10 +215,14 @@ public class PlayerContainerPresenter extends Presenter<PlayerContainerView> {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onVoiceRecognitionTypeChangeEvent(VoiceRecognitionTypeChangeEvent event) {
         VoiceRecognizeType type = mPreference.getVoiceRecognitionType();
-        if(type==VoiceRecognizeType.ALEXA) {
-            Optional.ofNullable(getView()).ifPresent(view -> {
+        Optional.ofNullable(getView()).ifPresent(view -> {
+            if (!mUseCase.execute().getCarDeviceStatus().androidVrEnabled) {
+                if (type == VoiceRecognizeType.ALEXA) {
+                    view.displayVoiceMessage(mContext.getString(type.label));
+                }
+            } else {
                 view.displayVoiceMessage(mContext.getString(type.label));
-            });
-        }
+            }
+        });
     }
 }

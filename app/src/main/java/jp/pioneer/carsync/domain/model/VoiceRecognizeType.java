@@ -15,16 +15,16 @@ public enum VoiceRecognizeType {
     PIONEER_SMART_SYNC(0, R.string.set_325) {
         @Override
         public VoiceRecognizeType toggle() {
-            return GOOGLE_ASSISTANT;
+            return ALEXA;
         }
     },
     /**
      * Google Assistant
      */
-    GOOGLE_ASSISTANT(1, R.string.set_415) {
+    ANDROID_VR(1, R.string.set_415) {
         @Override
         public VoiceRecognizeType toggle() {
-            return ALEXA;
+            return PIONEER_SMART_SYNC;
         }
     },
     /**

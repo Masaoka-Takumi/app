@@ -86,6 +86,7 @@ import jp.pioneer.carsync.domain.model.BaseApp;
 import jp.pioneer.carsync.domain.model.CarDeviceClassId;
 import jp.pioneer.carsync.domain.model.CarDeviceSpec;
 import jp.pioneer.carsync.domain.model.CarDeviceStatus;
+import jp.pioneer.carsync.domain.model.ConnectedDevicesCountStatus;
 import jp.pioneer.carsync.domain.model.ConnectionType;
 import jp.pioneer.carsync.domain.model.MarinApp;
 import jp.pioneer.carsync.domain.model.MediaSourceStatus;
@@ -1168,6 +1169,12 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                 });
             }
         }
+        if(status.sourceType== MediaSourceType.VR){
+            mContext.startActivity(
+                    new Intent(Intent.ACTION_VOICE_COMMAND)
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            );
+        }
         if(mIsAdasStarted) {
             mAdas.checkAdasError();
         }
@@ -1587,7 +1594,13 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                 return;
             }
             StatusHolder holder = mStatusCase.execute();
-            if(mAlexaAvailableStatus.isVoiceRecognitionTypeAlexaAndAvailable()){
+            if(mStatusCase.execute().getCarDeviceStatus().androidVrEnabled&&mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ANDROID_VR){
+                if(mStatusCase.execute().getPhoneSettingStatus().hfDevicesCountStatus == ConnectedDevicesCountStatus.NONE){
+                    view.showToast(mContext.getString(R.string.err_038));
+                }else{
+                    mControlSource.selectSource(MediaSourceType.VR);
+                }
+            }else if(mAlexaAvailableStatus.isVoiceRecognitionTypeAlexaAndAvailable()){
                 if(view.isShowAlexaDialog()){
                     view.dismissAlexaDialog();
                 }
