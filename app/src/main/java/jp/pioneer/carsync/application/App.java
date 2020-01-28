@@ -29,6 +29,7 @@ import jp.pioneer.carsync.domain.DomainInitializer;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.infrastructure.InfrastructureInitializer;
 import jp.pioneer.carsync.presentation.presenter.MainPresenter;
+import jp.pioneer.carsync.presentation.util.RadioStationNameUtil;
 import timber.log.Timber;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -160,6 +161,7 @@ public class App extends Application {
         AltitudeInitTask mAsyncTask = new AltitudeInitTask();
         mAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
+        RadioStationNameUtil.init(getApplicationContext());
     }
 
     /**

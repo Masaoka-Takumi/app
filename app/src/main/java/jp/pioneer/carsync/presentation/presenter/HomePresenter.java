@@ -687,7 +687,7 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
         mCurrRadio = mediaHolder.radioInfo;
         mRadioBand = mCurrRadio.band;
         Optional.ofNullable(getView()).ifPresent(view -> {
-            view.setMusicTitle(RadioTextUtil.getPsInfoForMiniPlayer(mContext, status, mCurrRadio));
+            view.setMusicTitle(RadioTextUtil.getPsInfoForPlayer(mContext,mPreference.getLastConnectedCarDeviceDestination(), mGetCase.execute().getCarRunningStatus(), mCurrRadio));
             view.setRadioInfo(status, mCurrRadio);
         });
         getPch();
