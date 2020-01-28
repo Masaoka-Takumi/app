@@ -19,7 +19,6 @@ import timber.log.Timber;
 
 public class RadioStationNameUtil {
     private static final String EMPTY = "";
-    private static final int FREQUENCY_SIDE_RANGE = 9;
     private static SparseIntArray mMesh2ndCodeArray = null;
     private static SparseIntArray mFmMesh2ndArray = null;
     private static SparseIntArray mAmMesh2ndArray = null;
@@ -74,7 +73,7 @@ public class RadioStationNameUtil {
                 for (StationInfo stationInfo : stationInfoArrayList) {
                     //TODO:完全一致のみ？
                     Timber.d("currentFrequency=" + currentFrequency + ",frequency=" + stationInfo.frequency + ",name=" + stationInfo.name);
-                    if (currentFrequency >= stationInfo.frequency - FREQUENCY_SIDE_RANGE && currentFrequency <= stationInfo.frequency + FREQUENCY_SIDE_RANGE) {
+                    if (currentFrequency == stationInfo.frequency) {
                         stationName = stationInfo.name;
                         break;
                     }
