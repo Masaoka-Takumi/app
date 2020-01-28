@@ -2677,16 +2677,26 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
             Double latitude = args.getDouble("latitude");
             Double longitude = args.getDouble("longitude");
             String name = args.getString("destName");
+            NaviApp naviApp = null;
             try {
-                NaviApp navi = NaviApp.fromPackageName(mPreference.getNavigationApp().packageName);
-
-                Intent intent = navi.createNavigationIntent(latitude, longitude, name, mContext);
-                view.startNavigation(intent);
-            } catch (IllegalArgumentException ex){
-                // ナビアプリケーション未設定
-                Timber.w("Unset navi app.", ex);
-                return;
-            } catch (NullPointerException e) {
+                if (mPreference.getLastConnectedCarDeviceClassId() == CarDeviceClassId.MARIN) {
+                    if (mPreference.getNavigationMarinApp() == null) {
+                        //マリンアプリ未設定
+                        view.showToast(mContext.getString(R.string.err_007));
+                    } else {
+                        naviApp = NaviApp.fromPackageName(mPreference.getNavigationMarinApp().packageName);
+                    }
+                } else {
+                    naviApp = NaviApp.fromPackageName(mPreference.getNavigationApp().packageName);
+                }
+                if(naviApp!=null){
+                    Intent intent = naviApp.createNavigationIntent(latitude, longitude, name, mContext);
+                    view.startNavigation(intent);
+                }
+            } catch (IllegalArgumentException e) {
+                //Marineモデル連携時、マリン系アプリが設定されている場合にはERR_007を表示する
+                //連携車載機がMarineモデルか否かにかかわらず、アプリ未設定時はERR_007を表示する
+                view.showToast(mContext.getString(R.string.err_007));
             }
         });
     }
