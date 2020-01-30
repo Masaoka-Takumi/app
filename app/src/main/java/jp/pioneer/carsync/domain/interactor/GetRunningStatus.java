@@ -64,7 +64,7 @@ public class GetRunningStatus {
     private SpeedMeterUpdateTask mSpeedMeterUpdateTask = new SpeedMeterUpdateTask();
 
     private double mGeoidOffset = 0;
-    private boolean mGetMeshCode = false;
+
     /**
      * コンストラクタ.
      */
@@ -78,10 +78,9 @@ public class GetRunningStatus {
      * 走行状態の取得を開始する
      */
     public void start() {
-        mGetMeshCode = mPreference.getLastConnectedCarDeviceDestination() == CarDeviceDestinationInfo.JP.code;
         mLocationProvider.startGetCurrentLocation(PRIORITY, mLocationCallback, LocationProvider.GetType.CONTINUOUS);
         mBearingProvider.startGetBearing(mBearingCallback);
-        mSpeedObservationTask.start();
+        mSpeedObservationTask.start(mPreference.getLastConnectedCarDeviceDestination() == CarDeviceDestinationInfo.JP.code);
         mSpeedMeterUpdateTask.start();
     }
 
@@ -171,9 +170,11 @@ public class GetRunningStatus {
         private double mAverageSpeed = -1;
         private ArrayList<Double> mMinuteSpeeds = new ArrayList<>();
         private ArrayList<Double> mMinuteAverageSpeeds = new ArrayList<>();
+        private boolean mGetMeshCode = false;
 
         /** 開始. */
-        void start() {
+        void start(boolean getMeshCode) {
+            mGetMeshCode = getMeshCode;
             mHandler.postDelayed(this, DELAY_TIME);
             mIsStop = false;
         }
@@ -276,7 +277,7 @@ public class GetRunningStatus {
             }
 
             if (!mIsStop) {
-                start();
+                start(mGetMeshCode);
             }
         }
 
