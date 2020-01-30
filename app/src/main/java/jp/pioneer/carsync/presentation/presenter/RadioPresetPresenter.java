@@ -21,6 +21,7 @@ import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.content.TunerContract;
 import jp.pioneer.carsync.domain.event.ListInfoChangeEvent;
+import jp.pioneer.carsync.domain.event.LocationMeshCodeChangeEvent;
 import jp.pioneer.carsync.domain.interactor.ControlMediaList;
 import jp.pioneer.carsync.domain.interactor.ControlRadioSource;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
@@ -330,6 +331,17 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
             updateSelected();
         }else if(mSourceType == MediaSourceType.DAB) {
             updateFocus();
+        }
+    }
+
+    /**
+     * LocationMeshCodeChangeEventハンドラ
+     * @param event LocationMeshCodeChangeEvent
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLocationMeshCodeChangeEvent(LocationMeshCodeChangeEvent event) {
+        if(mSourceType == MediaSourceType.RADIO) {
+            updatePresetList();
         }
     }
 

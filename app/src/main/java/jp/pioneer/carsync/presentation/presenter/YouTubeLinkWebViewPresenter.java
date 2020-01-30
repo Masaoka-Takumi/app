@@ -33,6 +33,7 @@ import jp.pioneer.carsync.domain.model.PlaybackMode;
 import jp.pioneer.carsync.domain.model.StatusHolder;
 import jp.pioneer.carsync.presentation.event.SourceChangeReasonEvent;
 import jp.pioneer.carsync.presentation.model.YouTubeLinkSearchItem;
+import jp.pioneer.carsync.presentation.util.RadioTextUtil;
 import jp.pioneer.carsync.presentation.view.YouTubeLinkWebViewView;
 import jp.pioneer.mbg.alexa.AlexaInterface.AlexaIfDirectiveItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
@@ -239,7 +240,7 @@ public class YouTubeLinkWebViewPresenter extends Presenter<YouTubeLinkWebViewVie
         switch(sourceType){
             case RADIO:
                 if(mPreference.getYouTubeLinkSearchItemSetting(YouTubeLinkSearchItem.INFORMATION)) {
-                    tag1 = carDeviceMediaInfoHolder.radioInfo.psInfo;
+                    tag1 = RadioTextUtil.getPsInfoForFavorite(mPreference.getLastConnectedCarDeviceDestination(),holder.getCarRunningStatus(),carDeviceMediaInfoHolder.radioInfo);
                 }
                 break;
             case DAB:

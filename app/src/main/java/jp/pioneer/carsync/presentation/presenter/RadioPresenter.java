@@ -24,6 +24,7 @@ import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.content.TunerContract;
 import jp.pioneer.carsync.domain.event.AdasErrorEvent;
+import jp.pioneer.carsync.domain.event.LocationMeshCodeChangeEvent;
 import jp.pioneer.carsync.domain.event.RadioFunctionSettingStatusChangeEvent;
 import jp.pioneer.carsync.domain.event.RadioInfoChangeEvent;
 import jp.pioneer.carsync.domain.interactor.ActionSoftwareShortcutKey;
@@ -195,6 +196,15 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAdasErrorEvent(AdasErrorEvent event) {
         setAdasIcon();
+    }
+
+    /**
+     * LocationMeshCodeChangeEventハンドラ
+     * @param event LocationMeshCodeChangeEvent
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLocationMeshCodeChangeEvent(LocationMeshCodeChangeEvent event) {
+        updateView();
     }
 
     private void showBandChangeNotification(){

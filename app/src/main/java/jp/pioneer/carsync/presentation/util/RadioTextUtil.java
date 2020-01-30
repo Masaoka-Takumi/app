@@ -21,20 +21,8 @@ public class RadioTextUtil {
     private static final String EMPTY = "";
 
     /**
-     * チューナー系リスト用のPS情報の文字列を返す
-     *
-     * @param context
-     * @param item
-     * @return
+     * お気に入り登録/ユーザーPCH登録/YouTubeLink検索Tag用のPS情報の文字列を返す
      */
-    public static String getPsInfoForList(Context context, ListInfo.RadioListItem item) {
-        if (TextUtils.isEmpty(item.text)) {
-            return FrequencyUtil.format(context, item.frequency, item.frequencyUnit, true);
-        } else {
-            return item.text;
-        }
-    }
-
     public static String getPsInfoForFavorite(int deviceDestination, CarRunningStatus runningStatus, RadioInfo info) {
         String psInfoText;
         if(deviceDestination == CarDeviceDestinationInfo.JP.code){
@@ -45,10 +33,16 @@ public class RadioTextUtil {
         return psInfoText;
     }
 
+    /**
+     * 連携中の車載機がJP仕向けの場合のチューナー系リスト用のPS情報の文字列を返す
+     */
     public static String getPsInfoForListJP(CarRunningStatus status, RadioBandType band, long frequency) {
         return RadioStationNameUtil.getStationName(status,band,frequency);
     }
 
+    /**
+     * Home画面用PS情報の文字列を返す（現在使用していない）
+     */
     public static String getPsInfoForMiniPlayer(Context context, int deviceDestination, CarRunningStatus status, RadioInfo info) {
         String text;
         if(info.rdsInterruptionType != null) {
@@ -74,6 +68,9 @@ public class RadioTextUtil {
         return text;
     }
 
+    /**
+     * 再生画面用PS情報の文字列を返す
+     */
     public static String getPsInfoForPlayer(Context context, int deviceDestination, CarRunningStatus status, RadioInfo info) {
         String text;
         if (deviceDestination == CarDeviceDestinationInfo.JP.code) {
@@ -103,7 +100,7 @@ public class RadioTextUtil {
         return text;
     }
 
-    public static String getPsInfoForPlayerJP(Context context, CarRunningStatus status, RadioInfo info) {
+    private static String getPsInfoForPlayerJP(Context context, CarRunningStatus status, RadioInfo info) {
         String text;
         switch(info.tunerStatus){
             case BSM:

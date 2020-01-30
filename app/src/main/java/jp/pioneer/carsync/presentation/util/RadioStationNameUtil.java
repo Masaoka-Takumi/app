@@ -84,7 +84,7 @@ public class RadioStationNameUtil {
         return stationName;
     }
 
-    private static int getMeshCode(CarRunningStatus status) {
+    public static int getMeshCode(CarRunningStatus status) {
         int result = -1;
         if (status.latitude == 0 || status.longitude == 0) {
             return result;

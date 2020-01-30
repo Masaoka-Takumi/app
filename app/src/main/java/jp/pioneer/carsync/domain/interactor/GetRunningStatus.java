@@ -19,13 +19,17 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.ForDomain;
 import jp.pioneer.carsync.application.di.ForInfrastructure;
 import jp.pioneer.carsync.domain.component.BearingProvider;
 import jp.pioneer.carsync.domain.component.LocationProvider;
 import jp.pioneer.carsync.domain.component.Resolver;
+import jp.pioneer.carsync.domain.event.LocationMeshCodeChangeEvent;
+import jp.pioneer.carsync.domain.model.CarDeviceDestinationInfo;
 import jp.pioneer.carsync.domain.model.CarRunningStatus;
 import jp.pioneer.carsync.domain.model.StatusHolder;
+import jp.pioneer.carsync.presentation.util.RadioStationNameUtil;
 import timber.log.Timber;
 
 /**
@@ -55,11 +59,12 @@ public class GetRunningStatus {
     @Inject LocationProvider mLocationProvider;
     @Inject BearingProvider mBearingProvider;
     @Inject EventBus mEventBus;
+    @Inject AppSharedPreference mPreference;
     private SpeedObservationTask mSpeedObservationTask = new SpeedObservationTask();
     private SpeedMeterUpdateTask mSpeedMeterUpdateTask = new SpeedMeterUpdateTask();
 
     private double mGeoidOffset = 0;
-
+    private int mMeshCode = 0;
     /**
      * コンストラクタ.
      */
@@ -201,6 +206,14 @@ public class GetRunningStatus {
                 CarRunningStatus status = mStatusHolder.getCarRunningStatus();
                 status.latitude = location.getLatitude();
                 status.longitude = location.getLongitude();
+                if(mPreference.getLastConnectedCarDeviceDestination() == CarDeviceDestinationInfo.JP.code) {
+                    //メッシュコード変更監視
+                    int meshCode = RadioStationNameUtil.getMeshCode(status);
+                    if (mMeshCode != meshCode) {
+                        mEventBus.post(new LocationMeshCodeChangeEvent());
+                        mMeshCode = meshCode;
+                    }
+                }
 
                 //ジオイド高取得所要時間は1ms以下
                 mGeoidOffset = Geoid.getOffset(new org.matthiaszimmermann.location.Location(status.latitude, status.longitude));
