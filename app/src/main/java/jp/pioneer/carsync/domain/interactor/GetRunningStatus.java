@@ -64,7 +64,7 @@ public class GetRunningStatus {
     private SpeedMeterUpdateTask mSpeedMeterUpdateTask = new SpeedMeterUpdateTask();
 
     private double mGeoidOffset = 0;
-    private int mMeshCode = 0;
+    private boolean mGetMeshCode = false;
     /**
      * コンストラクタ.
      */
@@ -78,6 +78,7 @@ public class GetRunningStatus {
      * 走行状態の取得を開始する
      */
     public void start() {
+        mGetMeshCode = mPreference.getLastConnectedCarDeviceDestination() == CarDeviceDestinationInfo.JP.code;
         mLocationProvider.startGetCurrentLocation(PRIORITY, mLocationCallback, LocationProvider.GetType.CONTINUOUS);
         mBearingProvider.startGetBearing(mBearingCallback);
         mSpeedObservationTask.start();
@@ -206,12 +207,13 @@ public class GetRunningStatus {
                 CarRunningStatus status = mStatusHolder.getCarRunningStatus();
                 status.latitude = location.getLatitude();
                 status.longitude = location.getLongitude();
-                if(mPreference.getLastConnectedCarDeviceDestination() == CarDeviceDestinationInfo.JP.code) {
+
+                if(mGetMeshCode) {
                     //メッシュコード変更監視
                     int meshCode = RadioStationNameUtil.getMeshCode(status);
-                    if (mMeshCode != meshCode) {
+                    if (status.meshCode != meshCode) {
+                        status.meshCode = meshCode;
                         mEventBus.post(new LocationMeshCodeChangeEvent());
-                        mMeshCode = meshCode;
                     }
                 }
 

@@ -54,7 +54,7 @@ public class RadioStationNameUtil {
 
     public static String getStationName(CarRunningStatus status, RadioBandType bandType, long currentFrequency) {
         String stationName = EMPTY;
-        int gpsMeshCode = getMeshCode(status);
+        int gpsMeshCode = status.meshCode;
         if (gpsMeshCode != -1&&bandType!=null) {
             int brdMeshCode = convertMeshCode(gpsMeshCode);
             int group;
