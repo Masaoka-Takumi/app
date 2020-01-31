@@ -14,6 +14,8 @@ import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
+import jp.pioneer.carsync.application.content.Analytics;
+import jp.pioneer.carsync.application.content.AnalyticsEventManager;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.content.ContactsContract;
@@ -34,6 +36,8 @@ public class ContactsFavoritePresenter extends Presenter<ContactsFavoriteView> i
     @Inject EventBus mEventBus;
     @Inject AppSharedPreference mPreference;
     @Inject QueryContact mContactCase;
+    @Inject
+    AnalyticsEventManager mAnalytics;
     private static final int LOADER_ID_CONTACT = -1;
     private static final String KEY_CONTACTS_ID = "contacts_id";
     private LoaderManager mLoaderManager;
@@ -135,5 +139,6 @@ public class ContactsFavoritePresenter extends Presenter<ContactsFavoriteView> i
         String number = ContactsContract.Phone.getNumber(cursor);
         Uri uri = Uri.parse("tel:" + number);
         Optional.ofNullable(getView()).ifPresent(view -> view.dial(new Intent(Intent.ACTION_DIAL, uri)));
+        mAnalytics.sendTelephoneCallEvent(Analytics.AnalyticsTelephoneCall.phoneBook);
     }
 }

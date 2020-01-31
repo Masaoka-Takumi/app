@@ -13,63 +13,66 @@ import jp.pioneer.carsync.infrastructure.crp.util.PacketUtil;
  */
 public enum SoundFxSettingEqualizerType {
     /** SUPER_BASS. */
-    SUPER_BASS(AudioSettingEqualizerType.SUPER_BASS.code, R.string.val_086),
+    SUPER_BASS(AudioSettingEqualizerType.SUPER_BASS.code, R.string.val_086,"Superbass"),
     /** POWERFUL. */
-    POWERFUL(AudioSettingEqualizerType.POWERFUL.code, R.string.val_087),
+    POWERFUL(AudioSettingEqualizerType.POWERFUL.code, R.string.val_087,"Powerful"),
     /** NATURAL. */
-    NATURAL(AudioSettingEqualizerType.NATURAL.code, R.string.val_088),
+    NATURAL(AudioSettingEqualizerType.NATURAL.code, R.string.val_088,"Natural"),
     /** VOCAL. */
-    VOCAL(AudioSettingEqualizerType.VOCAL.code, R.string.val_089),
+    VOCAL(AudioSettingEqualizerType.VOCAL.code, R.string.val_089,"Vocal"),
     /** TODOROKI. */
-    TODOROKI(AudioSettingEqualizerType.TODOROKI.code, R.string.val_245),
+    TODOROKI(AudioSettingEqualizerType.TODOROKI.code, R.string.val_245,"Todoroki"),
     /** POP_ROCK. */
-    POP_ROCK(AudioSettingEqualizerType.POP_ROCK.code, R.string.val_228),
+    POP_ROCK(AudioSettingEqualizerType.POP_ROCK.code, R.string.val_228,"Pop Rock"),
     /** ELECTRONICA. */
-    ELECTRONICA(AudioSettingEqualizerType.ELECTRONICA.code, R.string.val_229),
+    ELECTRONICA(AudioSettingEqualizerType.ELECTRONICA.code, R.string.val_229,"Eletronica"),
     /** EQ_SAMBA. */
-    EQ_SAMBA(AudioSettingEqualizerType.EQ_SAMBA.code, R.string.val_230),
+    EQ_SAMBA(AudioSettingEqualizerType.EQ_SAMBA.code, R.string.val_230,"Samba"),
     /** SERTANEJO. */
-    SERTANEJO(AudioSettingEqualizerType.SERTANEJO.code, R.string.val_231),
+    SERTANEJO(AudioSettingEqualizerType.SERTANEJO.code, R.string.val_231,"Sertanejo"),
     /** PRO. */
-    PRO(AudioSettingEqualizerType.PRO.code, R.string.val_232),
+    PRO(AudioSettingEqualizerType.PRO.code, R.string.val_232,"Pro"),
     /** FLAT. */
-    FLAT(AudioSettingEqualizerType.FLAT.code, R.string.val_085),
+    FLAT(AudioSettingEqualizerType.FLAT.code, R.string.val_085,"Flat"),
     /** COMMON_CUSTOM. */
-    COMMON_CUSTOM(AudioSettingEqualizerType.COMMON_CUSTOM.code, R.string.val_090),
+    COMMON_CUSTOM(AudioSettingEqualizerType.COMMON_CUSTOM.code, R.string.val_090,"Custom1"),
     /** COMMON_CUSTOM_2ND. */
-    COMMON_CUSTOM_2ND(AudioSettingEqualizerType.COMMON_CUSTOM_2ND.code, R.string.val_091),
+    COMMON_CUSTOM_2ND(AudioSettingEqualizerType.COMMON_CUSTOM_2ND.code, R.string.val_091,"Custom2"),
     /** CLEAR. */
-    CLEAR(AudioSettingEqualizerType.CLEAR.code, R.string.val_233),
+    CLEAR(AudioSettingEqualizerType.CLEAR.code, R.string.val_233,"Clear"),
     /** VIVID. */
-    VIVID(AudioSettingEqualizerType.VIVID.code, R.string.val_235),
+    VIVID(AudioSettingEqualizerType.VIVID.code, R.string.val_235,"Vivid"),
     /** DYNAMIC. */
-    DYNAMIC(AudioSettingEqualizerType.DYNAMIC.code, R.string.val_236),
+    DYNAMIC(AudioSettingEqualizerType.DYNAMIC.code, R.string.val_236,"Dynamic"),
     /** JAZZ. */
-    JAZZ(AudioSettingEqualizerType.JAZZ.code, R.string.val_237),
+    JAZZ(AudioSettingEqualizerType.JAZZ.code, R.string.val_237,"Jazz"),
     /** FORRO. */
-    FORRO(AudioSettingEqualizerType.FORRO.code, R.string.val_238),
+    FORRO(AudioSettingEqualizerType.FORRO.code, R.string.val_238,"Forro"),
 
     // SpecialEqualizer
-    SPECIAL_DEBUG_1((1 << 8) | 0xF0, R.string.val_246),
-    SPECIAL_DEBUG_2((1 << 8) | 0xF1, R.string.val_247),
+    SPECIAL_DEBUG_1((1 << 8) | 0xF0, R.string.val_246,"Special EQ 1"),
+    SPECIAL_DEBUG_2((1 << 8) | 0xF1, R.string.val_247,"Special EQ 2"),
 
     // SpecialEQ種別が不明だった場合
-    UNKNOWN((1 << 8) | 0xFF, R.string.unknown)
+    UNKNOWN((1 << 8) | 0xFF, R.string.unknown,"Unknown")
     ;
 
     /** プロトコルでの定義値. */
     public final int code;
     /** 表示用文字列リソースID. */
     @StringRes public final int label;
+    /** Analytics用文字列. */
+    public final String strValue;
     /**
      * コンストラクタ.
      *
      * @param code プロトコルでの定義値
      * @param label 表示用文字列リソースID
      */
-    SoundFxSettingEqualizerType(int code, @StringRes int label){
+    SoundFxSettingEqualizerType(int code, @StringRes int label,String strValue){
         this.code = code;
         this.label = label;
+        this.strValue = strValue;
     }
 
     /**

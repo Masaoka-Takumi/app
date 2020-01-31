@@ -19,6 +19,21 @@ public class Analytics {
         activeScreen("EventUser_ActiveScreen"),
         sourceSelectReason("EventUser_SourceSelectAction"),
         thirdAppStartUp("EventUser_ThirdAppStartUp"),
+        naviApps("EventUser_NaviApps"),
+        messageApps("EventUser_MessageApps"),
+        musicApps("EventUser_MusicApps"),
+        messageArrival("EventUser_MessageArrival"),
+        messageRead("EventUser_MessageRead"),
+        telephoneCall("EventUser_TelephoneCall"),
+        youTubeLinkUse("EventUser_YouTubeLinkUse"),
+        alexaUse("EventUser_AlexaUse"),
+        alexaLanguage("EventUser_AlexaLanguage"),
+        fxEqualizer("EventUser_FXEqualizer"),
+        fxLiveSimulation("EventUser_FXLiveSimulation"),
+        fxSuperTodoroki("EventUser_FXSuperTodoroki"),
+        fxTimeAlignment("EventUser_FXTimeAlignment"),
+        appleMusicUse("EventUser_AppleMusic"),
+
         ;
         public final String name;
 
@@ -38,6 +53,10 @@ public class Analytics {
         trigger("trigger"),
         screen("screen"),
         action("action"),
+        app("app"),
+        pref1("pref1"),
+        pref2("pref2"),
+        use("use"),
         ;
         public final String name;
 
@@ -145,7 +164,45 @@ public class Analytics {
         appCustomKey("Customキーから起動"),
         ;
         public final String value;
+
         AnalyticsThirdAppStartUp(String value) {
+            this.value = value;
+        }
+
+    }
+
+    public enum AnalyticsTelephoneCall {
+        phoneBook("電話帳からかけた"),
+        directCall("ダイレクトコールでかけた"),
+        voiceRecognizer("音声認識でかけた"),
+        ;
+        public final String value;
+
+        AnalyticsTelephoneCall(String value) {
+            this.value = value;
+        }
+
+    }
+
+    public enum AnalyticsYouTubeLinkUse {
+        on("ONにした"),
+        neverOn("一度もONにしていない"),
+        ;
+        public final String value;
+
+        AnalyticsYouTubeLinkUse(String value) {
+            this.value = value;
+        }
+
+    }
+
+    public enum AnalyticsAlexaUse {
+        loginSuccess("ログインに成功した"),
+        neverLogin("一度もログインしていない"),
+        ;
+        public final String value;
+
+        AnalyticsAlexaUse(String value) {
             this.value = value;
         }
 
@@ -170,14 +227,14 @@ public class Analytics {
     }
 
     // EULA/PrivacyPolicy同意済み or 同意したら呼び出す
-    public void startSession(Context context) {
+    void startSession(Context context) {
         sStrategy.startSession(context);
     }
 
     /**
      * 連携情報イベントの送信
      */
-    public void logDeviceConnectedEvent(CarDeviceSpec carDevice) {
+    void logDeviceConnectedEvent(CarDeviceSpec carDevice) {
         Date now = new Date();
         String timestamp;
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
@@ -199,43 +256,104 @@ public class Analytics {
                 .with(AnalyticsParam.deviceDivision, sDeviceDivision);
     }
 
-    public void logActiveSourceEvent(AnalyticsSource source, long duration) {
+    void logActiveSourceEvent(AnalyticsSource source, long duration) {
         createEventSubmitterWithCommonEventParam(AnalyticsEvent.activeSource)
                 .with(AnalyticsParam.source, source.value)
                 .with(AnalyticsParam.duration, duration)
                 .submit();
     }
 
-    public void logUIOrientationEvent(AnalyticsUIOrientation orientation, long duration) {
+    void logUIOrientationEvent(AnalyticsUIOrientation orientation, long duration) {
         createEventSubmitterWithCommonEventParam(AnalyticsEvent.uiOrientation)
                 .with(AnalyticsParam.orientation, orientation.value)
                 .with(AnalyticsParam.duration, duration)
                 .submit();
     }
 
-    public void logSourceSelectReasonEvent(AnalyticsSourceChangeReason reason) {
+    void logSourceSelectReasonEvent(AnalyticsSourceChangeReason reason) {
         createEventSubmitterWithCommonEventParam(AnalyticsEvent.sourceSelectReason)
                 .with(AnalyticsParam.trigger, reason.value)
                 .submit();
     }
 
-    public void logActiveScreenEvent(AnalyticsActiveScreen screen, long duration) {
+    void logActiveScreenEvent(AnalyticsActiveScreen screen, long duration) {
         createEventSubmitterWithCommonEventParam(AnalyticsEvent.activeScreen)
                 .with(AnalyticsParam.screen, screen.value)
                 .with(AnalyticsParam.duration, duration)
                 .submit();
     }
 
-    public void logShortcutActionEvent(AnalyticsShortcutAction action,AnalyticsActiveScreen screen) {
+    void logShortcutActionEvent(AnalyticsShortcutAction action, AnalyticsActiveScreen screen) {
         createEventSubmitterWithCommonEventParam(AnalyticsEvent.shortcutAction)
                 .with(AnalyticsParam.action, action.value)
                 .with(AnalyticsParam.screen, screen.value)
                 .submit();
     }
 
-    public void logThirdAppStartUpEvent(AnalyticsThirdAppStartUp startUp) {
+    void logThirdAppStartUpEvent(AnalyticsThirdAppStartUp startUp) {
         createEventSubmitterWithCommonEventParam(AnalyticsEvent.thirdAppStartUp)
                 .with(AnalyticsParam.trigger, startUp.value)
+                .submit();
+    }
+
+    void logNaviAppsEvent(String app, String pref1) {
+        createEventSubmitterWithCommonEventParam(AnalyticsEvent.naviApps)
+                .with(AnalyticsParam.app, app)
+                .with(AnalyticsParam.pref1, pref1)
+                .submit();
+    }
+
+    void logMessageAppsEvent(String app) {
+        createEventSubmitterWithCommonEventParam(AnalyticsEvent.messageApps)
+                .with(AnalyticsParam.app, app)
+                .submit();
+    }
+
+    void logMusicAppsEvent(String app) {
+        createEventSubmitterWithCommonEventParam(AnalyticsEvent.musicApps)
+                .with(AnalyticsParam.app, app)
+                .submit();
+    }
+
+    void logMessageArrivalEvent(String app) {
+        createEventSubmitterWithCommonEventParam(AnalyticsEvent.messageArrival)
+                .with(AnalyticsParam.app, app)
+                .submit();
+    }
+
+    void logMessageReadEvent(String app) {
+        createEventSubmitterWithCommonEventParam(AnalyticsEvent.messageRead)
+                .with(AnalyticsParam.app, app)
+                .submit();
+    }
+
+    void logTelephoneCallEvent(AnalyticsTelephoneCall trigger) {
+        createEventSubmitterWithCommonEventParam(AnalyticsEvent.telephoneCall)
+                .with(AnalyticsParam.trigger, trigger.value)
+                .submit();
+    }
+
+    void logYouTubeLinkUseEvent(AnalyticsYouTubeLinkUse use) {
+        createEventSubmitterWithCommonEventParam(AnalyticsEvent.youTubeLinkUse)
+                .with(AnalyticsParam.use, use.value)
+                .submit();
+    }
+
+    void logAlexaUseEvent(AnalyticsAlexaUse use) {
+        createEventSubmitterWithCommonEventParam(AnalyticsEvent.alexaUse)
+                .with(AnalyticsParam.use, use.value)
+                .submit();
+    }
+
+    void logAlexaLanguageEvent(String pref1) {
+        createEventSubmitterWithCommonEventParam(AnalyticsEvent.alexaLanguage)
+                .with(AnalyticsParam.pref1, pref1)
+                .submit();
+    }
+
+    void logFXEqualizerEvent(String pref1) {
+        createEventSubmitterWithCommonEventParam(AnalyticsEvent.fxEqualizer)
+                .with(AnalyticsParam.pref1, pref1)
                 .submit();
     }
 }

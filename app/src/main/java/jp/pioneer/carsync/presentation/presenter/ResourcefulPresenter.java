@@ -236,6 +236,7 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
                         mCursorLoader.stopLoading();
                     }
                     mDirectCallCase.execute(number);
+                    mAnalytics.sendTelephoneCallEvent(Analytics.AnalyticsTelephoneCall.directCall);
                 }
             }
         });
@@ -1009,6 +1010,7 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
     @Override
     public void onSpeakDone() {
         Timber.i("ReadNotificationPresenter.onSpeakDone");
+        mAnalytics.sendMessageReadEvent(mReadingNotification.getApplicationName());
         mReadingNotification = null;
         //通知読み上げ終了
         mPrepareReadCase.finish();

@@ -31,11 +31,16 @@ public class AnalyticsSharedPreference {
         KEY_ALEXA_USE_LAST_SENT_DATE("key_alexa_use_last_sent_date"),
         KEY_ALEXA_LANGUAGE_SENT("key_alexa_language_sent"),
         KEY_SETTING_FX_EQUALIZER_SENT("key_setting_fx_equalizer_sent"),
+        KEY_SETTING_FX_EQUALIZER_LAST_SENT_DATE("key_setting_fx_equalizer_last_sent_date"),
         KEY_SETTING_FX_LIVE_SIMULATION_SFC_SENT("key_setting_fx_live_simulation_sfc_sent"),
         KEY_SETTING_FX_LIVE_SIMULATION_SE_SENT("key_setting_fx_live_simulation_se_sent"),
+        KEY_SETTING_FX_LIVE_SIMULATION_LAST_SENT_DATE("key_setting_fx_live_simulation_last_sent_date"),
         KEY_SETTING_FX_SUPER_TODOROKI_SENT("key_setting_fx_super_todoroki_sent"),
+        KEY_SETTING_FX_SUPER_TODOROKI_LAST_SENT_DATE("key_setting_fx_super_todoroki_last_sent_date"),
         KEY_SETTING_FX_EASY_SOUND_FIT_SENT("key_setting_fx_easy_sound_fit_sent"),
+        KEY_SETTING_FX_EASY_SOUND_FIT_LAST_SENT_DATE("key_setting_fx_easy_sound_fit_last_sent_date"),
         KEY_SETTING_FX_TIME_ALIGNMENT_SENT("key_setting_fx_time_alignment_sent"),
+        KEY_SETTING_FX_TIME_ALIGNMENT_LAST_SENT_DATE("key_setting_fx_time_alignment_last_sent_date"),
         ;
 
         /**/
@@ -52,10 +57,12 @@ public class AnalyticsSharedPreference {
         }
     }
 
+    private static final String DEFAULT_NAVI_APP_INSTALLED = "0000/00/00/00";
+    private static final String DEFAULT_NAVI_APP_SETTING = "0000/00/00/00";
+    private static final String DEFAULT_APP_INSTALLED = "0000";
     private static final boolean DEFAULT_YOUTUBE_LINK_USE = false;
-    private static final long DEFAULT_YOUTUBE_LINK_USE_LAST_SENT_DATE = 0;
+    private static final long DEFAULT_LAST_SENT_DATE = 0;//最終送信日時の初期値
     private static final boolean DEFAULT_ALEXA_USE = false;
-    private static final long DEFAULT_ALEXA_USE_LAST_SENT_DATE = 0;
     private static final String DEFAULT_ALEXA_LANGUAGE_SENT = null;
     private static final String DEFAULT_SETTING_FX_EQUALIZER_SENT = null;
     private static final String DEFAULT_SETTING_FX_LIVE_SIMULATION_SFC_SENT = null;
@@ -73,6 +80,60 @@ public class AnalyticsSharedPreference {
      */
     public AnalyticsSharedPreference(@NonNull SharedPreferences preferences) {
         mPreferences = checkNotNull(preferences);
+    }
+
+    /**
+     * ナビアプリの利用情報-インストールアプリ情報取得.
+     *
+     * @return {@code true}:ONにした　{@code false}:ONにしてない。
+     */
+    String getNaviAppsInstalled() {
+        return load(KeyConst.KEY_NAVI_APPS_INSTALLED, DEFAULT_NAVI_APP_INSTALLED);
+    }
+
+    /**
+     * ナビアプリの利用情報-インストールアプリ情報設定.
+     *
+     * @param value {@code true}:ONにした{@code false}:ONにしてない
+     */
+    void setNaviAppsInstalled(String value) {
+        save(KeyConst.KEY_NAVI_APPS_INSTALLED, value);
+    }
+
+    /**
+     * ナビアプリの利用情報-起動設定取得.
+     *
+     * @return String
+     */
+    String getNaviAppsSetting() {
+        return load(KeyConst.KEY_NAVI_APPS_SETTING, DEFAULT_NAVI_APP_SETTING);
+    }
+
+    /**
+     * ナビアプリの利用情報-起動設定.
+     *
+     * @param value 起動設定
+     */
+    void setNaviAppsSetting(String value) {
+        save(KeyConst.KEY_NAVI_APPS_SETTING, value);
+    }
+
+    /**
+     * ナビアプリの利用情報最終送信日時取得.
+     *
+     * @return String
+     */
+    long getNaviAppsLastSentDate() {
+        return load(KeyConst.KEY_NAVI_APPS_LAST_SENT_DATE, DEFAULT_LAST_SENT_DATE);
+    }
+
+    /**
+     * ナビアプリの利用情報最終送信日時設定.
+     *
+     * @param value 起動設定
+     */
+    void setNaviAppLastSentDate(long value) {
+        save(KeyConst.KEY_NAVI_APPS_LAST_SENT_DATE, value);
     }
 
     /**
@@ -99,7 +160,7 @@ public class AnalyticsSharedPreference {
      * @return long 日時
      */
     long getYoutubeLinkUseLastSentDate() {
-        return load(KeyConst.KEY_YOUTUBE_LINK_USE_LAST_SENT_DATE, DEFAULT_YOUTUBE_LINK_USE_LAST_SENT_DATE);
+        return load(KeyConst.KEY_YOUTUBE_LINK_USE_LAST_SENT_DATE, DEFAULT_LAST_SENT_DATE);
     }
 
     /**
@@ -135,7 +196,7 @@ public class AnalyticsSharedPreference {
      * @return long 日時
      */
     long getAlexaUseLastSentDate() {
-        return load(KeyConst.KEY_ALEXA_USE_LAST_SENT_DATE, DEFAULT_ALEXA_USE_LAST_SENT_DATE);
+        return load(KeyConst.KEY_ALEXA_USE_LAST_SENT_DATE, DEFAULT_LAST_SENT_DATE);
     }
 
     /**
@@ -196,6 +257,24 @@ public class AnalyticsSharedPreference {
     }
 
     /**
+     * Fx設定-EQ設定最終送信日時取得.
+     *
+     * @return long 日時
+     */
+    long getFxEqualizerLastSentDate() {
+        return load(KeyConst.KEY_SETTING_FX_EQUALIZER_LAST_SENT_DATE, DEFAULT_LAST_SENT_DATE);
+    }
+
+    /**
+     * Fx設定-EQ設定最終送信日時設定.
+     *
+     * @param value 日時
+     */
+    void setFxEqualizerLastSentDate(long value) {
+        save(KeyConst.KEY_SETTING_FX_EQUALIZER_LAST_SENT_DATE, value);
+    }
+
+    /**
      * Fx設定-ライブシミュレーションSFC設定前回送信値取得.
      *
      * @return SoundFieldControlSettingType 設定
@@ -241,6 +320,24 @@ public class AnalyticsSharedPreference {
      */
     void setFxLiveSimulationSeSent(SoundEffectSettingType value) {
         save(KeyConst.KEY_SETTING_FX_LIVE_SIMULATION_SE_SENT, value.name());
+    }
+
+    /**
+     * Fx設定-ライブシミュレーション設定最終送信日時取得.
+     *
+     * @return long 日時
+     */
+    long getFxLiveSimulationLastSentDate() {
+        return load(KeyConst.KEY_SETTING_FX_LIVE_SIMULATION_LAST_SENT_DATE, DEFAULT_LAST_SENT_DATE);
+    }
+
+    /**
+     * Fx設定-ライブシミュレーション設定最終送信日時設定.
+     *
+     * @param value 日時
+     */
+    void setFxLiveSimulationLastSentDate(long value) {
+        save(KeyConst.KEY_SETTING_FX_LIVE_SIMULATION_LAST_SENT_DATE, value);
     }
 
     /**
