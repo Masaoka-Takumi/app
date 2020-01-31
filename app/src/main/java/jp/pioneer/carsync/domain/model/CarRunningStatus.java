@@ -35,6 +35,9 @@ public class CarRunningStatus {
     /** 平均速度[km/h]. */
     public double averageSpeed;
 
+    /** メッシュコード. */
+    public int meshCode;
+
     /**
      * コンストラクタ.
      */
@@ -46,6 +49,7 @@ public class CarRunningStatus {
         bearing = -1.0f;
         altitude = Double.MIN_VALUE;
         averageSpeed = -1;
+        meshCode = -1;
     }
 
     /**
@@ -61,6 +65,7 @@ public class CarRunningStatus {
                 .add("bearing", bearing)
                 .add("altitude", altitude)
                 .add("averageSpeed", averageSpeed)
+                .add("meshCode", meshCode)
                 .toString();
     }
 }

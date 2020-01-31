@@ -21,11 +21,13 @@ import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.content.TunerContract;
 import jp.pioneer.carsync.domain.event.ListInfoChangeEvent;
+import jp.pioneer.carsync.domain.event.LocationMeshCodeChangeEvent;
 import jp.pioneer.carsync.domain.interactor.ControlMediaList;
 import jp.pioneer.carsync.domain.interactor.ControlRadioSource;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.interactor.QueryTunerItem;
 import jp.pioneer.carsync.domain.interactor.SelectRadioFavorite;
+import jp.pioneer.carsync.domain.model.CarDeviceDestinationInfo;
 import jp.pioneer.carsync.domain.model.DabBandType;
 import jp.pioneer.carsync.domain.model.HdRadioBandType;
 import jp.pioneer.carsync.domain.model.HdRadioInfo;
@@ -44,6 +46,7 @@ import jp.pioneer.carsync.presentation.model.AbstractPresetItem;
 import jp.pioneer.carsync.presentation.model.RadioPresetItem;
 import jp.pioneer.carsync.presentation.model.SxmPresetItem;
 import jp.pioneer.carsync.presentation.util.FrequencyUtil;
+import jp.pioneer.carsync.presentation.util.RadioTextUtil;
 import jp.pioneer.carsync.presentation.view.RadioPresetView;
 
 /**
@@ -183,6 +186,10 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
                 TunerFrequencyUnit unit = TunerContract.ListItemContract.Radio.getFrequencyUnit(data);
                 String freqName = FrequencyUtil.toString(mContext, frequency, unit);
                 String name = TunerContract.ListItemContract.Radio.getText(data);
+                //連携中の車載機がJP仕向けで位置情報と周波数に対応する放送局名がある場合、放送局名を表示する
+                if(mPreference.getLastConnectedCarDeviceDestination()== CarDeviceDestinationInfo.JP.code){
+                    name = RadioTextUtil.getPsInfoForListJP(holder.getCarRunningStatus(), band, frequency);
+                }
                 boolean selected = false;
                 RadioInfo currRadio = holder.getCarDeviceMediaInfoHolder().radioInfo;
                 if (band==currRadio.getBand()&&freqName.equals(FrequencyUtil.toString(mContext, currRadio.currentFrequency, currRadio.frequencyUnit))) {
@@ -324,6 +331,17 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
             updateSelected();
         }else if(mSourceType == MediaSourceType.DAB) {
             updateFocus();
+        }
+    }
+
+    /**
+     * LocationMeshCodeChangeEventハンドラ
+     * @param event LocationMeshCodeChangeEvent
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLocationMeshCodeChangeEvent(LocationMeshCodeChangeEvent event) {
+        if(mSourceType == MediaSourceType.RADIO) {
+            updatePresetList();
         }
     }
 

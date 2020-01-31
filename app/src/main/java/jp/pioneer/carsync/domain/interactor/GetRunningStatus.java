@@ -19,13 +19,17 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.ForDomain;
 import jp.pioneer.carsync.application.di.ForInfrastructure;
 import jp.pioneer.carsync.domain.component.BearingProvider;
 import jp.pioneer.carsync.domain.component.LocationProvider;
 import jp.pioneer.carsync.domain.component.Resolver;
+import jp.pioneer.carsync.domain.event.LocationMeshCodeChangeEvent;
+import jp.pioneer.carsync.domain.model.CarDeviceDestinationInfo;
 import jp.pioneer.carsync.domain.model.CarRunningStatus;
 import jp.pioneer.carsync.domain.model.StatusHolder;
+import jp.pioneer.carsync.presentation.util.RadioStationNameUtil;
 import timber.log.Timber;
 
 /**
@@ -55,6 +59,7 @@ public class GetRunningStatus {
     @Inject LocationProvider mLocationProvider;
     @Inject BearingProvider mBearingProvider;
     @Inject EventBus mEventBus;
+    @Inject AppSharedPreference mPreference;
     private SpeedObservationTask mSpeedObservationTask = new SpeedObservationTask();
     private SpeedMeterUpdateTask mSpeedMeterUpdateTask = new SpeedMeterUpdateTask();
 
@@ -75,7 +80,7 @@ public class GetRunningStatus {
     public void start() {
         mLocationProvider.startGetCurrentLocation(PRIORITY, mLocationCallback, LocationProvider.GetType.CONTINUOUS);
         mBearingProvider.startGetBearing(mBearingCallback);
-        mSpeedObservationTask.start();
+        mSpeedObservationTask.start(mPreference.getLastConnectedCarDeviceDestination() == CarDeviceDestinationInfo.JP.code);
         mSpeedMeterUpdateTask.start();
     }
 
@@ -165,9 +170,11 @@ public class GetRunningStatus {
         private double mAverageSpeed = -1;
         private ArrayList<Double> mMinuteSpeeds = new ArrayList<>();
         private ArrayList<Double> mMinuteAverageSpeeds = new ArrayList<>();
+        private boolean mGetMeshCode = false;
 
         /** 開始. */
-        void start() {
+        void start(boolean getMeshCode) {
+            mGetMeshCode = getMeshCode;
             mHandler.postDelayed(this, DELAY_TIME);
             mIsStop = false;
         }
@@ -201,6 +208,15 @@ public class GetRunningStatus {
                 CarRunningStatus status = mStatusHolder.getCarRunningStatus();
                 status.latitude = location.getLatitude();
                 status.longitude = location.getLongitude();
+
+                if(mGetMeshCode) {
+                    //メッシュコード変更監視
+                    int meshCode = RadioStationNameUtil.getMeshCode(status);
+                    if (status.meshCode != meshCode) {
+                        status.meshCode = meshCode;
+                        mEventBus.post(new LocationMeshCodeChangeEvent());
+                    }
+                }
 
                 //ジオイド高取得所要時間は1ms以下
                 mGeoidOffset = Geoid.getOffset(new org.matthiaszimmermann.location.Location(status.latitude, status.longitude));
@@ -261,7 +277,7 @@ public class GetRunningStatus {
             }
 
             if (!mIsStop) {
-                start();
+                start(mGetMeshCode);
             }
         }
 

@@ -40,6 +40,7 @@ import jp.pioneer.carsync.domain.event.BtAudioInfoChangeEvent;
 import jp.pioneer.carsync.domain.event.CdInfoChangeEvent;
 import jp.pioneer.carsync.domain.event.DabInfoChangeEvent;
 import jp.pioneer.carsync.domain.event.HdRadioInfoChangeEvent;
+import jp.pioneer.carsync.domain.event.LocationMeshCodeChangeEvent;
 import jp.pioneer.carsync.domain.event.MediaSourceTypeChangeEvent;
 import jp.pioneer.carsync.domain.event.NotificationListenerServiceConnectedEvent;
 import jp.pioneer.carsync.domain.event.PandoraInfoChangeEvent;
@@ -687,7 +688,7 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
         mCurrRadio = mediaHolder.radioInfo;
         mRadioBand = mCurrRadio.band;
         Optional.ofNullable(getView()).ifPresent(view -> {
-            view.setMusicTitle(RadioTextUtil.getPsInfoForMiniPlayer(mContext, status, mCurrRadio));
+            view.setMusicTitle(RadioTextUtil.getPsInfoForPlayer(mContext,mPreference.getLastConnectedCarDeviceDestination(), mGetCase.execute().getCarRunningStatus(), mCurrRadio));
             view.setRadioInfo(status, mCurrRadio);
         });
         getPch();
@@ -1188,6 +1189,16 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
         setAdasIcon();
     }
 
+    /**
+     * LocationMeshCodeChangeEventハンドラ
+     * @param event LocationMeshCodeChangeEvent
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLocationMeshCodeChangeEvent(LocationMeshCodeChangeEvent event) {
+        if (mSourceType == MediaSourceType.RADIO) {
+            updateRadioView();
+        }
+    }
     private void setAdasIcon(){
         Optional.ofNullable(getView()).ifPresent(view -> {
             int status = 0;

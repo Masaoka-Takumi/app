@@ -153,7 +153,9 @@ public class ImpactDetectionSettingsFragment extends AbstractPreferenceFragment<
 
     @Override
     public void onPositiveClick(StatusPopupDialogFragment fragment, String tag) {
-        if (tag.equals(ImpactDetectionSettingsPresenter.DIALOG_TAG)) {
+        if (tag.equals(ImpactDetectionSettingsPresenter.DIALOG_TAG_CONTACT_ALERT)) {
+            getPresenter().showContactConfirmDialog();
+        }else if(tag.equals(ImpactDetectionSettingsPresenter.DIALOG_TAG_CONTACT_CONFIRM)){
             checkPermission();
         }
     }
