@@ -7,7 +7,7 @@ android {
         applicationId "jp.pioneer.carsync"
         minSdkVersion project.ext.minSdkVersion
         targetSdkVersion project.ext.targetSdkVersion
-        versionCode 19
+        versionCode 20
         versionName "2.7.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
@@ -37,7 +37,7 @@ android {
             // Android Studio 3.5よりDSL要素「useProguard」は廃止されており、まもなく削除されます。 gradle.propertiesで「android.enableR8」を使用して、R8とProguardを切り替えます。
             //useProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardDebug-rules.pro'
-            versionNameSuffix '.0' // debugバージョン
+            versionNameSuffix '.1' // debugバージョン
             pseudoLocalesEnabled true
         }
         unitTest {
