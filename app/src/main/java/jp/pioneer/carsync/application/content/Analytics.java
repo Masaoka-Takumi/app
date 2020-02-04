@@ -356,4 +356,24 @@ public class Analytics {
                 .with(AnalyticsParam.pref1, pref1)
                 .submit();
     }
+
+    void logFXLiveSimulationEvent(String pref1,String pref2) {
+        createEventSubmitterWithCommonEventParam(AnalyticsEvent.fxLiveSimulation)
+                .with(AnalyticsParam.pref1, pref1)
+                .with(AnalyticsParam.pref2, pref2)
+                .submit();
+    }
+
+    void logFXSuperTodorokiEvent(String pref1) {
+        createEventSubmitterWithCommonEventParam(AnalyticsEvent.fxSuperTodoroki)
+                .with(AnalyticsParam.pref1, pref1)
+                .submit();
+    }
+
+    void logFXTimeAlignmentEvent(String pref1,String pref2) {
+        createEventSubmitterWithCommonEventParam(AnalyticsEvent.fxTimeAlignment)
+                .with(AnalyticsParam.pref1, pref1)
+                .with(AnalyticsParam.pref2, pref2)
+                .submit();
+    }
 }

@@ -110,6 +110,7 @@ import jp.pioneer.carsync.infrastructure.crp.event.CrpSessionStartedEvent;
 import jp.pioneer.carsync.infrastructure.crp.event.CrpSessionStoppedEvent;
 import jp.pioneer.carsync.presentation.event.AlexaRenderPlayerInfoUpdateEvent;
 import jp.pioneer.carsync.presentation.event.AlexaVoiceRecognizeEvent;
+import jp.pioneer.carsync.presentation.event.MessageReadFinishedEvent;
 import jp.pioneer.carsync.presentation.event.SessionCompletedEvent;
 import jp.pioneer.carsync.presentation.event.SourceChangeReasonEvent;
 import jp.pioneer.carsync.presentation.event.StartGetRunningStatusEvent;
@@ -1010,7 +1011,7 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
     @Override
     public void onSpeakDone() {
         Timber.i("ReadNotificationPresenter.onSpeakDone");
-        mAnalytics.sendMessageReadEvent(mReadingNotification.getApplicationName());
+        mEventBus.post(new MessageReadFinishedEvent(mReadingNotification.getPackageName()));
         mReadingNotification = null;
         //通知読み上げ終了
         mPrepareReadCase.finish();

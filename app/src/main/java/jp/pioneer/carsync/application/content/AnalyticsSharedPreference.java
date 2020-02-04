@@ -8,6 +8,7 @@ import jp.pioneer.carsync.domain.model.AlexaLanguageType;
 import jp.pioneer.carsync.domain.model.LiveSimulationSetting;
 import jp.pioneer.carsync.domain.model.SmallCarTaSettingType;
 import jp.pioneer.carsync.domain.model.SoundEffectSettingType;
+import jp.pioneer.carsync.domain.model.SoundEffectType;
 import jp.pioneer.carsync.domain.model.SoundFieldControlSettingType;
 import jp.pioneer.carsync.domain.model.SoundFxSettingEqualizerType;
 import jp.pioneer.carsync.domain.model.SuperTodorokiSetting;
@@ -18,12 +19,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class AnalyticsSharedPreference {
     /* キーの設定 */
     enum KeyConst {
-        KEY_NAVI_APPS_INSTALLED("key_navi_apps_installed"),
-        KEY_NAVI_APPS_SETTING("key_navi_apps_setting"),
+        KEY_NAVI_APPS_INSTALLED_SENT("key_navi_apps_installed_sent"),
+        KEY_NAVI_APPS_SETTING_SENT("key_navi_apps_setting_sent"),
         KEY_NAVI_APPS_LAST_SENT_DATE("key_navi_apps_last_sent_date"),
-        KEY_MESSAGE_APPS_INSTALLED("key_message_apps_installed"),
+        KEY_MESSAGE_APPS_INSTALLED_SENT("key_message_apps_installed_sent"),
         KEY_MESSAGE_APPS_LAST_SENT_DATE("key_message_apps_last_sent_date"),
-        KEY_MUSIC_APPS_INSTALLED("key_music_apps_installed"),
+        KEY_MUSIC_APPS_INSTALLED_SENT("key_music_apps_installed_sent"),
         KEY_MUSIC_APPS_LAST_SENT_DATE("key_music_apps_last_sent_date"),
         KEY_YOUTUBE_LINK_USE("key_youtube_link_use"),
         KEY_YOUTUBE_LINK_USE_LAST_SENT_DATE("key_youtube_link_use_last_sent_date"),
@@ -83,45 +84,45 @@ public class AnalyticsSharedPreference {
     }
 
     /**
-     * ナビアプリの利用情報-インストールアプリ情報取得.
+     * ナビアプリの利用情報-インストールアプリ情報前回送信値取得.
      *
-     * @return {@code true}:ONにした　{@code false}:ONにしてない。
+     * @return apps
      */
     String getNaviAppsInstalled() {
-        return load(KeyConst.KEY_NAVI_APPS_INSTALLED, DEFAULT_NAVI_APP_INSTALLED);
+        return load(KeyConst.KEY_NAVI_APPS_INSTALLED_SENT, DEFAULT_NAVI_APP_INSTALLED);
     }
 
     /**
-     * ナビアプリの利用情報-インストールアプリ情報設定.
+     * ナビアプリの利用情報-インストールアプリ情報前回送信値設定.
      *
-     * @param value {@code true}:ONにした{@code false}:ONにしてない
+     * @param value apps
      */
     void setNaviAppsInstalled(String value) {
-        save(KeyConst.KEY_NAVI_APPS_INSTALLED, value);
+        save(KeyConst.KEY_NAVI_APPS_INSTALLED_SENT, value);
     }
 
     /**
-     * ナビアプリの利用情報-起動設定取得.
+     * ナビアプリの利用情報-起動設定前回送信値取得.
      *
      * @return String
      */
     String getNaviAppsSetting() {
-        return load(KeyConst.KEY_NAVI_APPS_SETTING, DEFAULT_NAVI_APP_SETTING);
+        return load(KeyConst.KEY_NAVI_APPS_SETTING_SENT, DEFAULT_NAVI_APP_SETTING);
     }
 
     /**
-     * ナビアプリの利用情報-起動設定.
+     * ナビアプリの利用情報-起動前回送信値設定.
      *
      * @param value 起動設定
      */
     void setNaviAppsSetting(String value) {
-        save(KeyConst.KEY_NAVI_APPS_SETTING, value);
+        save(KeyConst.KEY_NAVI_APPS_SETTING_SENT, value);
     }
 
     /**
      * ナビアプリの利用情報最終送信日時取得.
      *
-     * @return String
+     * @return 日時
      */
     long getNaviAppsLastSentDate() {
         return load(KeyConst.KEY_NAVI_APPS_LAST_SENT_DATE, DEFAULT_LAST_SENT_DATE);
@@ -130,10 +131,84 @@ public class AnalyticsSharedPreference {
     /**
      * ナビアプリの利用情報最終送信日時設定.
      *
-     * @param value 起動設定
+     * @param value 日時
      */
     void setNaviAppLastSentDate(long value) {
         save(KeyConst.KEY_NAVI_APPS_LAST_SENT_DATE, value);
+    }
+
+
+    /**
+     * メッセージアプリの利用情報-インストールアプリ情報前回送信値取得.
+     *
+     * @return apps
+     */
+    String getMessageAppsInstalled() {
+        return load(KeyConst.KEY_MESSAGE_APPS_INSTALLED_SENT, DEFAULT_APP_INSTALLED);
+    }
+
+    /**
+     * メッセージアプリの利用情報-インストールアプリ情報前回送信値設定.
+     *
+     * @param value apps
+     */
+    void setMessageAppsInstalled(String value) {
+        save(KeyConst.KEY_MESSAGE_APPS_INSTALLED_SENT, value);
+    }
+
+    /**
+     * メッセージアプリの利用情報最終送信日時取得.
+     *
+     * @return 日時
+     */
+    long getMessageAppsLastSentDate() {
+        return load(KeyConst.KEY_NAVI_APPS_LAST_SENT_DATE, DEFAULT_LAST_SENT_DATE);
+    }
+
+    /**
+     * メッセージアプリの利用情報最終送信日時設定.
+     *
+     * @param value 日時
+     */
+    void setMessageAppLastSentDate(long value) {
+        save(KeyConst.KEY_NAVI_APPS_LAST_SENT_DATE, value);
+    }
+
+
+    /**
+     * ミュージックアプリの利用情報-インストールアプリ情報前回送信値取得.
+     *
+     * @return apps
+     */
+    String getMusicAppsInstalled() {
+        return load(KeyConst.KEY_MUSIC_APPS_INSTALLED_SENT, DEFAULT_APP_INSTALLED);
+    }
+
+    /**
+     * ミュージックアプリの利用情報-インストールアプリ情報前回送信値設定.
+     *
+     * @param value apps
+     */
+    void setMusicAppsInstalled(String value) {
+        save(KeyConst.KEY_MUSIC_APPS_INSTALLED_SENT, value);
+    }
+
+    /**
+     * ミュージックアプリの利用情報最終送信日時取得.
+     *
+     * @return 日時
+     */
+    long getMusicAppsLastSentDate() {
+        return load(KeyConst.KEY_MESSAGE_APPS_LAST_SENT_DATE, DEFAULT_LAST_SENT_DATE);
+    }
+
+    /**
+     * ミュージックアプリの利用情報最終送信日時設定.
+     *
+     * @param value 日時
+     */
+    void setMusicAppLastSentDate(long value) {
+        save(KeyConst.KEY_MESSAGE_APPS_LAST_SENT_DATE, value);
     }
 
     /**
@@ -209,7 +284,7 @@ public class AnalyticsSharedPreference {
     }
 
     /**
-     * Alexa機能設定が一度でもログインに成功したか否か取得.
+     * Alexa言語設定前回送信値取得.
      *
      * @return AlexaLanguageType 設定
      */
@@ -224,12 +299,30 @@ public class AnalyticsSharedPreference {
     }
 
     /**
-     * Alexa機能設定が一度でもログインに成功したか設定.
+     * Alexa言語設定前回送信値設定.
      *
      * @param value AlexaLanguageType
      */
     void setAlexaLanguageSent(AlexaLanguageType value) {
         save(KeyConst.KEY_ALEXA_LANGUAGE_SENT, value.name());
+    }
+
+    /**
+     * Alexa言語設定最終送信日時取得.
+     *
+     * @return long 日時
+     */
+    long getAlexaLanguageLastSentDate() {
+        return load(KeyConst.KEY_ALEXA_USE_LAST_SENT_DATE, DEFAULT_LAST_SENT_DATE);
+    }
+
+    /**
+     * Alexa言語設定最終送信日時設定.
+     *
+     * @param value 日時
+     */
+    void setAlexaLanguageLastSentDate(long value) {
+        save(KeyConst.KEY_ALEXA_USE_LAST_SENT_DATE, value);
     }
 
     /**
@@ -304,12 +397,12 @@ public class AnalyticsSharedPreference {
      * @return SoundFieldControlSettingType 設定
      */
     @Nullable
-    SoundEffectSettingType getFxLiveSimulationSeSent() {
+    SoundEffectType getFxLiveSimulationSeSent() {
         String name = load(KeyConst.KEY_SETTING_FX_LIVE_SIMULATION_SE_SENT, DEFAULT_SETTING_FX_LIVE_SIMULATION_SE_SENT);
         if (name == null) {
             return null;
         } else {
-            return SoundEffectSettingType.valueOf(name);
+            return SoundEffectType.valueOf(name);
         }
     }
 
@@ -318,7 +411,7 @@ public class AnalyticsSharedPreference {
      *
      * @param value 設定
      */
-    void setFxLiveSimulationSeSent(SoundEffectSettingType value) {
+    void setFxLiveSimulationSeSent(SoundEffectType value) {
         save(KeyConst.KEY_SETTING_FX_LIVE_SIMULATION_SE_SENT, value.name());
     }
 
@@ -362,6 +455,24 @@ public class AnalyticsSharedPreference {
      */
     void setFxSuperTodorokiSent(SuperTodorokiSetting value) {
         save(KeyConst.KEY_SETTING_FX_SUPER_TODOROKI_SENT, value.name());
+    }
+
+    /**
+     * Fx設定-スーパー轟設定最終送信日時取得.
+     *
+     * @return long 日時
+     */
+    long getFxSuperTodorokiLastSentDate() {
+        return load(KeyConst.KEY_SETTING_FX_SUPER_TODOROKI_LAST_SENT_DATE, DEFAULT_LAST_SENT_DATE);
+    }
+
+    /**
+     * Fx設定-スーパー轟設定最終送信日時設定.
+     *
+     * @param value 日時
+     */
+    void setFxSuperTodorokiLastSentDate(long value) {
+        save(KeyConst.KEY_SETTING_FX_SUPER_TODOROKI_LAST_SENT_DATE, value);
     }
 
     /**
@@ -410,6 +521,24 @@ public class AnalyticsSharedPreference {
      */
     void setFxTimeAlignmentSent(TimeAlignmentSettingMode value) {
         save(KeyConst.KEY_SETTING_FX_TIME_ALIGNMENT_SENT, value.name());
+    }
+
+    /**
+     * Fx設定-TA設定最終送信日時取得.
+     *
+     * @return long 日時
+     */
+    long getFxTimeAlignmentLastSentDate() {
+        return load(KeyConst.KEY_SETTING_FX_TIME_ALIGNMENT_LAST_SENT_DATE, DEFAULT_LAST_SENT_DATE);
+    }
+
+    /**
+     * Fx設定-TA設定最終送信日時設定.
+     *
+     * @param value 日時
+     */
+    void setFxTimeAlignmentLastSentDate(long value) {
+        save(KeyConst.KEY_SETTING_FX_TIME_ALIGNMENT_LAST_SENT_DATE, value);
     }
 
     /**
