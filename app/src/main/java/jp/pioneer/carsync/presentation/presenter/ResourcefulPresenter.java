@@ -408,7 +408,6 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
         if (mAmazonAlexaManager != null) {
             mAmazonAlexaManager.onActivityPause();
         }
-        mAnalytics.finishAnalytics();
     }
 
     /**
