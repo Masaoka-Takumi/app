@@ -69,7 +69,7 @@ public enum SoundFxSettingEqualizerType {
      * @param code プロトコルでの定義値
      * @param label 表示用文字列リソースID
      */
-    SoundFxSettingEqualizerType(int code, @StringRes int label,String strValue){
+    SoundFxSettingEqualizerType(int code, @StringRes int label, String strValue){
         this.code = code;
         this.label = label;
         this.strValue = strValue;
@@ -92,6 +92,13 @@ public enum SoundFxSettingEqualizerType {
     @StringRes
     public int getLabel() {
         return label;
+    }
+
+    /**
+     * Analytics用文字列取得.
+     */
+    public String getAnalyticsStr() {
+        return strValue;
     }
 
     /**

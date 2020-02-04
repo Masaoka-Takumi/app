@@ -10,34 +10,36 @@ import jp.pioneer.carsync.infrastructure.crp.util.PacketUtil;
  */
 public enum SuperTodorokiSetting {
     /** OFF. */
-    OFF(0x00, R.string.com_001),
+    OFF(0x00, R.string.com_001,"OFF"),
     /** LOW. */
-    LOW(0x01, R.string.set_127),
+    LOW(0x01, R.string.set_127,"LOW"),
     /** HIGH. */
-    HIGH(0x02, R.string.set_088),
+    HIGH(0x02, R.string.set_088,"HIGH"),
     /** SUPER HIGH */
-    SUPER_HIGH(0x03, R.string.set_207),
+    SUPER_HIGH(0x03, R.string.set_207,"SUPER HIGH"),
     /**
      * LAST.
      *
      * 車載機で覚えているLAST値に設定するためのもので設定専用。
      */
-    LAST(0x0F, R.string.unknown), // 画面には表示しないので適用なIDを使用しておく
+    LAST(0x0F, R.string.unknown,"Unknown"), // 画面には表示しないので適用なIDを使用しておく
     ;
 
     /** プロトコルでの定義値. */
     public final int code;
     /** 表示用文字列リソースID. */
     @StringRes public final int label;
-
+    /** Analytics用文字列. */
+    public final String strValue;
     /**
      * コンストラクタ.
      *
      * @param code プロトコルでの定義値
      */
-    SuperTodorokiSetting(int code, @StringRes int label) {
+    SuperTodorokiSetting(int code, @StringRes int label, String strValue) {
         this.code = code;
         this.label = label;
+        this.strValue = strValue;
     }
 
     /**
@@ -57,6 +59,13 @@ public enum SuperTodorokiSetting {
     @StringRes
     public int getLabel() {
         return label;
+    }
+
+    /**
+     * Analytics用文字列取得.
+     */
+    public String getAnalyticsStr() {
+        return strValue;
     }
 
     /**

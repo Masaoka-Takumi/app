@@ -13,37 +13,37 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public enum MarinApp implements BaseApp{
     /** Buoyweather. */
-    BUOY_WEATHER("com.buoyweather.android", MarinAppCategory.WEATHER),
+    BUOY_WEATHER("com.buoyweather.android", MarinAppCategory.WEATHER, 1),
     /** AccuWeather: Weather Alerts. */
-    ACCU_WEATHER("com.accuweather.android", MarinAppCategory.WEATHER),
+    ACCU_WEATHER("com.accuweather.android", MarinAppCategory.WEATHER, 2),
     /** WeatherBug - Radar, Forecast. */
-    WEATHER_BUG("com.aws.android", MarinAppCategory.WEATHER),
+    WEATHER_BUG("com.aws.android", MarinAppCategory.WEATHER, 3),
     /** MyRadar NOAA Weather Radar. */
-    MYRADAR_NOAA("com.acmeaom.android.myradar", MarinAppCategory.WEATHER),
+    MYRADAR_NOAA("com.acmeaom.android.myradar", MarinAppCategory.WEATHER, 4),
     /** The Weather chanel: Forecast. */
-    THE_WEATHER_CHANEL("com.weather.Weather", MarinAppCategory.WEATHER),
+    THE_WEATHER_CHANEL("com.weather.Weather", MarinAppCategory.WEATHER, 5),
     /** NOAA Radar - Weather & Alerts. */
-    NOAA_RADAR("com.apalon.weatherradar.free", MarinAppCategory.WEATHER),
+    NOAA_RADAR("com.apalon.weatherradar.free", MarinAppCategory.WEATHER, 6),
     /** Tide Charts. */
-    TIDE_CHARTS("com.SeventhGear.tides", MarinAppCategory.BOATING),
+    TIDE_CHARTS("com.SeventhGear.tides", MarinAppCategory.BOATING, 1),
     /** WINDY - wind & waves forecast. */
-    WINDY("co.windyapp.android", MarinAppCategory.BOATING),
+    WINDY("co.windyapp.android", MarinAppCategory.BOATING, 2),
     /** Windy.com. */
-    WINDY_COM("com.windyty.android", MarinAppCategory.BOATING),
+    WINDY_COM("com.windyty.android", MarinAppCategory.BOATING, 4),
     /** Ship Finder. */
-    SHIP_FINDER("com.pinkfroot.shipfinder", MarinAppCategory.BOATING),
+    SHIP_FINDER("com.pinkfroot.shipfinder", MarinAppCategory.BOATING, 5),
     /** Boating Marine & Lakes. */
-    BOATING_LAKES("it.navionics.singleAppMarineLakes", MarinAppCategory.BOATING),
+    BOATING_LAKES("it.navionics.singleAppMarineLakes", MarinAppCategory.BOATING, 7),
     /** Fishbrain - Fishing App. */
-    FISHBRAIN("com.fishbrain.app", MarinAppCategory.FISHING),
+    FISHBRAIN("com.fishbrain.app", MarinAppCategory.FISHING, 1),
     /** FishTrack - Charts & Forecasts. */
-    FISH_TRACK("com.fishtrack.android", MarinAppCategory.FISHING),
+    FISH_TRACK("com.fishtrack.android", MarinAppCategory.FISHING, 4),
     /** Pro Angler - Fishing App. */
-    PRO_ANGLER("us.openocean.proangler", MarinAppCategory.FISHING),
+    PRO_ANGLER("us.openocean.proangler", MarinAppCategory.FISHING, 5),
     ;
     private String mPackageName;
     private MarinAppCategory mCategory;
-
+    private int mNumber;
     /**
      * パッケージ名から{@link NaviApp}取得.
      *
@@ -92,9 +92,10 @@ public enum MarinApp implements BaseApp{
      * @param packageName パッケージ名
      * @param category カテゴリー
      */
-    MarinApp(String packageName, MarinAppCategory category) {
+    MarinApp(String packageName, MarinAppCategory category, int number) {
         mPackageName = packageName;
         mCategory = category;
+        mNumber = number;
     }
 
     /**
@@ -115,6 +116,10 @@ public enum MarinApp implements BaseApp{
     @NonNull
     public MarinAppCategory getCategory() {
         return mCategory;
+    }
+
+    public int getNumber() {
+        return mNumber;
     }
 
     /**

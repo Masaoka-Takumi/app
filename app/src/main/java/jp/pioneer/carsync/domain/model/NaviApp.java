@@ -23,7 +23,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public enum NaviApp implements BaseApp{
     /** Google Maps. */
-    GOOGLE_MAP("com.google.android.apps.maps") {
+    GOOGLE_MAP("com.google.android.apps.maps",1) {
         /**
          * {@inheritDoc}
          */
@@ -38,11 +38,11 @@ public enum NaviApp implements BaseApp{
         }
     },
     /** Here WeGo. */
-    HERE_WE_GO("com.here.app.maps"),
+    HERE_WE_GO("com.here.app.maps",4),
     /** INRIX. */
-    INRIX("inrix.android.ui"),
+    INRIX("inrix.android.ui",5),
     /** Sygic. */
-    SYGIC("com.sygic.aura") {
+    SYGIC("com.sygic.aura",6) {
         /**
          * {@inheritDoc}
          */
@@ -57,7 +57,7 @@ public enum NaviApp implements BaseApp{
         }
     },
     /** Waze. */
-    WAZE("com.waze") {
+    WAZE("com.waze",2) {
         /**
          * {@inheritDoc}
          */
@@ -72,9 +72,9 @@ public enum NaviApp implements BaseApp{
         }
     },
     /** Yahoo カーナビ. */
-    YAHOO_CAR_NAVI("jp.co.yahoo.android.apps.navi"),
+    YAHOO_CAR_NAVI("jp.co.yahoo.android.apps.navi",7),
     /** Yandex. */
-    YANDEX("ru.yandex.yandexnavi") {
+    YANDEX("ru.yandex.yandexnavi",3) {
         /**
          * {@inheritDoc}
          */
@@ -99,7 +99,7 @@ public enum NaviApp implements BaseApp{
         }
     },
     /** NAVITIME ドライブサポーター. */
-    NAVITIME_DRIVE("com.navitime.local.navitimedrive") {
+    NAVITIME_DRIVE("com.navitime.local.navitimedrive",9) {
         /**
          * {@inheritDoc}
          */
@@ -140,7 +140,7 @@ public enum NaviApp implements BaseApp{
         }
     },
     /** カーナビタイム */
-    CAR_NAVI_TIME("com.navitime.local.carnavitime") {
+    CAR_NAVI_TIME("com.navitime.local.carnavitime",10) {
         /**
          * {@inheritDoc}
          */
@@ -181,7 +181,7 @@ public enum NaviApp implements BaseApp{
         }
     },
     /** ドコモ ドライブネットナビ（カーナビ） */
-    DRIVE_NET_NAVI("com.nttdocomo.android.drivenet.navi") {
+    DRIVE_NET_NAVI("com.nttdocomo.android.drivenet.navi",11) {
         /**
          * {@inheritDoc}
          */
@@ -202,7 +202,7 @@ public enum NaviApp implements BaseApp{
         }
     },
     /** MapFan */
-    MAP_FAN("jp.co.incrementp.mapfan.navi") {
+    MAP_FAN("jp.co.incrementp.mapfan.navi",12) {
         /**
          * {@inheritDoc}
          */
@@ -217,7 +217,7 @@ public enum NaviApp implements BaseApp{
         }
     },
     /** Uber Driver */
-    UBER_DRIVER("com.ubercab.driver"){
+    UBER_DRIVER("com.ubercab.driver",13){
         /**
          * {@inheritDoc}
          */
@@ -229,7 +229,7 @@ public enum NaviApp implements BaseApp{
         }
     },
     /** Lyft Driver */
-    LYFT_DRIVER("com.lyft.android.driver"){
+    LYFT_DRIVER("com.lyft.android.driver",14){
         /**
          * {@inheritDoc}
          */
@@ -285,14 +285,15 @@ public enum NaviApp implements BaseApp{
     }
 
     private String mPackageName;
-
+    private int mNumber;
     /**
      * コンストラクタ.
      *
      * @param packageName パッケージ名
      */
-    NaviApp(String packageName) {
+    NaviApp(String packageName, int number) {
         mPackageName = packageName;
+        mNumber = number;
     }
 
     /**
@@ -303,6 +304,10 @@ public enum NaviApp implements BaseApp{
     @NonNull
     public String getPackageName() {
         return mPackageName;
+    }
+
+    public int getNumber() {
+        return mNumber;
     }
 
     /**
