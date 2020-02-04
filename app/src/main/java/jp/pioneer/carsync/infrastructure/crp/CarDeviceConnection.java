@@ -127,15 +127,10 @@ public class CarDeviceConnection {
         }
 
         if (mAcceptThread == null) {
-            try {
-                BluetoothAdapter adapter = getDefaultBluetoothAdapter();
-                mAcceptThread = new AcceptThread(adapter);
-                mAcceptThread.start();
-                mStatusHolder.setTransportStatus(TransportStatus.BLUETOOTH_LISTENING);
-                mEventBus.post(new CrpStatusUpdateEvent());
-            } catch (IOException e) {
-                Timber.d("listenBluetoothSocket() " + e.getMessage());
-            }
+            mAcceptThread = new AcceptThread();
+            mAcceptThread.start();
+            mStatusHolder.setTransportStatus(TransportStatus.BLUETOOTH_LISTENING);
+            mEventBus.post(new CrpStatusUpdateEvent());
         }
     }
 
@@ -378,10 +373,7 @@ public class CarDeviceConnection {
     class AcceptThread extends Thread {
         private BluetoothServerSocket mServerSocket;
         private boolean mCanceled;
-
-        AcceptThread(BluetoothAdapter adapter) throws IOException {
-            mServerSocket = adapter.listenUsingRfcommWithServiceRecord(SERVICE_NAME, UUID_SPP);
-        }
+        private BluetoothAdapter mAdapter;
 
         @Override
         public void run() {
@@ -389,13 +381,24 @@ public class CarDeviceConnection {
 
             while (!mCanceled) {
                 try {
-                    Timber.d("run() Accept...");
+                    if (mAdapter == null) {
+                        mAdapter = BluetoothAdapter.getDefaultAdapter();
+                        Timber.d("run() bluetooth adapter initialize finished.");
+                    }
+                    mServerSocket = mAdapter.listenUsingRfcommWithServiceRecord(SERVICE_NAME, UUID_SPP);
+                    Timber.d("run() Accept... socket:" + mServerSocket.hashCode() +  " adapter:" + mAdapter.hashCode());
                     BluetoothSocket socket = mServerSocket.accept();
                     Timber.d("run() Accepted.");
                     connect(new BluetoothTransport(socket), TransportStatus.BLUETOOTH_CONNECTING);
                 } catch (IOException e) {
                     Timber.d("run() Failed to accept socket.");
-                    break;
+                    close();
+                } catch (NullPointerException e) {
+                    Timber.d("run() Failed to bluetooth adapter initialize.");
+                    close();
+                } catch (Exception e) {
+                    Timber.w("run() unknown error.");
+                    close();
                 }
             }
 
@@ -405,8 +408,14 @@ public class CarDeviceConnection {
 
         void quit() {
             Timber.i("quit()");
-
             mCanceled = true;
+        }
+
+        private void close() {
+            Timber.i("close()");
+            close(mServerSocket);
+            mServerSocket = null;
+            mAdapter = null;
         }
 
         private void close(Closeable closeable) {
