@@ -870,6 +870,18 @@ public class OutgoingPacketBuilder {
     }
 
     /**
+     * 車載機ボリューム指定通知パケット生成.
+     *
+     * @param volume ボリューム値
+     * @return 送信パケット
+     */
+    @NonNull
+    public OutgoingPacket createDeviceVolumeChangeCommand(int volume) {
+        return createWith(DEVICE_VOLUME_CHANGE_COMMAND,
+                new byte[] {0x00, (byte) volume});
+    }
+
+    /**
      * Favorite情報取通知 : Radioパケット生成.
      *
      * @param index 周波数インデックス

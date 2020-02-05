@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.EnumSet;
 import java.util.Set;
 
+import jp.pioneer.carsync.BuildConfig;
 import jp.pioneer.carsync.domain.model.AttMode;
 import jp.pioneer.carsync.domain.model.CarDeviceControlLevel;
 import jp.pioneer.carsync.domain.model.CarDeviceSpec;
@@ -87,6 +88,7 @@ public class DeviceStatusPacketProcessor {
             byte[] data = packet.getData();
 
             int majorVer = mStatusHolder.getProtocolSpec().getConnectingProtocolVersion().major;
+            int minorVer = mStatusHolder.getProtocolSpec().getConnectingProtocolVersion().minor;
             checkPacketDataLength(data, getDataLength(majorVer));
             CarDeviceStatus status = mStatusHolder.getCarDeviceStatus();
             // 車載機ステータスは定期通信されるため、値の変化を真面目に判定する
@@ -154,6 +156,9 @@ public class DeviceStatusPacketProcessor {
 
             if (majorVer >= 4) {
                 v4(data, status);
+                if (BuildConfig.DEBUG&&(majorVer > 4 || minorVer >= 1)) {
+                    v4_1(data, status);
+                }
             }
 
             if(!old.equals(status)) {
@@ -241,6 +246,19 @@ public class DeviceStatusPacketProcessor {
         status.parkingStatus = spec.parkingSenseSupported ? ParkingStatus.valueOf((byte) getBitsValue(b, 0, 1)) : ParkingStatus.OFF;
         // D22:サポート機能2
         //  (RESERVED)
+    }
+
+    private void v4_1(byte[] data, CarDeviceStatus status) {
+        byte b;
+        // D23:車載機ボリューム1
+        b = data[23];
+        status.maxDeviceVolume = b;
+        // D24:車載機ボリューム2
+        b = data[24];
+        status.currentDeviceVolume = b;
+        // D25:車載機ボリューム3
+        b = data[25];
+        status.deviceVolumeDisplayStatus = isBitOn(b, 0);
     }
 
     private void addIfSupported(Set<MediaSourceType> sources, byte b, int bit, MediaSourceType type) {
