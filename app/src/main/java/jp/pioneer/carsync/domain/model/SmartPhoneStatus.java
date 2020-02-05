@@ -23,7 +23,8 @@ public class SmartPhoneStatus {
     public Set<AdasWarningEvent> adasWarningEvents;
     /** 99App Service(BLE). */
     public AppServicePublicationStatus bleAppServicePublicationStatus;
-
+    /** Smartphone内EQ使用状態. */
+    public boolean smartPhoneEqUseStatus;
     /**
      * コンストラクタ.
      */
@@ -35,6 +36,7 @@ public class SmartPhoneStatus {
         showingDeviceList = false;
         adasWarningEvents = EnumSet.noneOf(AdasWarningEvent.class);
         bleAppServicePublicationStatus = AppServicePublicationStatus.OFF;
+        smartPhoneEqUseStatus = false;
     }
 
     /**
@@ -87,6 +89,7 @@ public class SmartPhoneStatus {
                 .add("showingDeviceList", showingDeviceList)
                 .add("adasWarningEvents", adasWarningEvents)
                 .add("bleAppServicePublicationStatus", bleAppServicePublicationStatus)
+                .add("smartPhoneEqUseStatus", smartPhoneEqUseStatus)
                 .toString();
     }
 }

@@ -142,6 +142,7 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
     private Status mStatus = Status.CLOSED;
     private ShuffleMode mShuffleMode;
     private SmartPhoneRepeatMode mRepeatMode;
+    private boolean mEqUseStatus;
     private AppMusicPlaylistCursor mCursor;
     private int mPendingPlayPosition;
     private AppMusicContract.PlayParams mPlayParams;
@@ -267,8 +268,10 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
 
         if(!mStatusHolder.getAppStatus().isLaunchedThirdPartyAudioApp) {
             mAudioFocus = AudioFocus.GAIN;
+            setSmartPhoneEqUseStatus(true);
         } else {
             mAudioFocus = AudioFocus.NONE;
+            setSmartPhoneEqUseStatus(false);
             SmartPhoneStatus smartPhoneStatus = mStatusHolder.getSmartPhoneStatus();
             AndroidMusicMediaInfo info = mStatusHolder.getCarDeviceMediaInfoHolder().androidMusicMediaInfo;
             postSmartPhoneStatus(smartPhoneStatus);
@@ -287,6 +290,7 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
 
         // ローカル再生停止
         try {
+            setSmartPhoneEqUseStatus(false);
             pause();
         } catch (PMGPlayerException e) {
             Timber.e(e);
@@ -614,6 +618,7 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
                 case AudioManager.AUDIOFOCUS_LOSS:
                     Timber.i("onAudioFocusChange() focusChange = AUDIOFOCUS_LOSS");
                     mIsReturnToPlayMode = mStatus == PLAYING;
+                    setSmartPhoneEqUseStatus(false);
                     pause();
                     mAudioFocus = AudioFocus.LOSS;
                     break;
@@ -1254,6 +1259,7 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
 
         if(mStatusHolder.getAppStatus().isLaunchedThirdPartyAudioApp) {
             mStatusHolder.getAppStatus().isLaunchedThirdPartyAudioApp = false;
+            setSmartPhoneEqUseStatus(true);
             //dispatchMediaKeyEvent(KeyEvent.KEYCODE_MEDIA_PAUSE);
             SmartPhoneStatus smartPhoneStatus = mStatusHolder.getSmartPhoneStatus();
             AndroidMusicMediaInfo info = mStatusHolder.getCarDeviceMediaInfoHolder().androidMusicMediaInfo;
@@ -1350,6 +1356,15 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
         }
     }
 
+    private void setSmartPhoneEqUseStatus(boolean eqUseStatus) {
+        Timber.d("setSmartPhoneEqUseStatus:"+eqUseStatus);
+        if(mEqUseStatus != eqUseStatus) {
+            mEqUseStatus = eqUseStatus;
+            SmartPhoneStatus smartPhoneStatus = mStatusHolder.getSmartPhoneStatus();
+            smartPhoneStatus.smartPhoneEqUseStatus = mEqUseStatus;
+            postSmartPhoneStatus(smartPhoneStatus);
+        }
+    }
     private void fastForwardForMediaCommand() throws PMGPlayerException {
         if (mStatus == IDLE
                 || mStatus == Status.PLAYING
