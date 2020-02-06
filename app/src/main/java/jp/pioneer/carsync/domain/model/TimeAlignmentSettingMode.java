@@ -7,28 +7,28 @@ import jp.pioneer.carsync.infrastructure.crp.util.PacketUtil;
  */
 public enum TimeAlignmentSettingMode {
     /** Initial. */
-    INITIAL(0x00){
+    INITIAL(0x00,"Initial"){
         @Override
         public TimeAlignmentSettingMode toggle() {
             return AUTO_TA;
         }
     },
     /** AutoTA. */
-    AUTO_TA(0x01){
+    AUTO_TA(0x01,"Auto"){
         @Override
         public TimeAlignmentSettingMode toggle() {
             return OFF;
         }
     },
     /** Custom. */
-    CUSTOM(0x02){
+    CUSTOM(0x02,"Custom"){
         @Override
         public TimeAlignmentSettingMode toggle() {
             return INITIAL;
         }
     },
     /** OFF. */
-    OFF(0x03){
+    OFF(0x03,"OFF"){
         @Override
         public TimeAlignmentSettingMode toggle() {
             return CUSTOM;
@@ -38,14 +38,23 @@ public enum TimeAlignmentSettingMode {
 
     /** プロトコルでの定義値. */
     public final int code;
-
+    /** Analytics用文字列. */
+    public final String strValue;
     /**
      * コンストラクタ.
      *
      * @param code プロトコルでの定義値
      */
-    TimeAlignmentSettingMode(int code) {
+    TimeAlignmentSettingMode(int code, String strValue) {
         this.code = code;
+        this.strValue = strValue;
+    }
+
+    /**
+     * Analytics用文字列取得.
+     */
+    public String getAnalyticsStr() {
+        return strValue;
     }
 
     /**

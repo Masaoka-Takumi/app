@@ -13,6 +13,8 @@ import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
+import jp.pioneer.carsync.application.content.Analytics;
+import jp.pioneer.carsync.application.content.AnalyticsEventManager;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.content.ContactsContract;
 import jp.pioneer.carsync.domain.interactor.QueryContact;
@@ -30,6 +32,8 @@ public class SearchContactPresenter extends Presenter<SearchContactView> impleme
     @Inject Context mContext;
     @Inject EventBus mEventBus;
     @Inject QueryContact mContactCase;
+    @Inject
+    AnalyticsEventManager mAnalytics;
     private static final int LOADER_ID_CONTACT = -1;
     private static final String KEY_CONTACTS_ID = "contacts_id";
     private LoaderManager mLoaderManager;
@@ -132,6 +136,7 @@ public class SearchContactPresenter extends Presenter<SearchContactView> impleme
     public void onNumberAction(Cursor cursor) {
         String number = ContactsContract.Phone.getNumber(cursor);
         Optional.ofNullable(getView()).ifPresent(view -> view.dial(number));
+        mAnalytics.sendTelephoneCallEvent(Analytics.AnalyticsTelephoneCall.voiceRecognizer);
         mEventBus.post(new GoBackEvent());
     }
 }

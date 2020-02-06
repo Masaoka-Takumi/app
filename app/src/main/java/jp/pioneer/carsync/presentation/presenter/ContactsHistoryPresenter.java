@@ -16,6 +16,8 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
+import jp.pioneer.carsync.application.content.Analytics;
+import jp.pioneer.carsync.application.content.AnalyticsEventManager;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.content.ContactsContract;
 import jp.pioneer.carsync.domain.interactor.QueryContact;
@@ -33,6 +35,8 @@ public class ContactsHistoryPresenter extends Presenter<ContactsHistoryView> imp
 
     @Inject EventBus mEventBus;
     @Inject QueryContact mContactCase;
+    @Inject
+    AnalyticsEventManager mAnalytics;
     private static final int LOADER_ID_HISTORY = 0;
     private LoaderManager mLoaderManager;
 
@@ -114,5 +118,6 @@ public class ContactsHistoryPresenter extends Presenter<ContactsHistoryView> imp
         String number = item.number;
         Uri uri = Uri.parse("tel:" + number);
         Optional.ofNullable(getView()).ifPresent(view -> view.dial(new Intent(Intent.ACTION_DIAL, uri)));
+        mAnalytics.sendTelephoneCallEvent(Analytics.AnalyticsTelephoneCall.phoneBook);
     }
 }

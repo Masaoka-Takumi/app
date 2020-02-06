@@ -10,15 +10,15 @@ import jp.pioneer.carsync.infrastructure.crp.util.PacketUtil;
  */
 public enum SmallCarTaSettingType {
     /** OFF. */
-    OFF(0x00, R.string.com_001, new int[4], new int[4]),
+    OFF(0x00, R.string.com_001, new int[4], new int[4],"OFF"),
     /** Compact. */
-    COMPACT(0x01, R.string.set_136, new int[]{46, 59, 41, 52}, new int[]{59, 46, 52, 41}),
+    COMPACT(0x01, R.string.set_136, new int[]{46, 59, 41, 52}, new int[]{59, 46, 52, 41},"Compact"),
     /** Standard. */
-    STANDARD(0x02, R.string.set_040, new int[]{48, 62, 42, 56}, new int[]{62, 48, 56, 42}),
+    STANDARD(0x02, R.string.set_040, new int[]{48, 62, 42, 56}, new int[]{62, 48, 56, 42},"Standard"),
     /** Intermediate. */
-    INTERMEDIATE(0x03, R.string.set_210, new int[]{50, 66, 42, 60}, new int[]{66, 50, 60, 42}),
+    INTERMEDIATE(0x03, R.string.set_210, new int[]{50, 66, 42, 60}, new int[]{66, 50, 60, 42},"Intermediate"),
     /** SUV & Premium. */
-    SUV_PREMIUM(0x04, R.string.set_281, new int[]{52, 70, 42, 63}, new int[]{70, 52, 63, 42});
+    SUV_PREMIUM(0x04, R.string.set_281, new int[]{52, 70, 42, 63}, new int[]{70, 52, 63, 42},"SUV & Premium");
 
     /** プロトコルでの定義値. */
     public final int code;
@@ -32,6 +32,9 @@ public enum SmallCarTaSettingType {
     /** ポジションがrightの場合のステップ値([0]:FrontLeft [1]:FrontRight [2]:RearLeft [3]:RearRight) */
     public final int[] rightStepValue;
 
+    /** Analytics用文字列. */
+    public final String strValue;
+
     /**
      * コンストラクタ.
      *
@@ -39,11 +42,12 @@ public enum SmallCarTaSettingType {
      * @param leftStepValue  ポジションがleftの場合のステップ値
      * @param rightStepValue ポジションがrightの場合のステップ値
      */
-    SmallCarTaSettingType(int code, @StringRes int label, int[] leftStepValue, int[] rightStepValue) {
+    SmallCarTaSettingType(int code, @StringRes int label, int[] leftStepValue, int[] rightStepValue, String strValue) {
         this.code = code;
         this.label = label;
         this.leftStepValue = leftStepValue;
         this.rightStepValue = rightStepValue;
+        this.strValue = strValue;
     }
 
     /**
@@ -63,6 +67,13 @@ public enum SmallCarTaSettingType {
     @StringRes
     public int getLabel() {
         return label;
+    }
+
+    /**
+     * Analytics用文字列取得.
+     */
+    public String getAnalyticsStr() {
+        return strValue;
     }
 
     /**

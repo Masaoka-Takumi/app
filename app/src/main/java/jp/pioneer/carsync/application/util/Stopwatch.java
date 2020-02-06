@@ -1,5 +1,7 @@
 package jp.pioneer.carsync.application.util;
 
+import android.os.SystemClock;
+
 public class Stopwatch {
     private long elapsed = 0;//sec
     private boolean isRunning = false;
@@ -11,14 +13,14 @@ public class Stopwatch {
 
     public void start() {
         if (!isRunning) {
-            startTimeStamp = System.currentTimeMillis();
+            startTimeStamp = SystemClock.elapsedRealtime();
             isRunning = true;
         }
     }
 
     public void stop() {
         if (isRunning) {
-            elapsed += (System.currentTimeMillis() - startTimeStamp) / 1000;
+            elapsed += (SystemClock.elapsedRealtime() - startTimeStamp) / 1000;
             isRunning = false;
         }
     }
@@ -31,7 +33,7 @@ public class Stopwatch {
 
     public void restart() {
         elapsed = 0;
-        startTimeStamp = System.currentTimeMillis();
+        startTimeStamp = SystemClock.elapsedRealtime();
         isRunning = true;
     }
 

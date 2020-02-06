@@ -14,6 +14,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import jp.pioneer.carsync.application.App;
+import jp.pioneer.carsync.application.content.AnalyticsSharedPreference;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -86,6 +87,12 @@ public class AppModule {
     @Provides
     public AppSharedPreference provideAppSharedPreference(App app) {
         return new AppSharedPreference(app.getSharedPreferences(app.getPackageName() + "_preferences", MODE_PRIVATE));
+    }
+
+    @Singleton
+    @Provides
+    public AnalyticsSharedPreference provideAnalyticsSharedPreference(App app) {
+        return new AnalyticsSharedPreference(app.getSharedPreferences(app.getPackageName() + "_analytics_preferences", MODE_PRIVATE));
     }
 
     @Provides

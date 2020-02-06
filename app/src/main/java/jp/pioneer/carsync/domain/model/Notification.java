@@ -40,6 +40,14 @@ public interface Notification {
     String getApplicationName();
 
     /**
+     * アプリケーション情報 {@link android.content.pm.ApplicationInfo} からパッケージ名取得.
+     *
+     * @return パッケージ名
+     */
+    @NonNull
+    String getPackageName();
+
+    /**
      * 通知情報 {@link android.app.Notification} から通知タイトルを取得.
      *
      * @return 通知タイトル
