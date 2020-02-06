@@ -99,5 +99,5 @@ public interface DebugSettingView {
     void setAdasCameraPreview(boolean enabled);
     void setAlexaSimJudgement(boolean value);
     void recheckSim();
-
+    void setSmartPhoneControlComand(boolean value);
 }
