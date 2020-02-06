@@ -94,7 +94,7 @@ public class AnalyticsEventManager {
 
     interface AnalyticsEventObserver {
         //車載器情報取得前連携開始
-        void didConnectDevice();
+        void willConnectDevice();
 
         //連携開始のCaution承諾後
         void didApprovedConnectDevice();
@@ -137,9 +137,9 @@ public class AnalyticsEventManager {
         observers.add(new EasySoundTaSettingObserver());
     }
 
-    public void didConnectDevice() {
+    public void willConnectDevice() {
         for (AnalyticsEventObserver observer : observers) {
-            observer.didConnectDevice();
+            observer.willConnectDevice();
         }
     }
 
@@ -206,7 +206,7 @@ public class AnalyticsEventManager {
 
     private class AbstractEventObserver implements AnalyticsEventObserver {
         @Override
-        public void didConnectDevice() {
+        public void willConnectDevice() {
 
         }
 
@@ -669,6 +669,7 @@ public class AnalyticsEventManager {
         @Override
         public void didDisconnectDevice() {
             Timber.d("NaviAppUseObserver");
+            if(!mGetStatusHolder.execute().getAppStatus().isAgreedCaution) return;
             //デフォルトのタイムゾーンおよびロケールを使用して現在時間のカレンダを取得
             Calendar nowCal = Calendar.getInstance();
             //ナビアプリの利用情報
@@ -681,30 +682,26 @@ public class AnalyticsEventManager {
             int boatingAppNumberMax = 0;
             int fishingAppNumberMax = 0;
             for (NaviApp app : NaviApp.values()) {
-                if (app.getNumber() > naviAppNumberMax)
-                    naviAppNumberMax = app.getNumber();
+                naviAppNumberMax = Math.max(app.getNumber(), naviAppNumberMax);
             }
             for (MarinApp app : MarinApp.values()) {
                 if (app.getCategory() == MarinAppCategory.WEATHER) {
-                    if (app.getNumber() > weatherAppNumberMax)
-                        weatherAppNumberMax = app.getNumber();
+                    weatherAppNumberMax = Math.max(app.getNumber(), weatherAppNumberMax);
                 } else if (app.getCategory() == MarinAppCategory.BOATING) {
-                    if (app.getNumber() > boatingAppNumberMax)
-                        boatingAppNumberMax = app.getNumber();
+                    boatingAppNumberMax = Math.max(app.getNumber(), boatingAppNumberMax);
                 } else if (app.getCategory() == MarinAppCategory.FISHING) {
-                    if (app.getNumber() > fishingAppNumberMax)
-                        fishingAppNumberMax = app.getNumber();
+                    fishingAppNumberMax = Math.max(app.getNumber(), fishingAppNumberMax);
                 }
             }
-            int[] naviInstalledArray = new int[(int) Math.ceil((double) naviAppNumberMax / 4)];
-            int[] weatherInstalledArray = new int[(int) Math.ceil((double) weatherAppNumberMax / 4)];
-            int[] boatingInstalledArray = new int[(int) Math.ceil((double) boatingAppNumberMax / 4)];
-            int[] fishingInstalledArray = new int[(int) Math.ceil((double) fishingAppNumberMax / 4)];
+            int[] naviInstalledArray = new int[(naviAppNumberMax + 3) / 4];
+            int[] weatherInstalledArray = new int[(weatherAppNumberMax + 3) / 4];
+            int[] boatingInstalledArray = new int[(boatingAppNumberMax + 3) / 4];
+            int[] fishingInstalledArray = new int[(fishingAppNumberMax + 3) / 4];
 
-            int[] naviSettingArray = new int[(int) Math.ceil((double) naviAppNumberMax / 4)];
-            int[] weatherSettingArray = new int[(int) Math.ceil((double) weatherAppNumberMax / 4)];
-            int[] boatingSettingArray = new int[(int) Math.ceil((double) boatingAppNumberMax / 4)];
-            int[] fishingSettingArray = new int[(int) Math.ceil((double) fishingAppNumberMax / 4)];
+            int[] naviSettingArray = new int[(naviAppNumberMax + 3) / 4];
+            int[] weatherSettingArray = new int[(weatherAppNumberMax + 3) / 4];
+            int[] boatingSettingArray = new int[(boatingAppNumberMax + 3) / 4];
+            int[] fishingSettingArray = new int[(fishingAppNumberMax + 3) / 4];
 
             List<ApplicationInfo> naviApps = mNaviCase.getInstalledTargetAppList();
             for (ApplicationInfo app : naviApps) {
@@ -808,16 +805,16 @@ public class AnalyticsEventManager {
         @Override
         public void didDisconnectDevice() {
             Timber.d("MessageAppUseObserver");
+            if(!mGetStatusHolder.execute().getAppStatus().isAgreedCaution) return;
             //デフォルトのタイムゾーンおよびロケールを使用して現在時間のカレンダを取得
             Calendar nowCal = Calendar.getInstance();
             //メッセージアプリの利用情報
             boolean isMessageAppsOneWeekBefore = isSentOneWeekBefore(nowCal, mAnalyticsPreference.getMessageAppsLastSentDate());
             int messageAppNumberMax = 0;
             for (MessagingApp app : MessagingApp.values()) {
-                if (app.getNumber() > messageAppNumberMax)
-                    messageAppNumberMax = app.getNumber();
+                messageAppNumberMax = Math.max(app.getNumber(), messageAppNumberMax);
             }
-            int[] messageInstalledArray = new int[(int) Math.ceil((double) messageAppNumberMax / 4)];
+            int[] messageInstalledArray = new int[(messageAppNumberMax + 3) / 4];
             List<ApplicationInfo> MessageApps = mMessagingCase.getInstalledTargetAppList();
             for (ApplicationInfo app : MessageApps) {
                 MessagingApp MessageApp = MessagingApp.fromPackageName(app.packageName);
@@ -843,16 +840,16 @@ public class AnalyticsEventManager {
         @Override
         public void didDisconnectDevice() {
             Timber.d("MusicAppUseObserver");
+            if(!mGetStatusHolder.execute().getAppStatus().isAgreedCaution) return;
             //デフォルトのタイムゾーンおよびロケールを使用して現在時間のカレンダを取得
             Calendar nowCal = Calendar.getInstance();
             //ミュージックアプリの利用情報
             boolean isMusicAppsOneWeekBefore = isSentOneWeekBefore(nowCal, mAnalyticsPreference.getMusicAppsLastSentDate());
             int musicAppNumberMax = 0;
             for (MusicApp app : MusicApp.values()) {
-                if (app.getNumber() > musicAppNumberMax)
-                    musicAppNumberMax = app.getNumber();
+                musicAppNumberMax = Math.max(app.getNumber(), musicAppNumberMax);
             }
-            int[] musicInstalledArray = new int[(int) Math.ceil((double) musicAppNumberMax / 4)];
+            int[] musicInstalledArray = new int[(musicAppNumberMax + 3) / 4];
             List<ApplicationInfo> musicApps = mPreferMusicApp.getInstalledTargetAppList();
             for (ApplicationInfo app : musicApps) {
                 MusicApp musicApp = MusicApp.fromPackageName(app.packageName);
@@ -906,7 +903,7 @@ public class AnalyticsEventManager {
 
     private class MessageObserver extends AbstractEventObserver {
         @Override
-        public void didConnectDevice() {
+        public void didApprovedConnectDevice() {
             if (!mEventBus.isRegistered(this)) {
                 mEventBus.register(this);
             }
@@ -959,6 +956,7 @@ public class AnalyticsEventManager {
         @Override
         public void didDisconnectDevice() {
             Timber.d("YouTubeLinkUseObserver");
+            if(!mGetStatusHolder.execute().getAppStatus().isAgreedCaution) return;
             //デフォルトのタイムゾーンおよびロケールを使用して現在時間のカレンダを取得
             Calendar nowCal = Calendar.getInstance();
             boolean isYoutubeLinkUseSentOneWeekBefore = isSentOneWeekBefore(nowCal, mAnalyticsPreference.getYoutubeLinkUseLastSentDate());
@@ -990,6 +988,7 @@ public class AnalyticsEventManager {
                 boolean isEnabled = mPreference.isYouTubeLinkSettingEnabled();
                 //YoutubeLink設定をONにした(非連携時も)
                 if (isEnabled) {
+                    if (DBG) Timber.d("onYoutubeLinkSettingPreferenceEnabled");
                     mYouTubeLinkUse = true;
                 }
             }
@@ -1008,6 +1007,7 @@ public class AnalyticsEventManager {
         @Override
         public void didDisconnectDevice() {
             Timber.d("AlexaUseObserver");
+            if(!mGetStatusHolder.execute().getAppStatus().isAgreedCaution) return;
             //デフォルトのタイムゾーンおよびロケールを使用して現在時間のカレンダを取得
             Calendar nowCal = Calendar.getInstance();
             //Alexa使用情報送信
@@ -1068,7 +1068,7 @@ public class AnalyticsEventManager {
         boolean mDeviceSuperTodorokiSettingSet = false;//車載機からスーパー轟設定を取得したか（一度でもソースOFF以外にしたか）
 
         @Override
-        public void didConnectDevice() {
+        public void willConnectDevice() {
             if (!mEventBus.isRegistered(this)) {
                 mEventBus.register(this);
             }
@@ -1081,6 +1081,7 @@ public class AnalyticsEventManager {
         public void didDisconnectDevice() {
             Timber.d("FxSettingObserver");
             mEventBus.unregister(this);
+            if(!mGetStatusHolder.execute().getAppStatus().isAgreedCaution) return;
             //デフォルトのタイムゾーンおよびロケールを使用して現在時間のカレンダを取得
             Calendar nowCal = Calendar.getInstance();
             //FX設定の使用情報-EQ設定
@@ -1197,7 +1198,7 @@ public class AnalyticsEventManager {
         boolean mDeviceFxSettingSet = false;//車載機からFx設定を取得したか（一度でもソースOFF以外にしたか）
 
         @Override
-        public void didConnectDevice() {
+        public void willConnectDevice() {
             if (!mEventBus.isRegistered(this)) {
                 mEventBus.register(this);
             }
@@ -1208,6 +1209,7 @@ public class AnalyticsEventManager {
         public void didDisconnectDevice() {
             Timber.d("EasySoundTaSettingObserver");
             mEventBus.unregister(this);
+            if(!mGetStatusHolder.execute().getAppStatus().isAgreedCaution) return;
             //デフォルトのタイムゾーンおよびロケールを使用して現在時間のカレンダを取得
             Calendar nowCal = Calendar.getInstance();
             //FX設定の使用情報-EQ設定
