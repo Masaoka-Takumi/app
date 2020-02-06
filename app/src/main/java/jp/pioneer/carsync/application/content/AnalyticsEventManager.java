@@ -1113,13 +1113,13 @@ public class AnalyticsEventManager {
         }
 
         /**
-         * Equalizer設定変更イベント通知
+         * Equalizer種別変更イベントハンドラ
          *
-         * @param event Equalizer設定変更イベント
+         * @param event Equalizer種別変更イベント
          */
         @Subscribe(threadMode = ThreadMode.MAIN)
-        public void onEqualizerSettingChangeEvent(EqualizerSettingChangeEvent event) {
-            if (DBG) Timber.d("onEqualizerSettingChangeEvent");
+        public void onEqualizerTypeChangeEvent(EqualizerTypeChangeEvent event) {
+            if (DBG) Timber.d("onEqualizerTypeChangeEvent");
             mDeviceEqualizerSettingSet = true;
         }
 
