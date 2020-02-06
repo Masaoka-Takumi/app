@@ -373,7 +373,6 @@ public class CarDeviceConnection {
     class AcceptThread extends Thread {
         private BluetoothServerSocket mServerSocket;
         private boolean mCanceled;
-        private BluetoothAdapter mAdapter;
 
         @Override
         public void run() {
@@ -381,12 +380,14 @@ public class CarDeviceConnection {
 
             while (!mCanceled) {
                 try {
-                    if (mAdapter == null) {
-                        mAdapter = BluetoothAdapter.getDefaultAdapter();
-                        Timber.d("run() bluetooth adapter initialize finished.");
+                    BluetoothAdapter adapter = getDefaultBluetoothAdapter();
+                    if (adapter == null) {
+                        Thread.sleep(500);
+                        Timber.d("run() Failed to bluetooth adapter initialize.");
+                        continue;
                     }
-                    mServerSocket = mAdapter.listenUsingRfcommWithServiceRecord(SERVICE_NAME, UUID_SPP);
-                    Timber.d("run() Accept... socket:" + mServerSocket.hashCode() +  " adapter:" + mAdapter.hashCode());
+                    mServerSocket = adapter.listenUsingRfcommWithServiceRecord(SERVICE_NAME, UUID_SPP);
+                    Timber.d("run() Accept...");
                     BluetoothSocket socket = mServerSocket.accept();
                     Timber.d("run() Accepted.");
                     connect(new BluetoothTransport(socket), TransportStatus.BLUETOOTH_CONNECTING);
@@ -396,9 +397,8 @@ public class CarDeviceConnection {
                 } catch (NullPointerException e) {
                     Timber.d("run() Failed to bluetooth adapter initialize.");
                     close();
-                } catch (Exception e) {
-                    Timber.w("run() unknown error.");
-                    close();
+                } catch (InterruptedException e) {
+                    Timber.d("run() Failed to sleep.");
                 }
             }
 
@@ -415,7 +415,6 @@ public class CarDeviceConnection {
             Timber.i("close()");
             close(mServerSocket);
             mServerSocket = null;
-            mAdapter = null;
         }
 
         private void close(Closeable closeable) {
