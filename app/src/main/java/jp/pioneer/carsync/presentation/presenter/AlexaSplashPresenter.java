@@ -16,6 +16,7 @@ import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.model.SessionStatus;
 import jp.pioneer.carsync.domain.model.StatusHolder;
 import jp.pioneer.carsync.domain.model.VoiceRecognizeType;
+import jp.pioneer.carsync.presentation.event.AlexaLoginSuccessEvent;
 import jp.pioneer.carsync.presentation.event.GoBackEvent;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
 import jp.pioneer.carsync.presentation.view.AlexaSplashView;
@@ -38,6 +39,7 @@ public class AlexaSplashPresenter extends Presenter<AlexaSplashView> {
     public void onLoginSuccess(){
         StatusHolder holder = mGetStatusHolder.execute();
         holder.getAppStatus().alexaAuthenticated = true;
+        mEventBus.post(new AlexaLoginSuccessEvent());
         int vCode = mPreference.getAlexaCapabilitiesVersionCode();
         Optional.ofNullable(getView()).ifPresent(view -> {
             if (vCode < MainPresenter.ALEXA_CAPABILITIES_NEW_VERSION) {

@@ -159,6 +159,8 @@ public class CarRemoteSession implements PacketSenderThread.OnPacketSendListener
         // 接続
         mTransport.connect(mStatusHolder);
         publishStatusUpdateEvent(null);  // 接続情報の通知
+        //車載器情報取得前にAnalyticsに連携開始通知
+        mAnalytics.didConnectDevice();
         // 送受信スレッド開始
         mPacketSenderThread.setOnPacketSendListener(this);
         mPacketReaderThread.setOnPacketSendListener(this);

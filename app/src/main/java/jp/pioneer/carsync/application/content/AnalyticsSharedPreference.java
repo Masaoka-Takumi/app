@@ -58,9 +58,6 @@ public class AnalyticsSharedPreference {
         }
     }
 
-    private static final String DEFAULT_NAVI_APP_INSTALLED = "0000/00/00/00";
-    private static final String DEFAULT_NAVI_APP_SETTING = "0000/00/00/00";
-    private static final String DEFAULT_APP_INSTALLED = "0000";
     private static final boolean DEFAULT_YOUTUBE_LINK_USE = false;
     private static final long DEFAULT_LAST_SENT_DATE = 0;//最終送信日時の初期値
     private static final boolean DEFAULT_ALEXA_USE = false;
@@ -89,7 +86,7 @@ public class AnalyticsSharedPreference {
      * @return apps
      */
     String getNaviAppsInstalled() {
-        return load(KeyConst.KEY_NAVI_APPS_INSTALLED_SENT, DEFAULT_NAVI_APP_INSTALLED);
+        return load(KeyConst.KEY_NAVI_APPS_INSTALLED_SENT, null);
     }
 
     /**
@@ -107,7 +104,7 @@ public class AnalyticsSharedPreference {
      * @return String
      */
     String getNaviAppsSetting() {
-        return load(KeyConst.KEY_NAVI_APPS_SETTING_SENT, DEFAULT_NAVI_APP_SETTING);
+        return load(KeyConst.KEY_NAVI_APPS_SETTING_SENT, null);
     }
 
     /**
@@ -144,7 +141,7 @@ public class AnalyticsSharedPreference {
      * @return apps
      */
     String getMessageAppsInstalled() {
-        return load(KeyConst.KEY_MESSAGE_APPS_INSTALLED_SENT, DEFAULT_APP_INSTALLED);
+        return load(KeyConst.KEY_MESSAGE_APPS_INSTALLED_SENT, null);
     }
 
     /**
@@ -181,7 +178,7 @@ public class AnalyticsSharedPreference {
      * @return apps
      */
     String getMusicAppsInstalled() {
-        return load(KeyConst.KEY_MUSIC_APPS_INSTALLED_SENT, DEFAULT_APP_INSTALLED);
+        return load(KeyConst.KEY_MUSIC_APPS_INSTALLED_SENT, null);
     }
 
     /**
