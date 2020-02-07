@@ -15,6 +15,13 @@ public interface InformationView {
     void setDeviceInformation(String deviceInformation);
 
     /**
+     * デバイスバージョン設定
+     * @param isVisible 表示/非表示
+     * @param deviceFarmVersion デバイスバージョン
+     */
+    void setDeviceFarmVersion(boolean isVisible, String deviceFarmVersion);
+
+    /**
      * アプリバージョン設定
      * @param appVersion アプリバージョン
      */

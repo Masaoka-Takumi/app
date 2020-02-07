@@ -90,7 +90,8 @@ public class CarDeviceSpec {
     public String modelName;
     /** BDアドレス. */
     public String bdAddress;
-
+    /** 車載機ソフトウェアバージョン. */
+    public String farmVersion;
     /**
      * コンストラクタ.
      */
@@ -141,6 +142,7 @@ public class CarDeviceSpec {
         carDeviceDestinationInfo = null;
         modelName = null;
         bdAddress = null;
+        farmVersion = null;
     }
 
     /**
@@ -187,6 +189,7 @@ public class CarDeviceSpec {
                 .add("carDeviceDestinationInfo", carDeviceDestinationInfo)
                 .add("modelName", modelName)
                 .add("bdAddress", bdAddress)
+                .add("farmVersion", farmVersion)
                 .toString();
     }
 }

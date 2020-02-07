@@ -293,6 +293,16 @@ public class OutgoingPacketBuilder {
     }
 
     /**
+     * 車載機ソフトウェアバージョン要求パケット生成.
+     *
+     * @return 送信パケット
+     */
+    @NonNull
+    public OutgoingPacket createDeviceFarmVersionRequest() {
+        return createWith(DEVICE_FARM_VERSION_REQUEST);
+    }
+
+    /**
      * SmartPhoneSpec通知パケット生成.
      *
      * @return 送信パケット

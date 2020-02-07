@@ -230,6 +230,7 @@
     <string name="key_play_list_image">play_list_image</string>
     <!-- Information -->
     <string name="key_device_information">device_information</string>
+    <string name="key_device_farm_version_information">key_device_farm_version_information</string>
     <string name="key_licence">licence</string>
     <string name="key_eula">eula</string>
     <string name="key_privacy_policy">privacy_policy</string>
