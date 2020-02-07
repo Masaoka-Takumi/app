@@ -2,6 +2,7 @@ package jp.pioneer.carsync.infrastructure.crp.handler.auth;
 
 import android.support.annotation.NonNull;
 
+import jp.pioneer.carsync.BuildConfig;
 import jp.pioneer.carsync.domain.model.ProtocolSpec;
 import jp.pioneer.carsync.domain.model.ProtocolVersion;
 import jp.pioneer.carsync.domain.model.StatusHolder;
@@ -53,7 +54,11 @@ public class ProtocolVersionResponsePacketHandler extends DataResponsePacketHand
             } else {
                 version = new ProtocolVersion(data[1], data[2]);
             }
-
+            if(!BuildConfig.DEBUG){
+                if(version.isGreaterThanOrEqual(ProtocolVersion.V4_1)){
+                    version = ProtocolVersion.V4;
+                }
+            }
             spec.setDeviceProtocolVersion(version);
 
             Timber.d("handle() ProtocolVersion = " + version);
