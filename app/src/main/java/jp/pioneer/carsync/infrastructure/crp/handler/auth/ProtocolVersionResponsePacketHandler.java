@@ -54,11 +54,7 @@ public class ProtocolVersionResponsePacketHandler extends DataResponsePacketHand
             } else {
                 version = new ProtocolVersion(data[1], data[2]);
             }
-            if(!BuildConfig.DEBUG){
-                if(version.isGreaterThanOrEqual(ProtocolVersion.V4_1)){
-                    version = ProtocolVersion.V4;
-                }
-            }
+
             spec.setDeviceProtocolVersion(version);
 
             Timber.d("handle() ProtocolVersion = " + version);

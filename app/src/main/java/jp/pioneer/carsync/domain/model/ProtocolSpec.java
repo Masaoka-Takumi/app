@@ -9,6 +9,8 @@ import com.google.common.collect.ImmutableList;
 import java.util.List;
 
 
+import jp.pioneer.carsync.BuildConfig;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -17,6 +19,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class ProtocolSpec {
     /** アプリでサポートしているプロトコルバージョン. */
     private static final List<ProtocolVersion> SUPPORTING_PROTOCOL_VERSION = ImmutableList.of(
+            ProtocolVersion.V4_1,
             ProtocolVersion.V4,
             ProtocolVersion.V3,
             ProtocolVersion.V2
@@ -92,6 +95,11 @@ public class ProtocolSpec {
      * @throws NullPointerException {@code version}がnull
      */
     public void setConnectingProtocolVersion(@NonNull ProtocolVersion version) {
+        if(!BuildConfig.DEBUG){
+            if(version.isGreaterThanOrEqual(ProtocolVersion.V4_1)){
+                version = ProtocolVersion.V4;
+            }
+        }
         mConnectingProtocolVersion = checkNotNull(version);
     }
 
