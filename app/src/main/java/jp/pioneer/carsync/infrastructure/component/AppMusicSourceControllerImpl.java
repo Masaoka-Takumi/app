@@ -268,10 +268,8 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
 
         if(!mStatusHolder.getAppStatus().isLaunchedThirdPartyAudioApp) {
             mAudioFocus = AudioFocus.GAIN;
-            setSmartPhoneEqUseStatus(true);
         } else {
             mAudioFocus = AudioFocus.NONE;
-            setSmartPhoneEqUseStatus(false);
             SmartPhoneStatus smartPhoneStatus = mStatusHolder.getSmartPhoneStatus();
             AndroidMusicMediaInfo info = mStatusHolder.getCarDeviceMediaInfoHolder().androidMusicMediaInfo;
             postSmartPhoneStatus(smartPhoneStatus);
@@ -290,7 +288,6 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
 
         // ローカル再生停止
         try {
-            setSmartPhoneEqUseStatus(false);
             pause();
         } catch (PMGPlayerException e) {
             Timber.e(e);
@@ -618,7 +615,6 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
                 case AudioManager.AUDIOFOCUS_LOSS:
                     Timber.i("onAudioFocusChange() focusChange = AUDIOFOCUS_LOSS");
                     mIsReturnToPlayMode = mStatus == PLAYING;
-                    setSmartPhoneEqUseStatus(false);
                     pause();
                     mAudioFocus = AudioFocus.LOSS;
                     break;
@@ -1283,7 +1279,6 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
         while (true) {
             if(isTryToPlay) {
                 if (checkResultCode(mPlayer.play())) {
-                    setSmartPhoneEqUseStatus(true);
                     setStatus(PLAYING);
                     break;
                 }
@@ -1436,6 +1431,7 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
         if ((!mIsPreventNoticePlaybackMode && oldMode != newMode) ||
                 (oldMode == PlaybackMode.ERROR || newMode == PlaybackMode.ERROR)) {
             smartPhoneStatus.playbackMode = newMode;
+            setSmartPhoneEqUseStatus(newMode==PlaybackMode.PLAY);
             postSmartPhoneStatus(smartPhoneStatus);
         }
     }
