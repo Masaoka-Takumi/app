@@ -73,7 +73,6 @@ import jp.pioneer.carsync.presentation.event.BackgroundChangeEvent;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
 import jp.pioneer.carsync.presentation.model.ShortcutKeyItem;
 import jp.pioneer.carsync.presentation.model.SoundFxItem;
-import jp.pioneer.carsync.presentation.util.AlexaAvailableStatus;
 import jp.pioneer.carsync.presentation.util.CustomKeyActionHandler;
 import jp.pioneer.carsync.presentation.util.YouTubeLinkActionHandler;
 import jp.pioneer.carsync.presentation.util.YouTubeLinkStatus;
@@ -105,7 +104,6 @@ public class PlayerPresenter<T> extends Presenter<T> {
     @Inject YouTubeLinkActionHandler mYouTubeLinkActionHandler;
     @Inject YouTubeLinkStatus mYouTubeLinkStatus;
     @Inject AnalyticsEventManager mAnalytics;
-    @Inject AlexaAvailableStatus mAlexaAvailableStatus;
     private final Handler mHandler = new Handler();
     List<SoundFxSettingEqualizerType> mEqArray = new ArrayList<>();
     List<SoundFxItem> mSoundFxArray = new ArrayList<SoundFxItem>(){{
@@ -152,7 +150,26 @@ public class PlayerPresenter<T> extends Presenter<T> {
      */
     @Override
     void onTakeView() {
-        setShortcutIconResources();
+        for (int i = 0; i < mShortCutKeyList.size(); i++) {
+            ShortcutKeyItem item = mShortCutKeyList.get(i);
+            if(item.key == ShortcutKey.SOURCE){
+                // TODO カスタムキー/YouTubeLinkアイコン切り替え 改善必要
+                if(mYouTubeLinkStatus.isYouTubeLinkEnabled()){
+                    item.imageResource = YOUTUBE_LINK_ICON;
+                }
+                else {
+                    item.imageResource = CUSTOM_KEY_ICON;
+                }
+            }
+            if(item.key==ShortcutKey.VOICE){
+                if(mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
+                    item.imageResource = R.drawable.p0167_alexabtn_1nrm;
+                }else{
+                    item.imageResource = R.drawable.p0162_vrbtn_1nrm;
+                }
+            }
+            item.enabled = true;
+        }
         CarDeviceSpec spec = mStatusHolder.execute().getCarDeviceSpec();
         mEqArray = spec.soundFxSettingSpec.supportedEqualizers;
         updateShortcutButton();
@@ -616,10 +633,7 @@ public class PlayerPresenter<T> extends Presenter<T> {
             case VOICE:
                 Timber.d("onVoiceAction");
                 mShortcutCase.execute(ShortcutKey.VOICE);
-                mAnalytics.sendShortCutActionEvent(
-                        mAlexaAvailableStatus.isVoiceRecognitionTypeAlexaAndAvailable()
-                                ? Analytics.AnalyticsShortcutAction.alexaShort : Analytics.AnalyticsShortcutAction.voiceShort,
-                        Analytics.AnalyticsActiveScreen.av_screen);
+                mAnalytics.sendShortCutActionEvent(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA?Analytics.AnalyticsShortcutAction.alexaShort:Analytics.AnalyticsShortcutAction.voiceShort, Analytics.AnalyticsActiveScreen.av_screen);
                 break;
             case NAVI:
                 Timber.d("onNavigateAction");
@@ -739,15 +753,6 @@ public class PlayerPresenter<T> extends Presenter<T> {
         updateAlexaNotification();
     }
 
-    protected boolean isNeedUpdateAlexaNotification() {
-        AppStatus appStatus = mStatusHolder.execute().getAppStatus();
-        boolean notificationQueued = false;
-        if(mAlexaAvailableStatus.isVoiceRecognitionTypeAlexaAndAvailable()) {
-            notificationQueued = appStatus.alexaNotification;
-        }
-        return notificationQueued;
-    }
-
     protected void updateAlexaNotification() {
     }
 
@@ -774,8 +779,17 @@ public class PlayerPresenter<T> extends Presenter<T> {
                 amazonAlexaManager.doSpeechCancel();
             }
         }
-
-        setShortcutIconResources();
+        for (int i = 0; i < mShortCutKeyList.size(); i++) {
+            ShortcutKeyItem item = mShortCutKeyList.get(i);
+            if(item.key==ShortcutKey.VOICE){
+                if(type== VoiceRecognizeType.ALEXA){
+                    item.imageResource = R.drawable.p0167_alexabtn_1nrm;
+                }else{
+                    item.imageResource = R.drawable.p0162_vrbtn_1nrm;
+                }
+            }
+            item.enabled = true;
+        }
         updateVoiceRecognitionType();
         updateShortcutButton();
         onResume();
@@ -801,34 +815,6 @@ public class PlayerPresenter<T> extends Presenter<T> {
             }
             clock.setTextSize(TypedValue.COMPLEX_UNIT_PX,mContext.getResources().getDimension(R.dimen.player_music_status_bar_clock_text_size_12));
             ampm.setVisibility(View.VISIBLE);
-        }
-    }
-
-    /**
-     * ショートカット領域のアイコンの切り替え
-     * カスタムキーアイコン or YouTubeLinkアイコン
-     * デフォルトの音声認識アイコン or 音声認識Alexaアイコン
-     */
-    private void setShortcutIconResources(){
-        for (int i = 0; i < mShortCutKeyList.size(); i++) {
-            ShortcutKeyItem item = mShortCutKeyList.get(i);
-            if(item.key == ShortcutKey.SOURCE){
-                // TODO カスタムキー/YouTubeLinkアイコン切り替え 改善必要
-                if(mYouTubeLinkStatus.isYouTubeLinkEnabled()){
-                    item.imageResource = YOUTUBE_LINK_ICON;
-                }
-                else {
-                    item.imageResource = CUSTOM_KEY_ICON;
-                }
-            }
-            if(item.key==ShortcutKey.VOICE){
-                if(mAlexaAvailableStatus.isVoiceRecognitionTypeAlexaAndAvailable()){
-                    item.imageResource = R.drawable.p0167_alexabtn_1nrm;
-                }else{
-                    item.imageResource = R.drawable.p0162_vrbtn_1nrm;
-                }
-            }
-            item.enabled = true;
         }
     }
 }

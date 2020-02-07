@@ -21,7 +21,6 @@ import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.model.StatusHolder;
 import jp.pioneer.carsync.domain.model.VoiceRecognizeType;
 import jp.pioneer.carsync.presentation.model.SourceAppModel;
-import jp.pioneer.carsync.presentation.util.AlexaAvailableStatus;
 import jp.pioneer.carsync.presentation.view.VoiceRecognizeTypeSelectDialogView;
 import jp.pioneer.carsync.presentation.view.YouTubeLinkSearchItemDialogView;
 import timber.log.Timber;
@@ -39,8 +38,6 @@ public class VoiceRecognizeTypeSelectDialogPresenter extends Presenter<VoiceReco
     EventBus mEventBus;
     @Inject
     AppSharedPreference mPreference;
-    @Inject
-    AlexaAvailableStatus mAlexaAvailableStatus;
     private ArrayList<VoiceRecognizeType> mVoiceTypeList = new ArrayList<>();
     @Inject
     public VoiceRecognizeTypeSelectDialogPresenter(){
@@ -69,15 +66,7 @@ public class VoiceRecognizeTypeSelectDialogPresenter extends Presenter<VoiceReco
             mVoiceTypeList.add(VoiceRecognizeType.ALEXA);
         }
         VoiceRecognizeType currentType;
-        if (mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA) {
-            if (mAlexaAvailableStatus.isVoiceRecognitionTypeAlexaAndAvailable()) {
-                currentType = VoiceRecognizeType.ALEXA;
-            } else {
-                currentType = VoiceRecognizeType.PIONEER_SMART_SYNC;
-            }
-        }else{
-            currentType = mPreference.getVoiceRecognitionType();
-        }
+        currentType = mPreference.getVoiceRecognitionType();
         Optional.ofNullable(getView()).ifPresent(view -> {
             view.setAdapter(mVoiceTypeList);
             view.setSelectedItem(mVoiceTypeList.indexOf(currentType));

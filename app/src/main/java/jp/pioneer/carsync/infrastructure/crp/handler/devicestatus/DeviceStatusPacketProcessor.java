@@ -246,8 +246,6 @@ public class DeviceStatusPacketProcessor {
         status.parkingStatus = spec.parkingSenseSupported ? ParkingStatus.valueOf((byte) getBitsValue(b, 0, 1)) : ParkingStatus.OFF;
         // D22:サポート機能2
         //  (RESERVED)
-
-        status.androidVrEnabled = true;
     }
 
     private void v4_1(byte[] data, CarDeviceStatus status) {

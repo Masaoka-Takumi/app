@@ -253,7 +253,12 @@ public class UsbPresenter extends PlayerPresenter<UsbView> {
     protected void updateAlexaNotification() {
         super.updateAlexaNotification();
         Optional.ofNullable(getView()).ifPresent(view ->{
-            view.setAlexaNotification(isNeedUpdateAlexaNotification());
+            AppStatus appStatus = mGetCase.execute().getAppStatus();
+            boolean notificationQueued = false;
+            if(mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
+                notificationQueued = mGetCase.execute().getAppStatus().alexaNotification;
+            }
+            view.setAlexaNotification(notificationQueued);
         });
     }
 }

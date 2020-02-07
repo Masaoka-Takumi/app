@@ -30,7 +30,6 @@ import jp.pioneer.carsync.domain.model.SessionStatus;
 import jp.pioneer.carsync.domain.model.VoiceRecognizeMicType;
 import jp.pioneer.carsync.domain.model.VoiceRecognizeType;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
-import jp.pioneer.carsync.presentation.util.AlexaAvailableStatus;
 import jp.pioneer.carsync.presentation.view.VoiceSettingView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.SingleChoiceDialogFragment;
@@ -47,7 +46,6 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
     @Inject Context mContext;
     @Inject EventBus mEventBus;
     @Inject AnalyticsEventManager mAnalytics;
-    @Inject AlexaAvailableStatus mAlexaAvailableStatus;
     private boolean mIsAndroidVRAvailable = false;
     private ArrayList<VoiceRecognizeType> mVoiceTypeList = new ArrayList<>();
 
@@ -95,11 +93,11 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
                 view.setVoiceRecognitionMicTypeEnabled(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.PIONEER_SMART_SYNC);
             }
             view.setVoiceRecognitionEnabled(mPreference.isVoiceRecognitionEnabled());
-            view.setVoiceRecognitionType(getVoiceRecognitionType());
+            view.setVoiceRecognitionType(mPreference.getVoiceRecognitionType());
             view.setVoiceRecognitionTypeEnabled(true);
             view.setVoiceRecognitionMicTypeVisible(isVoiceRecognitionMicTypeVisible());
 
-            if(mAlexaAvailableStatus.isVoiceRecognitionTypeAlexaAndAvailable()){
+            if(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA){
                 view.setVoiceRecognitionMicType(VoiceRecognizeMicType.PHONE);
             }else if(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ANDROID_VR){
                 view.setVoiceRecognitionMicType(VoiceRecognizeMicType.HEADSET);
@@ -115,9 +113,6 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
      */
     public void onVoiceRecognitionChange(boolean isValue) {
         mPreference.setVoiceRecognitionEnabled(isValue);
-        Optional.ofNullable(getView()).ifPresent(view -> {
-            view.setVoiceRecognitionMicTypeEnabled(isVoiceRecognitionMicTypeEnabled());
-        });
     }
 
     /**
@@ -136,10 +131,6 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
         mEventBus.post(new NavigateEvent(ScreenId.SELECT_DIALOG, bundle));
     }
 
-    /**
-     * 音声認識入力切替設定ダイアログで項目選択後の処理
-     * @param position
-     */
     public void setVoiceRecognizeType(int position){
         VoiceRecognizeType nextType = mVoiceTypeList.get(position);
         if(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA&&nextType!=VoiceRecognizeType.ALEXA) {
@@ -171,6 +162,7 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
         Optional.ofNullable(getView()).ifPresent(view -> view.setVoiceRecognitionMicType(nextType));
     }
 
+
     /**
      * 音声認識設定画面の文言例の表示/非表示設定値を生成
      * @param type VoiceRecognizeType
@@ -179,30 +171,6 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
     public boolean isVoiceRecognitionDescriptionVisible(VoiceRecognizeType type) {
         boolean isAlexaAvailableCountry = mStatusCase.execute().getAppStatus().isAlexaAvailableCountry;
         return type == VoiceRecognizeType.PIONEER_SMART_SYNC || (!mIsAndroidVRAvailable&&!isAlexaAvailableCountry);
-    }
-
-    /**
-     * 設定項目「音声認識切り替え設定」の設定値を生成
-     *
-     * @return VoiceRecognizeType
-     */
-    private VoiceRecognizeType getVoiceRecognitionType() {
-        if (mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA) {
-            if (mAlexaAvailableStatus.isVoiceRecognitionTypeAlexaAndAvailable()) {
-                return VoiceRecognizeType.ALEXA;
-            } else {
-                return VoiceRecognizeType.PIONEER_SMART_SYNC;
-            }
-        }
-        //GoogleVR対応→GoogleVR非対応車載機接続時ケア不要？
-/*        if (mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ANDROID_VR) {
-            if (mIsAndroidVRAvailable) {
-                return VoiceRecognizeType.ANDROID_VR;
-            } else {
-                return VoiceRecognizeType.PIONEER_SMART_SYNC;
-            }
-        }*/
-        return mPreference.getVoiceRecognitionType();
     }
 
     /**

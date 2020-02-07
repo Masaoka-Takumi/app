@@ -121,7 +121,6 @@ import jp.pioneer.carsync.presentation.model.SettingEntrance;
 import jp.pioneer.carsync.presentation.model.SimCountryIso;
 import jp.pioneer.carsync.presentation.model.UiColor;
 import jp.pioneer.carsync.presentation.util.Adas;
-import jp.pioneer.carsync.presentation.util.AlexaAvailableStatus;
 import jp.pioneer.carsync.presentation.view.MainView;
 import jp.pioneer.carsync.presentation.view.activity.MainActivity;
 import jp.pioneer.carsync.presentation.view.argument.SearchContentParams;
@@ -175,7 +174,6 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
     @Inject CarDeviceConnection mCarDeviceConnection;
     @Inject ControlAppMusicSource mControlAppMusicSource;
     @Inject AnalyticsEventManager mAnalytics;
-    @Inject AlexaAvailableStatus mAlexaAvailableStatus;
     private PrepareSpeechRecognizer.FinishBluetoothHeadset mFinishBluetoothHeadset;
     private VoiceCommand mResentVoiceCommand;
     private boolean mIsRecognizerRestarted = false;
@@ -1600,7 +1598,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                 }else{
                     mControlSource.selectSource(MediaSourceType.VR);
                 }
-            }else if(mAlexaAvailableStatus.isVoiceRecognitionTypeAlexaAndAvailable()){
+            }else if(mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
                 if(view.isShowAlexaDialog()){
                     view.dismissAlexaDialog();
                 }
