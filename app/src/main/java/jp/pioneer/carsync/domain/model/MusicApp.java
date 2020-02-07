@@ -12,104 +12,105 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public enum MusicApp {
     /** Pandora. */
-    PANDORA("com.pandora.android"),
+    PANDORA("com.pandora.android",1),
     /** Spotify. */
-    SPOTIFY("com.spotify.music"),
+    SPOTIFY("com.spotify.music",2),
     /** Deezer. */
-    DEEZER("deezer.android.app"),
+    DEEZER("deezer.android.app",3),
     /** Last.fm. */
-    LAST_FM("fm.last.android"),
+    LAST_FM("fm.last.android",4),
     /** MOG. */
-    MOG("com.mog.android"),
+    MOG("com.mog.android",5),
     /** LiveXLive. */
-    SLACKER("com.slacker.radio"),
+    SLACKER("com.slacker.radio",6),
     /** SoundCloud. */
-    SOUND_CLOUD("com.soundcloud.android"),
+    SOUND_CLOUD("com.soundcloud.android",7),
     /** Youtube Music. */
-    YOUTUBE_MUSIC("com.google.android.apps.youtube.music"),
+    YOUTUBE_MUSIC("com.google.android.apps.youtube.music",8),
     /** Sing! カラオケ. */
-    SING_KARAOKE("com.smule.singandroid"),
+    SING_KARAOKE("com.smule.singandroid",9),
     /** Google Play Music. */
-    GOOGLE_PLAY_MUSIC("com.google.android.music"),
+    GOOGLE_PLAY_MUSIC("com.google.android.music",10),
     /** Mixcloud. */
-    MIX_CLOUD("com.mixcloud.player"),
+    MIX_CLOUD("com.mixcloud.player",11),
     /** Saavn. */
-    SAAVN("com.saavn.android"),
+    SAAVN("com.saavn.android",12),
     /** TuneIn Radio. */
-    TUNELN_RADIO("tunein.player"),
+    TUNELN_RADIO("tunein.player",13),
     /** iHeartRadio. */
-    IHEART_RADIO("com.clearchannel.iheartradio.controller"),
+    IHEART_RADIO("com.clearchannel.iheartradio.controller",14),
     /** Qello Concerts. */
-    QELLO_CONCERTS("com.qello.handheld"),
+    QELLO_CONCERTS("com.qello.handheld",15),
     /** Tidal. */
-    TIDAL("com.aspiro.tidal"),
+    TIDAL("com.aspiro.tidal",16),
     /** Hungama. */
-    HUNGAMA("com.hungama.myplay.activity"),
+    HUNGAMA("com.hungama.myplay.activity",17),
     /** 8Tracks. */
-    EIGHT_TRACKS("com.e8tracks"),
+    EIGHT_TRACKS("com.e8tracks",18),
     /** Jango. */
-    JANGO("com.jangomobile.android"),
+    JANGO("com.jangomobile.android",19),
     /** Radio Tunes. */
-    RADIO_TUNES("com.audioaddict.sky"),
+    RADIO_TUNES("com.audioaddict.sky",20),
     /** Gaana. */
-    GAANA("com.gaana"),
+    GAANA("com.gaana",21),
     /** Raaga. */
-    RAAGA("com.raaga.android"),
+    RAAGA("com.raaga.android",22),
     /** radiko. */
-    RADIKO("jp.radiko.Player"),
+    RADIKO("jp.radiko.Player",23),
     /** Napster. */
-    NAPSTER("com.rhapsody.napster"),
+    NAPSTER("com.rhapsody.napster",24),
     /** Anghami. */
-    ANGHAMI("com.anghami"),
+    ANGHAMI("com.anghami",25),
     /** DragonFli. */
-    DRAGON_FLI("com.guvera.android"),
+    DRAGON_FLI("com.guvera.android",26),
     /** Earbits. */
-    EARBITS("com.earbits.earbitsradio"),
+    EARBITS("com.earbits.earbitsradio",27),
     /** MIXTRAX. */
-    MIXTRAX("jp.pioneer.mle.android.mixtrax"),
+    MIXTRAX("jp.pioneer.mle.android.mixtrax",28),
     /** Claro Musica. */
-    CLARO_MUSICA("com.claro.claromusica.latam"),
+    CLARO_MUSICA("com.claro.claromusica.latam",29),
     /** Radionomy. */
-    RADIONOMY("com.mobile.radionomy"),
+    RADIONOMY("com.mobile.radionomy",31),
     /** Sticher. */
-    STICHER("com.stitcher.app"),
+    STICHER("com.stitcher.app",32),
     /** SiriusXM. */
-    SIRIUS_XM("com.sirius"),
+    SIRIUS_XM("com.sirius",33),
     /** Amazon Music. */
-    AMAZON_MUSIC("com.amazon.mp3"),
+    AMAZON_MUSIC("com.amazon.mp3",34),
     /** Yandex Music. */
-    YANDEX_MUSIC("ru.yandex.music"),
+    YANDEX_MUSIC("ru.yandex.music",35),
     /** VK Music. */
-    VK_MUSIC("com.vk.music.remote"),
+    VK_MUSIC("com.vk.music.remote",36),
     /** Musixmatch. */
-    MUSIXMATCH("com.musixmatch.android.lyrify"),
+    MUSIXMATCH("com.musixmatch.android.lyrify",37),
     /** StarMaker. */
-    STAR_MAKER("com.starmakerinteractive.starmaker"),
+    STAR_MAKER("com.starmakerinteractive.starmaker",38),
     /** Wynk Music. */
-    WYNK_MUSIC("com.bsbportal.music"),
+    WYNK_MUSIC("com.bsbportal.music",39),
     /** JioMusic. */
-    JIO_MUSIC("com.jio.media.jiobeats"),
+    JIO_MUSIC("com.jio.media.jiobeats",40),
     /** AWA. */
-    AWA("fm.awa.liverpool"),
+    AWA("fm.awa.liverpool",41),
     /** JOOX Music. */
-    JOOX_MUSIC("com.tencent.ibg.joox"),
+    JOOX_MUSIC("com.tencent.ibg.joox",42),
     /** KKBOX. */
-    KKBOX("com.skysoft.kkbox.android"),
+    KKBOX("com.skysoft.kkbox.android",43),
     /** LINE Music. */
-    LINE_MUSIC("jp.linecorp.linemusic.android"),
+    LINE_MUSIC("jp.linecorp.linemusic.android",44),
     /** ミュージッククルーズチャンネル2 (MCC2) . */
-    MCC2("jp.pioneer.mle.rcapp16"),
+    MCC2("jp.pioneer.mle.rcapp16",45),
     /** Apple Music */
-    APPLE_MUSIC("com.apple.android.music"),;
+    APPLE_MUSIC("com.apple.android.music",46),;
     private String mPackageName;
-
+    private int mNumber;
     /**
      * コンストラクタ.
      *
      * @param packageName パッケージ名
      */
-    MusicApp(String packageName) {
+    MusicApp(String packageName, int number) {
         mPackageName = packageName;
+        mNumber = number;
     }
 
     /**
@@ -120,6 +121,10 @@ public enum MusicApp {
     @NonNull
     public String getPackageName() {
         return mPackageName;
+    }
+
+    public int getNumber() {
+        return mNumber;
     }
 
     /**
@@ -163,4 +168,5 @@ public enum MusicApp {
 
         return null;
     }
+
 }

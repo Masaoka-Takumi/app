@@ -64,6 +64,14 @@ public abstract class AbstractNotification implements Notification {
     /**
      * {@inheritDoc}
      */
+    @NonNull
+    public String getPackageName() {
+        return mAppInfo.packageName;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Nullable
     public Drawable getNotificationIcon() {
         Bitmap bitmap = getNotification().extras.getParcelable(EXTRA_LARGE_ICON);

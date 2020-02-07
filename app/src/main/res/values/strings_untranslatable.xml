@@ -6,6 +6,17 @@
     <string name="invalid">INVALID</string>
     <string name="unknown">Unknown</string>
 
+    <!-- 車載機Smartphone操作コマンド -->
+    <string name="control_command_back">Back</string>
+    <string name="control_command_music">Music</string>
+    <string name="control_command_navi">Navi</string>
+    <string name="control_command_phone">Phone</string>
+    <string name="control_command_mail">Mail</string>
+    <string name="control_command_vr">VR</string>
+    <string name="control_command_app">App</string>
+    <string name="control_command_short">短押し</string>
+    <string name="control_command_long">長押し</string>
+
     <!-- DABのバンド種別 -->
     <string name="dab_band_type_band1">DAB1</string>
     <string name="dab_band_type_band2">DAB2</string>
@@ -80,7 +91,7 @@
     <string name="setting_debug_adas_fps">ADASのFPS設定</string>
     <string name="setting_debug_adas_camera_view">ADASのカメラプレビュー表示</string>
     <string name="setting_debug_alexa_sim_judgement">Alexa SIM判定</string>
-
+    <string name="setting_debug_smart_phone_control_command">車載機ハードキー通知</string>
     <!-- Amazon Alexa-->
     <string name="alexa_language_locale_english_us">en-US</string>
     <string name="alexa_language_locale_english_uk">en-GB</string>

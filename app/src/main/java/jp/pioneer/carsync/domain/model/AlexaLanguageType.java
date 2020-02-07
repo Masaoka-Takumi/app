@@ -11,17 +11,17 @@ import static jp.pioneer.carsync.infrastructure.crp.util.PacketUtil.ubyteToInt;
  */
 public enum AlexaLanguageType {
     /** English(US). */
-    ENGLISH_US(0x00, R.string.set_308, R.string.alexa_language_locale_english_us),
+    ENGLISH_US(0x00, R.string.set_308, R.string.alexa_language_locale_english_us,"English(US)" ),
     /** English(UK). */
-    ENGLISH_UK(0x01, R.string.set_309, R.string.alexa_language_locale_english_uk),
+    ENGLISH_UK(0x01, R.string.set_309, R.string.alexa_language_locale_english_uk,"English(UK)"),
     /** English(India). */
-    ENGLISH_INDIA(0x02, R.string.set_310, R.string.alexa_language_locale_english_india),
+    ENGLISH_INDIA(0x02, R.string.set_310, R.string.alexa_language_locale_english_india,"English(India)"),
     /** Japanese. */
-    JAPANESE(0x03, R.string.set_311, R.string.alexa_language_locale_japanese),
+    JAPANESE(0x03, R.string.set_311, R.string.alexa_language_locale_japanese,"Japanese"),
     /** German. */
-    GERMAN(0x04, R.string.set_312, R.string.alexa_language_locale_german),
+    GERMAN(0x04, R.string.set_312, R.string.alexa_language_locale_german,"German"),
     /** French. */
-    FRENCH(0x05, R.string.set_313, R.string.alexa_language_locale_french),
+    FRENCH(0x05, R.string.set_313, R.string.alexa_language_locale_french,"French"),
 
     ;
 
@@ -32,16 +32,19 @@ public enum AlexaLanguageType {
     @StringRes public final int label;
     /** 表示用文字列リソースID. */
     @StringRes public final int locale;
+    /** Analytics用文字列. */
+    public final String strValue;
     /**
      * コンストラクタ.
      *
      * @param code プロトコルでの定義値
      * @param label 表示用文字列リソースID
      */
-    AlexaLanguageType(int code, @StringRes int label, @StringRes int locale) {
+    AlexaLanguageType(int code, @StringRes int label, @StringRes int locale,String strValue) {
         this.code = code;
         this.label = label;
         this.locale = locale;
+        this.strValue = strValue;
     }
 
     /**

@@ -89,6 +89,7 @@ public class DebugSettingPresenter extends Presenter<DebugSettingView> {
             view.setAdasFps(appStatus.adasFps);
             view.setAdasCameraPreview(appStatus.adasCameraView);
             view.setAlexaSimJudgement(mPreference.isAlexaRequiredSimCheck());
+            view.setSmartPhoneControlComand(mPreference.isDisplaySmartPhoneControlCommand());
         });
     }
 
@@ -301,6 +302,13 @@ public class DebugSettingPresenter extends Presenter<DebugSettingView> {
         Optional.ofNullable(getView()).ifPresent(view ->{
             view.setAlexaSimJudgement(newValue);
             view.recheckSim();
+        });
+    }
+
+    public void onSmartPhoneControlComand(boolean newValue){
+        mPreference.setDisplaySmartPhoneControlCommand(newValue);
+        Optional.ofNullable(getView()).ifPresent(view ->{
+            view.setSmartPhoneControlComand(newValue);
         });
     }
 }

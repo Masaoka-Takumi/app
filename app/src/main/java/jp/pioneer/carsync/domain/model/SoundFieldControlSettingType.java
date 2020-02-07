@@ -15,15 +15,15 @@ import static jp.pioneer.mle.pmg.player.data.FilterStatus.SoundFieldMode;
  * SoundFieldControl設定種別.
  */
 public enum SoundFieldControlSettingType {
-    OFF(0x00, R.string.val_119, SoundFieldMode.OFF,
+    OFF(0x00, R.string.val_119, SoundFieldMode.OFF,"OFF",
             SoundEffectSettingType.OFF),
-    CLUB(0x01, R.string.val_094, SoundFieldMode.LIVE_REC,
+    CLUB(0x01, R.string.val_094, SoundFieldMode.LIVE_REC,"Club",
             SoundEffectSettingType.OFF, SoundEffectSettingType.CLUB_F, SoundEffectSettingType.CLUB_M),
-    CAFE(0x02, R.string.val_093, SoundFieldMode.LIVE,
+    CAFE(0x02, R.string.val_093, SoundFieldMode.LIVE,"Cafe",
             SoundEffectSettingType.OFF, SoundEffectSettingType.HALL_F, SoundEffectSettingType.HALL_M),
-    CONCERT_HALL(0x05, R.string.val_097, SoundFieldMode.DOME,
+    CONCERT_HALL(0x05, R.string.val_097, SoundFieldMode.DOME,"Concert Hall",
             SoundEffectSettingType.OFF, SoundEffectSettingType.ARENA_F, SoundEffectSettingType.ARENA_M),
-    OPEN_AIR(0x06, R.string.val_098, SoundFieldMode.STADIUM,
+    OPEN_AIR(0x06, R.string.val_098, SoundFieldMode.STADIUM,"Open Air",
             SoundEffectSettingType.OFF, SoundEffectSettingType.ARENA_F, SoundEffectSettingType.ARENA_M)
     ;
 
@@ -33,7 +33,8 @@ public enum SoundFieldControlSettingType {
     @StringRes public final int label;
     /** MLEでの定義値 */
     public final SoundFieldMode mode;
-
+    /** Analytics用文字列. */
+    public final String strValue;
     /** 本設定種別に対して設定可能な{@link SoundEffectSettingType}の組み合わせ([0]:OFF, [1]:FEMALE, [2]:MALE). */
     public final ArrayList<SoundEffectSettingType> types;
 
@@ -43,10 +44,11 @@ public enum SoundFieldControlSettingType {
      * @param code プロトコルでの定義値
      * @param types {@link #code}になり得るソース種別群
      */
-    SoundFieldControlSettingType(int code, @StringRes int label, SoundFieldMode mode, SoundEffectSettingType... types) {
+    SoundFieldControlSettingType(int code, @StringRes int label, SoundFieldMode mode, String strValue, SoundEffectSettingType... types) {
         this.code = code;
         this.label = label;
         this.mode = mode;
+        this.strValue = strValue;
         this.types = new ArrayList<>();
         if (types != null) {
             this.types.addAll(Arrays.asList(types));
@@ -70,6 +72,13 @@ public enum SoundFieldControlSettingType {
     @StringRes
     public int getLabel() {
         return label;
+    }
+
+    /**
+     * Analytics用文字列取得.
+     */
+    public String getAnalyticsStr() {
+        return strValue;
     }
 
     /**

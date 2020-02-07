@@ -1,44 +1,103 @@
 package jp.pioneer.carsync.application.content;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.inject.Inject;
 
 import jp.pioneer.carsync.application.event.AppStateChangeEvent;
 import jp.pioneer.carsync.application.util.Stopwatch;
 import jp.pioneer.carsync.domain.event.AppMusicAudioModeChangeEvent;
+import jp.pioneer.carsync.domain.event.AudioSettingChangeEvent;
+import jp.pioneer.carsync.domain.event.EqualizerTypeChangeEvent;
+import jp.pioneer.carsync.domain.event.LiveSimulationSettingChangeEvent;
 import jp.pioneer.carsync.domain.event.MediaSourceTypeChangeEvent;
+import jp.pioneer.carsync.domain.event.ReadNotificationPostedEvent;
+import jp.pioneer.carsync.domain.event.SoundFxSettingChangeEvent;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
+import jp.pioneer.carsync.domain.interactor.PreferMarinApp;
+import jp.pioneer.carsync.domain.interactor.PreferMusicApp;
+import jp.pioneer.carsync.domain.interactor.PreferNaviApp;
+import jp.pioneer.carsync.domain.interactor.PreferReadNotification;
+import jp.pioneer.carsync.domain.model.AlexaLanguageType;
 import jp.pioneer.carsync.domain.model.AudioMode;
+import jp.pioneer.carsync.domain.model.AudioSetting;
+import jp.pioneer.carsync.domain.model.BaseApp;
+import jp.pioneer.carsync.domain.model.CarDeviceClassId;
 import jp.pioneer.carsync.domain.model.CarDeviceSpec;
 import jp.pioneer.carsync.domain.model.CarDeviceStatus;
+import jp.pioneer.carsync.domain.model.MarinApp;
+import jp.pioneer.carsync.domain.model.MarinAppCategory;
 import jp.pioneer.carsync.domain.model.MediaSourceType;
+import jp.pioneer.carsync.domain.model.MessagingApp;
+import jp.pioneer.carsync.domain.model.MusicApp;
+import jp.pioneer.carsync.domain.model.NaviApp;
 import jp.pioneer.carsync.domain.model.SessionStatus;
+import jp.pioneer.carsync.domain.model.SmallCarTaSettingType;
+import jp.pioneer.carsync.domain.model.SoundEffectType;
+import jp.pioneer.carsync.domain.model.SoundFieldControlSettingType;
+import jp.pioneer.carsync.domain.model.SoundFxSetting;
+import jp.pioneer.carsync.domain.model.SoundFxSettingEqualizerType;
+import jp.pioneer.carsync.domain.model.StatusHolder;
+import jp.pioneer.carsync.domain.model.SuperTodorokiSetting;
+import jp.pioneer.carsync.domain.model.TimeAlignmentSettingMode;
+import jp.pioneer.carsync.presentation.event.AlexaLoginSuccessEvent;
 import jp.pioneer.carsync.presentation.event.MainNavigateEvent;
+import jp.pioneer.carsync.presentation.event.MessageReadFinishedEvent;
 import jp.pioneer.carsync.presentation.event.SourceChangeReasonEvent;
+import jp.pioneer.carsync.presentation.util.YouTubeLinkStatus;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import timber.log.Timber;
 
 public class AnalyticsEventManager {
-    @Inject GetStatusHolder mGetStatusHolder;
-    @Inject Context mContext;
-    @Inject EventBus mEventBus;
+    @Inject
+    GetStatusHolder mGetStatusHolder;
+    @Inject
+    Context mContext;
+    @Inject
+    EventBus mEventBus;
+    @Inject
+    AppSharedPreference mPreference;
+    @Inject
+    AnalyticsSharedPreference mAnalyticsPreference;
+    @Inject
+    YouTubeLinkStatus mYouTubeLinkStatus;
+    @Inject
+    PreferNaviApp mNaviCase;
+    @Inject
+    PreferMarinApp mMarinCase;
+    @Inject
+    PreferReadNotification mMessagingCase;
+    @Inject
+    PreferMusicApp mPreferMusicApp;
     private static final Analytics sAnalytics = Analytics.getInstance();
+    private static final boolean DBG = false;
     private static List<AnalyticsEventObserver> observers = new ArrayList<>();
     private static EnumSet<Analytics.AnalyticsThirdAppStartUp> sThirdAppStartUpSendFlg = EnumSet.noneOf(Analytics.AnalyticsThirdAppStartUp.class);//3rd App起動トリガー送信済フラグ
 
     interface AnalyticsEventObserver {
-        void didConnectDevice();
+        //車載器情報取得前連携開始
+        void willConnectDevice();
+
+        //連携開始のCaution承諾後
+        void didApprovedConnectDevice();
 
         void didDisconnectDevice();
     }
@@ -63,20 +122,33 @@ public class AnalyticsEventManager {
     }
 
     // Observerを追加
-    public void createObserver() {
+    private void createObserver() {
         observers.add(new ActiveSourceObserver());
         observers.add(new UIOrientationObserver());
         observers.add(new ActiveScreenObserver());
         observers.add(new SourceSelectActionObserver());
+        observers.add(new NaviAppUseObserver());
+        observers.add(new MessageAppUseObserver());
+        observers.add(new MusicAppUseObserver());
+        observers.add(new YouTubeLinkUseObserver());
+        observers.add(new AlexaUseObserver());
+        observers.add(new MessageObserver());
+        observers.add(new FxSettingObserver());
+        observers.add(new EasySoundTaSettingObserver());
+    }
+
+    public void willConnectDevice() {
+        for (AnalyticsEventObserver observer : observers) {
+            observer.willConnectDevice();
+        }
     }
 
     public void startAnalytics(CarDeviceSpec carDevice) {
         init();
 
         sAnalytics.logDeviceConnectedEvent(carDevice);
-
         for (AnalyticsEventObserver observer : observers) {
-            observer.didConnectDevice();
+            observer.didApprovedConnectDevice();
         }
     }
 
@@ -108,6 +180,13 @@ public class AnalyticsEventManager {
         }
     }
 
+    /**
+     * 電話機能の使用情報イベント送信
+     */
+    public void sendTelephoneCallEvent(Analytics.AnalyticsTelephoneCall trigger) {
+        sAnalytics.logTelephoneCallEvent(trigger);
+    }
+
     private void stopAll(EnumMap<?, Stopwatch> stopwatches) {
         for (EnumMap.Entry<?, Stopwatch> entry : stopwatches.entrySet()) {
             entry.getValue().stop();
@@ -125,14 +204,31 @@ public class AnalyticsEventManager {
         }
     }
 
-    private class ActiveSourceObserver implements AnalyticsEventObserver {
+    private class AbstractEventObserver implements AnalyticsEventObserver {
+        @Override
+        public void willConnectDevice() {
+
+        }
+
+        @Override
+        public void didApprovedConnectDevice() {
+
+        }
+
+        @Override
+        public void didDisconnectDevice() {
+
+        }
+    }
+
+    private class ActiveSourceObserver extends AbstractEventObserver {
         //視聴ソース情報
         private EnumMap<Analytics.AnalyticsSource, Stopwatch> mSourceActiveDuration = new EnumMap<>(Analytics.AnalyticsSource.class);
         private MediaSourceType mLastSourceType;//ソース変更時保存ソース
         private Analytics.SourceChangeReason mSourceChangeReason;//ソース切り替え操作トリガー
 
         @Override
-        public void didConnectDevice() {
+        public void didApprovedConnectDevice() {
             if (!mEventBus.isRegistered(this)) {
                 mEventBus.register(this);
             }
@@ -282,12 +378,12 @@ public class AnalyticsEventManager {
         }
     }
 
-    private class UIOrientationObserver implements AnalyticsEventObserver {
+    private class UIOrientationObserver extends AbstractEventObserver {
         //スマホ端末の縦/横割合(連携中)情報
         private EnumMap<Analytics.AnalyticsUIOrientation, Stopwatch> mUIOrientationDuration = new EnumMap<>(Analytics.AnalyticsUIOrientation.class);
 
         @Override
-        public void didConnectDevice() {
+        public void didApprovedConnectDevice() {
             if (!mEventBus.isRegistered(this)) {
                 mEventBus.register(this);
             }
@@ -364,14 +460,14 @@ public class AnalyticsEventManager {
         }
     }
 
-    private class ActiveScreenObserver implements AnalyticsEventObserver {
+    private class ActiveScreenObserver extends AbstractEventObserver {
         //HOME画面/AV画面/バックグラウンドの滞留時間情報
         private EnumMap<Analytics.AnalyticsActiveScreen, Stopwatch> mActiveScreenDuration = new EnumMap<>(Analytics.AnalyticsActiveScreen.class);
         private Analytics.AnalyticsActiveScreen mLastActiveScreen = null;
         private Analytics.AnalyticsActiveScreen mLastForegroundScreen = null;
 
         @Override
-        public void didConnectDevice() {
+        public void didApprovedConnectDevice() {
             if (!mEventBus.isRegistered(this)) {
                 mEventBus.register(this);
             }
@@ -483,7 +579,7 @@ public class AnalyticsEventManager {
         }
     }
 
-    private class SourceSelectActionObserver implements AnalyticsEventObserver {
+    private class SourceSelectActionObserver extends AbstractEventObserver {
         private final Handler mHandler = new Handler();
         private Runnable mRunnable;
         private MediaSourceType mLastSourceTypeTrigger;//ソース切り替え操作トリガー用保存ソース
@@ -491,7 +587,7 @@ public class AnalyticsEventManager {
         private Analytics.SourceChangeReason mSourceChangeReason;//ソース切り替え操作トリガー
 
         @Override
-        public void didConnectDevice() {
+        public void didApprovedConnectDevice() {
             if (!mEventBus.isRegistered(this)) {
                 mEventBus.register(this);
             }
@@ -567,4 +663,621 @@ public class AnalyticsEventManager {
             mSourceChangeReason = event.reason;
         }
     }
+
+    private class NaviAppUseObserver extends AbstractEventObserver {
+
+        @Override
+        public void didDisconnectDevice() {
+            Timber.d("NaviAppUseObserver");
+            if(!mGetStatusHolder.execute().getAppStatus().isAgreedCaution) return;
+            //デフォルトのタイムゾーンおよびロケールを使用して現在時間のカレンダを取得
+            Calendar nowCal = Calendar.getInstance();
+            //ナビアプリの利用情報
+            boolean isNaviAppsOneWeekBefore = isSentOneWeekBefore(nowCal, mAnalyticsPreference.getNaviAppsLastSentDate());
+            String appInstalledStr = "";
+            String appSettingStr = "";
+            BaseApp baseApp = null;
+            int naviAppNumberMax = 0;
+            int weatherAppNumberMax = 0;
+            int boatingAppNumberMax = 0;
+            int fishingAppNumberMax = 0;
+            for (NaviApp app : NaviApp.values()) {
+                naviAppNumberMax = Math.max(app.getNumber(), naviAppNumberMax);
+            }
+            for (MarinApp app : MarinApp.values()) {
+                if (app.getCategory() == MarinAppCategory.WEATHER) {
+                    weatherAppNumberMax = Math.max(app.getNumber(), weatherAppNumberMax);
+                } else if (app.getCategory() == MarinAppCategory.BOATING) {
+                    boatingAppNumberMax = Math.max(app.getNumber(), boatingAppNumberMax);
+                } else if (app.getCategory() == MarinAppCategory.FISHING) {
+                    fishingAppNumberMax = Math.max(app.getNumber(), fishingAppNumberMax);
+                }
+            }
+            int[] naviInstalledArray = new int[(naviAppNumberMax + 3) / 4];
+            int[] weatherInstalledArray = new int[(weatherAppNumberMax + 3) / 4];
+            int[] boatingInstalledArray = new int[(boatingAppNumberMax + 3) / 4];
+            int[] fishingInstalledArray = new int[(fishingAppNumberMax + 3) / 4];
+
+            int[] naviSettingArray = new int[(naviAppNumberMax + 3) / 4];
+            int[] weatherSettingArray = new int[(weatherAppNumberMax + 3) / 4];
+            int[] boatingSettingArray = new int[(boatingAppNumberMax + 3) / 4];
+            int[] fishingSettingArray = new int[(fishingAppNumberMax + 3) / 4];
+
+            List<ApplicationInfo> naviApps = mNaviCase.getInstalledTargetAppList();
+            for (ApplicationInfo app : naviApps) {
+                NaviApp naviApp = NaviApp.fromPackageName(app.packageName);
+                int idx = naviApp.getNumber() - 1;
+                if (DBG) Timber.d("idx=" + idx + ",App=" + naviApp.name());
+                naviInstalledArray[getArrayIndex(naviInstalledArray.length, idx)] |= indexTo4Bit(idx);
+            }
+            if (DBG) logBinaryString(naviInstalledArray);
+
+            if (mPreference.getLastConnectedCarDeviceClassId() == CarDeviceClassId.MARIN) {
+                List<ApplicationInfo> weatherApps = mMarinCase.getInstalledWeatherTargetAppList();
+                List<ApplicationInfo> boatingApps = mMarinCase.getInstalledBoatingTargetAppList();
+                List<ApplicationInfo> fishingApps = mMarinCase.getInstalledFishingTargetAppList();
+                MarinApp marinApp;
+                for (ApplicationInfo app : weatherApps) {
+                    marinApp = MarinApp.fromPackageName(app.packageName);
+                    int idx = marinApp.getNumber() - 1;
+                    if (DBG) Timber.d("idx=" + idx + ",App=" + marinApp.name());
+                    weatherInstalledArray[getArrayIndex(weatherInstalledArray.length, idx)] |= indexTo4Bit(idx);
+                }
+                if (DBG) logBinaryString(weatherInstalledArray);
+                for (ApplicationInfo app : boatingApps) {
+                    marinApp = MarinApp.fromPackageName(app.packageName);
+                    int idx = marinApp.getNumber() - 1;
+                    if (DBG) Timber.d("idx=" + idx + ",App=" + marinApp.name());
+                    boatingInstalledArray[getArrayIndex(boatingInstalledArray.length, idx)] |= indexTo4Bit(idx);
+                }
+                if (DBG) logBinaryString(boatingInstalledArray);
+                for (ApplicationInfo app : fishingApps) {
+                    marinApp = MarinApp.fromPackageName(app.packageName);
+                    int idx = marinApp.getNumber() - 1;
+                    if (DBG) Timber.d("idx=" + idx + ",App=" + marinApp.name());
+                    fishingInstalledArray[getArrayIndex(fishingInstalledArray.length, idx)] |= indexTo4Bit(idx);
+                }
+                if (DBG) logBinaryString(fishingInstalledArray);
+
+                AppSharedPreference.Application app = mPreference.getNavigationMarinApp();
+                try {
+                    if (app != null) {
+                        //アンインストールされていても値が返る
+                        baseApp = MarinApp.fromPackageNameNoThrow(app.packageName);
+                        if (baseApp != null) {
+                            MarinApp settingMarinApp = (MarinApp) baseApp;
+                            int idx = settingMarinApp.getNumber() - 1;
+                            //起動設定したアプリがアンインストールされている場合は未設定となる(ALL0)。
+                            if (settingMarinApp.getCategory() == MarinAppCategory.WEATHER) {
+                                if (isSettingAppInstalled(weatherInstalledArray[getArrayIndex(weatherInstalledArray.length, idx)], indexTo4Bit(idx))) {
+                                    weatherSettingArray[getArrayIndex(weatherSettingArray.length, idx)] = indexTo4Bit(idx);
+                                }
+                            } else if (settingMarinApp.getCategory() == MarinAppCategory.BOATING) {
+                                if (isSettingAppInstalled(boatingInstalledArray[getArrayIndex(boatingInstalledArray.length, idx)], indexTo4Bit(idx))) {
+                                    boatingSettingArray[getArrayIndex(boatingSettingArray.length, idx)] = indexTo4Bit(idx);
+                                }
+                            } else if (settingMarinApp.getCategory() == MarinAppCategory.FISHING) {
+                                if (isSettingAppInstalled(fishingInstalledArray[getArrayIndex(fishingInstalledArray.length, idx)], indexTo4Bit(idx))) {
+                                    fishingSettingArray[getArrayIndex(fishingSettingArray.length, idx)] = indexTo4Bit(idx);
+                                }
+                            }
+                        } else {
+                            baseApp = NaviApp.fromPackageName(mPreference.getNavigationMarinApp().packageName);
+                        }
+                    }
+                } catch (IllegalArgumentException e) {
+                    Timber.e(e.getMessage());
+                }
+            } else {
+                try {
+                    baseApp = NaviApp.fromPackageName(mPreference.getNavigationApp().packageName);
+                } catch (IllegalArgumentException e) {
+                    Timber.e(e.getMessage());
+                }
+            }
+            if (baseApp instanceof NaviApp) {
+                NaviApp settingNaviApp = (NaviApp) baseApp;
+                int idx = settingNaviApp.getNumber() - 1;
+                //起動設定したアプリがアンインストールされている場合は未設定となる(ALL0)。
+                if (isSettingAppInstalled(naviInstalledArray[getArrayIndex(naviInstalledArray.length, idx)], indexTo4Bit(idx))) {
+                    naviSettingArray[getArrayIndex(naviSettingArray.length, idx)] = indexTo4Bit(idx);
+                }
+            }
+            appInstalledStr = String.format("%s/%s/%s/%s", createAppStr(naviInstalledArray), createAppStr(weatherInstalledArray), createAppStr(boatingInstalledArray), createAppStr(fishingInstalledArray));
+            appSettingStr = String.format("%s/%s/%s/%s", createAppStr(naviSettingArray), createAppStr(weatherSettingArray), createAppStr(boatingSettingArray), createAppStr(fishingSettingArray));
+            if (DBG)
+                Timber.d("appInstalledStr=" + appInstalledStr + ",appSettingStr＝" + appSettingStr);
+            // 未送信、または前回送信時から変化した、または前回送信時から1週間以上経過した場合送信
+            if ((mAnalyticsPreference.getNaviAppsInstalled() == null)
+                    || !appInstalledStr.equals(mAnalyticsPreference.getNaviAppsInstalled())
+                    || !appSettingStr.equals(mAnalyticsPreference.getNaviAppsSetting())
+                    || isNaviAppsOneWeekBefore) {
+                mAnalyticsPreference.setNaviAppsInstalled(appInstalledStr);
+                mAnalyticsPreference.setNaviAppsSetting(appSettingStr);
+                sAnalytics.logNaviAppsEvent(appInstalledStr, appSettingStr);
+                mAnalyticsPreference.setNaviAppLastSentDate(nowCal.getTimeInMillis());
+            }
+        }
+    }
+
+    private class MessageAppUseObserver extends AbstractEventObserver {
+
+        @Override
+        public void didDisconnectDevice() {
+            Timber.d("MessageAppUseObserver");
+            if(!mGetStatusHolder.execute().getAppStatus().isAgreedCaution) return;
+            //デフォルトのタイムゾーンおよびロケールを使用して現在時間のカレンダを取得
+            Calendar nowCal = Calendar.getInstance();
+            //メッセージアプリの利用情報
+            boolean isMessageAppsOneWeekBefore = isSentOneWeekBefore(nowCal, mAnalyticsPreference.getMessageAppsLastSentDate());
+            int messageAppNumberMax = 0;
+            for (MessagingApp app : MessagingApp.values()) {
+                messageAppNumberMax = Math.max(app.getNumber(), messageAppNumberMax);
+            }
+            int[] messageInstalledArray = new int[(messageAppNumberMax + 3) / 4];
+            List<ApplicationInfo> MessageApps = mMessagingCase.getInstalledTargetAppList();
+            for (ApplicationInfo app : MessageApps) {
+                MessagingApp MessageApp = MessagingApp.fromPackageName(app.packageName);
+                int idx = MessageApp.getNumber() - 1;
+                if (DBG) Timber.d("idx=" + idx + ",App=" + MessageApp.name());
+                messageInstalledArray[getArrayIndex(messageInstalledArray.length, idx)] = messageInstalledArray[getArrayIndex(messageInstalledArray.length, idx)] | indexTo4Bit(idx);
+            }
+            String messageAppInstalledStr = createAppStr(messageInstalledArray);
+            if (DBG) logBinaryString(messageInstalledArray);
+            // 未送信、または前回送信時から変化した、または前回送信時から1週間以上経過した場合送信
+            if ((mAnalyticsPreference.getMessageAppsInstalled() == null)
+                    || !messageAppInstalledStr.equals(mAnalyticsPreference.getMessageAppsInstalled())
+                    || isMessageAppsOneWeekBefore) {
+                mAnalyticsPreference.setMessageAppsInstalled(messageAppInstalledStr);
+                sAnalytics.logMessageAppsEvent(messageAppInstalledStr);
+                mAnalyticsPreference.setMessageAppLastSentDate(nowCal.getTimeInMillis());
+            }
+        }
+    }
+
+    private class MusicAppUseObserver extends AbstractEventObserver {
+
+        @Override
+        public void didDisconnectDevice() {
+            Timber.d("MusicAppUseObserver");
+            if(!mGetStatusHolder.execute().getAppStatus().isAgreedCaution) return;
+            //デフォルトのタイムゾーンおよびロケールを使用して現在時間のカレンダを取得
+            Calendar nowCal = Calendar.getInstance();
+            //ミュージックアプリの利用情報
+            boolean isMusicAppsOneWeekBefore = isSentOneWeekBefore(nowCal, mAnalyticsPreference.getMusicAppsLastSentDate());
+            int musicAppNumberMax = 0;
+            for (MusicApp app : MusicApp.values()) {
+                musicAppNumberMax = Math.max(app.getNumber(), musicAppNumberMax);
+            }
+            int[] musicInstalledArray = new int[(musicAppNumberMax + 3) / 4];
+            List<ApplicationInfo> musicApps = mPreferMusicApp.getInstalledTargetAppList();
+            for (ApplicationInfo app : musicApps) {
+                MusicApp musicApp = MusicApp.fromPackageName(app.packageName);
+                int idx = musicApp.getNumber() - 1;
+                if (DBG) Timber.d("idx=" + idx + ",App=" + musicApp.name());
+                musicInstalledArray[getArrayIndex(musicInstalledArray.length, idx)] = musicInstalledArray[getArrayIndex(musicInstalledArray.length, idx)] | indexTo4Bit(idx);
+            }
+            String musicAppInstalledStr = createAppStr(musicInstalledArray);
+            if (DBG) logBinaryString(musicInstalledArray);
+            // 未送信、または前回送信時から変化した、または前回送信時から1週間以上経過した場合送信
+            if ((mAnalyticsPreference.getMusicAppsInstalled() == null)
+                    || !musicAppInstalledStr.equals(mAnalyticsPreference.getMusicAppsInstalled())
+                    || isMusicAppsOneWeekBefore) {
+                mAnalyticsPreference.setMusicAppsInstalled(musicAppInstalledStr);
+                sAnalytics.logMusicAppsEvent(musicAppInstalledStr);
+                mAnalyticsPreference.setMusicAppLastSentDate(nowCal.getTimeInMillis());
+            }
+        }
+    }
+
+    private int getArrayIndex(int arrayLength, int idx) {
+        return arrayLength - 1 - idx / 4;
+    }
+
+    private int indexTo4Bit(int idx) {
+        return 1 << (idx % 4);
+    }
+
+    private String createAppStr(int[] array) {
+        StringBuilder appStr = new StringBuilder();
+        for (int b : array) {
+            appStr.append(String.format("%01X", b));
+        }
+        return appStr.toString();
+    }
+
+    private void logBinaryString(int[] array) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int b : array) {
+            //int i = Byte.toUnsignedInt(b); // 符号なし変換
+            String str = Integer.toBinaryString(b); // バイナリ文字列を取得
+            str = String.format("%4s", str).replace(' ', '0'); // 0パディング
+            stringBuilder.append(str);
+        }
+        Timber.d("2進数：App=" + stringBuilder);
+    }
+
+    private boolean isSettingAppInstalled(int installed, int setting) {
+        return (installed & setting) != 0;
+    }
+
+    private class MessageObserver extends AbstractEventObserver {
+        @Override
+        public void didApprovedConnectDevice() {
+            if (!mEventBus.isRegistered(this)) {
+                mEventBus.register(this);
+            }
+        }
+
+        @Override
+        public void didDisconnectDevice() {
+            mEventBus.unregister(this);
+        }
+
+        @Subscribe
+        public void onMessageReadFinishedEvent(MessageReadFinishedEvent event) {
+            //メッセージ読み上げ機能の使用情報イベント送信【メッセージ読み上げ】
+            try {
+                MessagingApp messagingApp = MessagingApp.fromPackageName(event.packageName);
+                String app = messagingApp.getAppName();
+                sAnalytics.logMessageReadEvent(app);
+            } catch (IllegalArgumentException e) {
+                Timber.e(e.getMessage());
+            }
+        }
+
+        /**
+         * ReadNotificationPostedEventハンドラ
+         * <p>
+         * 新規通知を受信した場合に動作する。
+         *
+         * @param event ReadNotificationPostedEvent
+         */
+        @Subscribe
+        public void onReadNotificationPostedEvent(ReadNotificationPostedEvent event) {
+            //メッセージ読み上げ機能の使用情報イベント送信【新着メッセージ受信】
+            try {
+                MessagingApp messagingApp = MessagingApp.fromPackageName(event.notification.getPackageName());
+                String app = messagingApp.getAppName();
+                sAnalytics.logMessageArrivalEvent(app);
+            } catch (IllegalArgumentException e) {
+                Timber.e(e.getMessage());
+            }
+        }
+    }
+
+    private class YouTubeLinkUseObserver extends AbstractEventObserver implements AppSharedPreference.OnAppSharedPreferenceChangeListener {
+        boolean mYouTubeLinkUse = false;//ONにしたことがあるか
+
+        YouTubeLinkUseObserver() {
+            mPreference.registerOnAppSharedPreferenceChangeListener(this);
+        }
+
+        @Override
+        public void didDisconnectDevice() {
+            Timber.d("YouTubeLinkUseObserver");
+            if(!mGetStatusHolder.execute().getAppStatus().isAgreedCaution) return;
+            //デフォルトのタイムゾーンおよびロケールを使用して現在時間のカレンダを取得
+            Calendar nowCal = Calendar.getInstance();
+            boolean isYoutubeLinkUseSentOneWeekBefore = isSentOneWeekBefore(nowCal, mAnalyticsPreference.getYoutubeLinkUseLastSentDate());
+            boolean isYoutubeLinkEnabled = mPreference.isYouTubeLinkSettingEnabled();
+            //最終連携車載機がYoutubeLink対応で未送信
+            if (mYouTubeLinkStatus.isYouTubeLinkSettingAvailable()
+                    && mAnalyticsPreference.getYoutubeLinkUseLastSentDate() == 0) {
+                //現在の設定値がONであればONにしたことがある送信
+                if (isYoutubeLinkEnabled || mYouTubeLinkUse) {
+                    mAnalyticsPreference.setYoutubeLinkUse(true);
+                }
+                sAnalytics.logYouTubeLinkUseEvent(mAnalyticsPreference.isYoutubeLinkUse() ? Analytics.AnalyticsYouTubeLinkUse.on : Analytics.AnalyticsYouTubeLinkUse.neverOn);
+                mAnalyticsPreference.setYoutubeLinkUseLastSentDate(nowCal.getTimeInMillis());
+            } else if (isYoutubeLinkUseSentOneWeekBefore
+                    || ((isYoutubeLinkEnabled || mYouTubeLinkUse) && !mAnalyticsPreference.isYoutubeLinkUse())) {
+                //YoutubeLink設定ONで「ONにした」未送信
+                //前回送信時から1週間以上経過した場合、使用情報を送信
+                if (isYoutubeLinkEnabled || mYouTubeLinkUse) {
+                    mAnalyticsPreference.setYoutubeLinkUse(true);
+                }
+                sAnalytics.logYouTubeLinkUseEvent(mAnalyticsPreference.isYoutubeLinkUse() ? Analytics.AnalyticsYouTubeLinkUse.on : Analytics.AnalyticsYouTubeLinkUse.neverOn);
+                mAnalyticsPreference.setYoutubeLinkUseLastSentDate(nowCal.getTimeInMillis());
+            }
+        }
+
+        @Override
+        public void onAppSharedPreferenceChanged(@NonNull AppSharedPreference preferences, @NonNull String key) {
+            if (key.equals(AppSharedPreference.KEY_YOUTUBE_LINK_SETTING_ENABLED)) {
+                boolean isEnabled = mPreference.isYouTubeLinkSettingEnabled();
+                //YoutubeLink設定をONにした(非連携時も)
+                if (isEnabled) {
+                    if (DBG) Timber.d("onYoutubeLinkSettingPreferenceEnabled");
+                    mYouTubeLinkUse = true;
+                }
+            }
+        }
+    }
+
+    private class AlexaUseObserver extends AbstractEventObserver {
+        boolean mAlexaLoginSuccess = false;//ログイン成功したか
+
+        AlexaUseObserver() {
+            if (!mEventBus.isRegistered(this)) {
+                mEventBus.register(this);
+            }
+        }
+
+        @Override
+        public void didDisconnectDevice() {
+            Timber.d("AlexaUseObserver");
+            if(!mGetStatusHolder.execute().getAppStatus().isAgreedCaution) return;
+            //デフォルトのタイムゾーンおよびロケールを使用して現在時間のカレンダを取得
+            Calendar nowCal = Calendar.getInstance();
+            //Alexa使用情報送信
+            boolean isAlexaUseSentOneWeekBefore = isSentOneWeekBefore(nowCal, mAnalyticsPreference.getAlexaUseLastSentDate());
+            boolean isAuthenticated = mGetStatusHolder.execute().getAppStatus().alexaAuthenticated;
+            //Alexa対応国で未送信
+            if (mGetStatusHolder.execute().getAppStatus().isAlexaAvailableCountry
+                    && mAnalyticsPreference.getAlexaUseLastSentDate() == 0) {
+                //ログイン状態であれば「ログインに成功した」送信
+                if (isAuthenticated || mAlexaLoginSuccess) {
+                    mAnalyticsPreference.setAlexaUse(true);
+                }
+                sAnalytics.logAlexaUseEvent(mAnalyticsPreference.isAlexaUse() ? Analytics.AnalyticsAlexaUse.loginSuccess : Analytics.AnalyticsAlexaUse.neverLogin);
+                mAnalyticsPreference.setAlexaUseLastSentDate(nowCal.getTimeInMillis());
+            } else if (isAlexaUseSentOneWeekBefore
+                    || ((isAuthenticated || mAlexaLoginSuccess) && !mAnalyticsPreference.isAlexaUse())) {
+                //ログイン状態で「ログインに成功した」未送信
+                //前回送信時から1週間以上経過した場合、使用情報を送信
+                if (isAuthenticated || mAlexaLoginSuccess) {
+                    mAnalyticsPreference.setAlexaUse(true);
+                }
+                sAnalytics.logAlexaUseEvent(mAnalyticsPreference.isAlexaUse() ? Analytics.AnalyticsAlexaUse.loginSuccess : Analytics.AnalyticsAlexaUse.neverLogin);
+                mAnalyticsPreference.setAlexaUseLastSentDate(nowCal.getTimeInMillis());
+            }
+
+            //Alexa言語設定情報送信
+            boolean isAlexaLanguageSentOneWeekBefore = isSentOneWeekBefore(nowCal, mAnalyticsPreference.getAlexaLanguageLastSentDate());
+            //Alexa対応国でログイン状態で送信
+            if (mGetStatusHolder.execute().getAppStatus().isAlexaAvailableCountry && isAuthenticated) {
+                AlexaLanguageType alexaLanguageType = mPreference.getAlexaLanguage();
+                // 未送信、または前回送信時から変化した、または前回送信時から1週間以上経過した場合送信
+                if (mAnalyticsPreference.getAlexaLanguageSent() == null
+                        || alexaLanguageType != mAnalyticsPreference.getAlexaLanguageSent()
+                        || isAlexaLanguageSentOneWeekBefore) {
+                    mAnalyticsPreference.setAlexaLanguageSent(alexaLanguageType);
+                    sAnalytics.logAlexaLanguageEvent(alexaLanguageType.strValue);
+                    mAnalyticsPreference.setAlexaLanguageLastSentDate(nowCal.getTimeInMillis());
+                }
+            }
+        }
+
+        /**
+         * AlexaLoginSuccessイベントハンドラ
+         *
+         * @param event AlexaLoginSuccessイベント
+         */
+        @Subscribe
+        public void onAlexaLoginSuccessEvent(AlexaLoginSuccessEvent event) {
+            if (DBG) Timber.d("onAlexaLoginSuccessEvent");
+            mAlexaLoginSuccess = true;
+        }
+
+    }
+
+    private class FxSettingObserver extends AbstractEventObserver {
+        boolean mDeviceEqualizerSettingSet = false;//車載機からEQ設定を取得したか（一度でもソースOFF以外にしたか）
+        boolean mDeviceLiveSimulationSettingSet = false;//車載機からライブシミュレーション設定を取得したか（一度でもAppMusicソースにしたか）
+        boolean mDeviceSuperTodorokiSettingSet = false;//車載機からスーパー轟設定を取得したか（一度でもソースOFF以外にしたか）
+
+        @Override
+        public void willConnectDevice() {
+            if (!mEventBus.isRegistered(this)) {
+                mEventBus.register(this);
+            }
+            mDeviceEqualizerSettingSet = false;
+            mDeviceLiveSimulationSettingSet = false;
+            mDeviceSuperTodorokiSettingSet = false;
+        }
+
+        @Override
+        public void didDisconnectDevice() {
+            Timber.d("FxSettingObserver");
+            mEventBus.unregister(this);
+            if(!mGetStatusHolder.execute().getAppStatus().isAgreedCaution) return;
+            //デフォルトのタイムゾーンおよびロケールを使用して現在時間のカレンダを取得
+            Calendar nowCal = Calendar.getInstance();
+            //FX設定の使用情報-EQ設定
+            boolean isFxEqualizerSentOneWeekBefore = isSentOneWeekBefore(nowCal, mAnalyticsPreference.getFxEqualizerLastSentDate());
+            if (mDeviceEqualizerSettingSet) {
+                StatusHolder holder = mGetStatusHolder.execute();
+                SoundFxSetting fxSetting = holder.getSoundFxSetting();
+                SoundFxSettingEqualizerType settingType = fxSetting.soundFxSettingEqualizerType;
+                if (DBG) Timber.d("SoundFxSettingEqualizerType=" + settingType);
+                // 未送信、または前回送信時から変化した、または前回送信時から1週間以上経過した場合送信
+                if (mAnalyticsPreference.getFxEqualizerSent() == null
+                        || settingType != mAnalyticsPreference.getFxEqualizerSent()
+                        || isFxEqualizerSentOneWeekBefore) {
+                    mAnalyticsPreference.setFxEqualizerSent(settingType);
+                    sAnalytics.logFXEqualizerEvent(settingType.getAnalyticsStr());
+                    mAnalyticsPreference.setFxEqualizerLastSentDate(nowCal.getTimeInMillis());
+                }
+            } else {
+                // 送信したことがあり前回送信時から1週間以上経過した場合送信
+                if (mAnalyticsPreference.getFxEqualizerSent() != null
+                        && isFxEqualizerSentOneWeekBefore) {
+                    sAnalytics.logFXEqualizerEvent(mAnalyticsPreference.getFxEqualizerSent().getAnalyticsStr());
+                    mAnalyticsPreference.setFxEqualizerLastSentDate(nowCal.getTimeInMillis());
+                }
+            }
+            //FX設定の使用情報-ライブシミュレーション設定
+            boolean isFxLiveSimulationSentOneWeekBefore = isSentOneWeekBefore(nowCal, mAnalyticsPreference.getFxLiveSimulationLastSentDate());
+            if (mDeviceLiveSimulationSettingSet) {
+                StatusHolder holder = mGetStatusHolder.execute();
+                SoundFxSetting fxSetting = holder.getSoundFxSetting();
+                SoundFieldControlSettingType sfcSettingType = fxSetting.liveSimulationSetting.soundFieldControlSettingType;
+                SoundEffectType seSettingType = fxSetting.liveSimulationSetting.soundEffectSettingType.type;
+                if (DBG)
+                    Timber.d("sfcSettingType=" + sfcSettingType + ",seSettingType=" + seSettingType);
+                // 未送信、または前回送信時から変化した、または前回送信時から1週間以上経過した場合送信
+                if ((mAnalyticsPreference.getFxLiveSimulationSfcSent() == null && mAnalyticsPreference.getFxLiveSimulationSeSent() == null)
+                        || sfcSettingType != mAnalyticsPreference.getFxLiveSimulationSfcSent()
+                        || seSettingType != mAnalyticsPreference.getFxLiveSimulationSeSent()
+                        || isFxLiveSimulationSentOneWeekBefore) {
+                    mAnalyticsPreference.setFxLiveSimulationSfcSent(sfcSettingType);
+                    mAnalyticsPreference.setFxLiveSimulationSeSent(seSettingType);
+                    sAnalytics.logFXLiveSimulationEvent(sfcSettingType.getAnalyticsStr(), seSettingType.getAnalyticsStr());
+                    mAnalyticsPreference.setFxLiveSimulationLastSentDate(nowCal.getTimeInMillis());
+                }
+            } else {
+                // 送信したことがあり前回送信時から1週間以上経過した場合送信
+                if (mAnalyticsPreference.getFxLiveSimulationSfcSent() != null && mAnalyticsPreference.getFxLiveSimulationSeSent() != null
+                        && isFxLiveSimulationSentOneWeekBefore) {
+                    sAnalytics.logFXLiveSimulationEvent(mAnalyticsPreference.getFxLiveSimulationSfcSent().getAnalyticsStr(), mAnalyticsPreference.getFxLiveSimulationSeSent().getAnalyticsStr());
+                    mAnalyticsPreference.setFxLiveSimulationLastSentDate(nowCal.getTimeInMillis());
+                }
+            }
+            //FX設定の使用情報-スーパー轟設定
+            boolean isFxSuperTodorokiSentOneWeekBefore = isSentOneWeekBefore(nowCal, mAnalyticsPreference.getFxSuperTodorokiLastSentDate());
+            if (mDeviceSuperTodorokiSettingSet) {
+                StatusHolder holder = mGetStatusHolder.execute();
+                SoundFxSetting fxSetting = holder.getSoundFxSetting();
+                SuperTodorokiSetting settingType = fxSetting.superTodorokiSetting;
+                if (DBG) Timber.d("SuperTodorokiSetting=" + settingType);
+
+                // 未送信、または前回送信時から変化した、または前回送信時から1週間以上経過した場合送信
+                if (mAnalyticsPreference.getFxSuperTodorokiSent() == null
+                        || settingType != mAnalyticsPreference.getFxSuperTodorokiSent()
+                        || isFxSuperTodorokiSentOneWeekBefore) {
+                    mAnalyticsPreference.setFxSuperTodorokiSent(settingType);
+                    sAnalytics.logFXSuperTodorokiEvent(settingType.getAnalyticsStr());
+                    mAnalyticsPreference.setFxSuperTodorokiLastSentDate(nowCal.getTimeInMillis());
+                }
+            } else {
+                // 送信したことがあり前回送信時から1週間以上経過した場合送信
+                if (mAnalyticsPreference.getFxSuperTodorokiSent() != null
+                        && isFxSuperTodorokiSentOneWeekBefore) {
+                    sAnalytics.logFXSuperTodorokiEvent(mAnalyticsPreference.getFxSuperTodorokiSent().getAnalyticsStr());
+                    mAnalyticsPreference.setFxSuperTodorokiLastSentDate(nowCal.getTimeInMillis());
+                }
+            }
+        }
+
+        /**
+         * Equalizer種別変更イベントハンドラ
+         *
+         * @param event Equalizer種別変更イベント
+         */
+        @Subscribe(threadMode = ThreadMode.MAIN)
+        public void onEqualizerTypeChangeEvent(EqualizerTypeChangeEvent event) {
+            if (DBG) Timber.d("onEqualizerTypeChangeEvent");
+            mDeviceEqualizerSettingSet = true;
+        }
+
+        /**
+         * LiveSimulation設定変更イベント.
+         *
+         * @param event LiveSimulationSettingChangeEvent
+         */
+        @Subscribe(threadMode = ThreadMode.MAIN)
+        public void onLiveSimulationSettingChangeEvent(LiveSimulationSettingChangeEvent event) {
+            if (DBG) Timber.d("onLiveSimulationSettingChangeEvent");
+            mDeviceLiveSimulationSettingSet = true;
+        }
+
+        /**
+         * SoundFx設定の更新通知
+         *
+         * @param event SoundFxChangeEvent
+         */
+        @Subscribe(threadMode = ThreadMode.MAIN)
+        public void onSoundFxSettingChangeEvent(SoundFxSettingChangeEvent event) {
+            if (DBG) Timber.d("onSoundFxChangeEvent");
+            mDeviceSuperTodorokiSettingSet = true;
+        }
+    }
+
+    private class EasySoundTaSettingObserver extends AbstractEventObserver {
+        boolean mDeviceFxSettingSet = false;//車載機からFx設定を取得したか（一度でもソースOFF以外にしたか）
+
+        @Override
+        public void willConnectDevice() {
+            if (!mEventBus.isRegistered(this)) {
+                mEventBus.register(this);
+            }
+            mDeviceFxSettingSet = false;
+        }
+
+        @Override
+        public void didDisconnectDevice() {
+            Timber.d("EasySoundTaSettingObserver");
+            mEventBus.unregister(this);
+            if(!mGetStatusHolder.execute().getAppStatus().isAgreedCaution) return;
+            //デフォルトのタイムゾーンおよびロケールを使用して現在時間のカレンダを取得
+            Calendar nowCal = Calendar.getInstance();
+            //FX設定の使用情報-EQ設定
+            boolean isFxTimeAlignmentOneWeekBefore = isSentOneWeekBefore(nowCal, mAnalyticsPreference.getFxTimeAlignmentLastSentDate());
+            if (mDeviceFxSettingSet) {
+                StatusHolder holder = mGetStatusHolder.execute();
+                SoundFxSetting fxSetting = holder.getSoundFxSetting();
+                SmallCarTaSettingType easySoundFitSettingType = fxSetting.smallCarTaSetting.smallCarTaSettingType;
+                AudioSetting audioSetting = holder.getAudioSetting();
+                TimeAlignmentSettingMode taSettingType = audioSetting.timeAlignmentSetting.mode;//初期値OFF
+                if (DBG)
+                    Timber.d("easySoundFitSettingType=" + easySoundFitSettingType + ",taSettingType=" + taSettingType);
+                // 未送信、または前回送信時から変化した、または前回送信時から1週間以上経過した場合送信
+                if ((mAnalyticsPreference.getFxEasySoundFitSent() == null && mAnalyticsPreference.getFxTimeAlignmentSent() == null)
+                        || easySoundFitSettingType != mAnalyticsPreference.getFxEasySoundFitSent()
+                        || taSettingType != mAnalyticsPreference.getFxTimeAlignmentSent()
+                        || isFxTimeAlignmentOneWeekBefore) {
+                    mAnalyticsPreference.setFxEasySoundFitSent(easySoundFitSettingType);
+                    mAnalyticsPreference.setFxTimeAlignmentSent(taSettingType);
+                    sAnalytics.logFXTimeAlignmentEvent(easySoundFitSettingType.getAnalyticsStr(), taSettingType.getAnalyticsStr());
+                    mAnalyticsPreference.setFxTimeAlignmentLastSentDate(nowCal.getTimeInMillis());
+                }
+            } else {
+                // 送信したことがあり前回送信時から1週間以上経過した場合送信
+                if (mAnalyticsPreference.getFxEasySoundFitSent() != null && mAnalyticsPreference.getFxTimeAlignmentSent() != null
+                        && isFxTimeAlignmentOneWeekBefore) {
+                    sAnalytics.logFXTimeAlignmentEvent(mAnalyticsPreference.getFxEasySoundFitSent().getAnalyticsStr(), mAnalyticsPreference.getFxTimeAlignmentSent().getAnalyticsStr());
+                    mAnalyticsPreference.setFxTimeAlignmentLastSentDate(nowCal.getTimeInMillis());
+                }
+            }
+        }
+
+        /**
+         * SoundFx設定の更新通知
+         *
+         * @param event SoundFxChangeEvent
+         */
+        @Subscribe(threadMode = ThreadMode.MAIN)
+        public void onSoundFxSettingChangeEvent(SoundFxSettingChangeEvent event) {
+            if (DBG) Timber.d("onSoundFxChangeEvent");
+            mDeviceFxSettingSet = true;
+        }
+
+        /**
+         * Audio設定変更イベント通知
+         *
+         * @param event Audio設定変更イベント
+         */
+        @Subscribe(threadMode = ThreadMode.MAIN)
+        public void onAudioSettingChangeAction(AudioSettingChangeEvent event) {
+            if (DBG) Timber.d("onAudioSettingChangeAction");
+            mDeviceFxSettingSet = true;
+        }
+    }
+
+    private boolean isSentOneWeekBefore(Calendar nowCal, long lastSentDateMillis) {
+        Date nowDate = nowCal.getTime();
+        Date sentDate = new Date(lastSentDateMillis);
+        Calendar sentCal = Calendar.getInstance();
+        sentCal.setTime(sentDate);
+        sentCal.add(Calendar.DATE, 7);//前回送信日時から7日追加
+        sentDate = sentCal.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+        sdf.setTimeZone(TimeZone.getDefault());
+        if (DBG) Timber.d("isSentOneWeekBefore:NowDate:%s", sdf.format(nowDate));
+        if (DBG) Timber.d("isSentOneWeekBefore:EndDate:%s", sdf.format(sentDate));
+        //前回送信時から1週間以上経過した
+        return nowDate.after(sentDate);
+    }
+
 }

@@ -12,31 +12,35 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public enum MessagingApp {
     /** Facebook. */
-    FACEBOOK_MESSENGER("com.facebook.katana"),
+    FACEBOOK_MESSENGER("com.facebook.katana",5,"Facebook"),
     /** Hangouts. */
-    HANGOUTS("com.google.android.talk"),
+    HANGOUTS("com.google.android.talk",6,"Hangouts"),
     /** LINE. */
-    LINE("jp.naver.line.android"),
+    LINE("jp.naver.line.android",8,"LINE"),
     /** Messenger. */
-    MESSENGER("com.facebook.orca"),
+    MESSENGER("com.facebook.orca",4,"Messenger"),
     /** VK. */
-    VK("com.vkontakte.android"),
+    VK("com.vkontakte.android",3,"VK"),
     /** Viber. */
-    VIBER("com.viber.voip"),
+    VIBER("com.viber.voip",2,"Viber"),
     /** WeChat. */
-    WE_CHAT("com.tencent.mm"),
+    WE_CHAT("com.tencent.mm",7,"WeChat"),
     /** WhatsApp Messenger. */
-    WHATS_APP_MESSENGER("com.whatsapp")
+    WHATS_APP_MESSENGER("com.whatsapp",1,"WhatsApp Messenger")
     ;
     private String mPackageName;
+    private int mNumber;
+    private String mAppName;
 
     /**
      * コンストラクタ.
      *
      * @param packageName パッケージ名
      */
-    MessagingApp(String packageName) {
+    MessagingApp(String packageName, int number, @NonNull String appName) {
         mPackageName = packageName;
+        mNumber = number;
+        mAppName = appName;
     }
 
     /**
@@ -89,5 +93,19 @@ public enum MessagingApp {
     @NonNull
     public String getPackageName() {
         return mPackageName;
+    }
+
+    /**
+     * App名取得.
+     *
+     * @return App名
+     */
+    @NonNull
+    public String getAppName() {
+        return mAppName;
+    }
+
+    public int getNumber() {
+        return mNumber;
     }
 }

@@ -8,9 +8,28 @@ package jp.pioneer.carsync.domain.model;
  */
 public enum SoundEffectType {
     /** OFF. */
-    OFF,
+    OFF("OFF"),
     /** MALE */
-    MALE,
+    MALE("1"),
     /** FEMALE. */
-    FEMALE
+    FEMALE("2")
+    ;
+
+    /** Analytics用文字列. */
+    public final String strValue;
+
+    /**
+     * コンストラクタ.
+     */
+    SoundEffectType(String strValue){
+        this.strValue = strValue;
+    }
+
+    /**
+     * Analytics用文字列取得.
+     */
+    public String getAnalyticsStr() {
+        return strValue;
+    }
+
 }

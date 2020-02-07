@@ -105,6 +105,7 @@ import jp.pioneer.carsync.infrastructure.crp.CarDeviceConnection;
 import jp.pioneer.carsync.infrastructure.crp.event.CrpSessionErrorEvent;
 import jp.pioneer.carsync.infrastructure.crp.event.CrpSessionStartedEvent;
 import jp.pioneer.carsync.infrastructure.crp.event.CrpSessionStoppedEvent;
+import jp.pioneer.carsync.presentation.event.AlexaLoginSuccessEvent;
 import jp.pioneer.carsync.presentation.event.BackgroundChangeEvent;
 import jp.pioneer.carsync.presentation.event.CaptureSetEvent;
 import jp.pioneer.carsync.presentation.event.CloseDialogEvent;
@@ -2615,6 +2616,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
     public void onLogIn(){
         StatusHolder holder = mStatusCase.execute();
         holder.getAppStatus().alexaAuthenticated = true;
+        mEventBus.post(new AlexaLoginSuccessEvent());
         int vCode = mPreference.getAlexaCapabilitiesVersionCode();
         Optional.ofNullable(getView()).ifPresent(view -> {
             if (vCode < MainPresenter.ALEXA_CAPABILITIES_NEW_VERSION) {

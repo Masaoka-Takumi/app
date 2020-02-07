@@ -794,6 +794,16 @@ public class AppSharedPreference {
      */
     public static final String KEY_IS_ALEXA_REQUIRED_SIM_CHECK = "is_alexa_need_sim_check";
 
+    /**
+     * Preferenceキー:SmartPhoneControlCommand表示を行うかどうか
+     * <p>
+     * 既定値:{@link #DEFAULT_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND}
+     *
+     * @see #isDisplaySmartPhoneControlCommand()
+     * @see #setDisplaySmartPhoneControlCommand(boolean)
+     */
+    public static final String KEY_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND = "is_display_smart_phone_control_command";
+
     private static final boolean DEFAULT_LOG_ENABLED = false;
     private static final int DEFAULT_APP_VERSION_CODE = 1;
     private static final int DEFAULT_EULA_PRIVACY_VERSION_CODE = 1;
@@ -870,6 +880,7 @@ public class AppSharedPreference {
     private static final boolean DEFAULT_IS_ALEXA_AVAILABLE_CONFIRM_SHOWED = false;
     private static final boolean DEFAULT_IS_ALEXA_REQUIRED_SIM_CHECK = true;
     private static final boolean DEFAULT_YOUTUBE_LINK_SEARCH_ITEM_SETTING = true;
+    private static final boolean DEFAULT_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND = false;
 
     private final SharedPreferences mPreferences;
     private final Object mContent = new Object();
@@ -3554,7 +3565,7 @@ public class AppSharedPreference {
             return DEFAULT_YOUTUBE_LINK_SEARCH_ITEM_SETTING;
         }
     }
-
+    
     /**
      * YouTube検索対象設定
      *
@@ -3566,6 +3577,37 @@ public class AppSharedPreference {
     public AppSharedPreference setYouTubeLinkSearchItemSetting(YouTubeLinkSearchItem item, boolean setting) {
         mPreferences.edit()
                 .putBoolean(item.toString(), setting)
+                .apply();
+        return this;
+    }
+    
+    /**
+     * SmartPhoneControlCommand表示を行うかどうかのフラグ取得
+     *
+     * @return {@code true}:有効　{@code false}:無効
+     * @see #setDisplaySmartPhoneControlCommand(boolean)
+     * @see #KEY_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND
+     */
+    public boolean isDisplaySmartPhoneControlCommand(){
+        if(mPreferences.contains(KEY_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND)) {
+            return mPreferences.getBoolean(KEY_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND, DEFAULT_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND);
+        } else {
+            setIsAlexaRequiredSimCheck(DEFAULT_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND);
+            return DEFAULT_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND;
+        }
+    }
+
+    /**
+     * SmartPhoneControlCommand表示を行うかどうかのフラグ設定
+     *
+     * @param enabled {@code true}:有効　{@code false}:無効
+     * @return 本オブジェクト
+     * @see #isDisplaySmartPhoneControlCommand()
+     * @see #KEY_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND
+     */
+    public AppSharedPreference setDisplaySmartPhoneControlCommand(boolean enabled){
+        mPreferences.edit()
+                .putBoolean(KEY_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND, enabled)
                 .apply();
         return this;
     }

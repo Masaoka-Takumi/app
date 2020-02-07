@@ -25,6 +25,7 @@ import javax.inject.Provider;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import jp.pioneer.carsync.application.App;
+import jp.pioneer.carsync.application.content.AnalyticsEventManager;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.ForCarRemoteSession;
 import jp.pioneer.carsync.application.di.component.AppComponent;
@@ -89,6 +90,8 @@ public class CarRemoteSession implements PacketSenderThread.OnPacketSendListener
     @Inject OutgoingPacketBuilder mPacketBuilder;
     @Inject PacketHandlerFactory mHandlerFactory;
     @Inject AppSharedPreference mPreference;
+    @Inject
+    AnalyticsEventManager mAnalytics;
     private StatusTimerHandler mStatusTimerHandler;
     private Context mContext;
     private Transport mTransport;
@@ -156,6 +159,8 @@ public class CarRemoteSession implements PacketSenderThread.OnPacketSendListener
         // 接続
         mTransport.connect(mStatusHolder);
         publishStatusUpdateEvent(null);  // 接続情報の通知
+        //車載器情報取得前にAnalyticsに連携開始通知
+        mAnalytics.willConnectDevice();
         // 送受信スレッド開始
         mPacketSenderThread.setOnPacketSendListener(this);
         mPacketReaderThread.setOnPacketSendListener(this);
@@ -202,6 +207,8 @@ public class CarRemoteSession implements PacketSenderThread.OnPacketSendListener
         mPacketSenderThread.quit();
         // 切断
         mTransport.disconnect();
+        //状態クリア前に連携切断時のAnalytics送信
+        mAnalytics.finishAnalytics();
         // 状態クリア
         mStatusHolder.reset();
         if (isPublishCrpSessionStoppedEvent) {

@@ -110,6 +110,7 @@ import jp.pioneer.carsync.infrastructure.crp.event.CrpSessionStartedEvent;
 import jp.pioneer.carsync.infrastructure.crp.event.CrpSessionStoppedEvent;
 import jp.pioneer.carsync.presentation.event.AlexaRenderPlayerInfoUpdateEvent;
 import jp.pioneer.carsync.presentation.event.AlexaVoiceRecognizeEvent;
+import jp.pioneer.carsync.presentation.event.MessageReadFinishedEvent;
 import jp.pioneer.carsync.presentation.event.SessionCompletedEvent;
 import jp.pioneer.carsync.presentation.event.SourceChangeReasonEvent;
 import jp.pioneer.carsync.presentation.event.StartGetRunningStatusEvent;
@@ -236,6 +237,7 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
                         mCursorLoader.stopLoading();
                     }
                     mDirectCallCase.execute(number);
+                    mAnalytics.sendTelephoneCallEvent(Analytics.AnalyticsTelephoneCall.directCall);
                 }
             }
         });
@@ -406,7 +408,6 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
         if (mAmazonAlexaManager != null) {
             mAmazonAlexaManager.onActivityPause();
         }
-        mAnalytics.finishAnalytics();
     }
 
     /**
@@ -512,6 +513,15 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
     public void onSmartPhoneControlCommandEvent(SmartPhoneControlCommandEvent ev){
         Optional.ofNullable(getView()).ifPresent(view -> {
             AppStatus appStatus = mStatusHolder.getAppStatus();
+            if(mPreference.isDisplaySmartPhoneControlCommand()) {
+                String commandText = mContext.getString(ev.command.label) + " ";
+                if (ev.command.commandStatusCode == 0x01) {
+                    commandText += mContext.getString(R.string.control_command_long);
+                } else {
+                    commandText += mContext.getString(R.string.control_command_short);
+                }
+                view.showShortToast(commandText);
+            }
             if(appStatus.isTransitionedHomeScreen && AppUtil.isScreenOn(mContext)) {
                 switch (ev.command) {
                     case AV:
@@ -1009,6 +1019,7 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
     @Override
     public void onSpeakDone() {
         Timber.i("ReadNotificationPresenter.onSpeakDone");
+        mEventBus.post(new MessageReadFinishedEvent(mReadingNotification.getPackageName()));
         mReadingNotification = null;
         //通知読み上げ終了
         mPrepareReadCase.finish();

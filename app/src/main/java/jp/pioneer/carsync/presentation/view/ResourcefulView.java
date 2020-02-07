@@ -108,7 +108,7 @@ public interface ResourcefulView {
      * @param str エラー内容
      */
     void showError(String str);
-
+    void showShortToast(String str);
     /**
      * 楽曲切り替わり通知非表示
      */
