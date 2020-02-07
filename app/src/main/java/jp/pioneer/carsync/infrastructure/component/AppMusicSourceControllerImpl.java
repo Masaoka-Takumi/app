@@ -1256,10 +1256,8 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
     }
 
     private void play(AppMusicPlaylistCursor.Action action) throws PMGPlayerException {
-
         if(mStatusHolder.getAppStatus().isLaunchedThirdPartyAudioApp) {
             mStatusHolder.getAppStatus().isLaunchedThirdPartyAudioApp = false;
-            setSmartPhoneEqUseStatus(true);
             //dispatchMediaKeyEvent(KeyEvent.KEYCODE_MEDIA_PAUSE);
             SmartPhoneStatus smartPhoneStatus = mStatusHolder.getSmartPhoneStatus();
             AndroidMusicMediaInfo info = mStatusHolder.getCarDeviceMediaInfoHolder().androidMusicMediaInfo;
@@ -1285,6 +1283,7 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
         while (true) {
             if(isTryToPlay) {
                 if (checkResultCode(mPlayer.play())) {
+                    setSmartPhoneEqUseStatus(true);
                     setStatus(PLAYING);
                     break;
                 }
@@ -1357,14 +1356,16 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
     }
 
     private void setSmartPhoneEqUseStatus(boolean eqUseStatus) {
-        Timber.d("setSmartPhoneEqUseStatus:"+eqUseStatus);
-        if(mEqUseStatus != eqUseStatus) {
+        ProtocolVersion version = mStatusHolder.getProtocolSpec().getConnectingProtocolVersion();
+        if(version.isGreaterThanOrEqual(ProtocolVersion.V4_1)&&mEqUseStatus != eqUseStatus) {
+            Timber.d("setSmartPhoneEqUseStatus:"+eqUseStatus);
             mEqUseStatus = eqUseStatus;
             SmartPhoneStatus smartPhoneStatus = mStatusHolder.getSmartPhoneStatus();
             smartPhoneStatus.smartPhoneEqUseStatus = mEqUseStatus;
             postSmartPhoneStatus(smartPhoneStatus);
         }
     }
+
     private void fastForwardForMediaCommand() throws PMGPlayerException {
         if (mStatus == IDLE
                 || mStatus == Status.PLAYING
