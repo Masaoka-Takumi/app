@@ -3852,7 +3852,7 @@ public class OutgoingPacketBuilder {
                 // D4:その他
                 //  bit[0]:99App Service(BLE)
                 int d4 = status.bleAppServicePublicationStatus.code;
-                if(BuildConfig.DEBUG&&version.isGreaterThanOrEqual(ProtocolVersion.V4_1)){
+                if(version.isGreaterThanOrEqual(ProtocolVersion.V4_1)){
                     //  bit[1] Smartphone内EQ使用状態
                     d4 |= (status.smartPhoneEqUseStatus ? 1 << 1 : 0);
                 }
