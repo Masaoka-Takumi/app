@@ -69,6 +69,12 @@ public class CarDeviceStatus extends SerialVersion {
     public ReverseStatus reverseStatus;
     /** パーキング状態. */
     public ParkingStatus parkingStatus;
+    /** 車載機ボリュームの最大値. */
+    public int maxDeviceVolume;
+    /** 現在の車載機ボリューム. */
+    public int currentDeviceVolume;
+    /** ボリューム表示開始状態. */
+    public boolean deviceVolumeDisplayStatus;
 
     /**
      * コンストラクタ.
@@ -111,6 +117,9 @@ public class CarDeviceStatus extends SerialVersion {
         isDisplayParkingSensor = carDeviceStatus.isDisplayParkingSensor;
         reverseStatus = carDeviceStatus.reverseStatus;
         parkingStatus = carDeviceStatus.parkingStatus;
+        maxDeviceVolume = carDeviceStatus.maxDeviceVolume;
+        currentDeviceVolume = carDeviceStatus.currentDeviceVolume;
+        deviceVolumeDisplayStatus = carDeviceStatus.deviceVolumeDisplayStatus;
     }
 
     /**
@@ -145,6 +154,9 @@ public class CarDeviceStatus extends SerialVersion {
         isDisplayParkingSensor = false;
         reverseStatus = null;
         parkingStatus = null;
+        maxDeviceVolume = 0;
+        currentDeviceVolume = 0;
+        deviceVolumeDisplayStatus = false;
         updateVersion();
     }
 
@@ -189,7 +201,10 @@ public class CarDeviceStatus extends SerialVersion {
                 && Objects.equal(mixtraxSettingStatus, other.mixtraxSettingStatus)
                 && Objects.equal(isDisplayParkingSensor, other.isDisplayParkingSensor)
                 && Objects.equal(reverseStatus, other.reverseStatus)
-                && Objects.equal(parkingStatus, other.parkingStatus);
+                && Objects.equal(parkingStatus, other.parkingStatus)
+                && Objects.equal(maxDeviceVolume, other.maxDeviceVolume)
+                && Objects.equal(currentDeviceVolume, other.currentDeviceVolume)
+                && Objects.equal(deviceVolumeDisplayStatus, other.deviceVolumeDisplayStatus);
     }
 
     /**
@@ -224,7 +239,10 @@ public class CarDeviceStatus extends SerialVersion {
                 mixtraxSettingStatus,
                 isDisplayParkingSensor,
                 reverseStatus,
-                parkingStatus);
+                parkingStatus,
+                maxDeviceVolume,
+                currentDeviceVolume,
+                deviceVolumeDisplayStatus);
     }
 
     /**
@@ -261,6 +279,9 @@ public class CarDeviceStatus extends SerialVersion {
                 .add("isDisplayParkingSensor", isDisplayParkingSensor)
                 .add("reverseStatus", reverseStatus)
                 .add("parkingStatus", parkingStatus)
+                .add("maxDeviceVolume", maxDeviceVolume)
+                .add("currentDeviceVolume", currentDeviceVolume)
+                .add("deviceVolumeDisplayStatus", deviceVolumeDisplayStatus)
                 .toString();
     }
 }

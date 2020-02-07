@@ -215,6 +215,16 @@ public class CarDeviceImpl implements CarDevice, AppSharedPreference.OnAppShared
      * {@inheritDoc}
      */
     @Override
+    public void changeDeviceVolume(int volume) {
+        Timber.i("changeDeviceVolume() volume = %d" ,volume);
+
+        mCarDeviceConnection.sendPacket(mPacketBuilder.createDeviceVolumeChangeCommand(volume));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void onAppSharedPreferenceChanged(@NonNull AppSharedPreference preferences, @NonNull String key) {
         Timber.i("onAppSharedPreferenceChanged() preferences = %s, key = %s", preferences, key);
 

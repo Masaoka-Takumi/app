@@ -115,4 +115,13 @@ public interface CarDevice {
      * @throws NullPointerException {@code warningEvents}がnull
      */
     void updateAdasWarningStatus(@NonNull Set<AdasWarningEvent> warningEvents);
+
+    /**
+     * 車載機ボリューム指定通知.
+     * <p>
+     * 車載機に車載機側ボリュームをボリューム値指定で変更するコマンドを通知する
+     *
+     * @param volume ボリューム値
+     */
+    void changeDeviceVolume(int volume);
 }

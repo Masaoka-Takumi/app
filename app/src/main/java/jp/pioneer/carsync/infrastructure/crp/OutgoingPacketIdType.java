@@ -165,6 +165,8 @@ public enum OutgoingPacketIdType {
     VOICE_RECOGNITION_COMMAND(0x20, 0x00, 0x09, VOICE_RECOGNITION_NOTIFICATION_RESPONSE, V4),
     /** リバース極性切替通知. */
     REVERSE_POLARITY_CHANGE_COMMAND(0x20, 0x00, 0x0A, V4),
+    /** 車載機ボリューム指定通知. */
+    DEVICE_VOLUME_CHANGE_COMMAND(0x20, 0x00, 0x0B, V4_1),
     /** Favorite情報取通知 : Radio. */
     FAVORITE_RADIO_SET_COMMAND(0x20, 0x00, 0x20, V1),
     /** Favorite情報取通知 : DAB. */

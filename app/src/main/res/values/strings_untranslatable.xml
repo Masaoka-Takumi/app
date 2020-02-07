@@ -92,6 +92,7 @@
     <string name="setting_debug_adas_camera_view">ADASのカメラプレビュー表示</string>
     <string name="setting_debug_alexa_sim_judgement">Alexa SIM判定</string>
     <string name="setting_debug_smart_phone_control_command">車載機ハードキー通知</string>
+    <string name="setting_debug_device_volume">車載機ボリューム</string>
     <!-- Amazon Alexa-->
     <string name="alexa_language_locale_english_us">en-US</string>
     <string name="alexa_language_locale_english_uk">en-GB</string>
