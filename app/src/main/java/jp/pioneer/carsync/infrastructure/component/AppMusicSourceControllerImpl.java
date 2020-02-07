@@ -142,6 +142,7 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
     private Status mStatus = Status.CLOSED;
     private ShuffleMode mShuffleMode;
     private SmartPhoneRepeatMode mRepeatMode;
+    private boolean mEqUseStatus;
     private AppMusicPlaylistCursor mCursor;
     private int mPendingPlayPosition;
     private AppMusicContract.PlayParams mPlayParams;
@@ -1251,7 +1252,6 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
     }
 
     private void play(AppMusicPlaylistCursor.Action action) throws PMGPlayerException {
-
         if(mStatusHolder.getAppStatus().isLaunchedThirdPartyAudioApp) {
             mStatusHolder.getAppStatus().isLaunchedThirdPartyAudioApp = false;
             //dispatchMediaKeyEvent(KeyEvent.KEYCODE_MEDIA_PAUSE);
@@ -1350,6 +1350,17 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
         }
     }
 
+    private void setSmartPhoneEqUseStatus(boolean eqUseStatus) {
+        ProtocolVersion version = mStatusHolder.getProtocolSpec().getConnectingProtocolVersion();
+        if(version.isGreaterThanOrEqual(ProtocolVersion.V4_1)&&mEqUseStatus != eqUseStatus) {
+            Timber.d("setSmartPhoneEqUseStatus:"+eqUseStatus);
+            mEqUseStatus = eqUseStatus;
+            SmartPhoneStatus smartPhoneStatus = mStatusHolder.getSmartPhoneStatus();
+            smartPhoneStatus.smartPhoneEqUseStatus = mEqUseStatus;
+            postSmartPhoneStatus(smartPhoneStatus);
+        }
+    }
+
     private void fastForwardForMediaCommand() throws PMGPlayerException {
         if (mStatus == IDLE
                 || mStatus == Status.PLAYING
@@ -1420,6 +1431,7 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
         if ((!mIsPreventNoticePlaybackMode && oldMode != newMode) ||
                 (oldMode == PlaybackMode.ERROR || newMode == PlaybackMode.ERROR)) {
             smartPhoneStatus.playbackMode = newMode;
+            setSmartPhoneEqUseStatus(newMode==PlaybackMode.PLAY);
             postSmartPhoneStatus(smartPhoneStatus);
         }
     }

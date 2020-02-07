@@ -18,8 +18,11 @@ import jp.pioneer.carsync.domain.event.CarDeviceStatusChangeEvent;
 import jp.pioneer.carsync.domain.event.SoundFxSettingStatusChangeEvent;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.interactor.PreferSoundFx;
+import jp.pioneer.carsync.domain.model.AudioMode;
 import jp.pioneer.carsync.domain.model.AudioSettingSpec;
 import jp.pioneer.carsync.domain.model.AudioSettingStatus;
+import jp.pioneer.carsync.domain.model.MediaSourceType;
+import jp.pioneer.carsync.domain.model.ProtocolVersion;
 import jp.pioneer.carsync.domain.model.SoundFxSettingSpec;
 import jp.pioneer.carsync.domain.model.SoundFxSettingStatus;
 import jp.pioneer.carsync.domain.model.StatusHolder;
@@ -62,11 +65,13 @@ public class FxPresenter extends Presenter<FxView> {
         SoundFxSettingStatus fxStatus = holder.getSoundFxSettingStatus();
         AudioSettingSpec audioSpec = holder.getCarDeviceSpec().audioSettingSpec;
         AudioSettingStatus audioStatus = holder.getAudioSettingStatus();
-
+        ProtocolVersion version = holder.getProtocolSpec().getConnectingProtocolVersion();
+        //通信プロトコル4.1以上で通信している場合、Alexa再生モード時、31バンドEQ設定を有効にする
+        boolean isAlexaPlayMode = version.isLessThan(ProtocolVersion.V4_1)&&holder.getCarDeviceStatus().sourceType== MediaSourceType.APP_MUSIC&&holder.getAppStatus().appMusicAudioMode== AudioMode.ALEXA;
         Optional.ofNullable(getView()).ifPresent(view -> {
             view.setEqualizerSetting(
                     audioSpec.equalizerSettingSupported,
-                    audioStatus.equalizerSettingEnabled && isFxSettingEnabled
+                    audioStatus.equalizerSettingEnabled && isFxSettingEnabled && !isAlexaPlayMode
             );
             view.setLiveSimulationSetting(
                     fxSpec.liveSimulationSettingSupported,
