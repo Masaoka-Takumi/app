@@ -29,6 +29,7 @@ import jp.pioneer.carsync.domain.model.DistanceUnit;
 import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.MusicApp;
 import jp.pioneer.carsync.domain.model.NaviApp;
+import jp.pioneer.carsync.domain.model.ProtocolVersion;
 import jp.pioneer.carsync.domain.model.ShuffleMode;
 import jp.pioneer.carsync.domain.model.SmartPhoneRepeatMode;
 import jp.pioneer.carsync.domain.model.ThemeType;
@@ -180,6 +181,16 @@ public class AppSharedPreference {
      * @see #setLastConnectedCarDeviceClassId(CarDeviceClassId)
      */
     public static final String KEY_LAST_CONNECTED_CAR_DEVICE_CLASS_ID = "last_connected_car_device_class_id";
+
+    /**
+     * Preferenceキー:最後に接続した車載機のプロトコルバージョン.
+     * <p>
+     * 既定値:{@link #DEFAULT_LAST_CONNECTED_CAR_DEVICE_PROTOCOL_VERSION}
+     *
+     * @see #getLastConnectedCarDeviceProtocolVersion()
+     * @see #setLastConnectedCarDeviceProtocolVersion(ProtocolVersion)
+     */
+    public static final String KEY_LAST_CONNECTED_CAR_DEVICE_PROTOCOL_VERSION = "last_connected_car_device_protocol_version";
 
     /**
      * Preferenceキー:最後に接続した車載機がADAS対応/非対応.
@@ -817,6 +828,7 @@ public class AppSharedPreference {
     private static final String DEFAULT_LAST_CONNECTED_CAR_DEVICE_MODEL = "";
     private static final int DEFAULT_LAST_CONNECTED_CAR_DEVICE_DESTINATION = CarDeviceDestinationInfo.UNKNOWN.code;
     private static final String DEFAULT_LAST_CONNECTED_CAR_DEVICE_CLASS_ID = CarDeviceClassId.DEH.name();
+    private static final String DEFAULT_LAST_CONNECTED_CAR_DEVICE_PROTOCOL_VERSION = new Gson().toJson(ProtocolVersion.V4);
     private static final boolean DEFAULT_LAST_CONNECTED_CAR_DEVICE_ADAS_AVAILABLE = false;
     private static final String DEFAULT_LAST_CONNECTED_CAR_DEVICE_AM_STEP = TunerSeekStep._9KHZ.name();
     private static final String DEFAULT_APP_MUSIC_REPEAT_MODE = SmartPhoneRepeatMode.ALL.name();
@@ -1442,6 +1454,43 @@ public class AppSharedPreference {
     public AppSharedPreference setLastConnectedCarDeviceClassId(CarDeviceClassId classId) {
         mPreferences.edit()
                 .putString(KEY_LAST_CONNECTED_CAR_DEVICE_CLASS_ID, classId.name())
+                .apply();
+        return this;
+    }
+
+    /**
+     * 最後に接続した車載機のプロトコルバージョン取得.
+     *
+     * @return ProtocolVersion
+     * @see #setLastConnectedCarDeviceProtocolVersion(ProtocolVersion)
+     * @see #KEY_LAST_CONNECTED_CAR_DEVICE_PROTOCOL_VERSION
+     */
+    public ProtocolVersion getLastConnectedCarDeviceProtocolVersion() {
+        if (mPreferences.contains(KEY_LAST_CONNECTED_CAR_DEVICE_PROTOCOL_VERSION)) {
+            String value =  mPreferences.getString(KEY_LAST_CONNECTED_CAR_DEVICE_PROTOCOL_VERSION, DEFAULT_LAST_CONNECTED_CAR_DEVICE_PROTOCOL_VERSION);
+            return new Gson().fromJson(value, ProtocolVersion.class);
+        } else {
+            ProtocolVersion protocolVersion = new Gson().fromJson(DEFAULT_LAST_CONNECTED_CAR_DEVICE_PROTOCOL_VERSION, ProtocolVersion.class);
+            setLastConnectedCarDeviceProtocolVersion(protocolVersion);
+            return protocolVersion;
+        }
+    }
+
+    /**
+     * 最後に接続した車載機のプロトコルバージョン設定.
+     *
+     * @param protocolVersion ProtocolVersion
+     * @return 本オブジェクト
+     * @throws NullPointerException {@code protocolVersion}がnull
+     * @see #getLastConnectedCarDeviceClassId()
+     * @see #KEY_LAST_CONNECTED_CAR_DEVICE_PROTOCOL_VERSION
+     */
+    @NonNull
+    public AppSharedPreference setLastConnectedCarDeviceProtocolVersion(ProtocolVersion protocolVersion) {
+        checkNotNull(protocolVersion);
+        String value = new Gson().toJson(protocolVersion);
+        mPreferences.edit()
+                .putString(KEY_LAST_CONNECTED_CAR_DEVICE_PROTOCOL_VERSION, value)
                 .apply();
         return this;
     }

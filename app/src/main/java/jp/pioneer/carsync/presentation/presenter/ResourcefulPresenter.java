@@ -270,6 +270,8 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
         //連携車載機のClassIdを保存する
         mPreference.setLastConnectedCarDeviceClassId(protocolSpec.getCarDeviceClassId());
         //mPreference.setLastConnectedCarDeviceClassId(CarDeviceClassId.MARIN);
+        //連携車載機のプロトコルバージョンを保存する
+        mPreference.setLastConnectedCarDeviceProtocolVersion(protocolSpec.getConnectingProtocolVersion());
         if(mPreference.getLastConnectedCarDeviceClassId()!=CarDeviceClassId.MARIN) {
             //ADAS対応車載機か否かを保存する
             boolean isAdasAvailable = mStatusHolder.getCarDeviceSpec().adasAlarmSupported;
