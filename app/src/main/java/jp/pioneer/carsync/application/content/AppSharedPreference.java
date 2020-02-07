@@ -200,6 +200,16 @@ public class AppSharedPreference {
      */
     public static final String KEY_LAST_CONNECTED_CAR_DEVICE_AM_STEP = "last_connected_car_device_am_seek_step";
     /**
+     * Preferenceキー:最後に接続した車載機の音声認識(Siri/GoogleVR)機能の対応/非対応.
+     * <p>
+     * 既定値:{@link #DEFAULT_LAST_CONNECTED_CAR_DEVICE_ANDROID_VR}
+     *
+     * @see #getLastConnectedCarDeviceAndroidVr()
+     * @see #setLastConnectedCarDeviceAndroidVr(boolean)
+     */
+    public static final String KEY_LAST_CONNECTED_CAR_DEVICE_ANDROID_VR = "last_connected_car_device_android_vr";
+
+    /**
      * Preferenceキー:AppMusicのリピートモード.
      * <p>
      * 既定値:{@link #DEFAULT_APP_MUSIC_REPEAT_MODE}
@@ -809,6 +819,7 @@ public class AppSharedPreference {
     private static final String DEFAULT_LAST_CONNECTED_CAR_DEVICE_CLASS_ID = CarDeviceClassId.DEH.name();
     private static final boolean DEFAULT_LAST_CONNECTED_CAR_DEVICE_ADAS_AVAILABLE = false;
     private static final String DEFAULT_LAST_CONNECTED_CAR_DEVICE_AM_STEP = TunerSeekStep._9KHZ.name();
+    private static final boolean DEFAULT_LAST_CONNECTED_CAR_DEVICE_ANDROID_VR = false;
     private static final String DEFAULT_APP_MUSIC_REPEAT_MODE = SmartPhoneRepeatMode.ALL.name();
     private static final String DEFAULT_APP_MUSIC_SHUFFLE_MODE = ShuffleMode.OFF.name();
     private static final String DEFAULT_APP_MUSIC_QUERY_PARAMS = getGson().toJson(createAllSongs());
@@ -1500,6 +1511,39 @@ public class AppSharedPreference {
                 .apply();
         return this;
     }
+
+    /**
+     * 最後に接続した車載機の音声認識(Siri/GoogleVR)機能の対応/非対応取得.
+     *
+     * @return 対応モデル/非対応モデル
+     * @see #setLastConnectedCarDeviceAndroidVr(boolean)
+     * @see #KEY_LAST_CONNECTED_CAR_DEVICE_ANDROID_VR
+     */
+    public boolean getLastConnectedCarDeviceAndroidVr() {
+        if (mPreferences.contains(KEY_LAST_CONNECTED_CAR_DEVICE_ANDROID_VR)) {
+            return mPreferences.getBoolean(KEY_LAST_CONNECTED_CAR_DEVICE_ANDROID_VR, DEFAULT_LAST_CONNECTED_CAR_DEVICE_ANDROID_VR);
+        } else {
+            setLastConnectedCarDeviceAndroidVr(DEFAULT_LAST_CONNECTED_CAR_DEVICE_ANDROID_VR);
+            return DEFAULT_LAST_CONNECTED_CAR_DEVICE_ANDROID_VR;
+        }
+    }
+
+    /**
+     * 最後に接続した車載機の音声認識(Siri/GoogleVR)機能の対応/非対応設定.
+     *
+     * @param isAvailable 対応モデル/非対応モデル
+     * @return 本オブジェクト
+     * @see #getLastConnectedCarDeviceAndroidVr()
+     * @see #KEY_LAST_CONNECTED_CAR_DEVICE_ANDROID_VR
+     */
+    @NonNull
+    public AppSharedPreference setLastConnectedCarDeviceAndroidVr(boolean isAvailable) {
+        mPreferences.edit()
+                .putBoolean(KEY_LAST_CONNECTED_CAR_DEVICE_ANDROID_VR, isAvailable)
+                .apply();
+        return this;
+    }
+
     /**
      * AppMusicのリピートモード取得.
      *

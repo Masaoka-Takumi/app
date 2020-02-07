@@ -63,7 +63,7 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
         if (!mEventBus.isRegistered(this)) {
             mEventBus.register(this);
         }
-        mIsAndroidVRAvailable = mStatusCase.execute().getCarDeviceSpec().androidVrSupported;
+        mIsAndroidVRAvailable = mPreference.getLastConnectedCarDeviceAndroidVr();
         updateView();
     }
 

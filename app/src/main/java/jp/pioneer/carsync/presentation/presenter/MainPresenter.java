@@ -2664,6 +2664,11 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
         boolean available = countryList.contains(simCountryIso);
         if(mPreference.isAlexaRequiredSimCheck()) {
             appStatus.isAlexaAvailableCountry = available;
+            if(!available) {
+                if(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA) {
+                    mPreference.setVoiceRecognitionType(VoiceRecognizeType.PIONEER_SMART_SYNC);
+                }
+            }
         } else {
             appStatus.isAlexaAvailableCountry = true;
         }

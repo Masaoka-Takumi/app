@@ -103,6 +103,7 @@ import jp.pioneer.carsync.domain.model.SystemSettingSpec;
 import jp.pioneer.carsync.domain.model.TransportStatus;
 import jp.pioneer.carsync.domain.model.TunerFunctionSettingStatus;
 import jp.pioneer.carsync.domain.model.TunerStatus;
+import jp.pioneer.carsync.domain.model.VoiceRecognizeType;
 import jp.pioneer.carsync.infrastructure.component.NotificationListenerServiceImpl;
 import jp.pioneer.carsync.infrastructure.crp.CarDeviceConnection;
 import jp.pioneer.carsync.infrastructure.crp.event.CrpSessionErrorEvent;
@@ -276,6 +277,15 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
             mPreference.setLastConnectedCarDeviceAdasAvailable(isAdasAvailable);
             if (!isAdasAvailable && mPreferAdas.getAdasEnabled()) {
                 mPreferAdas.setAdasEnabled(false);
+            }
+        }
+
+        //AndroidVR対応車載機か否かを保存する
+        mPreference.setLastConnectedCarDeviceAndroidVr(spec.androidVrSupported);
+        //AndroidVR設定時に非対応車載機と連携したら、Defaultに設定値を変更
+        if(!spec.androidVrSupported) {
+            if(mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ANDROID_VR){
+                mPreference.setVoiceRecognitionType(VoiceRecognizeType.PIONEER_SMART_SYNC);
             }
         }
 
