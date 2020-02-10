@@ -90,7 +90,7 @@ public class DeviceStatusPacketProcessor {
             int majorVer = mStatusHolder.getProtocolSpec().getConnectingProtocolVersion().major;
             int minorVer = mStatusHolder.getProtocolSpec().getConnectingProtocolVersion().minor;
 
-            checkPacketDataLength(data, getDataLength(majorVer));
+            checkPacketDataLength(data, getDataLength(majorVer,minorVer));
             CarDeviceStatus status = mStatusHolder.getCarDeviceStatus();
             // 車載機ステータスは定期通信されるため、値の変化を真面目に判定する
             CarDeviceStatus old = new CarDeviceStatus(status);
@@ -283,23 +283,29 @@ public class DeviceStatusPacketProcessor {
      * アップデートされたがデータ長は変更されていないと判断し、
      * 最大のデータ長を返す
      *
-     * @param version メジャーバージョン
+     * @param majorVersion メジャーバージョン
+     * @param minorVersion マイナーバージョン
      * @return データ長
      */
-    private int getDataLength(int version) {
+    private int getDataLength(int majorVersion, int minorVersion) {
         final int V2_DATA_LENGTH = 19;
         final int V3_DATA_LENGTH = 21;
         final int V4_DATA_LENGTH = 23;
-        final int MAX_DATA_LENGTH = Math.max(Math.max(V2_DATA_LENGTH, V3_DATA_LENGTH), V4_DATA_LENGTH);
+        final int V4_1_DATA_LENGTH = 26;
+        final int MAX_DATA_LENGTH = Math.max(Math.max(V2_DATA_LENGTH, V3_DATA_LENGTH), V4_1_DATA_LENGTH);
 
-        switch(version){
+        switch(majorVersion){
             case 1:
             case 2:
                 return V2_DATA_LENGTH;
             case 3:
                 return V3_DATA_LENGTH;
             case 4:
-                return V4_DATA_LENGTH;
+                if(minorVersion >= 1) {
+                    return V4_1_DATA_LENGTH;
+                }else{
+                    return V4_DATA_LENGTH;
+                }
             default:
                 return MAX_DATA_LENGTH;
         }
