@@ -488,7 +488,6 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
                         //何もしない
                         break;
                     case VOICE:
-                        //TODO:Alexaを塞ぐ
                         mAmazonAlexaManager = AmazonAlexaManager.getInstance();
                         if (mAmazonAlexaManager != null) {
                             Timber.d("addAlexaCallback");
@@ -496,9 +495,10 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
                         }
                         if(appStatus.isShowAlexaDialog){
                             mEventBus.post(new AlexaVoiceRecognizeEvent());
-                        } else if (mStatusHolder.getAppStatus().isAlexaAvailableCountry || mPreference.isVoiceRecognitionEnabled()) {
+                        } else if (mStatusHolder.getAppStatus().isAlexaAvailableCountry||mPreference.getLastConnectedCarDeviceAndroidVr() || mPreference.isVoiceRecognitionEnabled()) {
                             // Alexa機能が利用可能なら音声認識は利用可能
-                            // Alexa機能が利用不可能なら音声認識機能の有効/無効を判定する
+                            //「連携中Siri/Google VR動作可能機能に対応車載機」と連携中の場合は利用可能
+                            // 上記利用不可能なら音声認識機能の有効/無効を判定する
                             view.dispatchVoiceKey();
                         } else {
                             view.showError(mContext.getString(R.string.err_018));

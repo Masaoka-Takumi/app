@@ -1592,10 +1592,12 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                 return;
             }
             StatusHolder holder = mStatusCase.execute();
-            if(mStatusCase.execute().getCarDeviceStatus().androidVrEnabled&&mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ANDROID_VR){
+            if(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ANDROID_VR){
                 if(mStatusCase.execute().getPhoneSettingStatus().hfDevicesCountStatus == ConnectedDevicesCountStatus.NONE){
                     view.showToast(mContext.getString(R.string.err_038));
-                }else{
+                }else if(!mStatusCase.execute().getCarDeviceStatus().androidVrEnabled){
+                    view.showToast("Android VR is not enabled");
+                }else {
                     mControlSource.selectSource(MediaSourceType.VR);
                 }
             }else if(mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){

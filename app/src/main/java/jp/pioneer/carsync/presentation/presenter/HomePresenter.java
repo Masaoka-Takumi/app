@@ -422,7 +422,7 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
                 }
                 break;
             case VOICE:
-                if(!mGetCase.execute().getCarDeviceStatus().androidVrEnabled) {
+                if(!mPreference.getLastConnectedCarDeviceAndroidVr()) {
                     if (mGetCase.execute().getAppStatus().isAlexaAvailableCountry) {
                         mAnalytics.sendShortCutActionEvent(mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA ? Analytics.AnalyticsShortcutAction.alexaLong : Analytics.AnalyticsShortcutAction.voiceLong, Analytics.AnalyticsActiveScreen.home_screen);
                         VoiceRecognizeType nextType = mPreference.getVoiceRecognitionType().toggle();
@@ -1285,7 +1285,7 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
         Optional.ofNullable(getView()).ifPresent(view ->{
             view.setShortCutButtonEnabled(mShortCutKeyEnabledStatus.isShortCutKeyEnabled());
             view.setShortcutKeyItems(mShortCutKeyList);
-            if (!mGetCase.execute().getCarDeviceStatus().androidVrEnabled) {
+            if (!mPreference.getLastConnectedCarDeviceAndroidVr()) {
                 if (type == VoiceRecognizeType.ALEXA) {
                     view.displayVoiceMessage(mContext.getString(type.label));
                 }

@@ -216,7 +216,7 @@ public class PlayerContainerPresenter extends Presenter<PlayerContainerView> {
     public void onVoiceRecognitionTypeChangeEvent(VoiceRecognitionTypeChangeEvent event) {
         VoiceRecognizeType type = mPreference.getVoiceRecognitionType();
         Optional.ofNullable(getView()).ifPresent(view -> {
-            if (!mUseCase.execute().getCarDeviceStatus().androidVrEnabled) {
+            if (!mPreference.getLastConnectedCarDeviceAndroidVr()) {
                 if (type == VoiceRecognizeType.ALEXA) {
                     view.displayVoiceMessage(mContext.getString(type.label));
                 }

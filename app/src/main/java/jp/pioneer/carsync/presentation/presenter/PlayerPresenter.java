@@ -676,7 +676,7 @@ public class PlayerPresenter<T> extends Presenter<T> {
                 }
                 break;
             case VOICE:
-                if(!mStatusHolder.execute().getCarDeviceStatus().androidVrEnabled) {
+                if(!mPreference.getLastConnectedCarDeviceAndroidVr()) {
                     if (mStatusHolder.execute().getAppStatus().isAlexaAvailableCountry) {
                         mAnalytics.sendShortCutActionEvent(mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA ? Analytics.AnalyticsShortcutAction.alexaLong : Analytics.AnalyticsShortcutAction.voiceLong, Analytics.AnalyticsActiveScreen.av_screen);
                         VoiceRecognizeType nextType = mPreference.getVoiceRecognitionType().toggle();

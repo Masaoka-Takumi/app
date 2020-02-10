@@ -59,7 +59,7 @@ public class VoiceRecognizeTypeSelectDialogPresenter extends Presenter<VoiceReco
     private void updateView() {
         mVoiceTypeList.clear();
         mVoiceTypeList.add(VoiceRecognizeType.PIONEER_SMART_SYNC);
-        if(mGetStatusHolder.execute().getCarDeviceStatus().androidVrEnabled){
+        if(mPreference.getLastConnectedCarDeviceAndroidVr()){
             mVoiceTypeList.add(VoiceRecognizeType.ANDROID_VR);
         }
         if(mGetStatusHolder.execute().getAppStatus().isAlexaAvailableCountry){
