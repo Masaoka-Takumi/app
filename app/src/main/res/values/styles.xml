@@ -175,4 +175,7 @@
         <item name="snap">false</item>
     </style>
 
+    <style name="NumberPickerText">
+        <item name="android:textSize">22sp</item>
+    </style>
 </resources>
