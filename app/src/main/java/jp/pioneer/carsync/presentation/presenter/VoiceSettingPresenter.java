@@ -2,12 +2,15 @@ package jp.pioneer.carsync.presentation.presenter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.annimon.stream.Optional;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -21,7 +24,9 @@ import jp.pioneer.carsync.domain.event.PhoneSettingStatusChangeEvent;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.model.AppStatus;
 import jp.pioneer.carsync.domain.model.AudioMode;
+import jp.pioneer.carsync.domain.model.CarDeviceSpec;
 import jp.pioneer.carsync.domain.model.ConnectedDevicesCountStatus;
+import jp.pioneer.carsync.domain.model.SessionStatus;
 import jp.pioneer.carsync.domain.model.VoiceRecognizeMicType;
 import jp.pioneer.carsync.domain.model.VoiceRecognizeType;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
@@ -41,6 +46,8 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
     @Inject Context mContext;
     @Inject EventBus mEventBus;
     @Inject AnalyticsEventManager mAnalytics;
+    private boolean mIsAndroidVRAvailable = false;
+    private ArrayList<VoiceRecognizeType> mVoiceTypeList = new ArrayList<>();
 
     /**
      * コンストラクタ
@@ -54,6 +61,7 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
         if (!mEventBus.isRegistered(this)) {
             mEventBus.register(this);
         }
+        mIsAndroidVRAvailable = mPreference.getLastConnectedCarDeviceAndroidVr();
         updateView();
     }
 
@@ -64,18 +72,35 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
 
     private void updateView(){
         AppStatus appStatus = mStatusCase.execute().getAppStatus();
+        mVoiceTypeList.clear();
+        mVoiceTypeList.add(VoiceRecognizeType.PIONEER_SMART_SYNC);
+        if(mIsAndroidVRAvailable){
+            mVoiceTypeList.add(VoiceRecognizeType.ANDROID_VR);
+        }
+        if(mStatusCase.execute().getAppStatus().isAlexaAvailableCountry){
+            mVoiceTypeList.add(VoiceRecognizeType.ALEXA);
+        }
         Optional.ofNullable(getView()).ifPresent(view ->
         {
-            //TODO:Alexaを塞ぐ
-            view.setVoiceRecognitionVisible(!appStatus.isAlexaAvailableCountry);
-            view.setVoiceRecognitionTypeVisible(appStatus.isAlexaAvailableCountry);
+            //「Siri非対応車載機」または「連携中Siri/Google VR動作可能機能に対応していない車載機」と連携中の場合
+            if (!mIsAndroidVRAvailable) {
+                view.setVoiceRecognitionVisible(!appStatus.isAlexaAvailableCountry);
+                view.setVoiceRecognitionTypeVisible(appStatus.isAlexaAvailableCountry);
+                view.setVoiceRecognitionMicTypeEnabled(isVoiceRecognitionMicTypeEnabled());
+            }else{
+                view.setVoiceRecognitionVisible(false);
+                view.setVoiceRecognitionTypeVisible(true);
+                view.setVoiceRecognitionMicTypeEnabled(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.PIONEER_SMART_SYNC);
+            }
             view.setVoiceRecognitionEnabled(mPreference.isVoiceRecognitionEnabled());
             view.setVoiceRecognitionType(mPreference.getVoiceRecognitionType());
             view.setVoiceRecognitionTypeEnabled(true);
-			view.setVoiceRecognitionMicTypeVisible(mStatusCase.execute().getPhoneSettingStatus().hfDevicesCountStatus != ConnectedDevicesCountStatus.NONE);
-            view.setVoiceRecognitionMicTypeEnabled(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.PIONEER_SMART_SYNC);
+            view.setVoiceRecognitionMicTypeVisible(isVoiceRecognitionMicTypeVisible());
+
             if(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA){
                 view.setVoiceRecognitionMicType(VoiceRecognizeMicType.PHONE);
+            }else if(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ANDROID_VR){
+                view.setVoiceRecognitionMicType(VoiceRecognizeMicType.HEADSET);
             }else{
                 view.setVoiceRecognitionMicType(mPreference.getVoiceRecognitionMicType());
             }
@@ -97,25 +122,22 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
     public void onVoiceRecognitionTypeChange() {
         Bundle bundle = new Bundle();
         bundle.putString(SingleChoiceDialogFragment.TITLE, mContext.getResources().getString(R.string.set_323));
-        String[] strArray = {mContext.getResources().getString(R.string.set_324), mContext.getResources().getString(R.string.set_325)};
+        String[] strArray = new String[mVoiceTypeList.size()];
+        for (int i = 0; i < strArray.length; i++) {
+            strArray[i] = mContext.getString(mVoiceTypeList.get(i).label);
+        }
         bundle.putStringArray(SingleChoiceDialogFragment.DATA, strArray);     // Require ArrayList
         bundle.putInt(SingleChoiceDialogFragment.SELECTED, mPreference.getVoiceRecognitionType().code);
         mEventBus.post(new NavigateEvent(ScreenId.SELECT_DIALOG, bundle));
     }
 
+    /**
+     * 音声認識入力切替設定ダイアログで項目選択後の処理
+     * @param position
+     */
     public void setVoiceRecognizeType(int position){
-        VoiceRecognizeType nextType = VoiceRecognizeType.valueOf(position);
-        mPreference.setVoiceRecognitionType(nextType);
-        Optional.ofNullable(getView()).ifPresent(view -> {
-            view.setVoiceRecognitionType(nextType);
-            view.setVoiceRecognitionMicTypeEnabled(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.PIONEER_SMART_SYNC);
-            if(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA){
-                view.setVoiceRecognitionMicType(VoiceRecognizeMicType.PHONE);
-            }else{
-                view.setVoiceRecognitionMicType(mPreference.getVoiceRecognitionMicType());
-            }
-        });
-        if(nextType==VoiceRecognizeType.PIONEER_SMART_SYNC) {
+        VoiceRecognizeType nextType = mVoiceTypeList.get(position);
+        if(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA&&nextType!=VoiceRecognizeType.ALEXA) {
             AppStatus appStatus = mStatusCase.execute().getAppStatus();
             if (appStatus.appMusicAudioMode == AudioMode.ALEXA) {
                 appStatus.appMusicAudioMode = AudioMode.MEDIA;
@@ -127,6 +149,11 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
                 }
             }
         }
+        if(nextType==VoiceRecognizeType.ANDROID_VR){
+            Toast.makeText(mContext, R.string.err_038, Toast.LENGTH_LONG).show();
+        }
+        mPreference.setVoiceRecognitionType(nextType);
+        updateView();
     }
 
     /**
@@ -137,6 +164,27 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
         VoiceRecognizeMicType nextType = mPreference.getVoiceRecognitionMicType().toggle();
         mPreference.setVoiceRecognitionMicType(nextType);
         Optional.ofNullable(getView()).ifPresent(view -> view.setVoiceRecognitionMicType(nextType));
+    }
+
+    /**
+     * 設定項目「音声認識の使用マイク」の表示/非表示の設定値を生成
+     * @return {@code true}:表示 {@code false}:非表示
+     */
+    private boolean isVoiceRecognitionMicTypeVisible() {
+        return mStatusCase.execute().getSessionStatus() == SessionStatus.STARTED
+                && mStatusCase.execute().getPhoneSettingStatus().hfDevicesCountStatus != ConnectedDevicesCountStatus.NONE;
+    }
+
+    /**
+     * 設定項目「音声認識の使用マイク」のアクティブ/非アクティブの設定値を生成
+     * @return {@code true}:アクティブ {@code false}:非アクティブ
+     */
+    private boolean isVoiceRecognitionMicTypeEnabled() {
+        if(mStatusCase.execute().getAppStatus().isAlexaAvailableCountry) {
+            return mPreference.getVoiceRecognitionType() == VoiceRecognizeType.PIONEER_SMART_SYNC;
+        } else {
+            return mPreference.isVoiceRecognitionEnabled();
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

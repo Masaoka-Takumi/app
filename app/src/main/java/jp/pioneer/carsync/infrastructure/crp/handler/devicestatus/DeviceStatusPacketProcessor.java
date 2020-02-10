@@ -89,6 +89,7 @@ public class DeviceStatusPacketProcessor {
 
             int majorVer = mStatusHolder.getProtocolSpec().getConnectingProtocolVersion().major;
             int minorVer = mStatusHolder.getProtocolSpec().getConnectingProtocolVersion().minor;
+
             checkPacketDataLength(data, getDataLength(majorVer));
             CarDeviceStatus status = mStatusHolder.getCarDeviceStatus();
             // 車載機ステータスは定期通信されるため、値の変化を真面目に判定する
@@ -156,7 +157,7 @@ public class DeviceStatusPacketProcessor {
 
             if (majorVer >= 4) {
                 v4(data, status);
-                if (BuildConfig.DEBUG&&(majorVer > 4 || minorVer >= 1)) {
+                if (majorVer > 4 || minorVer >= 1) {
                     v4_1(data, status);
                 }
             }
@@ -250,6 +251,10 @@ public class DeviceStatusPacketProcessor {
 
     private void v4_1(byte[] data, CarDeviceStatus status) {
         byte b;
+        CarDeviceSpec spec = mStatusHolder.getCarDeviceSpec();
+    	// D14:その他2
+        b = data[14];
+        status.androidVrEnabled = spec.androidVrSupported&&isBitOn(b, 1);
         // D23:車載機ボリューム1
         b = data[23];
         status.maxDeviceVolume = b;
@@ -259,6 +264,7 @@ public class DeviceStatusPacketProcessor {
         // D25:車載機ボリューム3
         b = data[25];
         status.deviceVolumeDisplayStatus = isBitOn(b, 0);
+
     }
 
     private void addIfSupported(Set<MediaSourceType> sources, byte b, int bit, MediaSourceType type) {

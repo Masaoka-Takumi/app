@@ -35,6 +35,7 @@ import jp.pioneer.carsync.presentation.view.fragment.dialog.SessionStoppedDialog
 import jp.pioneer.carsync.presentation.view.fragment.dialog.SingleChoiceDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.SpeechRecognizerDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.StatusPopupDialogFragment;
+import jp.pioneer.carsync.presentation.view.fragment.dialog.VoiceRecognizeTypeSelectDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.YouTubeLinkContainerFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.YouTubeLinkSearchItemDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.screen.contacts.ContactsContainerFragment;
@@ -72,12 +73,13 @@ public class MainFragmentController {
     private static final String TAG_DIALOG_CUSTOM_KEY_SETTING = "custom_key_setting";
     private static final String TAG_DIALOG_YOUTUBE_LINK_CONTAINER = "youtube_link_container";
     private static final String TAG_DIALOG_YOUTUBE_LINK_SEARCH_ITEM = "youtube_link_search_item";
+    private static final String TAG_DIALOG_VOICE_RECOGNIZE_TYPE_SELECT = "tag_dialog_voice_recognize_type_select";
     private static final String[] KEY_DEVICE_ERROR_DIALOGS = new String[]{
         MainPresenter.TAG_DIALOG_SXM_SUBSCRIPTION_UPDATE, CarDeviceErrorType.AMP_ERROR.toString(), CarDeviceErrorType.CHECK_USB.toString(), CarDeviceErrorType.CHECK_TUNER.toString(), CarDeviceErrorType.CHECK_ANTENNA.toString()
     };
     private static final String TAG_DIALOG_NORMAL = "dialog_normal";
     private static final String[] KEY_DIALOGS = new String[]{
-            TAG_DIALOG_NORMAL, TAG_DIALOG_ALEXA, TAG_DIALOG_CUSTOM_KEY_SETTING,TAG_DIALOG_YOUTUBE_LINK_SEARCH_ITEM
+            TAG_DIALOG_NORMAL, TAG_DIALOG_ALEXA, TAG_DIALOG_CUSTOM_KEY_SETTING,TAG_DIALOG_YOUTUBE_LINK_SEARCH_ITEM,TAG_DIALOG_VOICE_RECOGNIZE_TYPE_SELECT
     };
     @Inject FragmentManager mFragmentManager;
     @IdRes private int mContainerViewId;
@@ -257,6 +259,9 @@ public class MainFragmentController {
                 return true;
             case YOUTUBE_LINK_SEARCH_ITEM:
                 showYouTubeLinkSearchItemDialog(fragment, args);
+                return true;
+            case VOICE_RECOGNIZE_TYPE_DIALOG:
+                showVoiceRecognizeTypeSelectDialog(fragment, args);
                 return true;
             default:
                 return false;
@@ -842,6 +847,15 @@ public class MainFragmentController {
         createYouTubeLinkSearchItemDialogFragment(fragment, args).show(mFragmentManager, TAG_DIALOG_YOUTUBE_LINK_SEARCH_ITEM);
     }
 
+    /**
+     * showVoiceRecognizeTypeSelectDialog画面表示
+     * @param fragment 表示する画面のインスタンス
+     * @param args      Bundle 引き継ぎ情報
+     */
+    private void showVoiceRecognizeTypeSelectDialog(Fragment fragment, Bundle args){
+        createVoiceRecognizeTypeSelectDialog(fragment, args).show(mFragmentManager, TAG_DIALOG_VOICE_RECOGNIZE_TYPE_SELECT);
+    }
+
     @VisibleForTesting
     Fragment createOpeningFragment(Bundle args) {
         return OpeningFragment.newInstance(args);
@@ -969,5 +983,10 @@ public class MainFragmentController {
     @VisibleForTesting
     DialogFragment createYouTubeLinkSearchItemDialogFragment(Fragment fragment, Bundle args){
         return YouTubeLinkSearchItemDialogFragment.newInstance(fragment, args);
+    }
+
+    @VisibleForTesting
+    DialogFragment createVoiceRecognizeTypeSelectDialog(Fragment fragment, Bundle args){
+        return VoiceRecognizeTypeSelectDialogFragment.newInstance(fragment, args);
     }
 }

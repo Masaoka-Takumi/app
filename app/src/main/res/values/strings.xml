@@ -446,7 +446,9 @@
     <string name="set_410">Long press the rotary dial can easily take you back to PSS</string>
     <string name="set_411">Let\'s get started</string>
     <string name="set_412">How to use</string>
-    <string name="set_413">デバイスバージョン</string>
+    <string name="set_413">Device Version</string>
+    <string name="set_414">Siri</string>
+    <string name="set_415">Android VR</string>
     <string name="sta_001">Pioneer SmartSync</string>
     <string name="sta_004">CAUTION: </string>
     <string name="sta_005">Agree</string>
@@ -574,6 +576,7 @@
     <string name="err_035">Marine app is not selected</string>
     <string name="err_036">・This feature only supports landscape display mode, please use the device on its side.</string>
     <string name="err_037">You do not have the required permissions set to use this feature.  Please set the permissions and try again.</string>
+    <string name="err_038">本機能をご利用の場合は、製品とBluetooth接続が必要です。</string>
     <string name="tip_001">Tips</string>
     <string name="tip_006">Please confirm that the application connection setting of the product is set to Bluetooth.</string>
     <string name="tip_007">By selecting the product name from the \"Search Device\" button, you can easily connect with the product.</string>

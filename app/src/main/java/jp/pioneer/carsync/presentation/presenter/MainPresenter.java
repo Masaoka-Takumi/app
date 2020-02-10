@@ -86,6 +86,7 @@ import jp.pioneer.carsync.domain.model.BaseApp;
 import jp.pioneer.carsync.domain.model.CarDeviceClassId;
 import jp.pioneer.carsync.domain.model.CarDeviceSpec;
 import jp.pioneer.carsync.domain.model.CarDeviceStatus;
+import jp.pioneer.carsync.domain.model.ConnectedDevicesCountStatus;
 import jp.pioneer.carsync.domain.model.ConnectionType;
 import jp.pioneer.carsync.domain.model.MarinApp;
 import jp.pioneer.carsync.domain.model.MediaSourceStatus;
@@ -1166,6 +1167,12 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                 });
             }
         }
+        if(status.sourceType== MediaSourceType.VR){
+            mContext.startActivity(
+                    new Intent(Intent.ACTION_VOICE_COMMAND)
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            );
+        }
         if(mIsAdasStarted) {
             mAdas.checkAdasError();
         }
@@ -1585,7 +1592,15 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                 return;
             }
             StatusHolder holder = mStatusCase.execute();
-            if(mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
+            if(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ANDROID_VR){
+                if(mStatusCase.execute().getPhoneSettingStatus().hfDevicesCountStatus == ConnectedDevicesCountStatus.NONE){
+                    view.showToast(mContext.getString(R.string.err_038));
+                }else if(!mStatusCase.execute().getCarDeviceStatus().androidVrEnabled){
+                    view.showToast("Android VR is not enabled");
+                }else {
+                    mControlSource.selectSource(MediaSourceType.VR);
+                }
+            }else if(mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
                 if(view.isShowAlexaDialog()){
                     view.dismissAlexaDialog();
                 }
@@ -2650,8 +2665,10 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
         if(mPreference.isAlexaRequiredSimCheck()) {
             appStatus.isAlexaAvailableCountry = available;
             if(!available) {
-                // Alexaが利用不可能な場合は音声認識のタイプをPSSにする
-                mPreference.setVoiceRecognitionType(VoiceRecognizeType.PIONEER_SMART_SYNC);
+            	// 現在の設定がAlexaでAlexaが利用不可能な場合は音声認識のタイプをPSSにする
+                if(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA) {
+                    mPreference.setVoiceRecognitionType(VoiceRecognizeType.PIONEER_SMART_SYNC);
+                }
             }
         } else {
             appStatus.isAlexaAvailableCountry = true;

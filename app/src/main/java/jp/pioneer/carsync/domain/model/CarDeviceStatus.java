@@ -27,6 +27,8 @@ public class CarDeviceStatus extends SerialVersion {
     public AttMode attMode;
     /** MUTE状態. */
     public MuteMode muteMode;
+    /** 車載機音声認識有効状態. */
+    public boolean androidVrEnabled;
     /** リスト種別. */
     public ListType listType;
     /** Phone設定可能. */
@@ -96,6 +98,7 @@ public class CarDeviceStatus extends SerialVersion {
         seekStep = carDeviceStatus.seekStep;
         attMode = carDeviceStatus.attMode;
         muteMode = carDeviceStatus.muteMode;
+        androidVrEnabled = carDeviceStatus.androidVrEnabled;
         listType = carDeviceStatus.listType;
         phoneSettingEnabled = carDeviceStatus.phoneSettingEnabled;
         ac2AudioSettingEnabled = carDeviceStatus.ac2AudioSettingEnabled;
@@ -133,6 +136,7 @@ public class CarDeviceStatus extends SerialVersion {
         seekStep = null;
         attMode = null;
         muteMode = null;
+        androidVrEnabled = false;
         listType = ListType.NOT_LIST;
         phoneSettingEnabled = false;
         ac2AudioSettingEnabled = false;
@@ -181,6 +185,7 @@ public class CarDeviceStatus extends SerialVersion {
                 && Objects.equal(seekStep, other.seekStep)
                 && Objects.equal(attMode, other.attMode)
                 && Objects.equal(muteMode, other.muteMode)
+                && Objects.equal(androidVrEnabled, other.androidVrEnabled)
                 && Objects.equal(listType, other.listType)
                 && Objects.equal(phoneSettingEnabled, other.phoneSettingEnabled)
                 && Objects.equal(ac2AudioSettingEnabled, other.ac2AudioSettingEnabled)
@@ -219,6 +224,7 @@ public class CarDeviceStatus extends SerialVersion {
                 seekStep,
                 attMode,
                 muteMode,
+                androidVrEnabled,
                 listType,
                 phoneSettingEnabled,
                 ac2AudioSettingEnabled,
@@ -258,6 +264,7 @@ public class CarDeviceStatus extends SerialVersion {
                 .add("seekStep", seekStep)
                 .add("attMode", attMode)
                 .add("muteMode", muteMode)
+                .add("androidVrEnabled", androidVrEnabled)
                 .add("listType", listType)
                 .add("phoneSettingEnabled", phoneSettingEnabled)
                 .add("ac2AudioSettingEnabled", ac2AudioSettingEnabled)

@@ -679,12 +679,15 @@ public class PlayerPresenter<T> extends Presenter<T> {
                 }
                 break;
             case VOICE:
-                //TODO:Alexaを塞ぐ
-                if(mStatusHolder.execute().getAppStatus().isAlexaAvailableCountry) {
-                    mAnalytics.sendShortCutActionEvent(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA?Analytics.AnalyticsShortcutAction.alexaLong:Analytics.AnalyticsShortcutAction.voiceLong, Analytics.AnalyticsActiveScreen.av_screen);
-                    VoiceRecognizeType nextType = mPreference.getVoiceRecognitionType().toggle();
-                    mPreference.setVoiceRecognitionType(nextType);
-                    mEventBus.post(new VoiceRecognitionTypeChangeEvent());
+                if(!mPreference.getLastConnectedCarDeviceAndroidVr()) {
+                    if (mStatusHolder.execute().getAppStatus().isAlexaAvailableCountry) {
+                        mAnalytics.sendShortCutActionEvent(mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA ? Analytics.AnalyticsShortcutAction.alexaLong : Analytics.AnalyticsShortcutAction.voiceLong, Analytics.AnalyticsActiveScreen.av_screen);
+                        VoiceRecognizeType nextType = mPreference.getVoiceRecognitionType().toggle();
+                        mPreference.setVoiceRecognitionType(nextType);
+                        mEventBus.post(new VoiceRecognitionTypeChangeEvent());
+                    }
+                }else{
+                    mEventBus.post(new NavigateEvent(ScreenId.VOICE_RECOGNIZE_TYPE_DIALOG, Bundle.EMPTY));
                 }
                 break;
             default:
