@@ -6,8 +6,11 @@ import com.annimon.stream.Stream;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.ImmutableList;
 
+import java.util.ArrayList;
 import java.util.List;
 
+
+import jp.pioneer.carsync.BuildConfig;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -15,12 +18,18 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * CarRemoteProtocolスペック情報.
  */
 public class ProtocolSpec {
+    private static final boolean PROTOCOL_V4_1_ENABLE = BuildConfig.DEBUG;
     /** アプリでサポートしているプロトコルバージョン. */
-    private static final List<ProtocolVersion> SUPPORTING_PROTOCOL_VERSION = ImmutableList.of(
-            ProtocolVersion.V4,
-            ProtocolVersion.V3,
-            ProtocolVersion.V2
-    );
+    private static final List<ProtocolVersion> SUPPORTING_PROTOCOL_VERSION = new ArrayList<ProtocolVersion>() {
+        {
+            if(PROTOCOL_V4_1_ENABLE) {
+                add(ProtocolVersion.V4_1);
+            }
+            add(ProtocolVersion.V4);
+            add(ProtocolVersion.V3);
+            add(ProtocolVersion.V2);
+        }
+    };
 
     /** プロトコルバージョン. */
     private ProtocolVersion mDeviceProtocolVersion;

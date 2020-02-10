@@ -14,6 +14,7 @@ import jp.pioneer.carsync.domain.model.AudioSettingSpec;
 import jp.pioneer.carsync.domain.model.CarDeviceSpec;
 import jp.pioneer.carsync.domain.model.DabFunctionSettingSpec;
 import jp.pioneer.carsync.domain.model.DimmerSetting;
+import jp.pioneer.carsync.domain.model.ProtocolVersion;
 import jp.pioneer.carsync.domain.model.SoundFxSettingEqualizerType;
 import jp.pioneer.carsync.domain.model.HdRadioFunctionSettingSpec;
 import jp.pioneer.carsync.domain.model.IlluminationSettingSpec;
@@ -81,6 +82,8 @@ public class DeviceSpecResponsePacketHandler extends DataResponsePacketHandler {
             byte[] data = packet.getData();
 
             int majorVer = mStatusHolder.getProtocolSpec().getConnectingProtocolVersion().major;
+            ProtocolVersion protocolVersion = mStatusHolder.getProtocolSpec().getConnectingProtocolVersion();
+
             checkPacketDataLength(data, getDataLength(majorVer));
             CarDeviceSpec carDeviceSpec = mStatusHolder.getCarDeviceSpec();
             byte b;
@@ -130,6 +133,10 @@ public class DeviceSpecResponsePacketHandler extends DataResponsePacketHandler {
 
             if (majorVer >= 4) {
                 v4(data, carDeviceSpec);
+            }
+
+            if(protocolVersion.isGreaterThanOrEqual(ProtocolVersion.V4_1)){
+                v4_1(data, carDeviceSpec);
             }
 
             Timber.d("handle() CarDeviceSpec = " + carDeviceSpec);
@@ -398,6 +405,13 @@ public class DeviceSpecResponsePacketHandler extends DataResponsePacketHandler {
 
         // 有効イコライザー
         soundFxSettingSpec.supportedEqualizers = ENABLE_EQUALIZERS.get(audioSettingSpec.presetEqualizerVariation);
+    }
+
+    private void v4_1(byte[] data, CarDeviceSpec carDeviceSpec) {
+        byte b;
+        // D10:ソース拡張機能1
+        b = data[10];
+        carDeviceSpec.androidVrSupported = isBitOn(b, 2);
     }
 
     private void addIfSupported(Set<MediaSourceType> sources, byte b, int bit, MediaSourceType type) {

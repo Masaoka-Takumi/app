@@ -1251,7 +1251,6 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
     }
 
     private void play(AppMusicPlaylistCursor.Action action) throws PMGPlayerException {
-
         if(mStatusHolder.getAppStatus().isLaunchedThirdPartyAudioApp) {
             mStatusHolder.getAppStatus().isLaunchedThirdPartyAudioApp = false;
             //dispatchMediaKeyEvent(KeyEvent.KEYCODE_MEDIA_PAUSE);
@@ -1350,6 +1349,16 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
         }
     }
 
+    private void setSmartPhoneEqUseStatus(boolean eqUseStatus) {
+        ProtocolVersion version = mStatusHolder.getProtocolSpec().getConnectingProtocolVersion();
+        SmartPhoneStatus smartPhoneStatus = mStatusHolder.getSmartPhoneStatus();
+        if(version.isGreaterThanOrEqual(ProtocolVersion.V4_1)&&smartPhoneStatus.smartPhoneEqUseStatus != eqUseStatus) {
+            Timber.d("setSmartPhoneEqUseStatus:"+eqUseStatus);
+            smartPhoneStatus.smartPhoneEqUseStatus = eqUseStatus;
+            postSmartPhoneStatus(smartPhoneStatus);
+        }
+    }
+
     private void fastForwardForMediaCommand() throws PMGPlayerException {
         if (mStatus == IDLE
                 || mStatus == Status.PLAYING
@@ -1420,6 +1429,7 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
         if ((!mIsPreventNoticePlaybackMode && oldMode != newMode) ||
                 (oldMode == PlaybackMode.ERROR || newMode == PlaybackMode.ERROR)) {
             smartPhoneStatus.playbackMode = newMode;
+            setSmartPhoneEqUseStatus(newMode==PlaybackMode.PLAY);
             postSmartPhoneStatus(smartPhoneStatus);
         }
     }

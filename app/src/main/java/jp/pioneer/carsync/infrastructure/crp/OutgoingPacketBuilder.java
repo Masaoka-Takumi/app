@@ -13,6 +13,7 @@ import java.util.EnumSet;
 
 import javax.inject.Inject;
 
+import jp.pioneer.carsync.BuildConfig;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.ForInfrastructure;
 import jp.pioneer.carsync.domain.model.AdasWarningStatus;
@@ -290,6 +291,16 @@ public class OutgoingPacketBuilder {
     @NonNull
     public OutgoingPacket createDeviceBdAddressRequest() {
         return createWith(DEVICE_BD_ADDRESS_REQUEST);
+    }
+
+    /**
+     * 車載機ソフトウェアバージョン要求パケット生成.
+     *
+     * @return 送信パケット
+     */
+    @NonNull
+    public OutgoingPacket createDeviceFarmVersionRequest() {
+        return createWith(DEVICE_FARM_VERSION_REQUEST);
     }
 
     /**
@@ -867,6 +878,30 @@ public class OutgoingPacketBuilder {
     public OutgoingPacket createReversePolarityChangeCommand(@NonNull ReversePolarity polarity) {
         return createWith(REVERSE_POLARITY_CHANGE_COMMAND,
                 new byte[] {0x00, (byte) checkNotNull(polarity).code});
+    }
+
+    /**
+     * 車載機音声認識実行通知パケット生成.
+     *
+     * @param start 開始/終了
+     * @return 送信パケット
+     */
+    @NonNull
+    public OutgoingPacket createDeviceVoiceRecognitionCommand(boolean start) {
+        return createWith(DEVICE_VOICE_RECOGNITION_COMMAND,
+                new byte[] {0x00, (byte) (start ? 0x01 : 0x00)});
+    }
+
+    /**
+     * 車載機ボリューム指定通知パケット生成.
+     *
+     * @param volume ボリューム値
+     * @return 送信パケット
+     */
+    @NonNull
+    public OutgoingPacket createDeviceVolumeChangeCommand(int volume) {
+        return createWith(DEVICE_VOLUME_CHANGE_COMMAND,
+                new byte[] {0x00, (byte) volume});
     }
 
     /**
@@ -3851,7 +3886,10 @@ public class OutgoingPacketBuilder {
                 // D4:その他
                 //  bit[0]:99App Service(BLE)
                 int d4 = status.bleAppServicePublicationStatus.code;
-
+                if(version.isGreaterThanOrEqual(ProtocolVersion.V4_1)){
+                    //  bit[1] Smartphone内EQ使用状態
+                    d4 |= (status.smartPhoneEqUseStatus ? 1 << 1 : 0);
+                }
                 return new byte[]{0x00, (byte) d1, 0x00, (byte) d3, (byte) d4, (byte) d5};
             } else {
                 return new byte[]{0x00, (byte) d1, 0x00, 0x00, 0x00, (byte) d5};

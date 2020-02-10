@@ -5,7 +5,11 @@
         android:layout="@layout/element_preference_base"
         android:order="10"
         android:title="@string/set_055" />
-
+    <Preference
+        android:key="@string/key_device_farm_version_information"
+        android:layout="@layout/element_preference_base"
+        android:order="15"
+        android:title="@string/set_413" />
     <Preference
         android:key="@string/key_licence"
         android:layout="@layout/element_preference_base"

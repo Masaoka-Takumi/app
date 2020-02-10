@@ -2,6 +2,7 @@ package jp.pioneer.carsync.infrastructure.crp.handler.auth;
 
 import android.support.annotation.NonNull;
 
+import jp.pioneer.carsync.BuildConfig;
 import jp.pioneer.carsync.domain.model.ProtocolSpec;
 import jp.pioneer.carsync.domain.model.ProtocolVersion;
 import jp.pioneer.carsync.domain.model.StatusHolder;

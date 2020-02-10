@@ -58,7 +58,8 @@ public enum OutgoingPacketIdType {
     DEVICE_MODEL_REQUEST(0x02, 0x01, 0x80, DEVICE_MODEL_RESPONSE, V2),
     /** 車載機BDアドレス要求. */
     DEVICE_BD_ADDRESS_REQUEST(0x02, 0x01, 0x81, DEVICE_BD_ADDRESS_RESPONSE, V3),
-
+    /** 車載機ソフトウェアバージョン要求. */
+    DEVICE_FARM_VERSION_REQUEST(0x02, 0x01, 0x83, DEVICE_FARM_VERSION_RESPONSE, V4_1),
     //////// ベース:SmartPhone情報 ////////
     /** SmartPhoneSpec通知. */
     SMART_PHONE_SPEC_NOTIFICATION(0x04, 0x00, 0x00, SMART_PHONE_SPEC_NOTIFICATION_RESPONSE, V1),
@@ -164,6 +165,10 @@ public enum OutgoingPacketIdType {
     VOICE_RECOGNITION_COMMAND(0x20, 0x00, 0x09, VOICE_RECOGNITION_NOTIFICATION_RESPONSE, V4),
     /** リバース極性切替通知. */
     REVERSE_POLARITY_CHANGE_COMMAND(0x20, 0x00, 0x0A, V4),
+    /** 車載機音声認識実行通知. */
+    DEVICE_VOICE_RECOGNITION_COMMAND(0x20, 0x00, 0x0A, V4_1),
+    /** 車載機ボリューム指定通知. */
+    DEVICE_VOLUME_CHANGE_COMMAND(0x20, 0x00, 0x0B, V4_1),
     /** Favorite情報取通知 : Radio. */
     FAVORITE_RADIO_SET_COMMAND(0x20, 0x00, 0x20, V1),
     /** Favorite情報取通知 : DAB. */

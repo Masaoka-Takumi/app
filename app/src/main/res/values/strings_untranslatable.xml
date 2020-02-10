@@ -92,6 +92,7 @@
     <string name="setting_debug_adas_camera_view">ADASのカメラプレビュー表示</string>
     <string name="setting_debug_alexa_sim_judgement">Alexa SIM判定</string>
     <string name="setting_debug_smart_phone_control_command">車載機ハードキー通知</string>
+    <string name="setting_debug_device_volume">車載機音量</string>
     <!-- Amazon Alexa-->
     <string name="alexa_language_locale_english_us">en-US</string>
     <string name="alexa_language_locale_english_uk">en-GB</string>
@@ -230,6 +231,7 @@
     <string name="key_play_list_image">play_list_image</string>
     <!-- Information -->
     <string name="key_device_information">device_information</string>
+    <string name="key_device_farm_version_information">key_device_farm_version_information</string>
     <string name="key_licence">licence</string>
     <string name="key_eula">eula</string>
     <string name="key_privacy_policy">privacy_policy</string>

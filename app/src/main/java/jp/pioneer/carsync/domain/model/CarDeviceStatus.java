@@ -27,6 +27,8 @@ public class CarDeviceStatus extends SerialVersion {
     public AttMode attMode;
     /** MUTE状態. */
     public MuteMode muteMode;
+    /** 車載機音声認識有効状態. */
+    public boolean androidVrEnabled;
     /** リスト種別. */
     public ListType listType;
     /** Phone設定可能. */
@@ -69,6 +71,12 @@ public class CarDeviceStatus extends SerialVersion {
     public ReverseStatus reverseStatus;
     /** パーキング状態. */
     public ParkingStatus parkingStatus;
+    /** 車載機ボリュームの最大値. */
+    public int maxDeviceVolume;
+    /** 現在の車載機ボリューム. */
+    public int currentDeviceVolume;
+    /** ボリューム表示開始状態. */
+    public boolean deviceVolumeDisplayStatus;
 
     /**
      * コンストラクタ.
@@ -90,6 +98,7 @@ public class CarDeviceStatus extends SerialVersion {
         seekStep = carDeviceStatus.seekStep;
         attMode = carDeviceStatus.attMode;
         muteMode = carDeviceStatus.muteMode;
+        androidVrEnabled = carDeviceStatus.androidVrEnabled;
         listType = carDeviceStatus.listType;
         phoneSettingEnabled = carDeviceStatus.phoneSettingEnabled;
         ac2AudioSettingEnabled = carDeviceStatus.ac2AudioSettingEnabled;
@@ -111,6 +120,9 @@ public class CarDeviceStatus extends SerialVersion {
         isDisplayParkingSensor = carDeviceStatus.isDisplayParkingSensor;
         reverseStatus = carDeviceStatus.reverseStatus;
         parkingStatus = carDeviceStatus.parkingStatus;
+        maxDeviceVolume = carDeviceStatus.maxDeviceVolume;
+        currentDeviceVolume = carDeviceStatus.currentDeviceVolume;
+        deviceVolumeDisplayStatus = carDeviceStatus.deviceVolumeDisplayStatus;
     }
 
     /**
@@ -124,6 +136,7 @@ public class CarDeviceStatus extends SerialVersion {
         seekStep = null;
         attMode = null;
         muteMode = null;
+        androidVrEnabled = false;
         listType = ListType.NOT_LIST;
         phoneSettingEnabled = false;
         ac2AudioSettingEnabled = false;
@@ -145,6 +158,9 @@ public class CarDeviceStatus extends SerialVersion {
         isDisplayParkingSensor = false;
         reverseStatus = null;
         parkingStatus = null;
+        maxDeviceVolume = 0;
+        currentDeviceVolume = 0;
+        deviceVolumeDisplayStatus = false;
         updateVersion();
     }
 
@@ -169,6 +185,7 @@ public class CarDeviceStatus extends SerialVersion {
                 && Objects.equal(seekStep, other.seekStep)
                 && Objects.equal(attMode, other.attMode)
                 && Objects.equal(muteMode, other.muteMode)
+                && Objects.equal(androidVrEnabled, other.androidVrEnabled)
                 && Objects.equal(listType, other.listType)
                 && Objects.equal(phoneSettingEnabled, other.phoneSettingEnabled)
                 && Objects.equal(ac2AudioSettingEnabled, other.ac2AudioSettingEnabled)
@@ -189,7 +206,10 @@ public class CarDeviceStatus extends SerialVersion {
                 && Objects.equal(mixtraxSettingStatus, other.mixtraxSettingStatus)
                 && Objects.equal(isDisplayParkingSensor, other.isDisplayParkingSensor)
                 && Objects.equal(reverseStatus, other.reverseStatus)
-                && Objects.equal(parkingStatus, other.parkingStatus);
+                && Objects.equal(parkingStatus, other.parkingStatus)
+                && Objects.equal(maxDeviceVolume, other.maxDeviceVolume)
+                && Objects.equal(currentDeviceVolume, other.currentDeviceVolume)
+                && Objects.equal(deviceVolumeDisplayStatus, other.deviceVolumeDisplayStatus);
     }
 
     /**
@@ -204,6 +224,7 @@ public class CarDeviceStatus extends SerialVersion {
                 seekStep,
                 attMode,
                 muteMode,
+                androidVrEnabled,
                 listType,
                 phoneSettingEnabled,
                 ac2AudioSettingEnabled,
@@ -224,7 +245,10 @@ public class CarDeviceStatus extends SerialVersion {
                 mixtraxSettingStatus,
                 isDisplayParkingSensor,
                 reverseStatus,
-                parkingStatus);
+                parkingStatus,
+                maxDeviceVolume,
+                currentDeviceVolume,
+                deviceVolumeDisplayStatus);
     }
 
     /**
@@ -240,6 +264,7 @@ public class CarDeviceStatus extends SerialVersion {
                 .add("seekStep", seekStep)
                 .add("attMode", attMode)
                 .add("muteMode", muteMode)
+                .add("androidVrEnabled", androidVrEnabled)
                 .add("listType", listType)
                 .add("phoneSettingEnabled", phoneSettingEnabled)
                 .add("ac2AudioSettingEnabled", ac2AudioSettingEnabled)
@@ -261,6 +286,9 @@ public class CarDeviceStatus extends SerialVersion {
                 .add("isDisplayParkingSensor", isDisplayParkingSensor)
                 .add("reverseStatus", reverseStatus)
                 .add("parkingStatus", parkingStatus)
+                .add("maxDeviceVolume", maxDeviceVolume)
+                .add("currentDeviceVolume", currentDeviceVolume)
+                .add("deviceVolumeDisplayStatus", deviceVolumeDisplayStatus)
                 .toString();
     }
 }

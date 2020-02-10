@@ -58,6 +58,7 @@ import jp.pioneer.carsync.domain.model.ListType;
 import jp.pioneer.carsync.domain.model.LiveSimulationSetting;
 import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.Notification;
+import jp.pioneer.carsync.domain.model.ProtocolVersion;
 import jp.pioneer.carsync.domain.model.ShortcutKey;
 import jp.pioneer.carsync.domain.model.SmartPhoneControlCommand;
 import jp.pioneer.carsync.domain.model.SoundEffectType;
@@ -336,6 +337,7 @@ public class PlayerPresenter<T> extends Presenter<T> {
      */
     public SoundFxButtonInfo getSoundFxButtonInfo(){
         StatusHolder holder = mStatusHolder.execute();
+        ProtocolVersion version = holder.getProtocolSpec().getConnectingProtocolVersion();
         SoundFxSettingStatus settingStatus = holder.getSoundFxSettingStatus();
         AudioSettingStatus audioSettingStatus = holder.getAudioSettingStatus();
         String eqStr, soundFxStr;
@@ -366,9 +368,10 @@ public class PlayerPresenter<T> extends Presenter<T> {
                     eqStr = mContext.getString(SoundFxSettingEqualizerType.FLAT.getLabel());
                 } else if (superTodorokiSetting != SuperTodorokiSetting.OFF) {
                     eqStr = mContext.getString(SoundFxSettingEqualizerType.FLAT.getLabel());
-                }else if(holder.getAppStatus().appMusicAudioMode== AudioMode.ALEXA){
+                }else if(holder.getAppStatus().appMusicAudioMode== AudioMode.ALEXA&&version.isLessThan(ProtocolVersion.V4_1)){
                     eqStr = mContext.getString(SoundFxSettingEqualizerType.FLAT.getLabel());
                 } else {
+                    //通信プロトコル4.1以上で通信している場合、Alexa再生画面のEQボタンを有効にし、設定中のEQ名を表示する。
                     eqStr = mContext.getString(equalizerType.getLabel());
                 }
             }
@@ -676,12 +679,16 @@ public class PlayerPresenter<T> extends Presenter<T> {
                 }
                 break;
             case VOICE:
-                //TODO:Alexaを塞ぐ
-                if(mStatusHolder.execute().getAppStatus().isAlexaAvailableCountry) {
-                    mAnalytics.sendShortCutActionEvent(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA?Analytics.AnalyticsShortcutAction.alexaLong:Analytics.AnalyticsShortcutAction.voiceLong, Analytics.AnalyticsActiveScreen.av_screen);
-                    VoiceRecognizeType nextType = mPreference.getVoiceRecognitionType().toggle();
-                    mPreference.setVoiceRecognitionType(nextType);
-                    mEventBus.post(new VoiceRecognitionTypeChangeEvent());
+                if(!mPreference.getLastConnectedCarDeviceAndroidVr()) {
+                    if (mStatusHolder.execute().getAppStatus().isAlexaAvailableCountry) {
+                        mAnalytics.sendShortCutActionEvent(mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA ? Analytics.AnalyticsShortcutAction.alexaLong : Analytics.AnalyticsShortcutAction.voiceLong, Analytics.AnalyticsActiveScreen.av_screen);
+                        VoiceRecognizeType nextType = mPreference.getVoiceRecognitionType().toggle();
+                        mPreference.setVoiceRecognitionType(nextType);
+                        mEventBus.post(new VoiceRecognitionTypeChangeEvent());
+                    }
+                }else{
+                    mAnalytics.sendShortCutActionEvent(mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA ? Analytics.AnalyticsShortcutAction.alexaLong : Analytics.AnalyticsShortcutAction.voiceLong, Analytics.AnalyticsActiveScreen.av_screen);
+                    mEventBus.post(new NavigateEvent(ScreenId.VOICE_RECOGNIZE_TYPE_DIALOG, Bundle.EMPTY));
                 }
                 break;
             default:

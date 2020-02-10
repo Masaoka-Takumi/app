@@ -29,6 +29,7 @@ public class InformationFragment extends AbstractPreferenceFragment<InformationP
     private static final int TAP_TIME = 5000; //5秒間に6回連打
     private static final int TAP_COUNT = 6;
     private Preference mDeviceInfo;
+    private Preference mDeviceFarmVersion;
     private Preference mLicense;
     private Preference mEula;
     private Preference mPrivacyPolicy;
@@ -78,6 +79,8 @@ public class InformationFragment extends AbstractPreferenceFragment<InformationP
                 return true;
             });
         }
+        mDeviceFarmVersion = findPreference(getString(R.string.key_device_farm_version_information));
+
         mLicense = findPreference(getString(R.string.key_licence));
         mLicense.setOnPreferenceClickListener((preference) -> {
             mPresenter.onLicenseAction();
@@ -135,6 +138,17 @@ public class InformationFragment extends AbstractPreferenceFragment<InformationP
     @Override
     public void setDeviceInformation(String deviceInformation){
         mDeviceInfo.setSummary(deviceInformation);
+    }
+
+    /**
+     * デバイスバージョン設定
+     * @param isVisible 表示/非表示
+     * @param deviceFarmVersion デバイスバージョン
+     */
+    @Override
+    public void setDeviceFarmVersion(boolean isVisible, String deviceFarmVersion){
+        mDeviceFarmVersion.setVisible(isVisible);
+        mDeviceFarmVersion.setSummary(deviceFarmVersion);
     }
 
     /**

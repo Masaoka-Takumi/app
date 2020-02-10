@@ -120,6 +120,7 @@ public class SessionStartTask extends SendTask {
             case DEVICE_STATUS_RESPONSE:                    // 車載機ステータス情報通知応答
             case DEVICE_MODEL_RESPONSE:                     // 車載機型番応答
             case DEVICE_BD_ADDRESS_RESPONSE:                // 車載機BDアドレス応答
+            case DEVICE_FARM_VERSION_RESPONSE:                // 車載機ソフトウェアバージョン応答
                 onBooleanResponse(packet.getPacketIdType(), ((DataResponsePacketHandler) handler).getResult());
                 break;
             default:
@@ -142,6 +143,10 @@ public class SessionStartTask extends SendTask {
         doRequest(packetBuilder.createDeviceModelRequest());
         // 車載機BDアドレス要求
         doRequest(packetBuilder.createDeviceBdAddressRequest());
+        if(version.isGreaterThanOrEqual(ProtocolVersion.V4_1)) {
+            // 車載機ソフトウェアバージョン要求
+            doRequest(packetBuilder.createDeviceFarmVersionRequest());
+        }
         // 車載機情報取得終了
         doRequest(packetBuilder.createEndGetDeviceSpec());
         // SmartPhone情報通知開始

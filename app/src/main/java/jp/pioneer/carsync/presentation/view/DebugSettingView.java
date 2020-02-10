@@ -100,4 +100,5 @@ public interface DebugSettingView {
     void setAlexaSimJudgement(boolean value);
     void recheckSim();
     void setSmartPhoneControlComand(boolean value);
+    void setDeviceVolume(int max,int current);
 }

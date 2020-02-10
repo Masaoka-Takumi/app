@@ -241,4 +241,11 @@
         android:order="270"
         android:persistent="false"
         android:title="@string/setting_debug_smart_phone_control_command" />
+    <SeekBarPreference
+        android:key="setting_debug_device_volume"
+        android:layout="@layout/element_preference_seekbar"
+        android:order="280"
+        android:persistent="false"
+        android:title="@string/setting_debug_device_volume"
+        app:showSeekBarValue="true" />
 </PreferenceScreen>

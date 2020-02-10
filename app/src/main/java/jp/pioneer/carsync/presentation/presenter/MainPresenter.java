@@ -74,6 +74,7 @@ import jp.pioneer.carsync.domain.interactor.ControlAppMusicSource;
 import jp.pioneer.carsync.domain.interactor.ControlCustomFlashPattern;
 import jp.pioneer.carsync.domain.interactor.ControlSiriusXmSource;
 import jp.pioneer.carsync.domain.interactor.ControlSource;
+import jp.pioneer.carsync.domain.interactor.DeviceVoiceRecognition;
 import jp.pioneer.carsync.domain.interactor.GetAddressFromLocationName;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.interactor.JudgeVoiceCommand;
@@ -86,6 +87,7 @@ import jp.pioneer.carsync.domain.model.BaseApp;
 import jp.pioneer.carsync.domain.model.CarDeviceClassId;
 import jp.pioneer.carsync.domain.model.CarDeviceSpec;
 import jp.pioneer.carsync.domain.model.CarDeviceStatus;
+import jp.pioneer.carsync.domain.model.ConnectedDevicesCountStatus;
 import jp.pioneer.carsync.domain.model.ConnectionType;
 import jp.pioneer.carsync.domain.model.MarinApp;
 import jp.pioneer.carsync.domain.model.MediaSourceStatus;
@@ -162,6 +164,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
     @Inject GetStatusHolder mStatusCase;
     @Inject PrepareSpeechRecognizer mMicCase;
     @Inject JudgeVoiceCommand mJudgeVoiceCase;
+    @Inject DeviceVoiceRecognition mDeviceVoiceRecognition;
     @Inject GetAddressFromLocationName mLocationCase;
     @Inject CheckAvailableTextToSpeech mCheckTtsCase;
     @Inject ReadText mReadText;
@@ -1167,6 +1170,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                 });
             }
         }
+
         if(mIsAdasStarted) {
             mAdas.checkAdasError();
         }
@@ -1586,7 +1590,13 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                 return;
             }
             StatusHolder holder = mStatusCase.execute();
-            if(mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
+            if(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ANDROID_VR){
+                if(mStatusCase.execute().getPhoneSettingStatus().hfDevicesCountStatus == ConnectedDevicesCountStatus.NONE){
+                    view.showToast(mContext.getString(R.string.err_038));
+                }else {
+                    mDeviceVoiceRecognition.start();
+                }
+            }else if(mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
                 if(view.isShowAlexaDialog()){
                     view.dismissAlexaDialog();
                 }
@@ -2652,8 +2662,10 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
         if(mPreference.isAlexaRequiredSimCheck()) {
             appStatus.isAlexaAvailableCountry = available;
             if(!available) {
-                // Alexaが利用不可能な場合は音声認識のタイプをPSSにする
-                mPreference.setVoiceRecognitionType(VoiceRecognizeType.PIONEER_SMART_SYNC);
+            	// 現在の設定がAlexaでAlexaが利用不可能な場合は音声認識のタイプをPSSにする
+                if(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ALEXA) {
+                    mPreference.setVoiceRecognitionType(VoiceRecognizeType.PIONEER_SMART_SYNC);
+                }
             }
         } else {
             appStatus.isAlexaAvailableCountry = true;

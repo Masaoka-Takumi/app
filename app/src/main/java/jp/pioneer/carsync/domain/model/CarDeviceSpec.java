@@ -30,6 +30,8 @@ public class CarDeviceSpec {
     public boolean tuneMixSupported;
     /** DABのTimeShift機能対応. */
     public boolean timeShiftSupported;
+    /** 車載機音声認識(Siri/GoogleVR)機能の対応. */
+    public boolean androidVrSupported;
     /** Phone設定対応. */
     public boolean phoneSettingSupported;
     /** オーディオ設定（AC2）対応. */
@@ -90,7 +92,8 @@ public class CarDeviceSpec {
     public String modelName;
     /** BDアドレス. */
     public String bdAddress;
-
+    /** 車載機ソフトウェアバージョン. */
+    public String farmVersion;
     /**
      * コンストラクタ.
      */
@@ -111,6 +114,7 @@ public class CarDeviceSpec {
         presetKeyEnabled = false;
         tuneMixSupported = false;
         timeShiftSupported = false;
+        androidVrSupported = false;
         phoneSettingSupported = false;
         ac2AudioSettingSupported = false;
         jasperAudioSettingSupported = false;
@@ -141,6 +145,7 @@ public class CarDeviceSpec {
         carDeviceDestinationInfo = null;
         modelName = null;
         bdAddress = null;
+        farmVersion = null;
     }
 
     /**
@@ -158,6 +163,7 @@ public class CarDeviceSpec {
                 .add("presetKeyEnabled", presetKeyEnabled)
                 .add("tuneMixSupported", tuneMixSupported)
                 .add("timeShiftSupported", timeShiftSupported)
+                .add("androidVrSupported", androidVrSupported)
                 .add("phoneSettingSupported", phoneSettingSupported)
                 .add("ac2AudioSettingSupported", ac2AudioSettingSupported)
                 .add("jasperAudioSettingSupported", jasperAudioSettingSupported)
@@ -187,6 +193,7 @@ public class CarDeviceSpec {
                 .add("carDeviceDestinationInfo", carDeviceDestinationInfo)
                 .add("modelName", modelName)
                 .add("bdAddress", bdAddress)
+                .add("farmVersion", farmVersion)
                 .toString();
     }
 }
