@@ -18,11 +18,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * CarRemoteProtocolスペック情報.
  */
 public class ProtocolSpec {
-    private static final boolean PROTOCOL_V4_1_ENABLE = BuildConfig.DEBUG;
     /** アプリでサポートしているプロトコルバージョン. */
     private static final List<ProtocolVersion> SUPPORTING_PROTOCOL_VERSION = new ArrayList<ProtocolVersion>() {
         {
-            if(PROTOCOL_V4_1_ENABLE) {
+            if(BuildConfig.PROTOCOL_V4_1_ENABLE) {
                 add(ProtocolVersion.V4_1);
             }
             add(ProtocolVersion.V4);

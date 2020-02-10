@@ -13,6 +13,7 @@ android {
         ndk {
             abiFilters "armeabi-v7a","arm64-v8a"
         }
+        //buildConfigField("boolean", "PROTOCOL_V4_1_ENABLE", true);
     }
     signingConfigs {
         debug {
@@ -26,6 +27,7 @@ android {
         release {
             minifyEnabled true // proguardを有効にするにはtrueに変更
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField("Boolean", "PROTOCOL_V4_1_ENABLE", "false")
         }
         debug {
             debuggable true
@@ -39,6 +41,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardDebug-rules.pro'
             versionNameSuffix '.2' // debugバージョン
             pseudoLocalesEnabled true
+            buildConfigField("Boolean", "PROTOCOL_V4_1_ENABLE", "true")
         }
         unitTest {
             debuggable true
