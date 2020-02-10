@@ -881,6 +881,18 @@ public class OutgoingPacketBuilder {
     }
 
     /**
+     * 車載機音声認識実行通知パケット生成.
+     *
+     * @param start 開始/終了
+     * @return 送信パケット
+     */
+    @NonNull
+    public OutgoingPacket createDeviceVoiceRecognitionCommand(boolean start) {
+        return createWith(DEVICE_VOICE_RECOGNITION_COMMAND,
+                new byte[] {0x00, (byte) (start ? 0x01 : 0x00)});
+    }
+
+    /**
      * 車載機ボリューム指定通知パケット生成.
      *
      * @param volume ボリューム値

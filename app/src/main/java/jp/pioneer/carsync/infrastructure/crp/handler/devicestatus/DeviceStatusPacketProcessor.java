@@ -16,6 +16,7 @@ import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.MixtraxSettingStatus;
 import jp.pioneer.carsync.domain.model.MuteMode;
 import jp.pioneer.carsync.domain.model.ParkingStatus;
+import jp.pioneer.carsync.domain.model.ProtocolVersion;
 import jp.pioneer.carsync.domain.model.ReverseStatus;
 import jp.pioneer.carsync.domain.model.ShortPlayback;
 import jp.pioneer.carsync.domain.model.StatusHolder;
@@ -89,6 +90,7 @@ public class DeviceStatusPacketProcessor {
 
             int majorVer = mStatusHolder.getProtocolSpec().getConnectingProtocolVersion().major;
             int minorVer = mStatusHolder.getProtocolSpec().getConnectingProtocolVersion().minor;
+            ProtocolVersion protocolVersion = mStatusHolder.getProtocolSpec().getConnectingProtocolVersion();
 
             checkPacketDataLength(data, getDataLength(majorVer,minorVer));
             CarDeviceStatus status = mStatusHolder.getCarDeviceStatus();
@@ -157,9 +159,10 @@ public class DeviceStatusPacketProcessor {
 
             if (majorVer >= 4) {
                 v4(data, status);
-                if (majorVer > 4 || minorVer >= 1) {
-                    v4_1(data, status);
-                }
+            }
+
+            if(protocolVersion.isGreaterThanOrEqual(ProtocolVersion.V4_1)){
+                v4_1(data, status);
             }
 
             if(!old.equals(status)) {

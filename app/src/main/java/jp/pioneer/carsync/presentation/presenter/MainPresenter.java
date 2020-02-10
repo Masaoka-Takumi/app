@@ -74,6 +74,7 @@ import jp.pioneer.carsync.domain.interactor.ControlAppMusicSource;
 import jp.pioneer.carsync.domain.interactor.ControlCustomFlashPattern;
 import jp.pioneer.carsync.domain.interactor.ControlSiriusXmSource;
 import jp.pioneer.carsync.domain.interactor.ControlSource;
+import jp.pioneer.carsync.domain.interactor.DeviceVoiceRecognition;
 import jp.pioneer.carsync.domain.interactor.GetAddressFromLocationName;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.interactor.JudgeVoiceCommand;
@@ -162,6 +163,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
     @Inject GetStatusHolder mStatusCase;
     @Inject PrepareSpeechRecognizer mMicCase;
     @Inject JudgeVoiceCommand mJudgeVoiceCase;
+    @Inject DeviceVoiceRecognition mDeviceVoiceRecognition;
     @Inject GetAddressFromLocationName mLocationCase;
     @Inject CheckAvailableTextToSpeech mCheckTtsCase;
     @Inject ReadText mReadText;
@@ -1167,12 +1169,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                 });
             }
         }
-        if(status.sourceType== MediaSourceType.VR){
-            mContext.startActivity(
-                    new Intent(Intent.ACTION_VOICE_COMMAND)
-                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            );
-        }
+
         if(mIsAdasStarted) {
             mAdas.checkAdasError();
         }
@@ -1595,10 +1592,8 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
             if(mPreference.getVoiceRecognitionType()==VoiceRecognizeType.ANDROID_VR){
                 if(mStatusCase.execute().getPhoneSettingStatus().hfDevicesCountStatus == ConnectedDevicesCountStatus.NONE){
                     view.showToast(mContext.getString(R.string.err_038));
-                }else if(!mStatusCase.execute().getCarDeviceStatus().androidVrEnabled){
-                    view.showToast("Android VR is not enabled");
                 }else {
-                    mControlSource.selectSource(MediaSourceType.VR);
+                    mDeviceVoiceRecognition.start();
                 }
             }else if(mPreference.getVoiceRecognitionType()== VoiceRecognizeType.ALEXA){
                 if(view.isShowAlexaDialog()){

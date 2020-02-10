@@ -142,7 +142,6 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
     private Status mStatus = Status.CLOSED;
     private ShuffleMode mShuffleMode;
     private SmartPhoneRepeatMode mRepeatMode;
-    private boolean mEqUseStatus;
     private AppMusicPlaylistCursor mCursor;
     private int mPendingPlayPosition;
     private AppMusicContract.PlayParams mPlayParams;
@@ -1352,11 +1351,10 @@ public class AppMusicSourceControllerImpl extends SourceControllerImpl
 
     private void setSmartPhoneEqUseStatus(boolean eqUseStatus) {
         ProtocolVersion version = mStatusHolder.getProtocolSpec().getConnectingProtocolVersion();
-        if(version.isGreaterThanOrEqual(ProtocolVersion.V4_1)&&mEqUseStatus != eqUseStatus) {
+        SmartPhoneStatus smartPhoneStatus = mStatusHolder.getSmartPhoneStatus();
+        if(version.isGreaterThanOrEqual(ProtocolVersion.V4_1)&&smartPhoneStatus.smartPhoneEqUseStatus != eqUseStatus) {
             Timber.d("setSmartPhoneEqUseStatus:"+eqUseStatus);
-            mEqUseStatus = eqUseStatus;
-            SmartPhoneStatus smartPhoneStatus = mStatusHolder.getSmartPhoneStatus();
-            smartPhoneStatus.smartPhoneEqUseStatus = mEqUseStatus;
+            smartPhoneStatus.smartPhoneEqUseStatus = eqUseStatus;
             postSmartPhoneStatus(smartPhoneStatus);
         }
     }

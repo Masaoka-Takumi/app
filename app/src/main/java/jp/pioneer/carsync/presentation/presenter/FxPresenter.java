@@ -66,12 +66,12 @@ public class FxPresenter extends Presenter<FxView> {
         AudioSettingSpec audioSpec = holder.getCarDeviceSpec().audioSettingSpec;
         AudioSettingStatus audioStatus = holder.getAudioSettingStatus();
         ProtocolVersion version = holder.getProtocolSpec().getConnectingProtocolVersion();
-        //通信プロトコル4.1以上で通信している場合、Alexa再生モード時、31バンドEQ設定を有効にする
-        boolean isAlexaPlayMode = version.isLessThan(ProtocolVersion.V4_1)&&holder.getCarDeviceStatus().sourceType== MediaSourceType.APP_MUSIC&&holder.getAppStatus().appMusicAudioMode== AudioMode.ALEXA;
+        //通信プロトコル4.1以上で通信している場合、AppMusicソースでAlexa再生モード時も31バンドEQ設定を有効にする
+        boolean isEnableEQ = version.isGreaterThanOrEqual(ProtocolVersion.V4_1)||!(holder.getCarDeviceStatus().sourceType== MediaSourceType.APP_MUSIC&&holder.getAppStatus().appMusicAudioMode == AudioMode.ALEXA);
         Optional.ofNullable(getView()).ifPresent(view -> {
             view.setEqualizerSetting(
                     audioSpec.equalizerSettingSupported,
-                    audioStatus.equalizerSettingEnabled && isFxSettingEnabled && !isAlexaPlayMode
+                    audioStatus.equalizerSettingEnabled && isFxSettingEnabled && isEnableEQ
             );
             view.setLiveSimulationSetting(
                     fxSpec.liveSimulationSettingSupported,

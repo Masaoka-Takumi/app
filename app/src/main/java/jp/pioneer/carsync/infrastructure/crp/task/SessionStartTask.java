@@ -143,8 +143,10 @@ public class SessionStartTask extends SendTask {
         doRequest(packetBuilder.createDeviceModelRequest());
         // 車載機BDアドレス要求
         doRequest(packetBuilder.createDeviceBdAddressRequest());
-        // 車載機ソフトウェアバージョン要求
-        doRequest(packetBuilder.createDeviceFarmVersionRequest());
+        if(version.isGreaterThanOrEqual(ProtocolVersion.V4_1)) {
+            // 車載機ソフトウェアバージョン要求
+            doRequest(packetBuilder.createDeviceFarmVersionRequest());
+        }
         // 車載機情報取得終了
         doRequest(packetBuilder.createEndGetDeviceSpec());
         // SmartPhone情報通知開始

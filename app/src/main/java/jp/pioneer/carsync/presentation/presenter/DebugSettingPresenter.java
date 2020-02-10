@@ -111,7 +111,8 @@ public class DebugSettingPresenter extends Presenter<DebugSettingView> {
             view.setAdasCameraPreview(appStatus.adasCameraView);
             view.setAlexaSimJudgement(mPreference.isAlexaRequiredSimCheck());
             view.setSmartPhoneControlComand(mPreference.isDisplaySmartPhoneControlCommand());
-            view.setDeviceVolume(carDeviceStatus.maxDeviceVolume,carDeviceStatus.currentDeviceVolume);
+            view.setDeviceVolume(carDeviceStatus.maxDeviceVolume!=0xFF?carDeviceStatus.maxDeviceVolume:0,
+                    carDeviceStatus.currentDeviceVolume!=0xFF?carDeviceStatus.currentDeviceVolume:0);
         });
     }
 

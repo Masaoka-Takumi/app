@@ -14,6 +14,7 @@ import jp.pioneer.carsync.domain.model.AudioSettingSpec;
 import jp.pioneer.carsync.domain.model.CarDeviceSpec;
 import jp.pioneer.carsync.domain.model.DabFunctionSettingSpec;
 import jp.pioneer.carsync.domain.model.DimmerSetting;
+import jp.pioneer.carsync.domain.model.ProtocolVersion;
 import jp.pioneer.carsync.domain.model.SoundFxSettingEqualizerType;
 import jp.pioneer.carsync.domain.model.HdRadioFunctionSettingSpec;
 import jp.pioneer.carsync.domain.model.IlluminationSettingSpec;
@@ -81,7 +82,8 @@ public class DeviceSpecResponsePacketHandler extends DataResponsePacketHandler {
             byte[] data = packet.getData();
 
             int majorVer = mStatusHolder.getProtocolSpec().getConnectingProtocolVersion().major;
-            int minorVer = mStatusHolder.getProtocolSpec().getConnectingProtocolVersion().minor;
+            ProtocolVersion protocolVersion = mStatusHolder.getProtocolSpec().getConnectingProtocolVersion();
+
             checkPacketDataLength(data, getDataLength(majorVer));
             CarDeviceSpec carDeviceSpec = mStatusHolder.getCarDeviceSpec();
             byte b;
@@ -131,9 +133,10 @@ public class DeviceSpecResponsePacketHandler extends DataResponsePacketHandler {
 
             if (majorVer >= 4) {
                 v4(data, carDeviceSpec);
-                if (majorVer > 4 || minorVer >= 1) {
-                    v4_1(data, carDeviceSpec);
-                }
+            }
+
+            if(protocolVersion.isGreaterThanOrEqual(ProtocolVersion.V4_1)){
+                v4_1(data, carDeviceSpec);
             }
 
             Timber.d("handle() CarDeviceSpec = " + carDeviceSpec);

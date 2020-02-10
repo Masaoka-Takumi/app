@@ -431,6 +431,7 @@ public class HomePresenter extends Presenter<HomeView> implements LoaderManager.
                         mEventBus.post(new VoiceRecognitionTypeChangeEvent());
                     }
                 }else{
+                    mAnalytics.sendShortCutActionEvent(mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA ? Analytics.AnalyticsShortcutAction.alexaLong : Analytics.AnalyticsShortcutAction.voiceLong, Analytics.AnalyticsActiveScreen.home_screen);
                     mEventBus.post(new NavigateEvent(ScreenId.VOICE_RECOGNIZE_TYPE_DIALOG, Bundle.EMPTY));
                 }
 

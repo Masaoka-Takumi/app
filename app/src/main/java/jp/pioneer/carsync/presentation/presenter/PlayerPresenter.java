@@ -687,6 +687,7 @@ public class PlayerPresenter<T> extends Presenter<T> {
                         mEventBus.post(new VoiceRecognitionTypeChangeEvent());
                     }
                 }else{
+                    mAnalytics.sendShortCutActionEvent(mPreference.getVoiceRecognitionType() == VoiceRecognizeType.ALEXA ? Analytics.AnalyticsShortcutAction.alexaLong : Analytics.AnalyticsShortcutAction.voiceLong, Analytics.AnalyticsActiveScreen.av_screen);
                     mEventBus.post(new NavigateEvent(ScreenId.VOICE_RECOGNIZE_TYPE_DIALOG, Bundle.EMPTY));
                 }
                 break;
