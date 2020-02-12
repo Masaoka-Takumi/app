@@ -428,9 +428,9 @@
     <string name="set_389">Custom Button Settings</string>
     <string name="set_393">Waiting for Automatic Connection</string>
     <string name="set_394">Turning this setting OFF will prevent the receiver from automatically connecting.</string>
-    <string name="set_395">衝突検知時、設定された通知先に電話発信またはSMS送信がされます。\nあらかじめ通知先へのご連絡をお勧め致します。</string>
+    <string name="set_395">When an collision is detected, an SMS or phone notification can be sent to a contact.\nWe recommend you add this contact ahead of time.</string>
     <string name="set_396">Pioneer Smart Sync uses your mobile device\'s microphone.</string>
-    <string name="set_397">検索対象</string>
+    <string name="set_397">Target Search</string>
     <string name="set_398">Artist</string>
     <string name="set_399">Music Title</string>
     <string name="set_400">Information</string>
@@ -446,6 +446,9 @@
     <string name="set_410">Long press the rotary dial can easily take you back to PSS</string>
     <string name="set_411">Let\'s get started</string>
     <string name="set_412">How to use</string>
+    <string name="set_413">Firmware Version</string>
+    <string name="set_414">Siri</string>
+    <string name="set_415">Google Assistant</string>
     <string name="sta_001">Pioneer SmartSync</string>
     <string name="sta_004">CAUTION: </string>
     <string name="sta_005">Agree</string>
@@ -573,6 +576,7 @@
     <string name="err_035">Marine app is not selected</string>
     <string name="err_036">・This feature only supports landscape display mode, please use the device on its side.</string>
     <string name="err_037">You do not have the required permissions set to use this feature.  Please set the permissions and try again.</string>
+    <string name="err_038">To use this feature, a Bluetooth connection to the device is required.</string>
     <string name="tip_001">Tips</string>
     <string name="tip_006">Please confirm that the application connection setting of the product is set to Bluetooth.</string>
     <string name="tip_007">By selecting the product name from the \"Search Device\" button, you can easily connect with the product.</string>

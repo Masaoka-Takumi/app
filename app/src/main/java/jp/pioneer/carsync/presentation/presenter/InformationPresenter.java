@@ -13,8 +13,10 @@ import javax.inject.Inject;
 
 import jp.pioneer.carsync.BuildConfig;
 import jp.pioneer.carsync.R;
+import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
+import jp.pioneer.carsync.domain.model.ProtocolVersion;
 import jp.pioneer.carsync.domain.model.StatusHolder;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
 import jp.pioneer.carsync.presentation.view.InformationView;
@@ -29,7 +31,8 @@ public class InformationPresenter extends Presenter<InformationView> {
     @Inject EventBus mEventBus;
     @Inject GetStatusHolder mGetCase;
     @Inject Context mContext;
-
+    @Inject
+    AppSharedPreference mPreference;
     @Inject
     public InformationPresenter() {
     }
@@ -50,8 +53,9 @@ public class InformationPresenter extends Presenter<InformationView> {
             if(TextUtils.isEmpty(deviceName)){
                 deviceName = holder.getBtDeviceName();
             }
-
+            String deviceVersion = holder.getCarDeviceSpec().farmVersion;
             view.setDeviceInformation(TextUtils.isEmpty(deviceName) ? mContext.getString(R.string.set_245) : deviceName);
+            view.setDeviceFarmVersion(mPreference.getLastConnectedCarDeviceProtocolVersion().isGreaterThanOrEqual(ProtocolVersion.V4_1),TextUtils.isEmpty(deviceVersion) ? mContext.getString(R.string.set_245) : deviceVersion);
             view.setAppVersion(BuildConfig.VERSION_NAME);
         });
     }

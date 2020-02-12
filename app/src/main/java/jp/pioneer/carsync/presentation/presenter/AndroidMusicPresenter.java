@@ -39,6 +39,7 @@ import jp.pioneer.carsync.domain.model.CarDeviceMediaInfoHolder;
 import jp.pioneer.carsync.domain.model.ListType;
 import jp.pioneer.carsync.domain.model.LiveSimulationSetting;
 import jp.pioneer.carsync.domain.model.PlaybackMode;
+import jp.pioneer.carsync.domain.model.ProtocolVersion;
 import jp.pioneer.carsync.domain.model.SmartPhoneStatus;
 import jp.pioneer.carsync.domain.model.SoundEffectType;
 import jp.pioneer.carsync.domain.model.SoundFieldControlSettingType;
@@ -144,6 +145,7 @@ public class AndroidMusicPresenter extends PlayerPresenter<AndroidMusicView> {
                 mAmazonAlexaManager.addAlexaCallback(mAlexaCallback);
             }
             RenderPlayerInfoItem playerInfoItem = appStatus.playerInfoItem;
+            ProtocolVersion version = mGetCase.execute().getProtocolSpec().getConnectingProtocolVersion();
             Optional.ofNullable(getView()).ifPresent(view -> {
                 view.setAmazonMusicLayout();
                 view.setAmazonMusicInfo(playerInfoItem);
@@ -153,9 +155,17 @@ public class AndroidMusicPresenter extends PlayerPresenter<AndroidMusicView> {
                 }else{
                     view.setPlaybackMode(PlaybackMode.PAUSE);
                 }
-                view.setEqFxButtonEnabled(
-                        false,
-                        true);
+                //通信プロトコル4.1以上で通信している場合、Alexa再生画面のEQボタンを有効にし、設定中のEQ名を表示する。
+                if(version.isGreaterThanOrEqual(ProtocolVersion.V4_1)){
+                    view.setEqFxButtonEnabled(
+                            true,
+                            true);
+                } else {
+                    view.setEqFxButtonEnabled(
+                            false,
+                            true);
+                }
+
             });
             mControlCase.sendMusicInfo();
         }else{
@@ -487,6 +497,7 @@ public class AndroidMusicPresenter extends PlayerPresenter<AndroidMusicView> {
     @Override
     void onUpdateSoundFxButton() {
         Optional.ofNullable(getView()).ifPresent(view -> {
+            ProtocolVersion version = mStatusHolder.execute().getProtocolSpec().getConnectingProtocolVersion();
             boolean isStop = mStatusHolder.execute().getSmartPhoneStatus().playbackMode == PlaybackMode.STOP;
             boolean isFormatRead = mStatusHolder.execute().getAppStatus().isFormatRead;
             SoundFxButtonInfo info = getSoundFxButtonInfo();
@@ -496,10 +507,17 @@ public class AndroidMusicPresenter extends PlayerPresenter<AndroidMusicView> {
                         info.isEqEnabled && (!isFormatRead || isStop),
                         info.isFxEnabled && (!isFormatRead || isStop));
             }else{
-                //AlexaModeではEQボタンはFlatのみであるため無効
-                view.setEqFxButtonEnabled(
-                        false,
-                        info.isFxEnabled);
+                //通信プロトコル4.1以上で通信している場合、Alexa再生画面のEQボタンを有効にし、設定中のEQ名を表示する。
+                if(version.isGreaterThanOrEqual(ProtocolVersion.V4_1)){
+                    view.setEqFxButtonEnabled(
+                            info.isEqEnabled,
+                            info.isFxEnabled);
+                } else {
+                    //AlexaModeではEQボタンはFlatのみであるため無効
+                    view.setEqFxButtonEnabled(
+                            false,
+                            info.isFxEnabled);
+                }
             }
             view.setEqButton(info.textEqButton);
             view.setFxButton(info.textFxButton);

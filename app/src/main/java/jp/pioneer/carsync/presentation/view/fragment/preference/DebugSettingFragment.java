@@ -62,6 +62,7 @@ public class DebugSettingFragment extends AbstractPreferenceFragment<DebugSettin
     private SwitchPreferenceCompat mAdasCameraPreview;
     private SwitchPreferenceCompat mAlexaSimJudgement;
     private SwitchPreferenceCompat mSmartPhoneControlComand;
+    private SeekBarPreference mDeviceVolume;
     private final static SparseArrayCompat<SmartPhoneInterruption> INTERRUPT_LIST_ITEMS = new SparseArrayCompat<SmartPhoneInterruption>() {{
         put(0, SmartPhoneInterruption.LOW);
         put(1, SmartPhoneInterruption.MIDDLE);
@@ -264,6 +265,12 @@ public class DebugSettingFragment extends AbstractPreferenceFragment<DebugSettin
             getPresenter().onSmartPhoneControlComand((boolean)newValue);
             return true;
         }));
+
+        mDeviceVolume = (SeekBarPreference) findPreference("setting_debug_device_volume");
+        mDeviceVolume.setOnPreferenceChangeListener(((preference, newValue) -> {
+            getPresenter().onDeviceVolumeChangeCommand((int) newValue);
+            return true;
+        }));
     }
     @Override
     public void onDisplayPreferenceDialog(Preference preference) {
@@ -442,4 +449,12 @@ public class DebugSettingFragment extends AbstractPreferenceFragment<DebugSettin
         mSmartPhoneControlComand.setChecked(value);
     }
 
+    @Override
+    public void setDeviceVolume(int max,int current) {
+        mDeviceVolume.setVisible(true);
+        mDeviceVolume.setEnabled(true);
+        mDeviceVolume.setMin(0);
+        mDeviceVolume.setMax(max);
+        mDeviceVolume.setValue(current);
+    }
 }

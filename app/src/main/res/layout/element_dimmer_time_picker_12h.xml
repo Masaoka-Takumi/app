@@ -13,7 +13,8 @@
         <NumberPicker
             android:id="@+id/picker_hour"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:theme="@style/NumberPickerText"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,12 +28,14 @@
         <NumberPicker
             android:id="@+id/picker_minute"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:theme="@style/NumberPickerText"/>
 
         <NumberPicker
             android:id="@+id/picker_ampm"
             android:layout_marginStart="18dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:theme="@style/NumberPickerText"/>
     </LinearLayout>
 </FrameLayout>

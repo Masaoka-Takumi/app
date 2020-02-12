@@ -6,6 +6,8 @@ import android.os.Bundle;
 import com.annimon.stream.Optional;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.EnumSet;
 import java.util.Set;
@@ -15,6 +17,9 @@ import javax.inject.Inject;
 import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
+import jp.pioneer.carsync.domain.event.CarDeviceStatusChangeEvent;
+import jp.pioneer.carsync.domain.interactor.ChangeScreen;
+import jp.pioneer.carsync.domain.interactor.ChangeVolume;
 import jp.pioneer.carsync.domain.interactor.ControlSmartPhoneInterruption;
 import jp.pioneer.carsync.domain.interactor.GetRunningStatus;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
@@ -26,6 +31,7 @@ import jp.pioneer.carsync.domain.model.AdasFunctionType;
 import jp.pioneer.carsync.domain.model.AdasWarningEvent;
 import jp.pioneer.carsync.domain.model.AdasWarningStatus;
 import jp.pioneer.carsync.domain.model.AppStatus;
+import jp.pioneer.carsync.domain.model.CarDeviceStatus;
 import jp.pioneer.carsync.domain.model.SmartPhoneInterruption;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
 import jp.pioneer.carsync.presentation.model.AdasTrialState;
@@ -49,6 +55,8 @@ public class DebugSettingPresenter extends Presenter<DebugSettingView> {
     @Inject PreferAdas mPreferAdas;
     @Inject GetStatusHolder mStatusCase;
     @Inject GetRunningStatus mGetRunningStatusCase;
+    @Inject ChangeVolume mVolumeCase;
+
     /**
      * コンストラクタ
      */
@@ -58,12 +66,25 @@ public class DebugSettingPresenter extends Presenter<DebugSettingView> {
 
     @Override
     void onTakeView() {
+    }
+
+    @Override
+    void onResume() {
+        if (!mEventBus.isRegistered(this)) {
+            mEventBus.register(this);
+        }
         updateView();
+    }
+
+    @Override
+    void onPause() {
+        mEventBus.unregister(this);
     }
 
     private void updateView() {
         Optional.ofNullable(getView()).ifPresent(view -> {
             AppStatus appStatus = mStatusCase.execute().getAppStatus();
+            CarDeviceStatus carDeviceStatus = mStatusCase.execute().getCarDeviceStatus();
             view.setLogEnabled(mPreference.isLogEnabled());
             view.setImpactDetectionDebugModeEnabled(mPreference.isImpactDetectionDebugModeEnabled());
             view.setSpecialEqDebugModeEnabled(mPreference.isDebugSpecialEqEnabled());
@@ -90,6 +111,8 @@ public class DebugSettingPresenter extends Presenter<DebugSettingView> {
             view.setAdasCameraPreview(appStatus.adasCameraView);
             view.setAlexaSimJudgement(mPreference.isAlexaRequiredSimCheck());
             view.setSmartPhoneControlComand(mPreference.isDisplaySmartPhoneControlCommand());
+            view.setDeviceVolume(carDeviceStatus.maxDeviceVolume!=0xFF?carDeviceStatus.maxDeviceVolume:0,
+                    carDeviceStatus.currentDeviceVolume!=0xFF?carDeviceStatus.currentDeviceVolume:0);
         });
     }
 
@@ -310,5 +333,19 @@ public class DebugSettingPresenter extends Presenter<DebugSettingView> {
         Optional.ofNullable(getView()).ifPresent(view ->{
             view.setSmartPhoneControlComand(newValue);
         });
+    }
+
+    public void onDeviceVolumeChangeCommand(int newValue){
+        mVolumeCase.execute(newValue);
+    }
+
+    /**
+     * 車載機ステータス変更イベントハンドラ
+     *
+     * @param event 車載機ステータス変更イベント
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onCarDeviceStatusChangeEvent(CarDeviceStatusChangeEvent event) {
+        updateView();
     }
 }

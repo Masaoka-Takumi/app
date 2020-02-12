@@ -36,6 +36,7 @@ import jp.pioneer.carsync.infrastructure.crp.handler.deviceinfo.PairingDeviceInf
 import jp.pioneer.carsync.infrastructure.crp.handler.deviceinfo.PairingDeviceListInfoResponsePacketHandler;
 import jp.pioneer.carsync.infrastructure.crp.handler.deviceinfo.SettingListInfoResponsePacketHandler;
 import jp.pioneer.carsync.infrastructure.crp.handler.devicespec.DeviceBdAddressResponsePacketHandler;
+import jp.pioneer.carsync.infrastructure.crp.handler.devicespec.DeviceFarmVersionResponsePacketHandler;
 import jp.pioneer.carsync.infrastructure.crp.handler.devicespec.DeviceModelResponsePacketHandler;
 import jp.pioneer.carsync.infrastructure.crp.handler.devicespec.DeviceSpecResponsePacketHandler;
 import jp.pioneer.carsync.infrastructure.crp.handler.devicestatus.AudioSettingStatusNotificationPacketHandler;
@@ -227,6 +228,7 @@ import static jp.pioneer.carsync.domain.model.ProtocolVersion.V1;
 import static jp.pioneer.carsync.domain.model.ProtocolVersion.V2;
 import static jp.pioneer.carsync.domain.model.ProtocolVersion.V3;
 import static jp.pioneer.carsync.domain.model.ProtocolVersion.V4;
+import static jp.pioneer.carsync.domain.model.ProtocolVersion.V4_1;
 import static jp.pioneer.carsync.infrastructure.crp.util.PacketUtil.toHex;
 
 /**
@@ -276,7 +278,8 @@ public enum IncomingPacketIdType {
     DEVICE_MODEL_RESPONSE(0x03, 0x01, 0xE0, DeviceModelResponsePacketHandler.class, V2),
     /** 車載機BDアドレス応答. */
     DEVICE_BD_ADDRESS_RESPONSE(0x03, 0x01, 0xE1, DeviceBdAddressResponsePacketHandler.class, V3),
-
+    /** 車載機ソフトウェアバージョン要求. */
+    DEVICE_FARM_VERSION_RESPONSE(0x03, 0x01, 0xE3, DeviceFarmVersionResponsePacketHandler.class, V4_1),
     //////// ベース:SmartPhone情報 ////////
     /** SmartPhoneSpec通知応答. */
     SMART_PHONE_SPEC_NOTIFICATION_RESPONSE(0x05, 0x00, 0xC0, SimpleResponsePacketHandler.class, V1),

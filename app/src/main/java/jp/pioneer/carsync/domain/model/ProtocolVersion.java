@@ -22,7 +22,8 @@ public class ProtocolVersion {
     public static final ProtocolVersion V3 = new ProtocolVersion(3, 0);
     /** Version4&#046;x. */
     public static final ProtocolVersion V4 = new ProtocolVersion(4, 0);
-
+    /** Version4&#046;1. */
+    public static final ProtocolVersion V4_1 = new ProtocolVersion(4, 1);
     /** メジャーバージョン. */
     public final int major;
     /** マイナーバージョン. */

@@ -316,7 +316,11 @@
     <string name="set_392">アーティスト</string>
     <string name="set_393">自動接続待ち受け</string>
     <string name="set_394">この設定をOFFにすると、車載機との接続が自動で行われません</string>
+    <string name="set_395">衝突検知時、設定された通知先に電話発信またはSMS送信がされます。\nあらかじめ通知先へのご連絡をお勧め致します。</string>
     <string name="set_396">\"Pioneer Smart Syncはモバイルデバイスのマイクを使用します。\n声が届く安全な場所に置いてください。\"</string>
+    <string name="set_397">検索対象</string>
+    <string name="set_398">アーティスト</string>
+    <string name="set_399">曲名</string>
     <string name="set_403">設置ガイダンス</string>
     <string name="set_404">まずはスマホを設置しよう</string>
     <string name="set_405">安全と、Amazon Alexaの快適な体験のために、パイオニアはあなたのモバイルデバイスを、手の届く範囲のカーマウントかクレードルに、しっかり固定して使用する事を推奨します。</string>
@@ -325,8 +329,10 @@
     <string name="set_408">AlexaボタンからAlexaを呼び出せます</string>
     <string name="set_409">例えば、地図アプリで行き先を表示できます</string>
     <string name="set_410">ロータリーキー長押しでPSSアプリに戻れます</string>
-    <string name="set_411">さあ、初めよう</string>
+    <string name="set_411">さあ、始めよう</string>
     <string name="set_412">使い方</string>
+    <string name="set_413">ファームウェアバージョン</string>
+    <string name="set_415">Google アシスタント</string>
     <string name="sta_004">CAUTION: </string>
     <string name="sta_005">同意</string>
     <string name="sta_008">走行中の操作は危険を伴いますので、停止した状態でご使用ください。\n\n本アプリで動作する機能は、運転を補助するためのものです。\n必ずご自分の目で周囲の状況を把握し、安全を確認しながら走行してください。</string>
@@ -433,6 +439,7 @@
     <string name="err_035">マリンアプリが選択されていません</string>
     <string name="err_036">・本機能は縦画面に対応していません。端末を横にしてご使用ください。</string>
     <string name="err_037">機能に必要な権限が許可されていません。\n権限を許可してから、再度同じ操作を行ってください。</string>
+    <string name="err_038">本機能をご利用の場合は、製品とBluetooth接続が必要です。</string>
     <string name="tip_001">Tips</string>
     <string name="tip_006">製品のアプリ接続設定がBluetoothになっていることを確認して下さい。</string>
     <string name="tip_007">\"Search Device\"ボタンから製品名を選択する事で、簡単に製品と接続する事が出来ます。</string>
