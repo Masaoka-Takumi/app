@@ -51,6 +51,13 @@
     <string name="ply_097">רשימת תחנות</string>
     <string name="ply_098">עדכון רשימה</string>
     <string name="ply_099">שגיאת אנטנה </string>
+    <string name="ply_100">תחנה</string>
+    <string name="ply_101">סוג התוכנית</string>
+    <string name="ply_102">קבוצת תחנות</string>
+    <string name="ply_103">חדשות / מידע</string>
+    <string name="ply_104">פופולרי</string>
+    <string name="ply_105">קלאסיקות</string>
+    <string name="ply_106">אחרים</string>
     <string name="ply_107">לא נמצא</string>
     <string name="set_004">הוסף</string>
     <string name="set_005">הגדרות מתקדמות</string>
@@ -264,6 +271,7 @@
     <string name="set_313">צרפתית</string>
     <string name="set_314">Amazon Alexa</string>
     <string name="set_315">המכשיר כולל גישה ל-Alexa.\nחבר את חשבון ה-Amazon שלך כדי לגשת לתכונות מותאמות אישית.</string>
+    <string name="set_316">אלכסה מאפשרת לך להשתמש בקולך כדי לנגן מוסיקה, לקבל את החדשות, ציוני ספורט, לבדוק את מזג האוויר ועוד. כל שעליכם לעשות הוא לשאול את אלכסה.</string>
     <string name="set_317">התחבר עם Amazon</string>
     <string name="set_318">דברים שמומלץ לנסות</string>
     <string name="set_319">מהו מזג האוויר?\nלהפעיל את תדריך הפלאש שלי  כמה גבוה הוא הר אוורסט?\nהאם ירד היום גשם?</string>
@@ -330,7 +338,24 @@
     <string name="set_389">הגדרות כפתור מותאם אישית</string>
     <string name="set_393">ממתין לחיבור אוטומטי</string>
     <string name="set_394">כיבוי הגדרה זו תמנע מהמערכת להתחבר אוטומטית.</string>
+    <string name="set_395">כאשר מתגלה התנגשות, ניתן לשלוח הודעת SMS או טלפון לאיש קשר.\nאנו ממליצים להוסיף איש קשר זה מראש. </string>
+    <string name="set_396">Pioneer Smart Sync משתמש במיקרופון של המכשיר הנייד שלך.</string>
+    <string name="set_397">חיפוש יעד</string>
+    <string name="set_398">אמן</string>
+    <string name="set_399">כותרת מוסיקה</string>
     <string name="set_402">עצמת אנטנה</string>
+    <string name="set_403">הנחית מיקום </string>
+    <string name="set_404">נתחיל בהגדרת הטלפון שלך</string>
+    <string name="set_405">למען ביטחונך ולחווית אופטימאלית של Amazon Alexa, אנו ממליצים להשתמש מעמד לטלפון הסלולרי כך שהוא יהיה בהישג יד .</string>
+    <string name="set_406">כיצד להשתמש ב- Alexa</string>
+    <string name="set_407">טיפים</string>
+    <string name="set_408">שאל את Alexa על ידי לחיצה על כפתור Alexa</string>
+    <string name="set_409">שימוש במשהו כמו אפליקציית מפה כדי להראות לאן ללכת</string>
+    <string name="set_410">לחיצה ארוכה על החוגה הסיבובית יכולה להחזיר אותך בקלות ל PSS</string>
+    <string name="set_411">בואו נתחיל</string>
+    <string name="set_412">איך להישתמש</string>
+    <string name="set_413">גרסת קושחה</string>
+    <string name="set_415">Google Assistant</string>
     <string name="sta_004">זהירות:</string>
     <string name="sta_005">מסכים</string>
     <string name="sta_008">השתמש בפונקציה רק כאשר הדבר בטוח וחוקי במקום בו אתה נמצא, שים לב לכביש ולסביבה וציית לכל חוקי התנועה.\n\nפונקציות מופעלות עם הטלפון החכם הם רק כלים זמינים לנהג. \nהנהג יראה התנהגות נהיגה בטוחה  בכל הנסיבות</string>
@@ -339,6 +364,7 @@
     <string name="sta_011">מסוכן לצפות בסרטון בזמן נהיגה.  אנא צפה רק בחניה.</string>
     <string name="sta_012">לא יוצג מהפעם הבאה</string>
     <string name="sta_013">בגלל שהרכב נמצא בתנועה, תצוגת הווידיאו נכבית.</string>
+    <string name="sta_014">כעת תוכלו להשתמש ב Alexa</string>
     <string name="hom_006">שיטה</string>
     <string name="hom_008">שמע</string>
     <string name="hom_012">מידע</string>
@@ -434,6 +460,7 @@
     <string name="err_035">אפליקציית ה- Marine  לא נבחרה</string>
     <string name="err_036">・תכונה זו תומכת במצב תצוגת מסך נוף בלבד, אנא השתמש במכשיר שבצידו.</string>
     <string name="err_037">אין לך את ההרשאות הנדרשות לשימוש בתכונה זו.  אנא קבע את ההרשאות ונסה שוב.</string>
+    <string name="err_038">כדי להשתמש בתכונה זו, נדרש חיבור Bluetooth להתקן.</string>
     <string name="tip_001">טיפים</string>
     <string name="tip_006">וודא שההגדרה \'חיבור יישום\' של המוצר מוגדרת ל-Bluetooth.</string>
     <string name="tip_007">ניתן לחבר בקלות את המוצר על-ידי בחירת השם מתיבת הדו-שיח אחרי לחיצה על הלחצן \'חפש התקן\'.</string>

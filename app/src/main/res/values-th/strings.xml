@@ -50,6 +50,13 @@
     <string name="ply_097">รายการสถานี</string>
     <string name="ply_098">อัพเดตรายการ</string>
     <string name="ply_099">เสาอากาศผิดพลาด</string>
+    <string name="ply_100">สถานี</string>
+    <string name="ply_101">ประเภทของรายการ</string>
+    <string name="ply_102">ประเภทกลุ่มสถานี</string>
+    <string name="ply_103">ข่าว/ข้อมูล</string>
+    <string name="ply_104">ฮิต</string>
+    <string name="ply_105">คลาสสิก</string>
+    <string name="ply_106">อื่นๆ</string>
     <string name="ply_107">ไม่พบ</string>
     <string name="set_004">เพิ่ม</string>
     <string name="set_005">การตั้งค่าขั้นสูง</string>
@@ -259,6 +266,7 @@
     <string name="set_313">ฝรั่งเศส</string>
     <string name="set_314">Amazon Alexa</string>
     <string name="set_315">อุปกรณ์ของคุณ สามารถใช้งาน Alexa ได้\nเชื่อมต่อบัญชี Amazon ของคุณเพื่อเข้าถึงข้อมูลส่วนตัว </string>
+    <string name="set_316">Alexa ช่วยให้คุณใช้เสียงในการสั่งงาน เพื่อเล่นเพลง รับข่าวสารผลกีฬาตรวจสอบสภาพอากาศและอื่น ๆ  สิ่งที่คุณต้องทำคือสอบถาม Alexa</string>
     <string name="set_317">ลงชื่อเข้าใช้ใน Amazon</string>
     <string name="set_318">สิ่งที่ต้องลองทำ</string>
     <string name="set_319">สภาพอากาศเป็นอย่างไร\nสรุปข้อความของฉันด่วน\nภูเขาเอเวอเรสต์สูงเท่าไหร่\nวันนี้ฝนจะตกหรือเปล่า</string>
@@ -325,7 +333,24 @@
     <string name="set_389">การตั้งค่าปุ่มที่กำหนดเอง</string>
     <string name="set_393">กำลังรอการเชื่อมต่ออัตโนมัติ</string>
     <string name="set_394">ปิดการตั้งค่านี้จะเป็นการป้องกันไม่ให้เครื่องเล่นเชื่อมต่อเองโดยอัตโนมัติ</string>
+    <string name="set_395">เมื่อตรวจพบการเตือนชนกัน จะมีการส่ง SMS หรือการแจ้งเตือนทางโทรศัพท์ไปยังผู้ติดต่อ\nเราขอแนะนำให้คุณเพิ่มผู้ติดต่อนี้ล่วงหน้า</string>
+    <string name="set_396">Pioneer Smart Sync ใช้ไมโครโฟนของอุปกรณ์มือถือของคุณ</string>
+    <string name="set_397">Target Search</string>
+    <string name="set_398">ศิลปิน</string>
+    <string name="set_399">ชื่อเพลง</string>
     <string name="set_402">เปิดไฟเสาอากาศ</string>
+    <string name="set_403">คำแนะนำการจัดเรียง</string>
+    <string name="set_404">เริ่มต้นด้วยการตั้งค่าโทรศัพท์ของคุณ</string>
+    <string name="set_405">เพื่อความปลอดภัยของคุณ และ สัมผัสประสบการณ์ที่ดีที่สุดของ Amazon Alexa เราขอแนะนำให้ใช้แท่นยึดโทรศัพท์ของคุณให้อยู่ในตำแหน่งมือสัมผัสได้</string>
+    <string name="set_406">วิธีการใช้ Alexa</string>
+    <string name="set_407">เคล็ดลับ</string>
+    <string name="set_408">สอบถาม Alexa โดยแตะปุ่ม Alexa</string>
+    <string name="set_409">การใช้บางอย่าง เช่นแอปแผนที่ เพื่อแสดงว่าจะไปที่ไหน</string>
+    <string name="set_410">คุณสามารถกลับไปที่ PSS ได้อย่างง่าย ด้วยการกดปุ่มควบคุมแบบโรตารี่ค้างไว้ </string>
+    <string name="set_411">เริ่มต้นการใช้งาน</string>
+    <string name="set_412">วิธีการใช้งาน</string>
+    <string name="set_413">ข้อมูลเฟิร์มแวร์</string>
+    <string name="set_415">Google Assistant</string>
     <string name="sta_004">คำเตือน</string>
     <string name="sta_005">เห็นด้วย</string>
     <string name="sta_008">ใช้ฟังก์ชันต่อเมื่อปลอดภัยและถูกกฎหมายในประเทศของคุณ โปรดให้ความสนใจกับสภาพแวดล้อมในขณะขับขี่ และปฏิบัติตามกฎจราจร\n\nฟังก์ชันต่างๆ ที่ใช้งานร่วมกับสมาร์ทโฟน เป็นเพียงเครื่องมือที่คอยช่วยเหลือผู้ขับขี่เท่านั้น \nผู้ขับขี่จะต้องระวังความปลอดภัยด้วยตัวเอง และขับขี่ด้วยความระมัดระวังในทุกสภาพการณ์</string>
@@ -334,6 +359,7 @@
     <string name="sta_011">การชมรายการภาพยนตร์ ขณะขับรถเป็นอันตราย โปรดดูเฉพาะเมื่อจอด</string>
     <string name="sta_012">จะไม่แสดงในครั้งต่อไป</string>
     <string name="sta_013">เนื่องจากยานพาหนะกำลังเคลื่อนที่จอแสดงภาพยนตร์ ปิดการทำงาน</string>
+    <string name="sta_014">จากนี้คุณสามารถใช้งาน Alexa ได้แล้ว</string>
     <string name="hom_006">ตั้งค่าระบบ</string>
     <string name="hom_008">ตั้งค่าเสียง</string>
     <string name="hom_012">ข้อมูล</string>
@@ -429,6 +455,7 @@
     <string name="err_035">ไม่ได้เลือกแอพ Marine</string>
     <string name="err_036">・คุณสมบัตินี้จะรองรับเฉพาะโหมดการแสดงผลแนวนอน โปรดใช้งานอุปกรณ์ในแนวนอน</string>
     <string name="err_037">คุณไม่ได้ตั้งค่าสิทธิ์การใช้งานที่จำเป็นในการใช้คุณสมบัตินี้ โปรดตั้งค่าการอนุญาต แล้วลองอีกครั้ง</string>
+    <string name="err_038">ในการใช้คุณสมบัตินี้จำเป็นต้องมีการเชื่อมต่อ Bluetooth กับ อุปกรณ์</string>
     <string name="tip_001">เคล็ดลับ</string>
     <string name="tip_006">โปรดตรวจสอบว่าการตั้งค่าการเชื่อมต่อแอปพลิเคชันของผลิตภัณฑ์ได้รับการตั้งค่าเป็น บลูทูธ</string>
     <string name="tip_007">สามารถเชื่อมต่อผลิตภัณฑ์ได้โดยเลือกชื่อจากบทสนทนาหลังจากกดปุ่ม \"ค้นหาอุปกรณ์\"</string>
