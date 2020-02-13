@@ -3685,7 +3685,7 @@ public class AppSharedPreference {
         if(mPreferences.contains(KEY_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND)) {
             return mPreferences.getBoolean(KEY_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND, DEFAULT_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND);
         } else {
-            setIsAlexaRequiredSimCheck(DEFAULT_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND);
+            setDisplaySmartPhoneControlCommand(DEFAULT_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND);
             return DEFAULT_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND;
         }
     }
