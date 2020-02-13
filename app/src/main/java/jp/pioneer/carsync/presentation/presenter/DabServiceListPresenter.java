@@ -157,6 +157,10 @@ public class DabServiceListPresenter extends Presenter<DabServiceListView> imple
     public  void onCrpDabAbcSearchResultEvent(CrpDabAbcSearchResultEvent ev) {
         if(mStatusHolder.execute().getProtocolSpec().isSphCarDevice()) {
             Timber.d("CrpDabAbcSearchResultEvent");
+            //ABCサーチ実行要求の成功通知が来たら、アプリがリストを取得する
+            if(ev.result){
+                updatePresetList();
+            }
             Optional.ofNullable(getView()).ifPresent(view -> {
                 view.setAbcSearchResult(ev.result);
             });
