@@ -141,7 +141,6 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
             mEventBus.register(this);
         }
         updateView();
-
         super.onResume();
     }
 
@@ -175,7 +174,6 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRadioInfoChangeEvent(RadioInfoChangeEvent event) {
-        showBandChangeNotification();
         updateView();
     }
 
@@ -210,7 +208,7 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
     private void showBandChangeNotification(){
         RadioBandType bandType = mStatusHolder.execute().getCarDeviceMediaInfoHolder().radioInfo.band;
         Optional.ofNullable(getView()).ifPresent(view -> {
-            if(mRadioBand!=null&&bandType != mRadioBand) {
+            if(bandType!=null&&mRadioBand!=null&&bandType != mRadioBand) {
                 view.displayEqFxMessage(mContext.getString(bandType.getLabel()));
                 mRadioBand = bandType;
             }
@@ -313,6 +311,8 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
      * 画面更新
      */
     private void updateView() {
+        showBandChangeNotification();
+
         StatusHolder holder = mStatusHolder.execute();
         CarDeviceStatus status = holder.getCarDeviceStatus();
 
@@ -492,6 +492,7 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
     }
 
     private void getPresetChannel() {
+        mPresets.clear();
         if (mRadioBand != null && mLoaderManager != null) {
             Bundle args = new Bundle();
             args.putByte(KEY_BAND_TYPE, (byte) (mRadioBand.getCode() & 0xFF));
@@ -607,7 +608,8 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
     /**
      * ユーザー登録PCHリスト取得
      */
-    public void getUserPresetList(){
+    private void getUserPresetList(){
+        mUserPreset.clear();
         if(isSphCarDevice()) {
             if (mRadioBand != null && mLoaderManager != null) {
                 Bundle args = new Bundle();

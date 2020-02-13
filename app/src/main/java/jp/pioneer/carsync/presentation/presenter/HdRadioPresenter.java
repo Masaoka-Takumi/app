@@ -154,7 +154,6 @@ public class HdRadioPresenter extends PlayerPresenter<HdRadioView> implements Lo
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onHdRadioInfoChangeEvent(HdRadioInfoChangeEvent event) {
-        showBandChangeNotification();
         updateView();
     }
 
@@ -180,7 +179,7 @@ public class HdRadioPresenter extends PlayerPresenter<HdRadioView> implements Lo
     private void showBandChangeNotification(){
         HdRadioBandType bandType = mStatusHolder.execute().getCarDeviceMediaInfoHolder().hdRadioInfo.band;
         Optional.ofNullable(getView()).ifPresent(view -> {
-            if(mHdRadioBand!=null&&bandType != mHdRadioBand) {
+            if(bandType!=null&&mHdRadioBand!=null&&bandType != mHdRadioBand) {
                 view.displayEqFxMessage(mContext.getString(bandType.getLabel()));
                 mHdRadioBand = bandType;
             }
@@ -253,6 +252,8 @@ public class HdRadioPresenter extends PlayerPresenter<HdRadioView> implements Lo
      * 画面更新
      */
     private void updateView() {
+        showBandChangeNotification();
+
         StatusHolder holder = mStatusHolder.execute();
         CarDeviceStatus status = holder.getCarDeviceStatus();
 

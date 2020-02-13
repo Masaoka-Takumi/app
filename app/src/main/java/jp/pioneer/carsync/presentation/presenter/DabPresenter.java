@@ -149,7 +149,6 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onDabInfoChangeEvent(DabInfoChangeEvent event) {
-        showBandChangeNotification();
         updateView();
     }
 
@@ -175,7 +174,7 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
     private void showBandChangeNotification(){
         DabBandType bandType = mStatusHolder.execute().getCarDeviceMediaInfoHolder().dabInfo.band;
         Optional.ofNullable(getView()).ifPresent(view -> {
-            if(mDabBand!=null&&bandType != mDabBand) {
+            if(bandType!=null&&mDabBand!=null&&bandType != mDabBand) {
                 view.displayEqFxMessage(mContext.getString(bandType.getLabel()));
                 mDabBand = bandType;
             }
@@ -344,6 +343,8 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
      * 画面更新
      */
     private void updateView() {
+        showBandChangeNotification();
+
         StatusHolder holder = mStatusHolder.execute();
         CarDeviceStatus status = holder.getCarDeviceStatus();
 
