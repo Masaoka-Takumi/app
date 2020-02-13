@@ -261,8 +261,6 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public synchronized void onCrpSessionStartedEvent(CrpSessionStartedEvent ev) {
-        mGetRunningStatusCase.start();
-
         CarDeviceSpec spec = mStatusHolder.getCarDeviceSpec();
         CarDeviceStatus status = mStatusHolder.getCarDeviceStatus();
         ProtocolSpec protocolSpec = mStatusHolder.getProtocolSpec();
@@ -297,6 +295,8 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
         if(systemSpec.distanceUnitSettingSupported){
             mPreference.setDistanceUnit(systemSetting.distanceUnit);
         }
+        //連携車載器情報保存後に走行状態取得開始
+        mGetRunningStatusCase.start();
 
         startImpactDetectionIfNeeded();
         //専用機連携時AM Stepの設定変更された場合はAMのP.CH登録データを全て削除する。(AM1/AM2は削除しない)
