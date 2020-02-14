@@ -13,6 +13,7 @@ public class ShortCutKeyViewPager extends ViewPager{
     private static final float SWIPE_THRESHOLD = 50.0f;
     private float initialXValue;
     private boolean directionRightOnly;
+    private boolean directionLeftOnly;
     private boolean isPagingEnabled = false;
     private GestureDetector  mSwipeDetector;
     private ShortCutKeyViewPager.OnGestureListener mListener;
@@ -87,7 +88,7 @@ public class ShortCutKeyViewPager extends ViewPager{
     }
 
     private boolean IsSwipeAllowed(MotionEvent event) {
-        if (!this.directionRightOnly) return true;
+        if (!this.directionRightOnly&&!this.directionLeftOnly) return true;
 
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             initialXValue = event.getX();
@@ -101,6 +102,10 @@ public class ShortCutKeyViewPager extends ViewPager{
                     // swipe from left to right detected
                     return false;
                 }
+                if (diffX < 0 && directionLeftOnly) {
+                    // swipe from right to left detected
+                    return false;
+                }
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -111,6 +116,10 @@ public class ShortCutKeyViewPager extends ViewPager{
 
     public void setAllowedSwipeRightOnly(boolean directionRightOnly) {
         this.directionRightOnly = directionRightOnly;
+    }
+
+    public void setAllowedSwipeLeftOnly(boolean directionLeftOnly) {
+        this.directionLeftOnly = directionLeftOnly;
     }
     /**
      * 通知先設定

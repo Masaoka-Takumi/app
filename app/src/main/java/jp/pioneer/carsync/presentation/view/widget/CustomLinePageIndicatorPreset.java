@@ -57,6 +57,10 @@ public class CustomLinePageIndicatorPreset extends LinearLayout implements PageI
         mShortCutKeyOn = shortCutKeyOn;
     }
 
+    public boolean isShortCutKeyOn() {
+        return mShortCutKeyOn;
+    }
+
     public void setColor(int color) {
         mColor = color;
     }

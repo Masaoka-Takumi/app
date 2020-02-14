@@ -423,6 +423,14 @@ public class DabFragment extends AbstractRadioFragment<DabPresenter, DabView> im
                     mGesture.startAnimation(alphaFadeout);
                 }
             }
+            //DABソースの状態がLIST UPDATE、または、ERRORの場合、Preset areaの右→左スワイプを抑制
+            if(status == TunerStatus.LIST_UPDATE||status == TunerStatus.ERROR){
+                if(!(mLineIndicator.isShortCutKeyOn()&&mViewPager.getCurrentItem()==0)){
+                    mViewPager.setAllowedSwipeLeftOnly(true);
+                }
+            }else{
+                mViewPager.setAllowedSwipeLeftOnly(false);
+            }
             mCurrentStatus = status;
         }
     }
@@ -780,7 +788,16 @@ public class DabFragment extends AbstractRadioFragment<DabPresenter, DabView> im
                     if (position == 0) {
                         //移動完了後にも位置の保存が必要
                         getPresenter().setPagerPosition(0);
+                        //ショートカット位置では右→左スワイプを抑制しない
+                        mViewPager.setAllowedSwipeLeftOnly(false);
                         return;
+                    }else{
+                        //DABソースの状態がLIST UPDATE、または、ERRORの場合、Preset areaの右→左スワイプを抑制
+                        if(mCurrentStatus==TunerStatus.LIST_UPDATE||mCurrentStatus==TunerStatus.ERROR) {
+                            mViewPager.setAllowedSwipeLeftOnly(true);
+                        }else{
+                            mViewPager.setAllowedSwipeLeftOnly(false);
+                        }
                     }
                     //ショートカットありで左にスワイプした場合はショートカットを表示
                     if (position < getPresenter().getPagerPosition()) {
@@ -830,6 +847,7 @@ public class DabFragment extends AbstractRadioFragment<DabPresenter, DabView> im
             }
         });
     }
+
     /**
      * ViewPagerに現在のBandを設定
      */

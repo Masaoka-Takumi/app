@@ -92,7 +92,7 @@ public class YouTubeLinkSearchItemDialogFragment extends AbstractDialogFragment<
         });
         //2項目の高さで固定
         LinearLayout.LayoutParams params =
-                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int)getContext().getResources().getDimension(R.dimen.setting_list_item_height)*2);
+                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int)Math.ceil(getContext().getResources().getDimension(R.dimen.setting_list_item_height)*2)+6);
         mListView.setLayoutParams(params);
         return view;
     }

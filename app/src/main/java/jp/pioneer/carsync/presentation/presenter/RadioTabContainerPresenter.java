@@ -96,9 +96,14 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
     @Override
     void onTakeView() {
         StatusHolder holder = mStatusHolder.execute();
+        mSourceType = holder.getCarDeviceStatus().sourceType;
         Optional.ofNullable(getView()).ifPresent(view -> {
             view.setColor(mPreference.getUiColor().getResource());
-            view.setTabVisible(!holder.getProtocolSpec().isSphCarDevice()&&mSourceType != MediaSourceType.RADIO);
+            if(mSourceType == MediaSourceType.RADIO) {
+                view.setTabVisible(!holder.getProtocolSpec().isSphCarDevice());
+            }else{
+                view.setTabVisible(true);
+            }
         });
     }
 

@@ -288,6 +288,7 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
     }
 
     private void updatePresetList() {
+        mRadioPresetList.clear();
         StatusHolder holder = mStatusHolder.execute();
         if (mSourceType == MediaSourceType.RADIO) {
             mRadioBand = holder.getCarDeviceMediaInfoHolder().radioInfo.band;
@@ -377,7 +378,8 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
     /**
      * ユーザー登録PCHリスト取得
      */
-    public void getUserPresetList(){
+    private void getUserPresetList(){
+        mUserPreset.clear();
         if(isSphCarDevice()&&mSourceType==MediaSourceType.RADIO) {
             StatusHolder holder = mStatusHolder.execute();
             mRadioBand = holder.getCarDeviceMediaInfoHolder().radioInfo.band;
