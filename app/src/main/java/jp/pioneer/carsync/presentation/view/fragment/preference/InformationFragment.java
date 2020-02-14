@@ -17,6 +17,7 @@ import jp.pioneer.carsync.application.di.component.FragmentComponent;
 import jp.pioneer.carsync.presentation.presenter.InformationPresenter;
 import jp.pioneer.carsync.presentation.view.InformationView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
+import timber.log.Timber;
 
 /**
  * Information設定の画面
@@ -69,10 +70,15 @@ public class InformationFragment extends AbstractPreferenceFragment<InformationP
 
                 if (mCount == TAP_COUNT) {
                     RecyclerView lv = getListView();
-
-                    RecyclerView.ViewHolder holder = lv.findViewHolderForLayoutPosition(4);
+                    //Timber.d("mAppVersion"+mAppVersion.());
+                    RecyclerView.ViewHolder holder = lv.findViewHolderForLayoutPosition(5);
                     if (holder != null) {
                         holder.itemView.setOnLongClickListener(this);
+                    }else{
+                        holder = lv.findViewHolderForLayoutPosition(4);
+                        if(holder != null) {
+                            holder.itemView.setOnLongClickListener(this);
+                        }
                     }
                     mDebugAction = true;
                 }
