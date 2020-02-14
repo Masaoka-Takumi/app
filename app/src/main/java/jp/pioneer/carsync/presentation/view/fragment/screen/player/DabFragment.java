@@ -793,7 +793,7 @@ public class DabFragment extends AbstractRadioFragment<DabPresenter, DabView> im
                         return;
                     }else{
                         //DABソースの状態がLIST UPDATE、または、ERRORの場合、Preset areaの右→左スワイプを抑制
-                        if(mCurrentStatus==TunerStatus.LIST_UPDATE||mCurrentStatus==TunerStatus.SEEK) {
+                        if(mCurrentStatus==TunerStatus.LIST_UPDATE||mCurrentStatus==TunerStatus.ERROR) {
                             mViewPager.setAllowedSwipeLeftOnly(true);
                         }else{
                             mViewPager.setAllowedSwipeLeftOnly(false);
