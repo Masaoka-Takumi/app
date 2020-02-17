@@ -26,7 +26,11 @@
         android:persistent="false"
         android:title="@string/set_219"
         android:layout="@layout/element_preference_switch"/>
-
+    <Preference
+        android:key="@string/key_radio_ta_dab"
+        android:layout="@layout/element_preference_base"
+        android:order="71"
+        android:title="@string/set_354" />
     <android.support.v7.preference.SwitchPreferenceCompat
         android:key="@string/key_radio_af_enabled"
         android:order="80"

@@ -18,6 +18,8 @@ public class TunerFunctionSetting extends Setting {
     public boolean regSetting;
     /** TA設定 */
     public boolean taSetting;
+    /** TA設定（DABモデル） */
+    public TASetting taDabSetting;
     /** AF設定ON. */
     public boolean afSetting;
     /** NEWS設定ON. */

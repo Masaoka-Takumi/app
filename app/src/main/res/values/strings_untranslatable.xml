@@ -211,6 +211,7 @@
     <string name="key_radio_region_enabled">radio_region_enabled</string>
     <string name="key_radio_local">radio_local_key</string>
     <string name="key_radio_ta">radio_ta</string>
+    <string name="key_radio_ta_dab">radio_ta_dab</string>
     <string name="key_radio_af_enabled">radio_af_enabled</string>
     <string name="key_radio_news_enabled">radio_news_enabled</string>
     <string name="key_radio_alarm_enabled">radio_alarm_enabled</string>
