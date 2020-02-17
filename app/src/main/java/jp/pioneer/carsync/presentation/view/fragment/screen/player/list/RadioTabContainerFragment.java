@@ -62,7 +62,7 @@ public class RadioTabContainerFragment extends AbstractDialogFragment<RadioTabCo
     @BindView(R.id.close_button) ImageView mCloseButton;
     @BindView(R.id.dialog_close_button) ImageView mDialogCloseButton;
     private Unbinder mUnbinder;
-
+    private MediaSourceType mSourceType;
     /**
      * コンストラクタ
      */
@@ -132,6 +132,7 @@ public class RadioTabContainerFragment extends AbstractDialogFragment<RadioTabCo
 
     @Override
     public void setTabLayout(MediaSourceType type,boolean isSph) {
+        mSourceType = type;
         if(type == MediaSourceType.RADIO&&isSph){
             mTabLayout.setVisibility(View.GONE);
             mTabLayoutDab.setVisibility(View.GONE);
@@ -185,8 +186,13 @@ public class RadioTabContainerFragment extends AbstractDialogFragment<RadioTabCo
         if(isVisible) {
             mCloseButton.setVisibility(View.VISIBLE);
         }else{
-            // BSM ボタンの位置はキープしたいのでINVISIBLE
-            mCloseButton.setVisibility(View.INVISIBLE);
+            if(mSourceType==MediaSourceType.DAB){
+                // ListUpdateButtonは右に寄せる
+                mCloseButton.setVisibility(View.GONE);
+            }else {
+                // BSM ボタンの位置はキープしたいのでINVISIBLE
+                mCloseButton.setVisibility(View.INVISIBLE);
+            }
         }
     }
     @Override
