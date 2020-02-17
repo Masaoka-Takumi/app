@@ -48,6 +48,7 @@ import jp.pioneer.carsync.presentation.model.SxmPresetItem;
 import jp.pioneer.carsync.presentation.util.FrequencyUtil;
 import jp.pioneer.carsync.presentation.util.RadioTextUtil;
 import jp.pioneer.carsync.presentation.view.RadioPresetView;
+import timber.log.Timber;
 
 /**
  * ラジオプリセットリストのpresenter
@@ -96,6 +97,8 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
 
     @Override
     void onInitialize() {
+        mUserPreset.clear();
+        mRadioPresetList.clear();
         mSourceType = mStatusHolder.execute().getCarDeviceStatus().sourceType;
     }
 
@@ -288,7 +291,6 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
     }
 
     private void updatePresetList() {
-        mRadioPresetList.clear();
         StatusHolder holder = mStatusHolder.execute();
         if (mSourceType == MediaSourceType.RADIO) {
             mRadioBand = holder.getCarDeviceMediaInfoHolder().radioInfo.band;
@@ -379,7 +381,6 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
      * ユーザー登録PCHリスト取得
      */
     private void getUserPresetList(){
-        mUserPreset.clear();
         if(isSphCarDevice()&&mSourceType==MediaSourceType.RADIO) {
             StatusHolder holder = mStatusHolder.execute();
             mRadioBand = holder.getCarDeviceMediaInfoHolder().radioInfo.band;

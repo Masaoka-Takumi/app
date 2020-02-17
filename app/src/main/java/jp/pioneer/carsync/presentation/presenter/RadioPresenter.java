@@ -133,6 +133,8 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
     @Override
     void onInitialize() {
         mEventBus.register(this);
+        mPresets.clear();
+        mUserPreset.clear();
     }
 
     @Override
@@ -493,7 +495,6 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
     }
 
     private void getPresetChannel() {
-        mPresets.clear();
         if (mRadioBand != null && mLoaderManager != null) {
             Bundle args = new Bundle();
             args.putByte(KEY_BAND_TYPE, (byte) (mRadioBand.getCode() & 0xFF));
@@ -610,7 +611,6 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
      * ユーザー登録PCHリスト取得
      */
     private void getUserPresetList(){
-        mUserPreset.clear();
         if(isSphCarDevice()) {
             if (mRadioBand != null && mLoaderManager != null) {
                 Bundle args = new Bundle();
