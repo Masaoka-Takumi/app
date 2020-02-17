@@ -127,22 +127,22 @@ public class DabInfo extends AbstractTunerInfo {
     }
 
     /**
-     * TimeShift ModeでPlay中か否か取得.
+     * TimeShift Mode遷移不可状態でPlay中か否か取得.
      *
-     * @return {@code true}:TimeShift ModeでPlay中である。{@code false}:それ以外。
+     * @return {@code true}:TimeShift Mode遷移不可状態でPlay中である。{@code false}:それ以外。
      */
     public boolean isPlayStatus() {
-        return timeShiftMode
+        return !timeShiftModeAvailable
                 && playbackMode == PlaybackMode.PLAY;
     }
 
     /**
-     * TimeShift ModeでPause中か否か取得.
+     * TimeShift Mode遷移不可状態でPause中か否か取得.
      *
-     * @return {@code true}:TimeShift ModeでPause中である。{@code false}:それ以外。
+     * @return {@code true}:TimeShift Mode遷移不可状態でPause中である。{@code false}:それ以外。
      */
     public boolean isPauseStatus() {
-        return timeShiftMode
+        return !timeShiftModeAvailable
                 && playbackMode == PlaybackMode.PAUSE;
     }
 
