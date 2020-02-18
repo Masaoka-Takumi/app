@@ -289,6 +289,7 @@
     <dimen name="radio_preset_button_width">113dp</dimen>
     <dimen name="radio_preset_button_margin">-6.8dp</dimen>
     <dimen name="radio_preset_title_text_size">30.5dp</dimen>
+    <dimen name="radio_preset_sub_title_text_size">27.3dp</dimen>
 
     <!-- DAB Service List -->
     <dimen name="dab_abc_search_bar_width">65.5dp</dimen>
