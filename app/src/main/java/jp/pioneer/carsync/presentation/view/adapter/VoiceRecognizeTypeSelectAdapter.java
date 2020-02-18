@@ -65,7 +65,7 @@ public class VoiceRecognizeTypeSelectAdapter extends ArrayAdapter<VoiceRecognize
         } else {
             holder.radioButton.setChecked(false);
         }
-
+        holder.imageIcon.setVisibility(View.GONE);
         return convertView;
     }
 
