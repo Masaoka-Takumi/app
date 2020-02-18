@@ -64,7 +64,11 @@ public enum ListType {
      * @return {@code true}:通知可能。{@code false}:それ以外。
      */
     public boolean canEnter() {
-        return this == NOT_LIST || this == ABC_SEARCH_LIST;
+        return this == NOT_LIST || this == ABC_SEARCH_LIST
+                || this == SERVICE_LIST|| this == PTY_NEWS_INFO_LIST
+                || this == PTY_POPULER_LIST|| this == PTY_CLASSICS_LIST
+                || this == PTY_OTHERS_LIST|| this == ENSEMBLE_CATEGORY
+                || this == ENSEMBLE_LIST;
     }
 
     /**

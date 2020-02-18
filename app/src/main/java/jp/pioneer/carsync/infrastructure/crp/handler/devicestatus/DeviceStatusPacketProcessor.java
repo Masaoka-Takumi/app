@@ -185,7 +185,7 @@ public class DeviceStatusPacketProcessor {
         // D15:リスト状態
         b = data[15];
         ListType oldListType = status.listType;
-        status.listType = ListType.valueOf((byte) getBitsValue(b, 0, 3), status.sourceType);
+        status.listType = ListType.valueOf((byte) getBitsValue(b, 0, 4), status.sourceType);
         //  ABCサーチリストが解除されたら、ABCサーチのインデックス文字をクリアする
         if (oldListType == ListType.ABC_SEARCH_LIST && status.listType != ListType.ABC_SEARCH_LIST) {
             mStatusHolder.getListInfo().abcSearchWord = "";
