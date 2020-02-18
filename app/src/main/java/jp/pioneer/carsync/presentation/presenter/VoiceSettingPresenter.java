@@ -113,6 +113,7 @@ public class VoiceSettingPresenter extends Presenter<VoiceSettingView> {
      */
     public void onVoiceRecognitionChange(boolean isValue) {
         mPreference.setVoiceRecognitionEnabled(isValue);
+        updateView();
     }
 
     /**
