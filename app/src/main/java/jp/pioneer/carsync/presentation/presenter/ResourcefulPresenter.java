@@ -757,7 +757,8 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
                     || type == ListType.PTY_CLASSICS_LIST || type == ListType.PTY_OTHERS_LIST
                     || type == ListType.ENSEMBLE_CATEGORY || type == ListType.ENSEMBLE_LIST) {
                 Optional.ofNullable(getView()).ifPresent(view -> {
-                    if (AppUtil.isScreenOn(mContext)) {
+                    //List表示中にdispatchEnterListが走るとListTypeを変更できない
+                    if (AppUtil.isScreenOn(mContext)&&!mStatusHolder.getAppStatus().isShowRadioTabContainer) {
                         view.dispatchEnterList();
                     }
                 });

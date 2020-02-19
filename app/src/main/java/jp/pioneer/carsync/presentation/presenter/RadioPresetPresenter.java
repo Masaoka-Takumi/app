@@ -48,6 +48,7 @@ import jp.pioneer.carsync.domain.model.TunerFrequencyUnit;
 import jp.pioneer.carsync.domain.repository.CarDeviceMediaRepository;
 import jp.pioneer.carsync.domain.util.PresetChannelDictionary;
 import jp.pioneer.carsync.infrastructure.crp.event.CrpListUpdateEvent;
+import jp.pioneer.carsync.presentation.event.GoBackEvent;
 import jp.pioneer.carsync.presentation.model.AbstractPresetItem;
 import jp.pioneer.carsync.presentation.model.DabPresetItem;
 import jp.pioneer.carsync.presentation.model.RadioPresetItem;
@@ -560,7 +561,7 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
                             presetKey.scids);
                 }
             }
-            mMediaCase.exitList();
+            mEventBus.post(new GoBackEvent());
         }
     }
 }
