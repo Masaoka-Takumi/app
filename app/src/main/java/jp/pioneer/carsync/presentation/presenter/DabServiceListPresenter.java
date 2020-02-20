@@ -90,6 +90,10 @@ public class DabServiceListPresenter extends Presenter<DabServiceListView> imple
         mEventBus.unregister(this);
     }
 
+    public boolean isSphCarDevice() {
+        return mStatusHolder.execute().getProtocolSpec().isSphCarDevice();
+    }
+
     /**
      * LoaderManager登録
      *

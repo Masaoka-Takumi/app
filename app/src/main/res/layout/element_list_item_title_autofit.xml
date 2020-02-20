@@ -5,7 +5,7 @@
     android:layout_height="@dimen/element_list_item_height_66"
     android:orientation="horizontal"
     android:layoutDirection="ltr"
-    android:background="@drawable/list_item_background_selector_music"
+    android:background="@drawable/list_item_background_selector_music_no_focus"
     android:backgroundTint="?attr/uiColor">
 
     <RelativeLayout

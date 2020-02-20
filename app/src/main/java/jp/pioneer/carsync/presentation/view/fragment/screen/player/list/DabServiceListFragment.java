@@ -85,6 +85,7 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
         Configuration config = getResources().getConfiguration();
         mOrientation = config.orientation;
         mServiceListAdapter = new ServiceListAdapter(getContext(), null, false);
+        mServiceListAdapter.setSphCarDevice(getPresenter().isSphCarDevice());
         mListView.setVisibility(View.VISIBLE);
         mListView.setAdapter(mServiceListAdapter);
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
