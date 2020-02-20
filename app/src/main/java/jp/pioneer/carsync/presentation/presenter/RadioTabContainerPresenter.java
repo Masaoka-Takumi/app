@@ -41,6 +41,7 @@ import jp.pioneer.carsync.domain.model.SxmBandType;
 import jp.pioneer.carsync.domain.model.TunerStatus;
 import jp.pioneer.carsync.presentation.event.GoBackEvent;
 import jp.pioneer.carsync.presentation.event.NavigateEvent;
+import jp.pioneer.carsync.presentation.event.SelectDabListItemEvent;
 import jp.pioneer.carsync.presentation.view.PlayerTabContainerView;
 import jp.pioneer.carsync.presentation.view.RadioTabContainerView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
@@ -83,6 +84,7 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
     private final Handler mHandler = new Handler();
     private ListType mListType;
     private boolean mIsGuardNavigate = false;
+    private boolean mListItemSelected = false;
     private Runnable mRunnableGuard = new Runnable() {
         @Override
         public void run() {
@@ -98,6 +100,7 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
 
     @Override
     void onInitialize() {
+        mListItemSelected = false;
         StatusHolder holder = mStatusHolder.execute();
         mSourceType = holder.getCarDeviceStatus().sourceType;
         Optional.ofNullable(getView()).ifPresent(view -> {
@@ -246,7 +249,11 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
         if(mSourceType==MediaSourceType.DAB&&mStatusHolder.execute().getProtocolSpec().isSphCarDevice()){
             mListType = mStatusHolder.execute().getCarDeviceStatus().listType;
             if(mListType==ListType.NOT_LIST) {
-                if(mTab!=RadioTabType.DAB_PTY&&mTab!=RadioTabType.DAB_PRESET) {
+                //ServiceListItemを選択したら閉じる
+                if(mListItemSelected){
+                    mListItemSelected = false;
+                    Optional.ofNullable(getView()).ifPresent(RadioTabContainerView::closeDialog);
+                }else if(mTab!=RadioTabType.DAB_PTY&&mTab!=RadioTabType.DAB_PRESET) {
                     Optional.ofNullable(getView()).ifPresent(RadioTabContainerView::closeDialog);
                 }
             }else if(mListType==ListType.LIST_UNAVAILABLE){
@@ -527,6 +534,15 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
                 updateView();
             }
         });
+    }
+
+    /**
+     * DAB ServiceListItem選択イベント.
+     * @param event SelectDabListItemEvent
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSelectDabListItemEvent(SelectDabListItemEvent event){
+        mListItemSelected = true;
     }
 
     /**

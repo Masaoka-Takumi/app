@@ -29,6 +29,7 @@ import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.StatusHolder;
 import jp.pioneer.carsync.domain.repository.CarDeviceMediaRepository;
 import jp.pioneer.carsync.infrastructure.crp.event.CrpListUpdateEvent;
+import jp.pioneer.carsync.presentation.event.SelectDabListItemEvent;
 import jp.pioneer.carsync.presentation.view.DabServiceListView;
 import timber.log.Timber;
 
@@ -198,6 +199,7 @@ public class DabServiceListPresenter extends Presenter<DabServiceListView> imple
     }
 
     public void onSelectList(int listIndex, Cursor cursor) {
+        mEventBus.post(new SelectDabListItemEvent());
         mMediaCase.selectListItem(listIndex);
     }
 
