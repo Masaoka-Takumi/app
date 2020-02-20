@@ -491,7 +491,7 @@ public class CarDeviceMediaRepositoryImpl implements CarDeviceMediaRepository {
                 stopTask();
                 resetUsbList();
             } else if (mCurrentSourceType == MediaSourceType.DAB &&
-                    (mCurrentListType == ListType.SERVICE_LIST || mCurrentListType == ListType.ABC_SEARCH_LIST
+                    (mCurrentListType == ListType.SERVICE_LIST
                             || mCurrentListType == ListType.PTY_NEWS_INFO_LIST|| mCurrentListType == ListType.PTY_POPULER_LIST
                             || mCurrentListType == ListType.PTY_CLASSICS_LIST|| mCurrentListType == ListType.PTY_OTHERS_LIST
                             || mCurrentListType == ListType.ENSEMBLE_CATEGORY|| mCurrentListType == ListType.ENSEMBLE_LIST)) {
