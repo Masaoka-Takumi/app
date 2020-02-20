@@ -61,6 +61,7 @@ import timber.log.Timber;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static jp.pioneer.carsync.domain.model.ListType.ABC_SEARCH_LIST;
 import static jp.pioneer.carsync.domain.model.ListType.LIST;
 import static jp.pioneer.carsync.domain.model.ListType.LIST_UNAVAILABLE;
 import static jp.pioneer.carsync.domain.model.ListType.NOT_LIST;
@@ -544,7 +545,9 @@ public class CarDeviceMediaRepositoryImpl implements CarDeviceMediaRepository {
                 task = mMediaListTaskProvider.get().setParams(mCurrentSourceType, PCH_LIST, mMediaListCallback);
                 break;
             case DAB:
-                if(mCurrentListType== SERVICE_LIST) {
+                if(mCurrentListType == ABC_SEARCH_LIST){
+                    return;
+                }else if(mCurrentListType == SERVICE_LIST) {
                     task = mMediaListTaskProvider.get().setParams(mCurrentSourceType, SERVICE_LIST, mMediaListCallback);
                 }else{
                     task = mMediaListTaskProvider.get().setParams(mCurrentSourceType, mCurrentListType, mMediaListCallback);
