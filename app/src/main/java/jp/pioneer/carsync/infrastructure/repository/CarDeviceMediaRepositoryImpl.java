@@ -171,6 +171,15 @@ public class CarDeviceMediaRepositoryImpl implements CarDeviceMediaRepository {
     /**
      * {@inheritDoc}
      */
+    @Override
+    public void restartGetDabList(){
+        Timber.i("restartGetDabList()");
+        startTask();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Nullable
     @Override
     public synchronized ListInfo.ListItem getListItem(@NonNull MediaSourceType sourceType, @IntRange(from = 1) int listIndex) {

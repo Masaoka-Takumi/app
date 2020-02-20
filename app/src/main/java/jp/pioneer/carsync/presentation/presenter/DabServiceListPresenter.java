@@ -25,7 +25,6 @@ import jp.pioneer.carsync.domain.interactor.ControlMediaList;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.model.DabBandType;
 import jp.pioneer.carsync.domain.model.ListInfo;
-import jp.pioneer.carsync.domain.model.ListType;
 import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.StatusHolder;
 import jp.pioneer.carsync.domain.repository.CarDeviceMediaRepository;
@@ -161,9 +160,9 @@ public class DabServiceListPresenter extends Presenter<DabServiceListView> imple
     public  void onCrpDabAbcSearchResultEvent(CrpDabAbcSearchResultEvent ev) {
         if(mStatusHolder.execute().getProtocolSpec().isSphCarDevice()) {
             Timber.d("CrpDabAbcSearchResultEvent");
-            //ABCサーチ実行要求の成功通知が来たら、アプリがリストを取得する
+            //ABCサーチ実行要求の成功通知が来たら、アプリがリストを再取得する
             if(ev.result){
-                updatePresetList();
+                mCarDeviceMediaRepository.restartGetDabList();
             }
             Optional.ofNullable(getView()).ifPresent(view -> {
                 view.setAbcSearchResult(ev.result);
