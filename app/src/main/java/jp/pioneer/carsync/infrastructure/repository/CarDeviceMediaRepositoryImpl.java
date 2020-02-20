@@ -495,6 +495,7 @@ public class CarDeviceMediaRepositoryImpl implements CarDeviceMediaRepository {
                             || mCurrentListType == ListType.PTY_NEWS_INFO_LIST|| mCurrentListType == ListType.PTY_POPULER_LIST
                             || mCurrentListType == ListType.PTY_CLASSICS_LIST|| mCurrentListType == ListType.PTY_OTHERS_LIST
                             || mCurrentListType == ListType.ENSEMBLE_CATEGORY|| mCurrentListType == ListType.ENSEMBLE_LIST)) {
+                mDabListItems = new SparseArrayCompat<>();
                 startTask();
             }
         }
