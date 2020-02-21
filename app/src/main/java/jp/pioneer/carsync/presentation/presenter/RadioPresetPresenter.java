@@ -414,7 +414,7 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
                 String freqFormat;
                 try {
                     String[] data1 = description.split(" ");
-                    freqFormat = data1[1].substring(0, data1[1].length() - 3)  + data1[1].substring(data1[1].length() - 3);
+                    freqFormat = data1[1];
                 } catch (ArrayIndexOutOfBoundsException e) {
                     freqFormat = description;
                 }
@@ -433,7 +433,7 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
                 String freqFormat;
                 try {
                     String[] data1 = description.split(" ");
-                    freqFormat = data1[1].substring(0, data1[1].length() - 3) + data1[1].substring(data1[1].length() - 3);
+                    freqFormat = data1[1];
                 } catch (ArrayIndexOutOfBoundsException e) {
                     freqFormat = description;
                 }
