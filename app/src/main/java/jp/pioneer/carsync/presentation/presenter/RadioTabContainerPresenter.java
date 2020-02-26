@@ -401,7 +401,7 @@ public class RadioTabContainerPresenter extends ListPresenter<RadioTabContainerV
             }
             view.setTab(mTab);
             view.setBsmButtonEnabled(!holder.getAppStatus().isRunningListTask);
-            view.setUpdateButtonEnabled(!holder.getAppStatus().isRunningListTask);
+            view.setUpdateButtonEnabled(true);
         });
 
         if (mTab == RadioTabType.PRESET) {
