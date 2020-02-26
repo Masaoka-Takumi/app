@@ -58,7 +58,7 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
     private float mBarMarginY; //Barの縦幅画像枠とのマージン
     private int mOrientation;
     private final Handler mHandler = new Handler();
-
+    private DragViewListener mListener;
     /**
      * コンストラクタ
      */
@@ -112,8 +112,8 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
                 mBarYLength = mAbcSearchBar.getHeight() - mBarMarginY * 2;
                 mBarYEnd = mBarYStart + mBarYLength;
                 Timber.d("mBarXStart=" + mBarXStart + ",mBarXEnd=" + mBarXEnd + ",mBarXLength=" + mBarXLength + ",mBarYStart=" + mBarYStart + ",mBarYEnd=" + mBarYEnd + ",mBarYLength=" + mBarYLength);
-                DragViewListener listener = new DragViewListener();
-                mTouchView.setOnTouchListener(listener);
+                mListener = new DragViewListener();
+                mTouchView.setOnTouchListener(mListener);
                 mIsFirstDrawn = true;
             }
             // removeOnGlobalLayoutListener()の削除
@@ -134,6 +134,7 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
     public void onDestroyView() {
         super.onDestroyView();
         mTouchView.getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
+        mTouchView.setOnTouchListener(null);
         mUnbinder.unbind();
     }
 
@@ -161,7 +162,9 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
         }
         Timber.d("cursor.getCount()=" + cursor.getCount() + ",listType=" + listType);
         if (listType == ListType.SERVICE_LIST) {
-            mAbcSearchPopup.setVisibility(View.INVISIBLE);
+            if(!mListener.isTouch) {
+                mAbcSearchPopup.setVisibility(View.INVISIBLE);
+            }
             mListView.setVerticalScrollBarEnabled(false);
             mListView.setFastScrollEnabled(false);
             if(cursor.getCount() > 0&&isSph){
@@ -182,14 +185,18 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
 
     @Override
     public void setSelectedPositionNotScroll(int position) {
-        mAbcSearchPopup.setVisibility(View.INVISIBLE);
+        if(!mListener.isTouch) {
+            mAbcSearchPopup.setVisibility(View.INVISIBLE);
+        }
         mListView.setItemChecked(position, true);
     }
 
     @Override
     public void setAbcSearchResult(boolean result) {
         if(!result){
-            mAbcSearchPopup.setVisibility(View.INVISIBLE);
+            if(!mListener.isTouch) {
+                mAbcSearchPopup.setVisibility(View.INVISIBLE);
+            }
             Toast.makeText(getActivity(), R.string.ply_107, Toast.LENGTH_SHORT).show();
         }
     }
@@ -260,8 +267,8 @@ public class DabServiceListFragment extends AbstractScreenFragment<DabServiceLis
                 case MotionEvent.ACTION_CANCEL:
                     //設定値から座標を求める
                     if (isTouch) {
-                        getPresenter().executeAbcSearch(mSearchText.getText().toString());
                         isTouch = false;
+                        getPresenter().executeAbcSearch(mSearchText.getText().toString());
                         return true;
                     }
                     break;
