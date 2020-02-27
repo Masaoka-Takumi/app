@@ -6,6 +6,7 @@ public enum SimCountryIso {
     US("us"), // アメリカ
     CA("ca"), // カナダ
     JP("jp"), // 日本
+    IN("in"), // インド
     NO_DEFINE("no_define"), // 未定義の国
     NO_AVAILABLE("none"), // 取得不可
     ;
