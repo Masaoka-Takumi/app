@@ -1104,7 +1104,10 @@ public class OutgoingPacketBuilder {
         } catch (UnsupportedEncodingException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
-
+        //#を選択時にサーチ文字列を'0x23'から'0x01'に変更
+        if(bytes[0] == 0x23){
+            bytes[0] = 0x01;
+        }
         byte[] data = {
                 0x00,
                 bytes[0]
