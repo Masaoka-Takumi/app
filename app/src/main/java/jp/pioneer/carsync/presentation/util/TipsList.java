@@ -161,13 +161,7 @@ public class TipsList {
     private String createTipsListUrl() {
         String baseUrl = mPreference.getTipsListEndpoint().endpoint;
         String urlLangCode = mContext.getString(R.string.url_003);
-        String model = mPreference.getLastConnectedCarDeviceModel();
-
-        if (model.length() > 0) {
-            return baseUrl + urlLangCode + "/" + model.toLowerCase() + "/" + TIPS_LIST;
-        } else {
-            return baseUrl + urlLangCode + "/" + TIPS_LIST;
-        }
+        return baseUrl + urlLangCode + "/" + TIPS_LIST;
     }
 
     private void cancelTask() {
