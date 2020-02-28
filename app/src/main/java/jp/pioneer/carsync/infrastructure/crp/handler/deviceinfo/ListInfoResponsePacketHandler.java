@@ -68,6 +68,13 @@ public class ListInfoResponsePacketHandler extends DataResponsePacketHandler {
             }
             // D3-D4:リストインデックス
             int listIndex = PacketUtil.ushortToInt(data, 3);
+
+            //リストインデックスが不正なら捨てる
+            if (listIndex < 1 || listIndex > info.total) {
+                Timber.w("listIndex invalid. listIndex = %d,",listIndex);
+                return;
+            }
+
             // D5-DN:リスト情報
             switch (info.sourceType) {
                 case RADIO:
@@ -164,11 +171,7 @@ public class ListInfoResponsePacketHandler extends DataResponsePacketHandler {
         int pos = 5;
         checkPacket(((data.length - pos) % DAB_ITEM_LENGTH) == 0,
                 "data length invalid. list info = %d", data.length - pos);
-        //リストインデックスが不正なら捨てる
-        if(listIndex < 1){
-            Timber.w("listIndex < 1");
-            return;
-        }
+
         SparseArrayCompat<ListInfo.ListItem> items = info.items;
         int count = (data.length - pos) / DAB_ITEM_LENGTH;
         for (int i = 0; i < count; i++, pos+=DAB_ITEM_LENGTH) {
