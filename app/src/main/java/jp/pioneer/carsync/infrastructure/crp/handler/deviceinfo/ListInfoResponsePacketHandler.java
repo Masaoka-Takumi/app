@@ -164,7 +164,11 @@ public class ListInfoResponsePacketHandler extends DataResponsePacketHandler {
         int pos = 5;
         checkPacket(((data.length - pos) % DAB_ITEM_LENGTH) == 0,
                 "data length invalid. list info = %d", data.length - pos);
-
+        //リストインデックスが不正なら捨てる
+        if(listIndex < 1){
+            Timber.w("listIndex < 1");
+            return;
+        }
         SparseArrayCompat<ListInfo.ListItem> items = info.items;
         int count = (data.length - pos) / DAB_ITEM_LENGTH;
         for (int i = 0; i < count; i++, pos+=DAB_ITEM_LENGTH) {
