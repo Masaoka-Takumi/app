@@ -1239,7 +1239,7 @@ public class AppSharedPreference {
         if (mPreferences.contains(KEY_ALEXA_CAPABILITIES_VERSION_CODE)) {
             return mPreferences.getInt(KEY_ALEXA_CAPABILITIES_VERSION_CODE, DEFAULT_ALEXA_CAPABILITIES_VERSION_CODE);
         } else {
-            setEulaPrivacyVersionCode(DEFAULT_ALEXA_CAPABILITIES_VERSION_CODE);
+            setAlexaCapabilitiesVersionCode(DEFAULT_ALEXA_CAPABILITIES_VERSION_CODE);
             return DEFAULT_ALEXA_CAPABILITIES_VERSION_CODE;
         }
     }
