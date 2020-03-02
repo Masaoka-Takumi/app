@@ -31,6 +31,7 @@ import jp.pioneer.carsync.application.factory.ComponentFactory;
 import jp.pioneer.carsync.application.handler.CarsyncUncaughtExceptionHandler;
 import jp.pioneer.carsync.domain.DomainInitializer;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
+import jp.pioneer.carsync.domain.util.PresetChannelDictionary;
 import jp.pioneer.carsync.infrastructure.InfrastructureInitializer;
 import jp.pioneer.carsync.presentation.presenter.MainPresenter;
 import jp.pioneer.carsync.presentation.util.RadioStationNameUtil;
@@ -43,7 +44,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class App extends Application {
     /** 利用規約最新バージョン（13言語分）. */
-    private static final Map<String,Integer> EULA_PRIVACY_NEW_VERSION = new HashMap<String,Integer>() {
+    public static final Map<String,Integer> EULA_PRIVACY_NEW_VERSION = new HashMap<String,Integer>() {
         {
             put("ar",5);
             put("de",5);
@@ -52,7 +53,7 @@ public class App extends Application {
             put("fa",5);
             put("fr",5);
             put("it",5);
-            put("jp",5);
+            put("jp",6);
             put("nl",5);
             put("pt",5);
             put("pt-br",5);
@@ -170,7 +171,6 @@ public class App extends Application {
         Timber.d("language=" + language + ", savedVersionCodeEula=" + savedVersionCodeEula + ", newVersionCodeEula=" + newVersionCodeEula);
         if (savedVersionCodeEula < newVersionCodeEula) {
             mPreference.setAgreedEulaPrivacyPolicy(false);
-            mPreference.setEulaPrivacyVersionCode(language, newVersionCodeEula);
         }
         if (mPreference.isAdasBillingRecord()) {
             mStatusCase.execute().getAppStatus().deviceConnectionSuppress = true;

@@ -12,6 +12,7 @@ import org.greenrobot.eventbus.EventBus;
 import javax.inject.Inject;
 
 import jp.pioneer.carsync.R;
+import jp.pioneer.carsync.application.App;
 import jp.pioneer.carsync.application.content.AnalyticsEventManager;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
@@ -67,6 +68,16 @@ public class OpeningPrivacyPolicyPresenter extends Presenter<OpeningPrivacyPolic
      */
     public void onAcceptAction(){
         mPreference.setAgreedEulaPrivacyPolicy(true);
+        //再表示し同意したら保存するバージョン（13言語）全て上書き
+        String language = mContext.getResources().getString(R.string.url_001);
+        int newVersionCodeEula = 0;
+        Integer newVersionCodeEuraInteger = App.EULA_PRIVACY_NEW_VERSION.get(language);
+        if (newVersionCodeEuraInteger != null) {
+            newVersionCodeEula = newVersionCodeEuraInteger;
+        }
+        for (String key : App.EULA_PRIVACY_NEW_VERSION.keySet()) {
+            mPreference.setEulaPrivacyVersionCode(key, newVersionCodeEula);
+        }
         mAnalytics.startSession(mContext);
         StatusHolder holder = mGetStatusHolder.execute();
         //購入情報チェックが不要かつオーバーレイ権限がOKの場合連携抑制解除
