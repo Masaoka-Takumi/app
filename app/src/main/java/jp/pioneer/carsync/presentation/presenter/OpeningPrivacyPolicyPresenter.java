@@ -75,8 +75,12 @@ public class OpeningPrivacyPolicyPresenter extends Presenter<OpeningPrivacyPolic
         if (newVersionCodeEuraInteger != null) {
             newVersionCodeEula = newVersionCodeEuraInteger;
         }
+        Integer value = null;
         for (String key : App.EULA_PRIVACY_NEW_VERSION.keySet()) {
-            mPreference.setEulaPrivacyVersionCode(key, newVersionCodeEula);
+            value = App.EULA_PRIVACY_NEW_VERSION.get(key);
+            if(value != null) {
+                mPreference.setEulaPrivacyVersionCode(key, value);
+            }
         }
         mAnalytics.startSession(mContext);
         StatusHolder holder = mGetStatusHolder.execute();
