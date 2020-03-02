@@ -9,6 +9,8 @@ import com.annimon.stream.Optional;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import jp.pioneer.carsync.R;
@@ -75,12 +77,8 @@ public class OpeningPrivacyPolicyPresenter extends Presenter<OpeningPrivacyPolic
         if (newVersionCodeEuraInteger != null) {
             newVersionCodeEula = newVersionCodeEuraInteger;
         }
-        Integer value = null;
-        for (String key : App.EULA_PRIVACY_NEW_VERSION.keySet()) {
-            value = App.EULA_PRIVACY_NEW_VERSION.get(key);
-            if(value != null) {
-                mPreference.setEulaPrivacyVersionCode(key, value);
-            }
+        for (Map.Entry<String,Integer> entry : App.EULA_PRIVACY_NEW_VERSION.entrySet()) {
+            mPreference.setEulaPrivacyVersionCode(entry.getKey(), entry.getValue());
         }
         mAnalytics.startSession(mContext);
         StatusHolder holder = mGetStatusHolder.execute();
