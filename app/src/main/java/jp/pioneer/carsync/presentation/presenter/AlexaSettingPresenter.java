@@ -40,14 +40,6 @@ public class AlexaSettingPresenter extends Presenter<AlexaSettingView>{
     @Inject EventBus mEventBus;
     @Inject Context mContext;
     @Inject AppSharedPreference mPreference;
-    private ArrayList<AlexaLanguageType> mAlexaLanguageTypeList = new ArrayList<AlexaLanguageType>(){
-        {
-            add(AlexaLanguageType.ENGLISH_US);
-            add(AlexaLanguageType.ENGLISH_UK);
-            add(AlexaLanguageType.ENGLISH_INDIA);
-            add(AlexaLanguageType.JAPANESE);
-        }
-    };
 
     @Inject
     public AlexaSettingPresenter() {
@@ -84,16 +76,16 @@ public class AlexaSettingPresenter extends Presenter<AlexaSettingView>{
     public void showLanguageSelectDialog(){
         Bundle bundle = new Bundle();
         bundle.putString(SingleChoiceDialogFragment.TITLE, mContext.getResources().getString(R.string.set_307));
-        String[] strArray = new String[mAlexaLanguageTypeList.size()];
+        String[] strArray = new String[AlexaLanguageType.getValues().size()];
         for (int i = 0; i < strArray.length; i++) {
-            strArray[i] = mContext.getString(mAlexaLanguageTypeList.get(i).label);
+            strArray[i] = mContext.getString(AlexaLanguageType.getValues().get(i).label);
         }
         bundle.putStringArray(SingleChoiceDialogFragment.DATA, strArray);     // Require ArrayList
         mEventBus.post(new NavigateEvent(ScreenId.SELECT_DIALOG, bundle));
     }
 
     public void setAlexaLanguage(int position){
-        AlexaLanguageType type = mAlexaLanguageTypeList.get(position);
+        AlexaLanguageType type = AlexaLanguageType.getValues().get(position);
         mPreference.setAlexaLanguage(type);
         SettingsUpdatedUtil.setLocale(mContext.getString(mPreference.getAlexaLanguage().locale));
         AlexaDirectiveManager.sendSettingsUpdated(mContext);
