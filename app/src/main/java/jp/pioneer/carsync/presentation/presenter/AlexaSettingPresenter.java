@@ -43,6 +43,7 @@ public class AlexaSettingPresenter extends Presenter<AlexaSettingView>{
     private ArrayList<AlexaLanguageType> mAlexaLanguageTypeList = new ArrayList<AlexaLanguageType>(){
         {
             add(AlexaLanguageType.ENGLISH_US);
+            add(AlexaLanguageType.ENGLISH_UK);
             add(AlexaLanguageType.ENGLISH_INDIA);
             add(AlexaLanguageType.JAPANESE);
         }

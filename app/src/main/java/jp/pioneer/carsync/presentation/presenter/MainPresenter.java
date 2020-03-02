@@ -2654,10 +2654,10 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
     public void setAlexaAvailable(SimCountryIso simCountryIso){
         AppStatus appStatus = mStatusCase.execute().getAppStatus();
-
+        
         // デバッグ版ではデバッグ設定のSIM判定がONなら、その結果を採用する
         // SIM判定がOFFの場合は常にAlexa利用可能とする(SIM判定 DefaultはON)
-        List countryList = Arrays.asList(SimCountryIso.US, SimCountryIso.JP, SimCountryIso.IN);
+        List countryList = Arrays.asList(SimCountryIso.US, SimCountryIso.JP, SimCountryIso.IN, SimCountryIso.GB);
         boolean available = countryList.contains(simCountryIso);
         if(mPreference.isAlexaRequiredSimCheck()) {
             appStatus.isAlexaAvailableCountry = available;
