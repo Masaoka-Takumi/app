@@ -1164,6 +1164,40 @@ public class AppSharedPreference {
     }
 
     /**
+     * 利用規約バージョン取得(各言語分).
+     *
+     * @param language 言語
+     * @return バージョンコード
+     * @see #setEulaPrivacyVersionCode(String,int)
+     * @see #KEY_EULA_PRIVACY_VERSION_CODE
+     */
+    public int getEulaPrivacyVersionCode(String language) {
+        if (mPreferences.contains(KEY_EULA_PRIVACY_VERSION_CODE + "_" + language)) {
+            return mPreferences.getInt(KEY_EULA_PRIVACY_VERSION_CODE + "_" + language, getEulaPrivacyVersionCode());
+        } else {
+            setEulaPrivacyVersionCode(language, getEulaPrivacyVersionCode());
+            return getEulaPrivacyVersionCode();
+        }
+    }
+
+    /**
+     * 利用規約バージョン設定(各言語分).
+     *
+     * @param language 言語
+     * @param versionCode バージョンコード
+     * @return 本オブジェクト
+     * @see #getEulaPrivacyVersionCode(String)
+     * @see #KEY_EULA_PRIVACY_VERSION_CODE
+     */
+    @NonNull
+    public AppSharedPreference setEulaPrivacyVersionCode(String language, int versionCode) {
+        mPreferences.edit()
+                .putInt(KEY_EULA_PRIVACY_VERSION_CODE + "_" + language, versionCode)
+                .apply();
+        return this;
+    }
+
+    /**
      * 利用規約を同意したか否か取得.
      *
      * @return {@code true}:同意した。{@code false}:同意していない。
@@ -1205,7 +1239,7 @@ public class AppSharedPreference {
         if (mPreferences.contains(KEY_ALEXA_CAPABILITIES_VERSION_CODE)) {
             return mPreferences.getInt(KEY_ALEXA_CAPABILITIES_VERSION_CODE, DEFAULT_ALEXA_CAPABILITIES_VERSION_CODE);
         } else {
-            setEulaPrivacyVersionCode(DEFAULT_ALEXA_CAPABILITIES_VERSION_CODE);
+            setAlexaCapabilitiesVersionCode(DEFAULT_ALEXA_CAPABILITIES_VERSION_CODE);
             return DEFAULT_ALEXA_CAPABILITIES_VERSION_CODE;
         }
     }

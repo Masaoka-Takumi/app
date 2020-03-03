@@ -37,12 +37,4 @@
         <item>@string/rec_026</item>
     </array>
 
-    <array name="alexa_language">
-        <item>@string/set_308</item>
-<!--        <item>@string/set_309</item>-->
-<!--        <item>@string/set_310</item>-->
-<!--        <item>@string/set_311</item>-->
-<!--        <item>@string/set_312</item>-->
-<!--        <item>@string/set_313</item>-->
-    </array>
 </resources>

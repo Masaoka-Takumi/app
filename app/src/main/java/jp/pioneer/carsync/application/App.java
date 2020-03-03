@@ -12,9 +12,13 @@ import android.support.annotation.VisibleForTesting;
 import org.greenrobot.eventbus.EventBus;
 import org.matthiaszimmermann.location.egm96.Geoid;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import jp.pioneer.carsync.BuildConfig;
+import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.application.content.AnalyticsEventManager;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.content.FlurryAnalyticsToolStrategy;
@@ -27,6 +31,7 @@ import jp.pioneer.carsync.application.factory.ComponentFactory;
 import jp.pioneer.carsync.application.handler.CarsyncUncaughtExceptionHandler;
 import jp.pioneer.carsync.domain.DomainInitializer;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
+import jp.pioneer.carsync.domain.util.PresetChannelDictionary;
 import jp.pioneer.carsync.infrastructure.InfrastructureInitializer;
 import jp.pioneer.carsync.presentation.presenter.MainPresenter;
 import jp.pioneer.carsync.presentation.util.RadioStationNameUtil;
@@ -38,6 +43,24 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * アプリケーションクラス.
  */
 public class App extends Application {
+    /** 利用規約最新バージョン（13言語分）. */
+    public static final Map<String,Integer> EULA_PRIVACY_NEW_VERSION = new HashMap<String,Integer>() {
+        {
+            put("ar",5);
+            put("de",5);
+            put("en-us",5);
+            put("es-mx",5);
+            put("fa",5);
+            put("fr",5);
+            put("it",5);
+            put("jp",5);
+            put("nl",5);
+            put("pt",5);
+            put("pt-br",5);
+            put("ru",5);
+            put("zh-tw",5);
+        }
+    };
     private AppComponent mAppComponent;
     private ComponentFactory mComponentFactory;
     private ActivityLifecycleCallbacksImpl mMyActivityLifecycleCallbacks = new ActivityLifecycleCallbacksImpl();
@@ -138,10 +161,16 @@ public class App extends Application {
         getAppComponent().inject(this);
 
         //連携抑制フラグ初期化前に利用規約同意フラグを更新する必要がある。
-        int vCodeEula = mPreference.getEulaPrivacyVersionCode();
-        if(vCodeEula < MainPresenter.EULA_PRIVACY_NEW_VERSION){
+        String language = getApplicationContext().getResources().getString(R.string.url_001);
+        int savedVersionCodeEula = mPreference.getEulaPrivacyVersionCode(language);
+        int newVersionCodeEula = 0;
+        Integer newVersionCodeEuraInteger = EULA_PRIVACY_NEW_VERSION.get(language);
+        if (newVersionCodeEuraInteger != null) {
+            newVersionCodeEula = newVersionCodeEuraInteger;
+        }
+        Timber.d("language=" + language + ", savedVersionCodeEula=" + savedVersionCodeEula + ", newVersionCodeEula=" + newVersionCodeEula);
+        if (savedVersionCodeEula < newVersionCodeEula) {
             mPreference.setAgreedEulaPrivacyPolicy(false);
-            mPreference.setEulaPrivacyVersionCode(MainPresenter.EULA_PRIVACY_NEW_VERSION);
         }
         if (mPreference.isAdasBillingRecord()) {
             mStatusCase.execute().getAppStatus().deviceConnectionSuppress = true;

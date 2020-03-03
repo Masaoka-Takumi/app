@@ -137,7 +137,6 @@ public class AlexaSettingFragment extends AbstractScreenFragment<AlexaSettingPre
     @Override
     public void selectItem(int position) {
         getPresenter().setAlexaLanguage(position);
-        setAlexaLanguage(AlexaLanguageType.valueOf((byte)position).label);
     }
 
     @OnItemClick(R.id.list_view)

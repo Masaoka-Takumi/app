@@ -143,7 +143,7 @@ import static jp.pioneer.carsync.domain.interactor.JudgeVoiceCommand.JudgeResult
 public class MainPresenter extends Presenter<MainView> implements AppSharedPreference.OnAppSharedPreferenceChangeListener, TextToSpeechController.Callback, RecognitionListener {
     private static final int RECOGNIZER_RESTART_REMIT = 2;
     private static final int RE_CALIBRATION_SESSION_COUNT_MAX = 15;//15回連携
-    public static final int EULA_PRIVACY_NEW_VERSION = 5;//利用規約最新バージョン
+
     private static final int VERSION_CODE_1_5 = 8;//v1.5バージョンコード
     public static final int ALEXA_CAPABILITIES_NEW_VERSION = 5;//機能API最新バージョン
     public static final String TAG_DIALOG_ERROR = "error";
@@ -2654,10 +2654,10 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
     public void setAlexaAvailable(SimCountryIso simCountryIso){
         AppStatus appStatus = mStatusCase.execute().getAppStatus();
-
+        
         // デバッグ版ではデバッグ設定のSIM判定がONなら、その結果を採用する
         // SIM判定がOFFの場合は常にAlexa利用可能とする(SIM判定 DefaultはON)
-        List countryList = Arrays.asList(SimCountryIso.US);
+        List countryList = Arrays.asList(SimCountryIso.US, SimCountryIso.JP, SimCountryIso.IN, SimCountryIso.GB);
         boolean available = countryList.contains(simCountryIso);
         if(mPreference.isAlexaRequiredSimCheck()) {
             appStatus.isAlexaAvailableCountry = available;
