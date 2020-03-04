@@ -53,7 +53,7 @@ public class App extends Application {
             put("fa",5);
             put("fr",5);
             put("it",5);
-            put("jp",5);
+            put("jp",6);
             put("nl",5);
             put("pt",5);
             put("pt-br",5);
