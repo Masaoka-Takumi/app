@@ -1483,8 +1483,8 @@ public class AlexaAudioManager implements IAlexaPlayer.PlaybackCallback {
                 AlexaIfDirectiveItem.ProgressReport progressReport = null;
                 if (stream != null) {
                     progressReport = stream.progressReport;
-                    offsetTime = stream.offsetInMilliseconds.longValue();
                     token = stream.token;
+                    offsetTime = stream.offsetInMilliseconds.longValue();
                 }
                 if (progressReport != null) {
                     if (progressReport.progressReportDelayInMilliseconds != null) {

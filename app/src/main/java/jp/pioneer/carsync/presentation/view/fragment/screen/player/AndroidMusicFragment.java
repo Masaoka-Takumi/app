@@ -817,6 +817,7 @@ public class AndroidMusicFragment extends AbstractMusicPlayerFragment<AndroidMus
         mSourceBtnIcon.setImageResource(R.drawable.p1620_amzn_music_exit);
         mLogoImage.setVisibility(View.GONE);
         mWebView.setVisibility(View.GONE);
+
         setListEnabled(false);
         setGestureLayout();
 
@@ -844,8 +845,28 @@ public class AndroidMusicFragment extends AbstractMusicPlayerFragment<AndroidMus
             }
         }
         isSetMetaData = true;
+
         if (renderPlayerInfoItem.content != null) {
             AlexaIfDirectiveItem.Content content = renderPlayerInfoItem.content;
+
+            if (content.mediaLengthInMilliseconds <= 0 || content.provider.name.equals("Kindle Books")) {
+                mProgressAlexa.setVisibility(View.INVISIBLE);
+                if(mCurrentTimeView!=null) {
+                    mCurrentTimeView.setVisibility(View.INVISIBLE);
+                }
+                if(mRemainingTimeView!=null) {
+                    mRemainingTimeView.setVisibility(View.INVISIBLE);
+                }
+            } else {
+                mProgressAlexa.setVisibility(View.VISIBLE);
+                if(mCurrentTimeView!=null) {
+                    mCurrentTimeView.setVisibility(View.VISIBLE);
+                }
+                if(mRemainingTimeView!=null) {
+                    mRemainingTimeView.setVisibility(View.VISIBLE);
+                }
+            }
+
             AlexaIfDirectiveItem.Source source = null;
             {
                 AlexaIfDirectiveItem.ImageStructure art = content.getArt();
