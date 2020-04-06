@@ -24,6 +24,7 @@ import jp.pioneer.carsync.presentation.view.AlexaSplashView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.carsync.presentation.view.fragment.screen.AbstractScreenFragment;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
+import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderTemplateItem;
 import jp.pioneer.mbg.alexa.AmazonAlexaManager;
 import jp.pioneer.mbg.alexa.manager.AlexaQueueManager;
 import timber.log.Timber;
@@ -233,6 +234,11 @@ public class AlexaSplashFragment extends AbstractScreenFragment<AlexaSplashPrese
 
         @Override
         public void onReceiveRenderPlayerInfo(RenderPlayerInfoItem playerInfoItem) {
+
+        }
+
+        @Override
+        public void onReceiveRenderTemplate(RenderTemplateItem templateItem) {
 
         }
 

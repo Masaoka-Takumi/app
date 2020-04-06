@@ -59,6 +59,7 @@ import jp.pioneer.carsync.presentation.util.ShortCutKeyEnabledStatus;
 import jp.pioneer.carsync.presentation.view.AndroidMusicView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
+import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderTemplateItem;
 import jp.pioneer.mbg.alexa.AmazonAlexaManager;
 import jp.pioneer.mbg.alexa.manager.AlexaAudioManager;
 import jp.pioneer.mbg.alexa.manager.AlexaQueueManager;
@@ -769,6 +770,11 @@ public class AndroidMusicPresenter extends PlayerPresenter<AndroidMusicView> {
                     view.setAmazonMusicInfo(playerInfoItem);
                 });
             }
+        }
+
+        @Override
+        public void onReceiveRenderTemplate(RenderTemplateItem templateItem) {
+
         }
 
         @Override

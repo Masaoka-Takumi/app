@@ -908,7 +908,17 @@ public class DirectiveParser {
                             }
                         }
 
-                        result = new RenderTemplateItem(messageId, dialogRequestId, token, type, title, skillIcon, currentWeather, description, currentWeatherIcon, highTemperature, lowTemperature, weatherForecast);
+                        switch (type){
+                            case "BodyTemplate2":
+                                result = new RenderTemplateItem(messageId, dialogRequestId, token, type, title, skillIcon, textField, image);
+                                break;
+                            case "ListTemplate1":
+                                result = new RenderTemplateItem(messageId, dialogRequestId, token, type, title, skillIcon, listItems);
+                                break;
+                            case "WeatherTemplate":
+                                result = new RenderTemplateItem(messageId, dialogRequestId, token, type, title, skillIcon, currentWeather, description, currentWeatherIcon, highTemperature, lowTemperature, weatherForecast);
+                                break;
+                        }
                         break;
                     }
                     case Constant.DIRECTIVE_SET_DESTINATION:

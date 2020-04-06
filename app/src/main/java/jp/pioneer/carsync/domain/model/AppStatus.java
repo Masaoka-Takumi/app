@@ -8,6 +8,7 @@ import java.util.Set;
 import jp.pioneer.carsync.presentation.presenter.RadioTabContainerPresenter;
 import jp.pioneer.carsync.presentation.view.fragment.screen.settings.AdasCalibrationSettingFragment;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
+import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderTemplateItem;
 
 /**
  * 99App状態.
@@ -88,6 +89,7 @@ public class AppStatus {
     /** AudioMode MEDIA/ALEXA */
     public AudioMode appMusicAudioMode;
     public RenderPlayerInfoItem playerInfoItem;
+    public RenderTemplateItem renderTemplateItem;
     public int alexaAudioPlayPosition;
     public int alexaAudioPlayDuration;
     /** Alexa通知有無 */
@@ -159,6 +161,7 @@ public class AppStatus {
         adasWarningEvents = EnumSet.noneOf(AdasWarningEvent.class);
         appMusicAudioMode = AudioMode.MEDIA;
 		playerInfoItem = null;
+        renderTemplateItem = null;
         alexaNotification = false;
         isShowAlexaDialog = false;
         isShowSpeechRecognizerDialog = false;

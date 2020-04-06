@@ -30,6 +30,7 @@ import jp.pioneer.carsync.presentation.view.fragment.dialog.SingleChoiceDialogFr
 import jp.pioneer.carsync.presentation.view.fragment.dialog.StatusPopupDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.screen.AbstractScreenFragment;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
+import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderTemplateItem;
 import jp.pioneer.mbg.alexa.AmazonAlexaManager;
 import jp.pioneer.mbg.alexa.manager.AlexaQueueManager;
 import timber.log.Timber;
@@ -365,6 +366,11 @@ public class AlexaExampleUsageFragment extends AbstractScreenFragment<AlexaExamp
 
         @Override
         public void onReceiveRenderPlayerInfo(RenderPlayerInfoItem playerInfoItem) {
+
+        }
+
+        @Override
+        public void onReceiveRenderTemplate(RenderTemplateItem templateItem) {
 
         }
 

@@ -130,6 +130,7 @@ public enum ScreenId {
     FUNCTION_SETTING(VoiceRecognitionSearchType.GLOBAL),                            // FunctionSetting
     PARKING_SENSOR_SETTING(VoiceRecognitionSearchType.GLOBAL),                      // Parking Sensor Setting
     ALEXA(VoiceRecognitionSearchType.GLOBAL),                                       // Alexa
+    ALEXA_DISPLAY_CARD(VoiceRecognitionSearchType.GLOBAL),                          // Alexa Display Card
     ALEXA_SETTING(VoiceRecognitionSearchType.GLOBAL),                               // Alexa Setting
     ALEXA_SPLASH(VoiceRecognitionSearchType.GLOBAL),                               	// Alexa Splash
     ALEXA_EXAMPLE_USAGE(VoiceRecognitionSearchType.GLOBAL),                         // Alexa Example Usage
@@ -282,6 +283,7 @@ public enum ScreenId {
             case ADAS_WARNING_SETTING:
             case RE_CALIBRATION_NOTIFICATION:
             case ALEXA:
+            case ALEXA_DISPLAY_CARD:
                 return true;
             default:
                 return false;

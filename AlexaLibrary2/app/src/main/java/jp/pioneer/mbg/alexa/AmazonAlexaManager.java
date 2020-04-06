@@ -44,6 +44,7 @@ import jp.pioneer.mbg.alexa.AlexaInterface.directive.SpeechRecognizer.StopCaptur
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.SpeechSynthesizer.SpeakItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.System.ReportSoftwareInfoItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
+import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderTemplateItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.event.System.SoftwareInfoItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.event.System.UserInactivityReportItem;
 import jp.pioneer.mbg.alexa.connection.ConnectionReceiver;
@@ -332,6 +333,11 @@ public class AmazonAlexaManager implements AlexaQueueManager.AlexaQueueCallback,
          * 音楽のTemplateを受信した際にコールバック.
          */
         public void onReceiveRenderPlayerInfo(RenderPlayerInfoItem playerInfoItem);
+
+        /**
+         * 音楽のTemplateを受信した際にコールバック.
+         */
+        public void onReceiveRenderTemplate(RenderTemplateItem templateItem);
 
         /**
          * 音楽再生準備開始
@@ -1380,6 +1386,23 @@ public class AmazonAlexaManager implements AlexaQueueManager.AlexaQueueCallback,
                         if (mAlexaCallbackList != null) {
                             for (int i = 0; i < mAlexaCallbackList.size(); ++i) {
                                 mAlexaCallbackList.get(i).onSetNaviDestination(setDestinationItem.latitude, setDestinationItem.longitude, setDestinationItem.destinationName);
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        else if(directive instanceof RenderTemplateItem){
+            // 通常系ディスプレイカード
+            final RenderTemplateItem renderTemplateItem = (RenderTemplateItem) directive;
+            if (DBG) android.util.Log.d(TAG, "RenderTemplateItem()");
+            if(mHandler != null){
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mAlexaCallbackList != null) {
+                            for (int i = 0; i < mAlexaCallbackList.size(); ++i) {
+                                mAlexaCallbackList.get(i).onReceiveRenderTemplate(renderTemplateItem);
                             }
                         }
                     }

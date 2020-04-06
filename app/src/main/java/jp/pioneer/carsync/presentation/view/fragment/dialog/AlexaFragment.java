@@ -35,6 +35,7 @@ import jp.pioneer.carsync.presentation.view.AlexaView;
 import jp.pioneer.mbg.alexa.AlexaInterface.AlexaIfDirectiveItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.SpeechSynthesizer.SpeakItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
+import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderTemplateItem;
 import jp.pioneer.mbg.alexa.AmazonAlexaManager;
 import jp.pioneer.mbg.alexa.CustomVoiceChromeView;
 import jp.pioneer.mbg.alexa.manager.AlexaQueueManager;
@@ -89,6 +90,7 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
     public static AlexaFragment newInstance(android.support.v4.app.Fragment target, Bundle args) {
         AlexaFragment fragment = new AlexaFragment();
         fragment.setTargetFragment(target, 0);
+        fragment.setCancelable(false);
         fragment.setArguments(args);
         return fragment;
     }
@@ -97,18 +99,6 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = new Dialog(getActivity(), R.style.BehindScreenStyle);
-        dialog.setCancelable(false);
-        dialog.setOnKeyListener((dialog1, keyCode, event) -> {
-            if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-                if (getCallback() != null) {
-                    getCallback().onClose(this);
-                } else {
-                    this.dismiss();
-                }
-                return true;
-            }
-            return false;
-        });
         return dialog;
     }
 
@@ -440,6 +430,12 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
             mCommunicationLayoutHandler.defaultVoiceChromeStatus();
             getPresenter().setPlayInfo(playerInfoItem);
             isAudioPlay = true;
+        }
+
+        @Override
+        public void onReceiveRenderTemplate(RenderTemplateItem templateItem) {
+            Timber.d("onReceiveRenderTemplate");
+            getPresenter().showDisplayCard(templateItem);
         }
 
         @Override

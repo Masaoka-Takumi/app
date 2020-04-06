@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/body_template2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/alexa_start_button_group"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="fitCenter"
+            android:src="@android:color/darker_gray"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/text_field"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="@dimen/navigate_bar_back_button_width"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:alpha="0.75"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:maxLines="6"
+            android:text="Display Card"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image"
+            app:layout_constraintVertical_bias="0.5"
+            autofit:minTextSize="@dimen/min_text_size_12" />
+    </android.support.constraint.ConstraintLayout>
+
+    <jp.pioneer.mbg.alexa.CustomVoiceChromeView
+        android:id="@+id/alexa_voice_chrome_large"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/alexa_screen_voice_chrome_height"
+        android:layout_marginBottom="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/alexa_start_button_group"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/alexa_start_button_group"
+        android:layout_width="@dimen/alexa_screen_start_button_group_width"
+        android:layout_height="@dimen/alexa_screen_start_button_group_width"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <ImageView
+            android:id="@+id/alexa_start_button"
+            android:layout_width="@dimen/alexa_screen_start_button_width"
+            android:layout_height="@dimen/alexa_screen_start_button_width"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p1610_alexa_start" />
+
+        <ImageView
+            android:id="@+id/alexa_notification_circle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/p1611_alexa_notification"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/close_button"
+        android:layout_width="@dimen/navigate_bar_back_button_width"
+        android:layout_height="@dimen/navigate_bar_back_button_width"
+        android:clickable="true"
+        android:focusable="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/p0001_closebtn_1nrm"
+        android:tint="@android:color/black"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

@@ -29,6 +29,7 @@ import jp.pioneer.carsync.presentation.event.SourceChangeReasonEvent;
 import jp.pioneer.carsync.presentation.view.AlexaView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
+import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderTemplateItem;
 
 /**
  * AlexaPresenter
@@ -77,6 +78,12 @@ public class AlexaPresenter extends Presenter<AlexaView> {
     public void setPlayInfo(RenderPlayerInfoItem playerInfoItem){
         AppStatus appStatus = mGetCase.execute().getAppStatus();
         appStatus.playerInfoItem = playerInfoItem;
+    }
+
+    public void showDisplayCard(RenderTemplateItem item){
+        AppStatus appStatus = mGetCase.execute().getAppStatus();
+        appStatus.renderTemplateItem = item;
+        mEventBus.post(new NavigateEvent(ScreenId.ALEXA_DISPLAY_CARD, Bundle.EMPTY));
     }
 
     public void changePreviousSource(){

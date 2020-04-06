@@ -87,6 +87,7 @@ import jp.pioneer.carsync.presentation.view.fragment.screen.player.PlayerContain
 import jp.pioneer.carsync.presentation.view.widget.AdasView;
 import jp.pioneer.carsync.presentation.view.widget.CustomSurfaceView;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
+import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderTemplateItem;
 import jp.pioneer.mbg.alexa.AlexaLoginManager;
 import jp.pioneer.mbg.alexa.AmazonAlexaManager;
 import jp.pioneer.mbg.alexa.manager.AlexaQueueManager;
@@ -1962,6 +1963,11 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
 
         @Override
         public void onReceiveRenderPlayerInfo(RenderPlayerInfoItem playerInfoItem) {
+
+        }
+
+        @Override
+        public void onReceiveRenderTemplate(RenderTemplateItem templateItem) {
 
         }
 
