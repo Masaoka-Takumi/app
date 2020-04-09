@@ -16,7 +16,6 @@ import jp.pioneer.carsync.domain.model.AppStatus;
 import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.ShortcutKey;
 import jp.pioneer.carsync.presentation.view.AlexaDisplayCardView;
-import jp.pioneer.carsync.presentation.view.AlexaView;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderTemplateItem;
 import timber.log.Timber;
 
@@ -37,17 +36,22 @@ public class AlexaDisplayCardPresenter extends Presenter<AlexaDisplayCardView> {
     }
 
     @Override
-    void onResume() {
-        Timber.d("onResume");
-        if (!mEventBus.isRegistered(this)) {
-            mEventBus.register(this);
-        }
+    void onTakeView() {
+        Timber.d("onTakeView");
         AppStatus appStatus = mGetCase.execute().getAppStatus();
         appStatus.isShowAlexaDisplayCardDialog = true;
         RenderTemplateItem item = appStatus.renderTemplateItem;
         Optional.ofNullable(getView()).ifPresent(view -> {
             view.setTemplate(item);
         });
+    }
+
+    @Override
+    void onResume() {
+        Timber.d("onResume");
+        if (!mEventBus.isRegistered(this)) {
+            mEventBus.register(this);
+        }
     }
 
     @Override
@@ -80,7 +84,9 @@ public class AlexaDisplayCardPresenter extends Presenter<AlexaDisplayCardView> {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMediaSourceTypeChangeEvent(MediaSourceTypeChangeEvent event) {
+
         MediaSourceType currentSourceType = mGetCase.execute().getCarDeviceStatus().sourceType;
+        Timber.d("onMediaSourceTypeChangeEvent:currentSourceType="+currentSourceType);
         if (currentSourceType != MediaSourceType.APP_MUSIC) {
             Optional.ofNullable(getView()).ifPresent(AlexaDisplayCardView::callbackClose);
         }

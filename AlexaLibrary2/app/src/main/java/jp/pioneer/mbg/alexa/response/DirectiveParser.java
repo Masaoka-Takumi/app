@@ -652,11 +652,20 @@ public class DirectiveParser {
                                 if (listItemObject.has("rightTextField")) {
                                     rightTextField = listItemObject.getString("rightTextField");
                                 }
-
+                                //LocalSearchListTemplate1
+                                String rightPrimaryTextField = null;
+                                if (listItemObject.has("rightPrimaryTextField")) {
+                                    rightPrimaryTextField = listItemObject.getString("rightPrimaryTextField");
+                                }
+                                String rightSecondaryTextField = null;
+                                if (listItemObject.has("rightSecondaryTextField")) {
+                                    rightSecondaryTextField = listItemObject.getString("rightSecondaryTextField");
+                                }
                                 AlexaIfDirectiveItem.ListItem listItem = new AlexaIfDirectiveItem.ListItem();
                                 listItem.setLeftTextField(leftTextField);
                                 listItem.setRightTextField(rightTextField);
-
+                                listItem.setRightPrimaryTextField(rightPrimaryTextField);
+                                listItem.setRightSecondaryTextField(rightSecondaryTextField);
                                 listItems.add(listItem);
                             }
                         }
@@ -913,6 +922,7 @@ public class DirectiveParser {
                                 result = new RenderTemplateItem(messageId, dialogRequestId, token, type, title, skillIcon, textField, image);
                                 break;
                             case "ListTemplate1":
+                            case "LocalSearchListTemplate1":
                                 result = new RenderTemplateItem(messageId, dialogRequestId, token, type, title, skillIcon, listItems);
                                 break;
                             case "WeatherTemplate":

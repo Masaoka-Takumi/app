@@ -548,7 +548,9 @@ public class AlexaIfDirectiveItem extends AlexaIfItem {
     public static class ListItem {
         public String leftTextField;
         public String rightTextField;
-
+        //LocalSearchListTemplate1
+        public String rightPrimaryTextField;
+        public String rightSecondaryTextField;
         public void setLeftTextField(String leftTextField) {
             this.leftTextField = leftTextField;
         }
@@ -563,6 +565,22 @@ public class AlexaIfDirectiveItem extends AlexaIfItem {
 
         public String getRightTextField() {
             return rightTextField;
+        }
+
+        public String getRightPrimaryTextField() {
+            return rightPrimaryTextField;
+        }
+
+        public void setRightPrimaryTextField(String rightPrimaryTextField) {
+            this.rightPrimaryTextField = rightPrimaryTextField;
+        }
+
+        public String getRightSecondaryTextField() {
+            return rightSecondaryTextField;
+        }
+
+        public void setRightSecondaryTextField(String rightSecondaryTextField) {
+            this.rightSecondaryTextField = rightSecondaryTextField;
         }
     }
 

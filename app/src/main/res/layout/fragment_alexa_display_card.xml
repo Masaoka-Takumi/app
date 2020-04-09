@@ -17,7 +17,7 @@
         android:id="@+id/body_template2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/alexa_start_button_group"
+        app:layout_constraintBottom_toTopOf="@+id/alexa_voice_chrome_large"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -56,7 +56,25 @@
             app:layout_constraintVertical_bias="0.5"
             autofit:minTextSize="@dimen/min_text_size_12" />
     </android.support.constraint.ConstraintLayout>
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/list_template1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/alexa_voice_chrome_large"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <ListView
+                android:id="@+id/list_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
 
+            </ListView>
+        </android.support.constraint.ConstraintLayout>
     <jp.pioneer.mbg.alexa.CustomVoiceChromeView
         android:id="@+id/alexa_voice_chrome_large"
         android:layout_width="0dp"

@@ -1,5 +1,7 @@
 package jp.pioneer.carsync.presentation.view.fragment.dialog;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -10,6 +12,7 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.PermissionChecker;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -36,14 +40,13 @@ import jp.pioneer.carsync.presentation.presenter.AlexaDisplayCardPresenter;
 import jp.pioneer.carsync.presentation.view.AlexaDisplayCardView;
 
 import jp.pioneer.carsync.presentation.view.activity.MainActivity;
+import jp.pioneer.carsync.presentation.view.adapter.AlexaListTemplateAdapter;
 import jp.pioneer.mbg.alexa.AlexaInterface.AlexaIfDirectiveItem;
-import jp.pioneer.mbg.alexa.AlexaInterface.directive.AudioPlayer.PlayItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.SpeechSynthesizer.SpeakItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderTemplateItem;
 import jp.pioneer.mbg.alexa.AmazonAlexaManager;
 import jp.pioneer.mbg.alexa.CustomVoiceChromeView;
-import jp.pioneer.mbg.alexa.manager.AlexaAudioManager;
 import jp.pioneer.mbg.alexa.manager.AlexaQueueManager;
 import jp.pioneer.mbg.alexa.manager.AlexaSpeakManager;
 import timber.log.Timber;
@@ -74,13 +77,21 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
     ImageView mImage;
     @BindView(R.id.body_template2)
     ConstraintLayout mBodyTemplate2;
+    @BindView(R.id.list_template1)
+    ConstraintLayout mListTemplate1;
+    @BindView(R.id.list_view)
+    ListView mListView;
     private Unbinder mUnbinder;
     /**
      * Alexaマネージャ.
      */
     AmazonAlexaManager mAmazonAlexaManager;
     private AlexaCallback mAlexaCallback = new AlexaCallback();
-
+    private AlexaDisplayCallback mAlexaDisplayCallback = new AlexaDisplayCallback();
+    private AlexaListTemplateAdapter mAdapter;
+    private boolean isPersistIndicator = false;
+    private boolean isSpeaking = false;
+    private boolean isExpectSpeech = false;
     private Handler mHandler = new Handler(Looper.getMainLooper());
     private Runnable mRunnable = new Runnable() {
         @Override
@@ -137,6 +148,7 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
 
     @Override
     public void callbackClose() {
+        Timber.d("callbackClose");
         AlphaAnimation animation = new AlphaAnimation(1, 0);
         animation.setDuration(500);
         animation.setAnimationListener(new Animation.AnimationListener() {
@@ -177,23 +189,50 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
     @Override
     public void onStart() {
         super.onStart();
+        Timber.d("onStart");
+        isSpeaking = false;
+        isPersistIndicator = false;
+        isExpectSpeech =false;
         mAmazonAlexaManager = AmazonAlexaManager.getInstance();
         if (mAmazonAlexaManager != null) {
             mAmazonAlexaManager.addAlexaCallback(mAlexaCallback);
+            mAmazonAlexaManager.isShowAlexaDisplayCardDialog = true;
+            mAmazonAlexaManager.addAlexaDisplayCallback(mAlexaDisplayCallback);
+        }
+        mVoiceChrome.setVisibility(View.VISIBLE);
+        if (AlexaSpeakManager.getInstance().getAlexaPlayer() != null) {
+            if(AlexaSpeakManager.getInstance().getAlexaPlayer().isPlaying()){
+                isSpeaking = true;
+                defaultVoiceChromeStatus();
+            }
         }
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        Timber.d("onStop");
         if (mAmazonAlexaManager != null) {
             mAmazonAlexaManager.removeAlexaCallback(mAlexaCallback);
+            mAmazonAlexaManager.isShowAlexaDisplayCardDialog = false;
+            mAmazonAlexaManager.removeAlexaDisplayCallback();
         }
         mHandler.removeCallbacks(mRunnable);
     }
 
     @OnClick(R.id.alexa_start_button)
     public void onClickAlexaBtn() {
+        mHandler.removeCallbacks(mRunnable);
+        if(AmazonAlexaManager.isAlexaUnavailable){
+            //Alexa Service Unavailable
+            mVoiceChrome.setVoiceChromeType(CustomVoiceChromeView.VoiceChromeType.SYSTEM_ERROR);
+            return;
+        }
+        if (!AmazonAlexaManager.mIsAlexaConnection) {
+            //システムエラー(Alexaに接続されていない)
+            mVoiceChrome.setVoiceChromeType(CustomVoiceChromeView.VoiceChromeType.SYSTEM_ERROR);
+            return;
+        }
         getPresenter().startAlexa();
     }
 
@@ -229,6 +268,8 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
                 setBodyTemplate2(renderTemplateItem);
                 break;
             case "ListTemplate1":
+            case "LocalSearchListTemplate1":
+                setListTemplate1(renderTemplateItem);
                 break;
             case "WeatherTemplate":
                 break;
@@ -239,6 +280,8 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
     }
 
     private void setBodyTemplate2(final RenderTemplateItem renderTemplateItem) {
+        mBodyTemplate2.setVisibility(View.VISIBLE);
+        mListTemplate1.setVisibility(View.GONE);
         mTextField.setText(renderTemplateItem.textField);
         if (renderTemplateItem.image != null) {
             AlexaIfDirectiveItem.Source source = null;
@@ -263,6 +306,16 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
         }
     }
 
+    private void setListTemplate1(final RenderTemplateItem renderTemplateItem) {
+        mBodyTemplate2.setVisibility(View.GONE);
+        mListTemplate1.setVisibility(View.VISIBLE);
+        mAdapter = new AlexaListTemplateAdapter(getContext(),renderTemplateItem.type);
+        mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        mListView.setAdapter(mAdapter);
+        mAdapter.clear();
+        mAdapter.addAll(renderTemplateItem.listItems);
+    }
+
     private void setImage(Uri uri) {
         Glide.with(getContext())
                 .load(uri)
@@ -271,12 +324,71 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
     }
 
     /**
+     * VoiceChromeの状態を戻すメソッド.
+     */
+    private void defaultVoiceChromeStatus() {
+        Timber.d("defaultVoiceChromeStatus");
+        Activity activity = getActivity();
+        if (activity != null) {
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    View rootView = getView();
+                    if (rootView != null) {
+                        if (mVoiceChrome != null) {
+                            if (isSpeaking) {
+                                mVoiceChrome.setVoiceChromeType(CustomVoiceChromeView.VoiceChromeType.SPEAKING);
+                            } else if (!isEnableMicrophonePermission()) {
+                                // マイク使用許可 or マイク搭載なし
+                                mVoiceChrome.setVoiceChromeType(CustomVoiceChromeView.VoiceChromeType.PRIVACY);
+                                callbackClose();
+                            } else if (isPersistIndicator) {
+                                // Notificationあり
+                                mVoiceChrome.setVoiceChromeType(CustomVoiceChromeView.VoiceChromeType.NOTIFICATIONS_QUEUED);
+                            } else {
+                                // IDLE状態
+                                Timber.d("defaultVoiceChromeStatus IDLE");
+                                mVoiceChrome.setVoiceChromeType(CustomVoiceChromeView.VoiceChromeType.IDLE);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+    }
+
+    /**
+     * マイクの権限をチェックするメソッド.
+     *
+     * @return true:許可, false：非許可
+     */
+    private boolean isEnableMicrophonePermission() {
+        int state = PermissionChecker.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO);
+        if (state == PermissionChecker.PERMISSION_GRANTED) {
+            // 許可
+            return true;
+        } else {
+            // 不許可
+            return false;
+        }
+    }
+
+    private class AlexaDisplayCallback implements AmazonAlexaManager.IAlexaDisplayCallback{
+        @Override
+        public void onExpectSpeech() {
+            Timber.d("onExpectSpeech");
+            isExpectSpeech=true;
+            onClickAlexaBtn();
+        }
+    }
+
+    /**
      * アレクサのイベントのコールバックを受けるメソッド.
      */
     private class AlexaCallback implements AmazonAlexaManager.IAlexaCallback {
         @Override
         public void onLoginSuccess() {
-
         }
 
         @Override
@@ -316,7 +428,7 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
 
         @Override
         public void onRecordingStart() {
-
+            Timber.d("onRecordingStart");
         }
 
         @Override
@@ -341,27 +453,38 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
 
         @Override
         public void onSpeakingStart() {
-
+            Timber.d("onSpeakingStart");
+            mHandler.removeCallbacks(mRunnable);
+            isSpeaking = true;
+            // Speaking状態に移行する.
+           defaultVoiceChromeStatus();
         }
 
         @Override
         public void onSpeakingResume() {
-
+            Timber.d("onSpeakingResume");
+            isSpeaking = true;
         }
 
         @Override
         public void onSpeakingPause() {
-
+            Timber.d("onSpeakingPause");
+            isSpeaking = false;
+            isExpectSpeech = false;
         }
 
         @Override
         public void onSpeakingStop() {
-
+            Timber.d("onSpeakingStop");
+            isSpeaking = false;
+            isExpectSpeech = false;
         }
 
         @Override
         public void onSpeakingComplete() {
-
+            Timber.d("onSpeakingComplete");
+            isSpeaking = false;
+            isExpectSpeech = false;
         }
 
         @Override
@@ -497,7 +620,9 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
         @Override
         public void onChannelActiveChange(AlexaQueueManager.AlexaChannel channel, boolean isActive) {
             Timber.d("onChannelChange() - afterChannel = " + channel + "isAvtive = " + isActive);
+            if(isExpectSpeech)return;
             if (!isActive && channel == AlexaQueueManager.AlexaChannel.DialogChannel) {
+                defaultVoiceChromeStatus();
                 mHandler.postDelayed(mRunnable, IDLE_TIME);
             }
         }
