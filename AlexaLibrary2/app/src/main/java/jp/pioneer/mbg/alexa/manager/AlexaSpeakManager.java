@@ -168,6 +168,14 @@ public class AlexaSpeakManager implements IAlexaPlayer.PlaybackCallback {
     }
 
     /**
+     * 再生中のSpeakディレクティブを取得
+     * @return
+     */
+    public SpeakItem getCurrentItem() {
+        return mCurrentItem;
+    }
+
+    /**
      * 直前に再生したSpeakディレクティブを取得
      * @return
      */

@@ -4,8 +4,15 @@
     xmlns:autofit="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
-
+    android:background="@android:color/black">
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
     <android.support.constraint.ConstraintLayout
         android:id="@+id/body_template2"
         android:layout_width="0dp"
@@ -30,7 +37,7 @@
         <me.grantland.widget.AutofitTextView
             android:id="@+id/text_field"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="@dimen/navigate_bar_back_button_width"
             android:layout_marginRight="16dp"
@@ -40,7 +47,7 @@
             android:gravity="center"
             android:maxLines="6"
             android:text="Display Card"
-            android:textColor="@android:color/black"
+            android:textColor="@color/text_color_state"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -94,7 +101,7 @@
         android:focusable="true"
         android:scaleType="fitCenter"
         android:src="@drawable/p0001_closebtn_1nrm"
-        android:tint="@android:color/black"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

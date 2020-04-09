@@ -81,7 +81,7 @@ public class MainFragmentController {
     };
     private static final String TAG_DIALOG_NORMAL = "dialog_normal";
     private static final String[] KEY_DIALOGS = new String[]{
-            TAG_DIALOG_NORMAL, TAG_DIALOG_ALEXA_DISPLAY_CARD, TAG_DIALOG_ALEXA, TAG_DIALOG_CUSTOM_KEY_SETTING,TAG_DIALOG_YOUTUBE_LINK_SEARCH_ITEM,TAG_DIALOG_VOICE_RECOGNIZE_TYPE_SELECT
+            TAG_DIALOG_NORMAL, TAG_DIALOG_CUSTOM_KEY_SETTING,TAG_DIALOG_YOUTUBE_LINK_SEARCH_ITEM,TAG_DIALOG_VOICE_RECOGNIZE_TYPE_SELECT
     };
     @Inject FragmentManager mFragmentManager;
     @IdRes private int mContainerViewId;
@@ -167,22 +167,13 @@ public class MainFragmentController {
         //表示しているダイアログを閉幕
         Fragment dialog;
         for (String key : KEY_DIALOGS) {
-            //ディスプレイカード表示時にAlexa画面は閉じない
-            if(key.equals(TAG_DIALOG_ALEXA)&&screenId==ScreenId.ALEXA_DISPLAY_CARD)continue;
             dialog = mFragmentManager.findFragmentByTag(key);
-            if(dialog instanceof AlexaFragment){
-                ((AlexaFragment) dialog).callbackClose();
-                continue;
-            }
-            if(dialog instanceof AlexaDisplayCardFragment){
-                ((AlexaDisplayCardFragment) dialog).callbackClose();
-                continue;
-            }
             if (dialog instanceof DialogFragment) {
                 ((DialogFragment) dialog).dismiss();
-                //break;
+                break;
             }
         }
+
         // 子View内の画面遷移がある場合、優先的に画面遷移
         Fragment fragment = mFragmentManager.findFragmentById(mContainerViewId);
         if (fragment instanceof OnNavigateListener) {
@@ -256,6 +247,9 @@ public class MainFragmentController {
                 showAlexaDialog(args);
                 return true;
             case ALEXA_DISPLAY_CARD:
+                if(isShowAlexaDisplayCardDialog()) {
+                    dismissAlexaDisplayCardDialog();
+                }
                 showAlexaDisplayCardDialog(args);
                 return true;
             case SELECT_DIALOG:
@@ -355,7 +349,25 @@ public class MainFragmentController {
     }
 
     /**
-     * Alexa DisplayCardダイアログ表示
+     * Alexaダイアログ閉幕
+     */
+    public void dismissAlexaDialog() {
+        Fragment dialog = mFragmentManager.findFragmentByTag(TAG_DIALOG_ALEXA);
+        if (dialog instanceof AlexaFragment) {
+            ((AlexaFragment) dialog).callbackClose();
+        }
+    }
+    /**
+     * Alexaダイアログ表示確認
+     *
+     * @return Alexaダイアログが表示されているか否か
+     */
+    public boolean isShowAlexaDialog() {
+        return (mFragmentManager.findFragmentByTag(TAG_DIALOG_ALEXA) != null);
+    }
+
+    /**
+     * Alexa Display Cardダイアログ表示
      *
      * @param args Bundle 引き継ぎ情報
      */
@@ -364,23 +376,22 @@ public class MainFragmentController {
     }
 
     /**
-     * Alexaダイアログ閉幕
+     * Alexa Display Cardダイアログ閉幕
      */
-    public void dismissAlexaDialog() {
-        Fragment dialog = mFragmentManager.findFragmentByTag(TAG_DIALOG_ALEXA);
-        if (dialog instanceof DialogFragment) {
-            ((DialogFragment) dialog).dismiss();
+    public void dismissAlexaDisplayCardDialog() {
+        Fragment dialog = mFragmentManager.findFragmentByTag(TAG_DIALOG_ALEXA_DISPLAY_CARD);
+        if (dialog instanceof AlexaDisplayCardFragment) {
+            ((AlexaDisplayCardFragment) dialog).callbackClose();
         }
     }
     /**
-     * Alexaダイアログ表示確認
+     * Alexa Display Cardダイアログ表示確認
      *
-     * @return 音声認識結果が表示されているか否か
+     * @return  Alexa Display Cardダイアログが表示されているか否か
      */
-    public boolean isShowAlexaDialog() {
-        return (mFragmentManager.findFragmentByTag(TAG_DIALOG_ALEXA) != null);
+    public boolean isShowAlexaDisplayCardDialog() {
+        return (mFragmentManager.findFragmentByTag(TAG_DIALOG_ALEXA_DISPLAY_CARD) != null);
     }
-
     /**
      * 音声認識ダイアログ表示
      *

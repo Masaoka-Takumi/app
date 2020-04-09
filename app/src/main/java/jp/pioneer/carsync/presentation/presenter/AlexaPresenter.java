@@ -2,6 +2,7 @@ package jp.pioneer.carsync.presentation.presenter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 
 import com.annimon.stream.Optional;
 
@@ -30,6 +31,7 @@ import jp.pioneer.carsync.presentation.view.AlexaView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderTemplateItem;
+import timber.log.Timber;
 
 /**
  * AlexaPresenter
@@ -81,6 +83,7 @@ public class AlexaPresenter extends Presenter<AlexaView> {
     }
 
     public void showDisplayCard(RenderTemplateItem item){
+        Timber.d("showDisplayCard");
         AppStatus appStatus = mGetCase.execute().getAppStatus();
         appStatus.renderTemplateItem = item;
         mEventBus.post(new NavigateEvent(ScreenId.ALEXA_DISPLAY_CARD, Bundle.EMPTY));
@@ -125,4 +128,5 @@ public class AlexaPresenter extends Presenter<AlexaView> {
     public void onAlexaVoiceRecognizeEvent(AlexaVoiceRecognizeEvent event) {
         Optional.ofNullable(getView()).ifPresent(AlexaView::setVoiceCommand);
     }
+
 }

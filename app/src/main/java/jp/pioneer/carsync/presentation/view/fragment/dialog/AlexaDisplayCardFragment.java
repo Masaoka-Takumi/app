@@ -5,6 +5,8 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -13,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,9 +35,17 @@ import jp.pioneer.carsync.application.di.component.FragmentComponent;
 import jp.pioneer.carsync.presentation.presenter.AlexaDisplayCardPresenter;
 import jp.pioneer.carsync.presentation.view.AlexaDisplayCardView;
 
+import jp.pioneer.carsync.presentation.view.activity.MainActivity;
 import jp.pioneer.mbg.alexa.AlexaInterface.AlexaIfDirectiveItem;
+import jp.pioneer.mbg.alexa.AlexaInterface.directive.AudioPlayer.PlayItem;
+import jp.pioneer.mbg.alexa.AlexaInterface.directive.SpeechSynthesizer.SpeakItem;
+import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderTemplateItem;
+import jp.pioneer.mbg.alexa.AmazonAlexaManager;
 import jp.pioneer.mbg.alexa.CustomVoiceChromeView;
+import jp.pioneer.mbg.alexa.manager.AlexaAudioManager;
+import jp.pioneer.mbg.alexa.manager.AlexaQueueManager;
+import jp.pioneer.mbg.alexa.manager.AlexaSpeakManager;
 import timber.log.Timber;
 
 /**
@@ -42,8 +53,11 @@ import timber.log.Timber;
  */
 public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDisplayCardPresenter, AlexaDisplayCardView, AbstractDialogFragment.Callback>
         implements AlexaDisplayCardView {
+    private static final int IDLE_TIME = 2000;
     @Inject
     AlexaDisplayCardPresenter mPresenter;
+    @BindView(R.id.container)
+    ConstraintLayout mContainer;
     @BindView(R.id.alexa_start_button_group)
     RelativeLayout mAlexaBtnGroup;
     @BindView(R.id.alexa_start_button)
@@ -61,6 +75,21 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
     @BindView(R.id.body_template2)
     ConstraintLayout mBodyTemplate2;
     private Unbinder mUnbinder;
+    /**
+     * Alexaマネージャ.
+     */
+    AmazonAlexaManager mAmazonAlexaManager;
+    private AlexaCallback mAlexaCallback = new AlexaCallback();
+
+    private Handler mHandler = new Handler(Looper.getMainLooper());
+    private Runnable mRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (!((MainActivity) getActivity()).isShowAlexaDialog()) {
+                callbackClose();
+            }
+        }
+    };
 
     /**
      * コンストラクタ
@@ -108,10 +137,28 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
 
     @Override
     public void callbackClose() {
-        if (getCallback() != null) {
-            getCallback().onClose(this);
-        }
-        this.dismiss();
+        AlphaAnimation animation = new AlphaAnimation(1, 0);
+        animation.setDuration(500);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (getCallback() != null) {
+                    getCallback().onClose(AlexaDisplayCardFragment.this);
+                }
+                AlexaDisplayCardFragment.this.dismiss();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        mContainer.startAnimation(animation);
     }
 
     @Override
@@ -127,6 +174,24 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
         mUnbinder.unbind();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAmazonAlexaManager = AmazonAlexaManager.getInstance();
+        if (mAmazonAlexaManager != null) {
+            mAmazonAlexaManager.addAlexaCallback(mAlexaCallback);
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAmazonAlexaManager != null) {
+            mAmazonAlexaManager.removeAlexaCallback(mAlexaCallback);
+        }
+        mHandler.removeCallbacks(mRunnable);
+    }
+
     @OnClick(R.id.alexa_start_button)
     public void onClickAlexaBtn() {
         getPresenter().startAlexa();
@@ -134,24 +199,43 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
 
     @OnClick(R.id.close_button)
     public void onClickDismissBtn() {
-        callbackClose();
+        ((MainActivity) getActivity()).dismissAlexaDialog();
+        getPresenter().dismissDialog();
     }
 
     @Override
     public void setTemplate(final RenderTemplateItem renderTemplateItem) {
+        if (renderTemplateItem == null) return;
         Timber.d("setTemplate:type=" + renderTemplateItem.type);
+        AlexaSpeakManager alexaSpeakManager = AlexaSpeakManager.getInstance();
+        SpeakItem currentItem = alexaSpeakManager.getCurrentItem();
+        if (currentItem != null) {
+            String currentItemId = currentItem.getDialogRequestId();
+            String renderItemId = renderTemplateItem.getDialogRequestId();
+            if (!currentItemId.equals(renderItemId)) {
+                // DialogRequestIdが不一致
+                Timber.d("setTemplate:DialogRequestId is not equal " + renderTemplateItem.messageId);
+                callbackClose();
+                return;
+            }
+        } else {
+            Timber.d("setTemplate:currentItemId is null ");
+            callbackClose();
+            return;
+        }
+
         switch (renderTemplateItem.type) {
             case "BodyTemplate2":
                 setBodyTemplate2(renderTemplateItem);
-                AlphaAnimation animation = new AlphaAnimation(0, 1);
-                animation.setDuration(1000);
-                mBodyTemplate2.startAnimation(animation);
                 break;
             case "ListTemplate1":
                 break;
             case "WeatherTemplate":
                 break;
         }
+        AlphaAnimation animation = new AlphaAnimation(0, 1);
+        animation.setDuration(500);
+        mContainer.startAnimation(animation);
     }
 
     private void setBodyTemplate2(final RenderTemplateItem renderTemplateItem) {
@@ -184,5 +268,268 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
                 .load(uri)
                 .error(R.drawable.p0070_noimage)
                 .into(mImage);
+    }
+
+    /**
+     * アレクサのイベントのコールバックを受けるメソッド.
+     */
+    private class AlexaCallback implements AmazonAlexaManager.IAlexaCallback {
+        @Override
+        public void onLoginSuccess() {
+
+        }
+
+        @Override
+        public void onLoginFailed() {
+
+        }
+
+        @Override
+        public void onLogout() {
+
+        }
+
+        @Override
+        public void onCapabilitiesSendSuccess() {
+
+        }
+
+        @Override
+        public void onConnect() {
+
+        }
+
+        @Override
+        public void onDisConnect() {
+
+        }
+
+        @Override
+        public void onNetworkConnect() {
+
+        }
+
+        @Override
+        public void onNetworkDisconnect() {
+
+        }
+
+        @Override
+        public void onRecordingStart() {
+
+        }
+
+        @Override
+        public void onRecordingMonitor(double db, int hertz) {
+
+        }
+
+        @Override
+        public void onRecordingStop(boolean isCancel) {
+
+        }
+
+        @Override
+        public void onSpeakingPrepare() {
+
+        }
+
+        @Override
+        public void onSpeakingPrepared() {
+
+        }
+
+        @Override
+        public void onSpeakingStart() {
+
+        }
+
+        @Override
+        public void onSpeakingResume() {
+
+        }
+
+        @Override
+        public void onSpeakingPause() {
+
+        }
+
+        @Override
+        public void onSpeakingStop() {
+
+        }
+
+        @Override
+        public void onSpeakingComplete() {
+
+        }
+
+        @Override
+        public void onReceiveRenderPlayerInfo(RenderPlayerInfoItem playerInfoItem) {
+
+        }
+
+        @Override
+        public void onReceiveRenderTemplate(RenderTemplateItem templateItem) {
+
+        }
+
+        @Override
+        public void onAudioPrepare() {
+
+        }
+
+        @Override
+        public void onAudioPrepared() {
+
+        }
+
+        @Override
+        public void onAudioStart() {
+
+        }
+
+        @Override
+        public void onAudioResume() {
+
+        }
+
+        @Override
+        public void onAudioPause() {
+
+        }
+
+        @Override
+        public void onAudioStop() {
+
+        }
+
+        @Override
+        public void onAudioError() {
+
+        }
+
+        @Override
+        public void onAudioComplete() {
+
+        }
+
+        @Override
+        public void onWLAudioFocusLoss() {
+
+        }
+
+        @Override
+        public void onAudioUpdateProgress(int current, int duration) {
+
+        }
+
+        @Override
+        public void onSystemError() {
+
+        }
+
+        @Override
+        public void onAlertStarted() {
+
+        }
+
+        @Override
+        public void onShortAlertStarted() {
+
+        }
+
+        @Override
+        public void onAlertStopped() {
+
+        }
+
+        @Override
+        public void onSetAlert() {
+
+        }
+
+        @Override
+        public void onStopAlertAll() {
+
+        }
+
+        @Override
+        public void onPersistVisualIndicator() {
+
+        }
+
+        @Override
+        public void onClearVisualIndicator() {
+
+        }
+
+        @Override
+        public void onAudioIndicatorStarted() {
+
+        }
+
+        @Override
+        public void onAudioIndicatorStopped() {
+
+        }
+
+        @Override
+        public void onSetVolume(float volume) {
+
+        }
+
+        @Override
+        public void onAdjustVolume(float volume) {
+
+        }
+
+        @Override
+        public void onSetMute(boolean isMute) {
+
+        }
+
+        @Override
+        public void onNoResponse() {
+
+        }
+
+        @Override
+        public void onChannelActiveChange(AlexaQueueManager.AlexaChannel channel, boolean isActive) {
+            Timber.d("onChannelChange() - afterChannel = " + channel + "isAvtive = " + isActive);
+            if (!isActive && channel == AlexaQueueManager.AlexaChannel.DialogChannel) {
+                mHandler.postDelayed(mRunnable, IDLE_TIME);
+            }
+        }
+
+        @Override
+        public void onMicrophonePermission(int state) {
+
+        }
+
+        @Override
+        public void onNoDirectiveAtSendEventResponse() {
+
+        }
+
+        @Override
+        public void onDecodeStart() {
+
+        }
+
+        @Override
+        public void onDecodeFinish() {
+
+        }
+
+        @Override
+        public void onSetNaviDestination(Double latitude, Double longitude, String name) {
+
+        }
+
+        @Override
+        public void onRecordingNotAvailable() {
+
+        }
     }
 }

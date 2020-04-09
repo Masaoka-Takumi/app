@@ -96,6 +96,8 @@ public class AppStatus {
     public boolean alexaNotification;
     /** Alexa画面表示中 */
     public boolean isShowAlexaDialog;
+    /** AlexaDisplayCard画面表示中 */
+    public boolean isShowAlexaDisplayCardDialog;
     /** Alexa画面表示前のソース */
     public MediaSourceType alexaPreviousSourceType;
     /** Alexa対応国 */
@@ -164,6 +166,7 @@ public class AppStatus {
         renderTemplateItem = null;
         alexaNotification = false;
         isShowAlexaDialog = false;
+        isShowAlexaDisplayCardDialog = false;
         isShowSpeechRecognizerDialog = false;
         alexaAudioPlayPosition = 0;
         alexaAudioPlayDuration = 0;
