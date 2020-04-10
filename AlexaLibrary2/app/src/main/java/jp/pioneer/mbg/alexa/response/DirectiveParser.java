@@ -661,11 +661,44 @@ public class DirectiveParser {
                                 if (listItemObject.has("rightSecondaryTextField")) {
                                     rightSecondaryTextField = listItemObject.getString("rightSecondaryTextField");
                                 }
+                                JSONArray actionArray = null;
+                                SetDestinationItem setDestinationItem = null;
+                                if (listItemObject.has("onClickAction")) {
+                                    actionArray = listItemObject.getJSONArray("onClickAction");
+                                    //とりあえず1番目のみ
+                                    JSONObject actionObject = actionArray.getJSONObject(0);
+                                    if (actionObject.has(Constant.JSON_PARAM_DIRECTIVE)) {
+                                        JSONObject directive = actionObject.getJSONObject(Constant.JSON_PARAM_DIRECTIVE);
+                                        if (directive.has(Constant.JSON_EVENT_PAYLOAD)) {
+                                            JSONObject actionPayload = directive.getJSONObject(Constant.JSON_EVENT_PAYLOAD);
+                                            Double latitude = null;
+                                            Double longitude = null;
+                                            String name = null;
+                                            if (payload != null && actionPayload.has("destination")) {
+                                                JSONObject destinationObject = actionPayload.getJSONObject("destination");
+                                                if (destinationObject.has("coordinate")) {
+                                                    JSONObject streamObject = destinationObject.getJSONObject("coordinate");
+                                                    if (streamObject.has("latitudeInDegrees")) {
+                                                        latitude = streamObject.getDouble("latitudeInDegrees");
+                                                    }
+                                                    if (streamObject.has("longitudeInDegrees")) {
+                                                        longitude = streamObject.getDouble("longitudeInDegrees");
+                                                    }
+                                                }
+                                                if (destinationObject.has("name")) {
+                                                    name = destinationObject.getString("name");
+                                                }
+                                            }
+                                            setDestinationItem = new SetDestinationItem(messageId, latitude, longitude, name);
+                                        }
+                                    }
+                                }
                                 AlexaIfDirectiveItem.ListItem listItem = new AlexaIfDirectiveItem.ListItem();
                                 listItem.setLeftTextField(leftTextField);
                                 listItem.setRightTextField(rightTextField);
                                 listItem.setRightPrimaryTextField(rightPrimaryTextField);
                                 listItem.setRightSecondaryTextField(rightSecondaryTextField);
+                                listItem.setSetDestinationItem(setDestinationItem);
                                 listItems.add(listItem);
                             }
                         }
@@ -678,8 +711,8 @@ public class DirectiveParser {
                             description = payload.getString("description");
                         }
                         AlexaIfDirectiveItem.ImageStructure currentWeatherIcon = new AlexaIfDirectiveItem.ImageStructure();
-                        if (payload != null && payload.has("art")) {
-                            JSONObject artObject = payload.getJSONObject("art");
+                        if (payload != null && payload.has("currentWeatherIcon")) {
+                            JSONObject artObject = payload.getJSONObject("currentWeatherIcon");
                             String contentDescription = null;
                             if (artObject.has("contentDescription")) {
                                 contentDescription = artObject.getString("contentDescription");
@@ -918,14 +951,14 @@ public class DirectiveParser {
                         }
 
                         switch (type){
-                            case "BodyTemplate2":
+                            case Constant.TEMPLATE_TYPE_BODY_TEMPLATE2:
                                 result = new RenderTemplateItem(messageId, dialogRequestId, token, type, title, skillIcon, textField, image);
                                 break;
-                            case "ListTemplate1":
-                            case "LocalSearchListTemplate1":
+                            case Constant.TEMPLATE_TYPE_LIST_TEMPLATE1:
+                            case Constant.TEMPLATE_TYPE_LOCAL_SEARCH_LIST_TEMPLATE1:
                                 result = new RenderTemplateItem(messageId, dialogRequestId, token, type, title, skillIcon, listItems);
                                 break;
-                            case "WeatherTemplate":
+                            case Constant.TEMPLATE_TYPE_WEATHER_TEMPLATE:
                                 result = new RenderTemplateItem(messageId, dialogRequestId, token, type, title, skillIcon, currentWeather, description, currentWeatherIcon, highTemperature, lowTemperature, weatherForecast);
                                 break;
                         }

@@ -2,6 +2,8 @@ package jp.pioneer.mbg.alexa.AlexaInterface;
 
 import java.util.List;
 
+import jp.pioneer.mbg.alexa.AlexaInterface.directive.Navigation.SetDestinationItem;
+
 public class AlexaIfDirectiveItem extends AlexaIfItem {
     public AlexaIfDirectiveItem(){
         super();
@@ -551,6 +553,7 @@ public class AlexaIfDirectiveItem extends AlexaIfItem {
         //LocalSearchListTemplate1
         public String rightPrimaryTextField;
         public String rightSecondaryTextField;
+        SetDestinationItem setDestinationItem;
         public void setLeftTextField(String leftTextField) {
             this.leftTextField = leftTextField;
         }
@@ -581,6 +584,14 @@ public class AlexaIfDirectiveItem extends AlexaIfItem {
 
         public void setRightSecondaryTextField(String rightSecondaryTextField) {
             this.rightSecondaryTextField = rightSecondaryTextField;
+        }
+
+        public SetDestinationItem getSetDestinationItem() {
+            return setDestinationItem;
+        }
+
+        public void setSetDestinationItem(SetDestinationItem setDestinationItem) {
+            this.setDestinationItem = setDestinationItem;
         }
     }
 

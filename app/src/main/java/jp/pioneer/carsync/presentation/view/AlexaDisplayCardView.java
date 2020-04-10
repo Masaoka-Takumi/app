@@ -7,6 +7,6 @@ public interface AlexaDisplayCardView {
      * ダイアログ終了
      */
     void callbackClose();
-
+    void closeDialogWithAnimation();
     void setTemplate(final RenderTemplateItem renderTemplateItem);
 }

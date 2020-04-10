@@ -19,7 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -42,6 +44,7 @@ import jp.pioneer.carsync.presentation.view.AlexaDisplayCardView;
 import jp.pioneer.carsync.presentation.view.activity.MainActivity;
 import jp.pioneer.carsync.presentation.view.adapter.AlexaListTemplateAdapter;
 import jp.pioneer.mbg.alexa.AlexaInterface.AlexaIfDirectiveItem;
+import jp.pioneer.mbg.alexa.AlexaInterface.directive.Navigation.SetDestinationItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.SpeechSynthesizer.SpeakItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderTemplateItem;
@@ -49,6 +52,7 @@ import jp.pioneer.mbg.alexa.AmazonAlexaManager;
 import jp.pioneer.mbg.alexa.CustomVoiceChromeView;
 import jp.pioneer.mbg.alexa.manager.AlexaQueueManager;
 import jp.pioneer.mbg.alexa.manager.AlexaSpeakManager;
+import jp.pioneer.mbg.alexa.util.Constant;
 import timber.log.Timber;
 
 /**
@@ -69,18 +73,50 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
     ImageView mAlexaNotification;
     @BindView(R.id.alexa_voice_chrome_large)
     CustomVoiceChromeView mVoiceChrome;
-    @BindView(R.id.text_field)
-    TextView mTextField;
     @BindView(R.id.close_button)
     ImageView mCloseBtn;
-    @BindView(R.id.image)
-    ImageView mImage;
     @BindView(R.id.body_template2)
     ConstraintLayout mBodyTemplate2;
+    @BindView(R.id.body_main_Title)
+    TextView mBodyMainTitle;
+    @BindView(R.id.body_sub_Title)
+    TextView mBodySubTitle;
+    @BindView(R.id.text_field)
+    TextView mTextField;
+    @BindView(R.id.image)
+    ImageView mImage;
+    @BindView(R.id.body_skill_icon)
+    ImageView mBodySkillIcon;
     @BindView(R.id.list_template1)
     ConstraintLayout mListTemplate1;
+    @BindView(R.id.list_main_Title)
+    TextView mListMainTitle;
+    @BindView(R.id.list_sub_Title)
+    TextView mListSubTitle;
     @BindView(R.id.list_view)
     ListView mListView;
+    @BindView(R.id.list_skill_icon)
+    ImageView mListSkillIcon;
+    @BindView(R.id.weather_template)
+    ConstraintLayout mWeatherTemplate;
+    @BindView(R.id.weather_main_Title)
+    TextView mWeatherMainTitle;
+    @BindView(R.id.weather_sub_Title)
+    TextView mWeatherSubTitle;
+    @BindView(R.id.current_weather_icon)
+    ImageView mCurrentWeatherIcon;
+    @BindView(R.id.current_weather_text)
+    TextView mCurrentWeatherText;
+    @BindView(R.id.high_arrow)
+    ImageView mHighArrow;
+    @BindView(R.id.high_temperature)
+    TextView mHighTemperature;
+    @BindView(R.id.low_arrow)
+    ImageView mLowArrow;
+    @BindView(R.id.low_temperature)
+    TextView mLowTemperature;
+    @BindView(R.id.weather_forecast)
+    LinearLayout mWeatherForecastLayout;
     private Unbinder mUnbinder;
     /**
      * Alexaマネージャ.
@@ -97,7 +133,7 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
         @Override
         public void run() {
             if (!((MainActivity) getActivity()).isShowAlexaDialog()) {
-                callbackClose();
+                closeDialogWithAnimation();
             }
         }
     };
@@ -149,6 +185,13 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
     @Override
     public void callbackClose() {
         Timber.d("callbackClose");
+        if (getCallback() != null) {
+            getCallback().onClose(AlexaDisplayCardFragment.this);
+        }
+        AlexaDisplayCardFragment.this.dismiss();
+    }
+    @Override
+    public void closeDialogWithAnimation(){
         AlphaAnimation animation = new AlphaAnimation(1, 0);
         animation.setDuration(500);
         animation.setAnimationListener(new Animation.AnimationListener() {
@@ -159,10 +202,7 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if (getCallback() != null) {
-                    getCallback().onClose(AlexaDisplayCardFragment.this);
-                }
-                AlexaDisplayCardFragment.this.dismiss();
+                callbackClose();
             }
 
             @Override
@@ -172,7 +212,6 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
         });
         mContainer.startAnimation(animation);
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_alexa_display_card, container, false);
@@ -192,7 +231,7 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
         Timber.d("onStart");
         isSpeaking = false;
         isPersistIndicator = false;
-        isExpectSpeech =false;
+        isExpectSpeech = false;
         mAmazonAlexaManager = AmazonAlexaManager.getInstance();
         if (mAmazonAlexaManager != null) {
             mAmazonAlexaManager.addAlexaCallback(mAlexaCallback);
@@ -201,7 +240,7 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
         }
         mVoiceChrome.setVisibility(View.VISIBLE);
         if (AlexaSpeakManager.getInstance().getAlexaPlayer() != null) {
-            if(AlexaSpeakManager.getInstance().getAlexaPlayer().isPlaying()){
+            if (AlexaSpeakManager.getInstance().getAlexaPlayer().isPlaying()) {
                 isSpeaking = true;
                 defaultVoiceChromeStatus();
             }
@@ -223,7 +262,7 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
     @OnClick(R.id.alexa_start_button)
     public void onClickAlexaBtn() {
         mHandler.removeCallbacks(mRunnable);
-        if(AmazonAlexaManager.isAlexaUnavailable){
+        if (AmazonAlexaManager.isAlexaUnavailable) {
             //Alexa Service Unavailable
             mVoiceChrome.setVoiceChromeType(CustomVoiceChromeView.VoiceChromeType.SYSTEM_ERROR);
             return;
@@ -264,14 +303,15 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
         }
 
         switch (renderTemplateItem.type) {
-            case "BodyTemplate2":
+            case Constant.TEMPLATE_TYPE_BODY_TEMPLATE2:
                 setBodyTemplate2(renderTemplateItem);
                 break;
-            case "ListTemplate1":
-            case "LocalSearchListTemplate1":
+            case Constant.TEMPLATE_TYPE_LIST_TEMPLATE1:
+            case Constant.TEMPLATE_TYPE_LOCAL_SEARCH_LIST_TEMPLATE1:
                 setListTemplate1(renderTemplateItem);
                 break;
-            case "WeatherTemplate":
+            case Constant.TEMPLATE_TYPE_WEATHER_TEMPLATE:
+                setWeatherTemplate(renderTemplateItem);
                 break;
         }
         AlphaAnimation animation = new AlphaAnimation(0, 1);
@@ -282,25 +322,37 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
     private void setBodyTemplate2(final RenderTemplateItem renderTemplateItem) {
         mBodyTemplate2.setVisibility(View.VISIBLE);
         mListTemplate1.setVisibility(View.GONE);
+        mWeatherTemplate.setVisibility(View.GONE);
+        mBodyMainTitle.setText(renderTemplateItem.title.mainTitle);
+        mBodySubTitle.setText(renderTemplateItem.title.subTitle);
         mTextField.setText(renderTemplateItem.textField);
         if (renderTemplateItem.image != null) {
-            AlexaIfDirectiveItem.Source source = null;
             AlexaIfDirectiveItem.ImageStructure imageStructure = renderTemplateItem.image;
-            List<AlexaIfDirectiveItem.Source> sources = imageStructure.getSources();
-            if (sources != null && sources.size() > 0) {
-                //small→...→x-largeと仮定して、Listの最後の画像(Large)を取得
-                int logoSize = sources.size() - 1;
-                source = sources.get(logoSize);
-            }
+            AlexaIfDirectiveItem.Source source = getSourceImage(imageStructure);
             String imageUrl = null;
             if (source != null) {
                 imageUrl = source.getUrl();
             }
             if (mImage != null) {
                 if (imageUrl != null) {
-                    setImage(Uri.parse(imageUrl));
+                    setImage(mImage, Uri.parse(imageUrl));
                 } else {
-                    setImage(null);
+                    setImage(mImage, null);
+                }
+            }
+        }
+        if (renderTemplateItem.skillIcon != null) {
+            AlexaIfDirectiveItem.ImageStructure imageStructure = renderTemplateItem.skillIcon;
+            AlexaIfDirectiveItem.Source source = getSourceImage(imageStructure);
+            String imageUrl = null;
+            if (source != null) {
+                imageUrl = source.getUrl();
+            }
+            if (mBodySkillIcon != null) {
+                if (imageUrl != null) {
+                    setImageNoBox(mBodySkillIcon, Uri.parse(imageUrl));
+                } else {
+                    setImageNoBox(mBodySkillIcon, null);
                 }
             }
         }
@@ -309,18 +361,154 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
     private void setListTemplate1(final RenderTemplateItem renderTemplateItem) {
         mBodyTemplate2.setVisibility(View.GONE);
         mListTemplate1.setVisibility(View.VISIBLE);
-        mAdapter = new AlexaListTemplateAdapter(getContext(),renderTemplateItem.type);
+        mWeatherTemplate.setVisibility(View.GONE);
+        mListMainTitle.setText(renderTemplateItem.title.mainTitle);
+        mListSubTitle.setText(renderTemplateItem.title.subTitle);
+        mAdapter = new AlexaListTemplateAdapter(getContext(), renderTemplateItem.type);
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         mListView.setAdapter(mAdapter);
         mAdapter.clear();
         mAdapter.addAll(renderTemplateItem.listItems);
+        if (renderTemplateItem.skillIcon != null) {
+            AlexaIfDirectiveItem.ImageStructure imageStructure = renderTemplateItem.skillIcon;
+            AlexaIfDirectiveItem.Source source = getSourceImage(imageStructure);
+            String imageUrl = null;
+            if (source != null) {
+                imageUrl = source.getUrl();
+            }
+            if (mListSkillIcon != null) {
+                if (imageUrl != null) {
+                    setImageNoBox(mListSkillIcon, Uri.parse(imageUrl));
+                } else {
+                    setImageNoBox(mListSkillIcon, null);
+                }
+            }
+        }
+      if(renderTemplateItem.type.equals(Constant.TEMPLATE_TYPE_LOCAL_SEARCH_LIST_TEMPLATE1)) {
+          mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+              @Override
+              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                  AlexaIfDirectiveItem.ListItem item = mAdapter.getItem(position);
+                  if(item!=null) {
+                      mAmazonAlexaManager.onPost(item.getSetDestinationItem());
+                  }
+              }
+          });
+      }
     }
 
-    private void setImage(Uri uri) {
+    private void setWeatherTemplate(final RenderTemplateItem renderTemplateItem) {
+        mBodyTemplate2.setVisibility(View.GONE);
+        mListTemplate1.setVisibility(View.GONE);
+        mWeatherTemplate.setVisibility(View.VISIBLE);
+        mWeatherMainTitle.setText(renderTemplateItem.title.mainTitle);
+        mWeatherSubTitle.setText(renderTemplateItem.title.subTitle);
+        mCurrentWeatherText.setText(renderTemplateItem.currentWeather);
+
+        if (renderTemplateItem.currentWeatherIcon != null) {
+            AlexaIfDirectiveItem.ImageStructure imageStructure = renderTemplateItem.currentWeatherIcon;
+            AlexaIfDirectiveItem.Source source = getSourceImage(imageStructure);
+            String imageUrl = null;
+            if (source != null) {
+                imageUrl = source.getDarkBackgroundUrl();
+            }
+            if (mCurrentWeatherIcon != null) {
+                if (imageUrl != null) {
+                    setImage(mCurrentWeatherIcon, Uri.parse(imageUrl));
+                } else {
+                    setImage(mCurrentWeatherIcon, null);
+                }
+            }
+        }
+        if (renderTemplateItem.highTemperature != null) {
+            AlexaIfDirectiveItem.Temperature temperature = renderTemplateItem.highTemperature;
+            AlexaIfDirectiveItem.ImageStructure imageStructure = temperature.arrow;
+            AlexaIfDirectiveItem.Source source = getSourceImage(imageStructure);
+            String imageUrl = null;
+            if (source != null) {
+                imageUrl = source.getDarkBackgroundUrl();
+            }
+            if (mHighArrow != null) {
+                if (imageUrl != null) {
+                    setImage(mHighArrow, Uri.parse(imageUrl));
+                } else {
+                    setImage(mHighArrow, null);
+                }
+            }
+            mHighTemperature.setText(temperature.value);
+        }
+        if (renderTemplateItem.lowTemperature != null) {
+            AlexaIfDirectiveItem.Temperature temperature = renderTemplateItem.lowTemperature;
+            AlexaIfDirectiveItem.ImageStructure imageStructure = temperature.arrow;
+            AlexaIfDirectiveItem.Source source = getSourceImage(imageStructure);
+            String imageUrl = null;
+            if (source != null) {
+                imageUrl = source.getDarkBackgroundUrl();
+            }
+            if (mLowArrow != null) {
+                if (imageUrl != null) {
+                    setImage(mLowArrow, Uri.parse(imageUrl));
+                } else {
+                    setImage(mLowArrow, null);
+                }
+            }
+            mLowTemperature.setText(temperature.value);
+        }
+        if (renderTemplateItem.weatherForecast != null) {
+            List<AlexaIfDirectiveItem.WeatherForecast> weatherForecastList = renderTemplateItem.weatherForecast;
+            int i = 0;
+            for (AlexaIfDirectiveItem.WeatherForecast weatherForecast : weatherForecastList) {
+                ConstraintLayout layout = (ConstraintLayout) mWeatherForecastLayout.getChildAt(i);
+                ImageView image = layout.findViewById(R.id.image);
+                TextView day = layout.findViewById(R.id.day);
+                TextView highTemperature = layout.findViewById(R.id.high_temperature);
+                TextView lowTemperature = layout.findViewById(R.id.low_temperature);
+
+                AlexaIfDirectiveItem.ImageStructure imageStructure = weatherForecast.getImage();
+                AlexaIfDirectiveItem.Source source = getSourceImage(imageStructure);
+                String imageUrl = null;
+                if (source != null) {
+                    imageUrl = source.getDarkBackgroundUrl();
+                }
+                if (image != null) {
+                    if (imageUrl != null) {
+                        setImage(image, Uri.parse(imageUrl));
+                    } else {
+                        setImage(image, null);
+                    }
+                }
+                day.setText(weatherForecast.getDay());
+                highTemperature.setText(weatherForecast.getHighTemperature());
+                lowTemperature.setText(weatherForecast.getLowTemperature());
+                i++;
+                if (i >= 5) break;
+            }
+        }
+    }
+
+    private AlexaIfDirectiveItem.Source getSourceImage(AlexaIfDirectiveItem.ImageStructure imageStructure) {
+        AlexaIfDirectiveItem.Source source = null;
+        List<AlexaIfDirectiveItem.Source> sources = imageStructure.getSources();
+        if (sources != null && sources.size() > 0) {
+            //small→...→x-largeと仮定して、Listの最後の画像(Large)を取得
+            int logoSize = sources.size() - 1;
+            source = sources.get(logoSize);
+        }
+        return source;
+    }
+
+    private void setImage(ImageView view, Uri uri) {
         Glide.with(getContext())
                 .load(uri)
-                .error(R.drawable.p0070_noimage)
-                .into(mImage);
+                .error(android.R.color.darker_gray)
+                .into(view);
+    }
+
+    private void setImageNoBox(ImageView view, Uri uri) {
+        Glide.with(getContext())
+                .load(uri)
+                .error(null)
+                .into(view);
     }
 
     /**
@@ -374,11 +562,11 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
         }
     }
 
-    private class AlexaDisplayCallback implements AmazonAlexaManager.IAlexaDisplayCallback{
+    private class AlexaDisplayCallback implements AmazonAlexaManager.IAlexaDisplayCallback {
         @Override
         public void onExpectSpeech() {
             Timber.d("onExpectSpeech");
-            isExpectSpeech=true;
+            isExpectSpeech = true;
             onClickAlexaBtn();
         }
     }
@@ -457,7 +645,7 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
             mHandler.removeCallbacks(mRunnable);
             isSpeaking = true;
             // Speaking状態に移行する.
-           defaultVoiceChromeStatus();
+            defaultVoiceChromeStatus();
         }
 
         @Override
@@ -620,7 +808,7 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
         @Override
         public void onChannelActiveChange(AlexaQueueManager.AlexaChannel channel, boolean isActive) {
             Timber.d("onChannelChange() - afterChannel = " + channel + "isAvtive = " + isActive);
-            if(isExpectSpeech)return;
+            if (isExpectSpeech) return;
             if (!isActive && channel == AlexaQueueManager.AlexaChannel.DialogChannel) {
                 defaultVoiceChromeStatus();
                 mHandler.postDelayed(mRunnable, IDLE_TIME);
