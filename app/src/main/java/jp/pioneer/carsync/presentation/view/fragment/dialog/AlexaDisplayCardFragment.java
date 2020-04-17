@@ -15,6 +15,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.PermissionChecker;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -217,6 +218,14 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_alexa_display_card, container, false);
         mUnbinder = ButterKnife.bind(this, view);
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mHandler.removeCallbacks(mRunnable);
+                mHandler.postDelayed(mRunnable,IDLE_TIME);
+                return false;
+            }
+        });
         return view;
     }
 
