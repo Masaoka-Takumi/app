@@ -348,7 +348,7 @@ public class AmazonAlexaManager implements AlexaQueueManager.AlexaQueueCallback,
         public void onReceiveRenderPlayerInfo(RenderPlayerInfoItem playerInfoItem);
 
         /**
-         * 音楽のTemplateを受信した際にコールバック.
+         * RenderTemplateを受信した際にコールバック.
          */
         public void onReceiveRenderTemplate(RenderTemplateItem templateItem);
 

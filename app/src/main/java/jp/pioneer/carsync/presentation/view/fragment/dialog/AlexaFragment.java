@@ -42,6 +42,7 @@ import jp.pioneer.mbg.alexa.AmazonAlexaManager;
 import jp.pioneer.mbg.alexa.CustomVoiceChromeView;
 import jp.pioneer.mbg.alexa.manager.AlexaQueueManager;
 import jp.pioneer.mbg.alexa.manager.AlexaSpeakManager;
+import jp.pioneer.mbg.alexa.util.Constant;
 import timber.log.Timber;
 
 /**
@@ -444,7 +445,10 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
         @Override
         public void onReceiveRenderTemplate(RenderTemplateItem templateItem) {
             Timber.d("onReceiveRenderTemplate");
-            getPresenter().showDisplayCard(templateItem);
+            if(templateItem.type.equals(Constant.TEMPLATE_TYPE_BODY_TEMPLATE2)||templateItem.type.equals(Constant.TEMPLATE_TYPE_LIST_TEMPLATE1)
+            ||templateItem.type.equals(Constant.TEMPLATE_TYPE_LOCAL_SEARCH_LIST_TEMPLATE1)||templateItem.type.equals(Constant.TEMPLATE_TYPE_WEATHER_TEMPLATE)) {
+                getPresenter().showDisplayCard(templateItem);
+            }
         }
 
         @Override

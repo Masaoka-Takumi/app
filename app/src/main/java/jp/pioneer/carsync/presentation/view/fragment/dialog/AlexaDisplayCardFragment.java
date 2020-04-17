@@ -212,6 +212,7 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
         });
         mContainer.startAnimation(animation);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_alexa_display_card, container, false);
@@ -767,22 +768,36 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
 
         @Override
         public void onPersistVisualIndicator() {
-
+            Timber.d("onPersistVisualIndicator");
+            isPersistIndicator = true;
         }
 
         @Override
         public void onClearVisualIndicator() {
+            Timber.d("onClearVisualIndicator");
+            isPersistIndicator = false;
+            defaultVoiceChromeStatus();
 
         }
 
         @Override
         public void onAudioIndicatorStarted() {
-
+            Timber.d("onAudioIndicatorStarted");
+            //どの状態でも割り込む
+            mVoiceChrome.setVoiceChromeType(CustomVoiceChromeView.VoiceChromeType.NOTIFICATIONS);
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if(mVoiceChrome!=null) {
+                        mVoiceChrome.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
         }
 
         @Override
         public void onAudioIndicatorStopped() {
-
+            Timber.d("onAudioIndicatorStopped");
         }
 
         @Override

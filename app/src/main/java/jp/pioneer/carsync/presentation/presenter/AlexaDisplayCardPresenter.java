@@ -88,7 +88,7 @@ public class AlexaDisplayCardPresenter extends Presenter<AlexaDisplayCardView> {
         MediaSourceType currentSourceType = mGetCase.execute().getCarDeviceStatus().sourceType;
         Timber.d("onMediaSourceTypeChangeEvent:currentSourceType="+currentSourceType);
         if (currentSourceType != MediaSourceType.APP_MUSIC) {
-            Optional.ofNullable(getView()).ifPresent(AlexaDisplayCardView::closeDialogWithAnimation);
+            Optional.ofNullable(getView()).ifPresent(AlexaDisplayCardView::callbackClose);
         }
     }
 }
