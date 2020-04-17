@@ -16,6 +16,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import jp.pioneer.carsync.application.content.Analytics;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.event.AdasErrorEvent;
@@ -344,6 +345,7 @@ public class AndroidMusicPresenter extends PlayerPresenter<AndroidMusicView> {
     /**
      * SoundFx切り換えアクション
      */
+    @Override
     public void onSelectFxAction() {
         SoundFxSetting fxSetting = getFxSetting();
 
@@ -385,11 +387,13 @@ public class AndroidMusicPresenter extends PlayerPresenter<AndroidMusicView> {
         }else {
             mFxCase.setSuperTodoroki(nextItem.superTodorokiSetting);
         }
+        mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.fxSelect);
     }
 
     /**
      * EQ切り換えアクション
      */
+    @Override
     public void onSelectVisualAction() {
         mExitMenu.execute();
 
@@ -420,6 +424,7 @@ public class AndroidMusicPresenter extends PlayerPresenter<AndroidMusicView> {
             }
             mFxCase.setEqualizer(mEqArray.get(index));
         }
+        mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.eqSelect);
     }
 
     private SoundFxSetting getFxSetting() {

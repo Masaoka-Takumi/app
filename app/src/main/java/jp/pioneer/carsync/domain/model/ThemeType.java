@@ -10,23 +10,43 @@ import jp.pioneer.carsync.presentation.model.UiColor;
  * ThemeSet設定値
  */
 public enum ThemeType {
-    VIDEO_PATTERN1,
-    VIDEO_PATTERN2,
-    VIDEO_PATTERN3,
-    VIDEO_PATTERN4,
-    PICTURE_PATTERN1,
-    PICTURE_PATTERN2,
-    PICTURE_PATTERN3,
-    PICTURE_PATTERN4,
-    PICTURE_PATTERN5,
-    PICTURE_PATTERN6,
-    PICTURE_PATTERN7,
-    PICTURE_PATTERN8,
-    PICTURE_PATTERN9,
-    PICTURE_PATTERN10,
-    PICTURE_PATTERN11,
-    PICTURE_PATTERN12,
-    PICTURE_PATTERN13;
+    VIDEO_PATTERN1("BGV1"),
+    VIDEO_PATTERN2("BGV2"),
+    VIDEO_PATTERN3("BGV3"),
+    VIDEO_PATTERN4("BGV4"),
+    PICTURE_PATTERN1("BGP1"),
+    PICTURE_PATTERN2("BGP2"),
+    PICTURE_PATTERN3("BGP3"),
+    PICTURE_PATTERN4("BGP4"),
+    PICTURE_PATTERN5("BGP5"),
+    PICTURE_PATTERN6("BGP6"),
+    PICTURE_PATTERN7("BGP7"),
+    PICTURE_PATTERN8("BGP8"),
+    PICTURE_PATTERN9("BGP9"),
+    PICTURE_PATTERN10("BGP10"),
+    PICTURE_PATTERN11("BGP11"),
+    PICTURE_PATTERN12("BGP12"),
+    PICTURE_PATTERN13("BGP13");
+
+    /** Analytics用文字列. */
+    public final String strValue;
+
+    /**
+     * コンストラクタ.
+     *
+     * @param strValue   情報収集用の文字列
+     */
+    ThemeType(String strValue){
+        this.strValue = strValue;
+    }
+
+    /**
+     * Analytics用文字列取得.
+     */
+    public String getAnalyticsStr() {
+        return strValue;
+    }
+
     /**
      * Backgroundリソースが動画かどうか
      *

@@ -57,11 +57,13 @@ import jp.pioneer.carsync.domain.model.SoundFxSetting;
 import jp.pioneer.carsync.domain.model.SoundFxSettingEqualizerType;
 import jp.pioneer.carsync.domain.model.StatusHolder;
 import jp.pioneer.carsync.domain.model.SuperTodorokiSetting;
+import jp.pioneer.carsync.domain.model.ThemeType;
 import jp.pioneer.carsync.domain.model.TimeAlignmentSettingMode;
 import jp.pioneer.carsync.presentation.event.AlexaLoginSuccessEvent;
 import jp.pioneer.carsync.presentation.event.MainNavigateEvent;
 import jp.pioneer.carsync.presentation.event.MessageReadFinishedEvent;
 import jp.pioneer.carsync.presentation.event.SourceChangeReasonEvent;
+import jp.pioneer.carsync.presentation.model.CustomKey;
 import jp.pioneer.carsync.presentation.util.YouTubeLinkStatus;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import timber.log.Timber;
@@ -135,6 +137,9 @@ public class AnalyticsEventManager {
         observers.add(new MessageObserver());
         observers.add(new FxSettingObserver());
         observers.add(new EasySoundTaSettingObserver());
+        observers.add(new WallPaperSettingObserver());
+        observers.add(new CustomKeySettingObserver());
+        observers.add(new AdasUseObserver());
     }
 
     public void willConnectDevice() {
@@ -167,6 +172,13 @@ public class AnalyticsEventManager {
      */
     public void sendShortCutActionEvent(Analytics.AnalyticsShortcutAction action, Analytics.AnalyticsActiveScreen screen) {
         sAnalytics.logShortcutActionEvent(action, screen);
+    }
+
+    /**
+     * ショートカット操作情報イベント送信(操作画面なし)
+     */
+    public void sendShortCutActionEvent(Analytics.AnalyticsShortcutAction action) {
+        sAnalytics.logShortcutActionEvent(action);
     }
 
     /**
@@ -1280,4 +1292,141 @@ public class AnalyticsEventManager {
         return nowDate.after(sentDate);
     }
 
+    private class WallPaperSettingObserver extends AbstractEventObserver {
+
+        @Override
+        public void didDisconnectDevice() {
+            Timber.d("WallPaperSettingObserver");
+            if (!mGetStatusHolder.execute().getAppStatus().isAgreedCaution) return;
+            //デフォルトのタイムゾーンおよびロケールを使用して現在時間のカレンダを取得
+            Calendar nowCal = Calendar.getInstance();
+            //壁紙設定の使用情報
+            boolean isWallPaperOneWeekBefore = isSentOneWeekBefore(nowCal, mAnalyticsPreference.getWallpaperLastSentDate());
+            ThemeType currentType = mPreference.getThemeType();
+            if (DBG) Timber.d("currentThemeType=" + currentType);
+            // 未送信、または前回送信時から変化した、または前回送信時から1週間以上経過した場合送信
+            if ((mAnalyticsPreference.getWallpaperSent() == null)
+                    || currentType != mAnalyticsPreference.getWallpaperSent()
+                    || isWallPaperOneWeekBefore) {
+                mAnalyticsPreference.setWallpaperSent(currentType);
+                sAnalytics.logWallpaperEvent(currentType.getAnalyticsStr());
+                mAnalyticsPreference.setWallpaperLastSentDate(nowCal.getTimeInMillis());
+            }
+        }
+    }
+
+    private class CustomKeySettingObserver extends AbstractEventObserver {
+        @Override
+        public void didDisconnectDevice() {
+            Timber.d("CustomKeySettingObserver");
+            if (!mGetStatusHolder.execute().getAppStatus().isAgreedCaution) return;
+            //デフォルトのタイムゾーンおよびロケールを使用して現在時間のカレンダを取得
+            Calendar nowCal = Calendar.getInstance();
+            //カスタムキー設定割合
+            boolean isCustomKeyOneWeekBefore = isSentOneWeekBefore(nowCal, mAnalyticsPreference.getCustomKeyLastSentDate());
+            CustomKey customKeyType = mPreference.getCustomKeyType();
+            MediaSourceType directSource = mPreference.getCustomKeyDirectSource();
+            AppSharedPreference.Application musicApplication = mPreference.getCustomKeyMusicApp();
+            if (DBG) Timber.d("CustomKeyType=" + customKeyType);
+            // 未送信、または前回送信時から変化した、または前回送信時から1週間以上経過した場合送信
+            if ((mAnalyticsPreference.getCustomKeyTypeSent() == null)
+                    || customKeyType != mAnalyticsPreference.getCustomKeyTypeSent()
+                    || (customKeyType ==CustomKey.SOURCE_DIRECT && !directSource.equals(mAnalyticsPreference.getCustomKeyDirectSourceSent()))
+                    || (customKeyType ==CustomKey.THIRD_PARTY_APP && !musicApplication.equals(mAnalyticsPreference.getCustomKeyMusicAppSent()))
+                    || isCustomKeyOneWeekBefore) {
+                mAnalyticsPreference.setCustomKeyTypeSent(customKeyType);
+                if(customKeyType ==CustomKey.SOURCE_DIRECT){
+                    Analytics.AnalyticsSource analyticsSource;
+                    switch (directSource) {
+                        case RADIO:
+                            analyticsSource = Analytics.AnalyticsSource.radio;
+                            break;
+                        case SIRIUS_XM:
+                            analyticsSource = Analytics.AnalyticsSource.siriusXM;
+                            break;
+                        case USB:
+                            analyticsSource = Analytics.AnalyticsSource.usb;
+                            break;
+                        case CD:
+                            analyticsSource = Analytics.AnalyticsSource.cd;
+                            break;
+                        case BT_AUDIO:
+                            analyticsSource = Analytics.AnalyticsSource.btAudio;
+                            break;
+                        case APP_MUSIC:
+                            analyticsSource = Analytics.AnalyticsSource.appMusic;
+                            break;
+                        case PANDORA:
+                            analyticsSource = Analytics.AnalyticsSource.pandora;
+                            break;
+                        case SPOTIFY:
+                            analyticsSource = Analytics.AnalyticsSource.spotify;
+                            break;
+                        case AUX:
+                            analyticsSource = Analytics.AnalyticsSource.aux;
+                            break;
+                        case OFF:
+                            analyticsSource = Analytics.AnalyticsSource.sourceOff;
+                            break;
+                        case TI:
+                            analyticsSource = Analytics.AnalyticsSource.ti;
+                            break;
+                        case DAB:
+                            analyticsSource = Analytics.AnalyticsSource.dab;
+                            break;
+                        case HD_RADIO:
+                            analyticsSource = Analytics.AnalyticsSource.hdRadio;
+                            break;
+                        default:
+                            analyticsSource = Analytics.AnalyticsSource.appMusic;
+                            break;
+                    }
+                    mAnalyticsPreference.setCustomKeyDirectSourceSent(directSource);
+                    //ソース名(EventUser_ActiveSourceのsourceと同じ名前)
+                    sAnalytics.logCustomKeyEvent(customKeyType.getAnalyticsStr(), analyticsSource.value);
+                }else if(customKeyType ==CustomKey.THIRD_PARTY_APP){
+                    //アプリ名(SmartSync_3rdApp情報.xlsxのApp Name)
+                    mAnalyticsPreference.setCustomKeyMusicAppSent(musicApplication);
+                    MusicApp musicApp = MusicApp.fromPackageNameNoThrow(musicApplication.packageName);
+                    if(musicApp!=null) {
+                        sAnalytics.logCustomKeyEvent(customKeyType.getAnalyticsStr(), musicApp.getAppName());
+                    }
+                }else{
+                    //pref2キーは未使用
+                    sAnalytics.logCustomKeyEvent(customKeyType.getAnalyticsStr());
+                }
+                mAnalyticsPreference.setCustomKeyLastSentDate(nowCal.getTimeInMillis());
+            }
+        }
+    }
+
+    /**
+     * SPH(KM818専用機)車載機キー操作情報イベント送信
+     */
+    public void sendSPHKeyActionEvent(Analytics.AnalyticsSPHKeyAction action) {
+        sAnalytics.logSPHKeyActionEvent(action);
+    }
+
+    private class AdasUseObserver extends AbstractEventObserver{
+        @Override
+        public void didDisconnectDevice() {
+            Timber.d("AdasUseObserver");
+            if(!mGetStatusHolder.execute().getAppStatus().isAgreedCaution) return;
+            //デフォルトのタイムゾーンおよびロケールを使用して現在時間のカレンダを取得
+            Calendar nowCal = Calendar.getInstance();
+            boolean isAdasSentOneWeekBefore = isSentOneWeekBefore(nowCal, mAnalyticsPreference.getAdasSettingSentDate());
+            //課金者のみイベント送信
+            if(mGetStatusHolder.execute().getAppStatus().adasPurchased) {
+                boolean isAdaSEnabled = mPreference.isAdasEnabled();
+                // 未送信、または前回送信時から変化した、または前回送信時から1週間以上経過した場合送信
+                if ((mAnalyticsPreference.getAdasSettingSentDate() == 0)
+                        || isAdaSEnabled != mAnalyticsPreference.getAdasSettingSent()
+                        || isAdasSentOneWeekBefore) {
+                    mAnalyticsPreference.setAdasSettingSent(isAdaSEnabled);
+                    sAnalytics.logAdasSettingEvent(mAnalyticsPreference.getAdasSettingSent() ? Analytics.AnalyticsAdasSetting.on : Analytics.AnalyticsAdasSetting.off);
+                    mAnalyticsPreference.setAdasSettingLastSentDate(nowCal.getTimeInMillis());
+                }
+            }
+        }
+    }
 }
