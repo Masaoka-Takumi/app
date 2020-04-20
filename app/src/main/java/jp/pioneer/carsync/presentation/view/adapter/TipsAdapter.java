@@ -30,6 +30,7 @@ public class TipsAdapter extends ArrayAdapter<TipsItem> {
     private LayoutInflater mLayoutInflater;
     private List<TipsItem> mItems = new ArrayList<>();
     private String mTagType = "all";
+    private boolean mIsAlexaAvailableCountry = false;
     public TipsAdapter(@NonNull Context context) {
         super(context, 0);
         mContext = context;
@@ -44,6 +45,10 @@ public class TipsAdapter extends ArrayAdapter<TipsItem> {
     public void setTagType(String tagType) {
         mTagType = tagType;
         notifyDataSetChanged();
+    }
+
+    public void setAlexaAvailableCountry(boolean isAvailable){
+        mIsAlexaAvailableCountry = isAvailable;
     }
 
     @Override
@@ -78,20 +83,28 @@ public class TipsAdapter extends ArrayAdapter<TipsItem> {
         vh.mContainer.setVisibility(View.GONE);
         if(mItems!=null&&mItems.size()>position) {
             TipsTag[] tags = mItems.get(position).tags;
-            String slug = "";
+            boolean isAlexaTips = false;
             if (tags.length > 0) {
-                if (mTagType.equals("all")) {
-                    vh.mIcon.setImageBitmap(tags[0].iconImage);
-                    vh.mContainer.setVisibility(View.VISIBLE);
-                    parent.setBackgroundColor(ContextCompat.getColor(mContext, R.color.tips_background_color));
-                } else {
-                    for (TipsTag tag : tags) {
-
-                        if (tag.slug.equals(mTagType)) {
-                            vh.mIcon.setImageBitmap(tag.iconImage);
-                            vh.mContainer.setVisibility(View.VISIBLE);
-                            parent.setBackgroundColor(ContextCompat.getColor(mContext, R.color.tips_background_color));
-                            break;
+                for (TipsTag tag : tags) {
+                    if(tag.name.equals("alexa")){
+                        isAlexaTips = true;
+                        break;
+                    }
+                }
+                //Alexa記事で対応国でない場合は表示しない
+                if(!isAlexaTips||mIsAlexaAvailableCountry) {
+                    if (mTagType.equals("all")) {
+                        vh.mIcon.setImageBitmap(tags[0].iconImage);
+                        vh.mContainer.setVisibility(View.VISIBLE);
+                        parent.setBackgroundColor(ContextCompat.getColor(mContext, R.color.tips_background_color));
+                    } else {
+                        for (TipsTag tag : tags) {
+                            if (tag.slug.equals(mTagType)) {
+                                vh.mIcon.setImageBitmap(tag.iconImage);
+                                vh.mContainer.setVisibility(View.VISIBLE);
+                                parent.setBackgroundColor(ContextCompat.getColor(mContext, R.color.tips_background_color));
+                                break;
+                            }
                         }
                     }
                 }

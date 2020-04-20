@@ -105,6 +105,7 @@ public class TipsFragment extends AbstractScreenFragment<TipsPresenter, TipsView
             }
         });
         mAdapter = new TipsAdapter(getContext());
+        mAdapter.setAlexaAvailableCountry(getPresenter().isAlexaAvailableCountry());
         mListView.setAdapter(mAdapter);
        // mAdapter.setItems(mItems);
         //mTabLayout.getTabAt(2).select();

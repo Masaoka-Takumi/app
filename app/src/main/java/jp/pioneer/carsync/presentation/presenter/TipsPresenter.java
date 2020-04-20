@@ -151,4 +151,7 @@ public class TipsPresenter extends Presenter<TipsView> {
 
     }
 
+    public boolean isAlexaAvailableCountry() {
+        return mStatusCase.execute().getAppStatus().isAlexaAvailableCountry;
+    }
 }
