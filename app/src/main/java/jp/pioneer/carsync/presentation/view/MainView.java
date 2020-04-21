@@ -222,6 +222,20 @@ public interface MainView {
      */
     boolean isShowSessionStopped();
 
+    /**
+     * App連携方法ダイアログ表示.
+     *
+     * @param args Bundle
+     */
+    void showAppConnectMethodDialog(Bundle args);
+
+    /**
+     * App連携方法ダイアログが表示されているか否か.
+     *
+     * @return boolean
+     */
+    boolean isShowAppConnectMethodDialog();
+
     // MARK - 音声認識
 
     /**

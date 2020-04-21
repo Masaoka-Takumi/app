@@ -26,6 +26,7 @@ import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.AccidentDetectDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.AdasWarningDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.AlexaFragment;
+import jp.pioneer.carsync.presentation.view.fragment.dialog.AppConnectMethodDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.CautionDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.CustomKeySettingDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.ParkingSensorDialogFragment;
@@ -74,6 +75,7 @@ public class MainFragmentController {
     private static final String TAG_DIALOG_YOUTUBE_LINK_CONTAINER = "youtube_link_container";
     private static final String TAG_DIALOG_YOUTUBE_LINK_SEARCH_ITEM = "youtube_link_search_item";
     private static final String TAG_DIALOG_VOICE_RECOGNIZE_TYPE_SELECT = "tag_dialog_voice_recognize_type_select";
+    private static final String TAG_DIALOG_APP_CONNECT_METHOD = "app_connect_method";
     private static final String[] KEY_DEVICE_ERROR_DIALOGS = new String[]{
         MainPresenter.TAG_DIALOG_SXM_SUBSCRIPTION_UPDATE, CarDeviceErrorType.AMP_ERROR.toString(), CarDeviceErrorType.CHECK_USB.toString(), CarDeviceErrorType.CHECK_TUNER.toString(), CarDeviceErrorType.CHECK_ANTENNA.toString()
     };
@@ -800,6 +802,35 @@ public class MainFragmentController {
         }
     }
 
+    /**
+     * App連携方法ダイアログ表示.
+     *
+     * @param args Bundle 引き継ぎ情報
+     */
+    public void showAppConnectMethodDialog(Bundle args) {
+        createAppConnectMethodDialogFragment(args).show(mFragmentManager, TAG_DIALOG_APP_CONNECT_METHOD);
+        mFragmentManager.executePendingTransactions();
+    }
+
+    /**
+     * App連携方法ダイアログ確認.
+     *
+     * @return App連携方法ダイアログが表示されているか否か
+     */
+    public boolean isShowAppConnectMethodDialog() {
+        return (mFragmentManager.findFragmentByTag(TAG_DIALOG_APP_CONNECT_METHOD) != null);
+    }
+
+    /**
+     * App連携方法ダイアログ閉幕
+     */
+    public void dismissAppConnectMethodDialog() {
+        Fragment dialog = mFragmentManager.findFragmentByTag(TAG_DIALOG_APP_CONNECT_METHOD);
+        if (dialog instanceof DialogFragment) {
+            ((DialogFragment) dialog).dismiss();
+        }
+    }
+
     private void replaceFragment(Fragment fragment, boolean isAddToBackStack) {
         FragmentTransaction tr = mFragmentManager.beginTransaction();
         tr.replace(mContainerViewId, fragment);
@@ -889,6 +920,11 @@ public class MainFragmentController {
     @VisibleForTesting
     DialogFragment createSessionStopDialogFragment(Bundle args) {
         return SessionStoppedDialogFragment.newInstance(null, args);
+    }
+
+    @VisibleForTesting
+    DialogFragment createAppConnectMethodDialogFragment(Bundle args) {
+        return AppConnectMethodDialogFragment.newInstance(null, args);
     }
 
     @VisibleForTesting

@@ -1273,6 +1273,17 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
         return mFragmentController.isShowSessionStopped();
     }
 
+
+    @Override
+    public void showAppConnectMethodDialog(Bundle args) {
+        mFragmentController.showAppConnectMethodDialog(args);
+    }
+
+    @Override
+    public boolean isShowAppConnectMethodDialog() {
+        return mFragmentController.isShowAppConnectMethodDialog();
+    }
+
     @Override
     public void startAdas() {
         MainActivityPermissionsDispatcher.startAdasPermissionWithCheck(MainActivity.this);

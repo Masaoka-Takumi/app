@@ -834,6 +834,15 @@ public class AppSharedPreference {
      * @see #setDabSphListTabSelected(RadioTabContainerPresenter.RadioTabType)
      */
     public static final String KEY_DAB_SPH_LIST_TAB_SELECTED = "dab_sph_list_tab_selected";
+    /**
+     * Preferenceキー:App連携方法ダイアログの次回以降非表示設定
+     * <p>
+     * 既定値:{@link #DEFAULT_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN}
+     *
+     * @see #isAppConnectMethodNoDisplayAgain()
+     * @see #setAppConnectMethodNoDisplayAgain(boolean)
+     */
+    public static final String KEY_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN = "app_connect_method_no_display_again";
 
     private static final boolean DEFAULT_LOG_ENABLED = false;
     private static final int DEFAULT_APP_VERSION_CODE = 1;
@@ -915,7 +924,8 @@ public class AppSharedPreference {
     private static final boolean DEFAULT_YOUTUBE_LINK_SEARCH_ITEM_SETTING = true;
     private static final boolean DEFAULT_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND = false;
     private static final String DEFAULT_DAB_SPH_LIST_TAB_SELECTED = RadioTabContainerPresenter.RadioTabType.DAB_STATION.name();
-    
+    private static final boolean DEFAULT_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN = false;
+
     private final SharedPreferences mPreferences;
     private final Object mContent = new Object();
     private final WeakHashMap<OnAppSharedPreferenceChangeListener, Object> mListeners = new WeakHashMap<>();
@@ -3782,6 +3792,37 @@ public class AppSharedPreference {
     public AppSharedPreference setDisplaySmartPhoneControlCommand(boolean enabled){
         mPreferences.edit()
                 .putBoolean(KEY_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND, enabled)
+                .apply();
+        return this;
+    }
+
+    /**
+     * App連携方法ダイアログの次回以降非表示設定の取得
+     *
+     * @return {@code true}:非表示　{@code false}:表示
+     * @see #setAppConnectMethodNoDisplayAgain(boolean)
+     * @see #KEY_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN
+     */
+    public boolean isAppConnectMethodNoDisplayAgain(){
+        if(mPreferences.contains(KEY_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN)){
+            return mPreferences.getBoolean(KEY_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN, DEFAULT_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN);
+        }
+        else {
+            setAppConnectMethodNoDisplayAgain(DEFAULT_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN);
+            return DEFAULT_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN;
+        }
+    }
+
+    /**
+     * App連携方法ダイアログの次回以降非表示の設定
+     * @param isNoDisplayAgain {@code true}:非表示　{@code false}:表示
+     * @return 本オブジェクト
+     * @see #isAppConnectMethodNoDisplayAgain()
+     * @see #KEY_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN
+     */
+    public AppSharedPreference setAppConnectMethodNoDisplayAgain(boolean isNoDisplayAgain){
+        mPreferences.edit()
+                .putBoolean(KEY_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN, isNoDisplayAgain)
                 .apply();
         return this;
     }

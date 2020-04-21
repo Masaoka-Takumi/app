@@ -3,6 +3,7 @@ package jp.pioneer.carsync.application.di.component;
 import dagger.Subcomponent;
 import jp.pioneer.carsync.application.di.FragmentLifeCycle;
 import jp.pioneer.carsync.application.di.module.FragmentModule;
+import jp.pioneer.carsync.presentation.view.fragment.dialog.AppConnectMethodDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.CustomKeySettingDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.VoiceRecognizeTypeSelectDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.YouTubeLinkCautionFragment;
@@ -308,4 +309,5 @@ public interface FragmentComponent {
     void inject(BackgroundImagePreviewFragment fragment);
     void inject(PromptAuthorityPermissionDialogFragment fragment);
     void inject(YouTubeLinkSettingFragment fragment);
+    void inject(AppConnectMethodDialogFragment fragment);
 }
