@@ -44,6 +44,7 @@ import jp.pioneer.carsync.presentation.util.SxmTextUtil;
 import jp.pioneer.carsync.presentation.util.YouTubeLinkStatus;
 import jp.pioneer.carsync.presentation.view.SxmView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
+import jp.pioneer.carsync.presentation.view.fragment.screen.player.list.RadioPresetFragment;
 
 /**
  * SiriusXM再生画面のpresenter
@@ -65,6 +66,7 @@ public class SxmPresenter extends PlayerPresenter<SxmView> implements LoaderMana
     private SxmMediaInfo mCurrSxm;
     private SparseArray<Long> mFavorites = new SparseArray<>();
     private SxmBandType mSxmBand;
+    private int mBandIndex = 1;
 
     /**
      * コンストラクタ
@@ -453,6 +455,9 @@ public class SxmPresenter extends PlayerPresenter<SxmView> implements LoaderMana
         while (isEof) {
             SxmBandType band = TunerContract.ListItemContract.SiriusXm.getBandType(data);
             if (mSxmBand == band) {
+                int listIndex = TunerContract.ListItemContract.SiriusXm.getListIndex(data);
+                mBandIndex = (listIndex-1)/ RadioPresetFragment.PAGE_PRESET_ITEMS;
+
                 int pch = TunerContract.ListItemContract.SiriusXm.getPchNumber(data);
                 Integer number = TunerContract.ListItemContract.SiriusXm.getChNumber(data);
 
@@ -542,5 +547,13 @@ public class SxmPresenter extends PlayerPresenter<SxmView> implements LoaderMana
             }
             view.setAlexaNotification(notificationQueued);
         });
+    }
+
+    /**
+     * PCH登録
+     */
+    public void onRegisterPresetChannel(int presetNumber) {
+        //車載器にプリセット登録
+        mControlCase.registerPreset(mBandIndex* RadioPresetFragment.PAGE_PRESET_ITEMS + presetNumber);
     }
 }

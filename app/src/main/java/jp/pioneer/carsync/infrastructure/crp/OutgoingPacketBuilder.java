@@ -1070,6 +1070,27 @@ public class OutgoingPacketBuilder {
     }
 
     /**
+     * プリセット登録通知：Tuner系共通パケット生成.
+     *
+     * @param index プリセット登録するリストインデックス（1オリジン）
+     * @return 送信パケット
+     * @throws IllegalArgumentException {@code index}が0以下
+     */
+    @NonNull
+    public OutgoingPacket createTunerListRegisterPresetNotification(@IntRange(from = 1) int index) {
+        checkArgument(1 <= index);
+
+        byte[] indexByteArray = ushortToByteArray(index);
+        byte[] data = {
+                0x00,
+                indexByteArray[0],
+                indexByteArray[1]
+        };
+
+        return createWith(TUNER_LIST_REGISTER_PRESET_NOTIFICATION, data);
+    }
+
+    /**
      * フォーカス位置変更要求パケット生成.
      *
      * @param index フォーカス位置のリストインデックス（1オリジン）

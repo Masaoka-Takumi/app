@@ -47,10 +47,12 @@ import jp.pioneer.carsync.presentation.model.AdasTrialState;
 import jp.pioneer.carsync.presentation.model.GestureType;
 import jp.pioneer.carsync.presentation.util.FrequencyUtil;
 import jp.pioneer.carsync.presentation.util.HdRadioTextUtil;
+import jp.pioneer.carsync.presentation.util.RadioTextUtil;
 import jp.pioneer.carsync.presentation.util.ShortCutKeyEnabledStatus;
 import jp.pioneer.carsync.presentation.util.YouTubeLinkStatus;
 import jp.pioneer.carsync.presentation.view.HdRadioView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
+import jp.pioneer.carsync.presentation.view.fragment.screen.player.list.RadioPresetFragment;
 
 /*
 HdRadioPresenter
@@ -76,6 +78,7 @@ public class HdRadioPresenter extends PlayerPresenter<HdRadioView> implements Lo
     private ArrayList<BandType> mHdRadioBandTypes = new ArrayList<>();
     private Cursor mFavoritesCursor=null;
     private int mPagerPosition=-1;
+    private int mBandIndex = 1;
     /**
      * コンストラクタ
      */
@@ -357,6 +360,8 @@ public class HdRadioPresenter extends PlayerPresenter<HdRadioView> implements Lo
         while (isEof) {
             HdRadioBandType band = TunerContract.ListItemContract.HdRadio.getBandType(data);
             if (mHdRadioBand == band) {
+                int listIndex = TunerContract.ListItemContract.HdRadio.getListIndex(data);
+                mBandIndex = (listIndex-1)/ RadioPresetFragment.PAGE_PRESET_ITEMS;
                 int pch = TunerContract.ListItemContract.HdRadio.getPchNumber(data);
                 //TODO 周波数(番組名が取得できるようになる?)
                 long frequency = TunerContract.ListItemContract.HdRadio.getFrequency(data);
@@ -534,5 +539,13 @@ public class HdRadioPresenter extends PlayerPresenter<HdRadioView> implements Lo
         mHdRadioBandTypes.add(HdRadioBandType.FM2);
         mHdRadioBandTypes.add(HdRadioBandType.FM3);
         mHdRadioBandTypes.add(HdRadioBandType.AM);
+    }
+
+    /**
+     * PCH登録
+     */
+    public void onRegisterPresetChannel(int presetNumber) {
+        //車載器にプリセット登録
+        mControlCase.registerPreset(mBandIndex* RadioPresetFragment.PAGE_PRESET_ITEMS + presetNumber);
     }
 }

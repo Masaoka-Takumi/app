@@ -60,6 +60,7 @@ import jp.pioneer.carsync.presentation.util.ShortCutKeyEnabledStatus;
 import jp.pioneer.carsync.presentation.view.RadioView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.SingleChoiceDialogFragment;
+import jp.pioneer.carsync.presentation.view.fragment.screen.player.list.RadioPresetFragment;
 
 /**
  * ラジオ再生画面のpresenter
@@ -94,6 +95,7 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
     private int mSelectedPreset = 0;
     private RdsInterruptionType mInterruptionType=null;
     private int mPagerPosition=-1;
+    private int mBandIndex = 1;
     /**
      * コンストラクタ
      */
@@ -437,6 +439,8 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
         while (isEof) {
             RadioBandType band = TunerContract.ListItemContract.Radio.getBandType(data);
             if (mRadioBand == band) {
+                int listIndex = TunerContract.ListItemContract.Radio.getListIndex(data);
+                mBandIndex = (listIndex-1)/ RadioPresetFragment.PAGE_PRESET_ITEMS;
                 int pch = TunerContract.ListItemContract.Radio.getPchNumber(data);
                 //TODO 周波数(番組名が取得できるようになる?)
                 long frequency = TunerContract.ListItemContract.Radio.getFrequency(data);
@@ -605,6 +609,8 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
             mTunerCase.registerFavorite(TunerContract.FavoriteContract.UpdateParamsBuilder.createRadioPreset(mCurrRadio, presetNumber, status.seekStep, mContext,psInfoText));
             saveLastAmStepSetting();
         }
+        //車載器にプリセット登録
+        mControlCase.registerPreset(mBandIndex*RadioPresetFragment.PAGE_PRESET_ITEMS + presetNumber);
     }
 
     /**
