@@ -86,7 +86,7 @@ public class TipsAdapter extends ArrayAdapter<TipsItem> {
             boolean isAlexaTips = false;
             if (tags.length > 0) {
                 for (TipsTag tag : tags) {
-                    if(tag.name.equals("alexa")){
+                    if(tag.slug.equals("alexa")){
                         isAlexaTips = true;
                         break;
                     }
