@@ -221,6 +221,7 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                //画面タッチで保持する
                 mHandler.removeCallbacks(mRunnable);
                 mHandler.postDelayed(mRunnable,IDLE_TIME);
                 return false;
@@ -287,6 +288,7 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
 
     @OnClick(R.id.close_button)
     public void onClickDismissBtn() {
+        //裏のAlexa画面も閉じる
         ((MainActivity) getActivity()).dismissAlexaDialog();
         getPresenter().dismissDialog();
     }
@@ -835,6 +837,7 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
             if (isExpectSpeech) return;
             if (!isActive && channel == AlexaQueueManager.AlexaChannel.DialogChannel) {
                 defaultVoiceChromeStatus();
+                //発話終了後無操作で2秒経過で非表示
                 mHandler.postDelayed(mRunnable, IDLE_TIME);
             }
         }

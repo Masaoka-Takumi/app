@@ -1599,7 +1599,8 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                     mIsAlexaStart = true;
                     Timber.d("Alexa:isShowAlexaDisplayCardDialog=" + holder.getAppStatus().isShowAlexaDisplayCardDialog + ", sourceType=" + holder.getCarDeviceStatus().sourceType);
                     if(holder.getAppStatus().isShowAlexaDisplayCardDialog&&holder.getCarDeviceStatus().sourceType==MediaSourceType.APP_MUSIC){
-                        //Alexa音声中、前のAlexaDialogを閉じてDialogChannelが非アクティブになるまでタイムログがある。
+                        //発話中のAlexa画面を閉じてダイアログチャンネルの非アクティブ通知が来るまでタイムラグがあり、
+                        // 新しく起動したAlexa画面で前の発話の終了を拾って閉じてしまうことがあるため、0.5秒遅延してAlaxa画面を表示する。
                         mHandler.postDelayed(new Runnable() {
                             @Override
                             public void run() {

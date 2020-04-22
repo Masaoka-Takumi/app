@@ -72,6 +72,7 @@ public class AlexaDisplayCardPresenter extends Presenter<AlexaDisplayCardView> {
     }
 
     public void dismissDialog() {
+        //RenderTemplateのメタデータは表示カードを閉じる際に破棄する。
         AppStatus appStatus = mGetCase.execute().getAppStatus();
         appStatus.renderTemplateItem = null;
         Optional.ofNullable(getView()).ifPresent(AlexaDisplayCardView::closeDialogWithAnimation);
