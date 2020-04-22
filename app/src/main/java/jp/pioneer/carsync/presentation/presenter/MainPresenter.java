@@ -1046,11 +1046,11 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                 view.showSessionStopped(Bundle.EMPTY);
             }
 
-            if(!mPreference.isAppConnectMethodNoDisplayAgain()) {
+/*            if(!mPreference.isAppConnectMethodNoDisplayAgain()) {
                 if (!view.isShowAppConnectMethodDialog()) {
                     view.showAppConnectMethodDialog(Bundle.EMPTY);
                 }
-            }
+            }*/
 
             if(!mIsAdasBillingSessionStop) {
                 mEventBus.post(new NavigateEvent(ScreenId.UNCONNECTED_CONTAINER, Bundle.EMPTY));
