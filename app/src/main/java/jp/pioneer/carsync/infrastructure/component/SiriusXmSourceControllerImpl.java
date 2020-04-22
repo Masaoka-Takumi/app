@@ -64,6 +64,18 @@ public class SiriusXmSourceControllerImpl extends SourceControllerImpl implement
      * {@inheritDoc}
      */
     @Override
+    public void registerPreset(@IntRange(from = 1) int listIndex){
+        checkArgument(listIndex >= 1);
+        Timber.i("registerPreset() presetIndex = %d", listIndex);
+
+        OutgoingPacket packet = mPacketBuilder.createTunerListRegisterPresetNotification(listIndex);
+        mCarDeviceConnection.sendPacket(packet);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void selectFavorite(int channelNo, @NonNull SxmBandType bandType, int sId) {
         Timber.i("selectFavorite() channelNo = %d, bandType = %s, sId = %d", channelNo, bandType, sId);
         checkNotNull(bandType);

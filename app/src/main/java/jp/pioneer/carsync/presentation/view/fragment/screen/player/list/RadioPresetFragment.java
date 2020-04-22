@@ -41,7 +41,7 @@ import jp.pioneer.carsync.presentation.view.widget.CustomLinePageIndicator;
 
 public class RadioPresetFragment extends AbstractScreenFragment<RadioPresetPresenter, RadioPresetView>
         implements RadioPresetView {
-    private static final int PAGE_PRESET_ITEMS = 6;
+    public static final int PAGE_PRESET_ITEMS = 6;
     @Inject RadioPresetPresenter mPresenter;
     @BindView(R.id.viewPager) ViewPager mViewPager;
     @BindView(R.id.line_indicator) CustomLinePageIndicator mLineIndicator;

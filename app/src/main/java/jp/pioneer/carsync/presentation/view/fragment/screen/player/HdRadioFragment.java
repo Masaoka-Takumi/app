@@ -668,6 +668,7 @@ public class HdRadioFragment extends AbstractRadioFragment<HdRadioPresenter, HdR
                 }
                 @Override
                 protected void onLongClickPreset(BandType bandType, int presetNum) {
+                    getPresenter().onRegisterPresetChannel(presetNum);
                 }
             };
             mViewPager.setAdapter(mAdapter);

@@ -68,6 +68,24 @@ public class ControlSiriusXmSource {
     }
 
     /**
+     * プリセット登録.
+     *
+     * @param listIndex プリセットリストインデックス.
+     * @throws IllegalArgumentException {@code presetNo} の値が不正.
+     */
+    public void registerPreset(@IntRange(from = 1) int listIndex) {
+        checkArgument(listIndex >= 1);
+
+        mHandler.post(() -> {
+            if (mSourceController.isActive()) {
+                mSourceController.registerPreset(listIndex);
+            } else {
+                Timber.w("registerPreset() not active.");
+            }
+        });
+    }
+
+    /**
      * チャンネルアップ.
      * <p>
      * サブスクリプションアップデート表示中の場合は実施しない。

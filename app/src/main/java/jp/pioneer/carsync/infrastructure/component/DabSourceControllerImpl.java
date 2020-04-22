@@ -140,6 +140,18 @@ public class DabSourceControllerImpl extends SourceControllerImpl implements Dab
      * {@inheritDoc}
      */
     @Override
+    public void registerPreset(@IntRange(from = 1) int listIndex){
+        checkArgument(listIndex >= 1);
+        Timber.i("registerPreset() presetIndex = %d", listIndex);
+
+        OutgoingPacket packet = mPacketBuilder.createTunerListRegisterPresetNotification(listIndex);
+        mCarDeviceConnection.sendPacket(packet);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void updateList() {
         Timber.i("updateList()");
 
@@ -158,6 +170,7 @@ public class DabSourceControllerImpl extends SourceControllerImpl implements Dab
         OutgoingPacket packet = mPacketBuilder.createFavoriteDabSetCommand(index, bandType.getCode(), eid, sid, scids);
         mCarDeviceConnection.sendPacket(packet);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -170,6 +183,7 @@ public class DabSourceControllerImpl extends SourceControllerImpl implements Dab
         //Timber.d("packet:data[0]=%x ,data[1]=%x" , packet.data[0] , packet.data[1]);
         mCarDeviceConnection.sendPacket(packet);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -191,4 +205,5 @@ public class DabSourceControllerImpl extends SourceControllerImpl implements Dab
         OutgoingPacket packet = mPacketBuilder.createDeviceControlCommand(CarDeviceControlCommand.VOLUME_DOWN);
         mCarDeviceConnection.sendPacket(packet);
     }
+
 }

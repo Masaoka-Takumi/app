@@ -53,6 +53,7 @@ import jp.pioneer.carsync.presentation.util.DabTextUtil;
 import jp.pioneer.carsync.presentation.util.ShortCutKeyEnabledStatus;
 import jp.pioneer.carsync.presentation.view.DabView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
+import jp.pioneer.carsync.presentation.view.fragment.screen.player.list.RadioPresetFragment;
 import timber.log.Timber;
 
 public class DabPresenter extends PlayerPresenter<DabView> implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -532,6 +533,9 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
         if(!mCurrDab.isErrorStatus()&&!mCurrDab.isSearchStatus()&&isSphCarDevice()) {
             mTunerCase.registerFavorite(TunerContract.FavoriteContract.UpdateParamsBuilder.createDabPreset(mCurrDab, presetNumber, mContext));
         }
+        //車載器にプリセット登録
+        mControlCase.registerPreset(presetNumber);
+
 /*        if(presetNumber==1) {
             deleteUserPresetCurrentBand(mDabBand);
         }*/

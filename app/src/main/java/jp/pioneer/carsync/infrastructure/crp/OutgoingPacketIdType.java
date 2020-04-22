@@ -183,6 +183,8 @@ public enum OutgoingPacketIdType {
     LIST_TRANSITION_NOTIFICATION(0x20, 0x03, 0x00, V2),
     /** リストアイテム選択通知 : DAB. */
     DAB_LIST_ITEM_SELECTED_NOTIFICATION(0x20, 0x03, 0x01, V2),
+    /** プリセット登録通知：Tuner系共通. */
+    TUNER_LIST_REGISTER_PRESET_NOTIFICATION(0x20, 0x03, 0x02, V4_1),
     /** フォーカス位置変更要求. */
     LIST_FOCUS_POSITION_CHANGE_REQUEST(0x20, 0x03, 0x80, LIST_FOCUS_POSITION_CHANGE_RESPONSE, V2),
     /** DAB ABCサーチ実行要求. */
