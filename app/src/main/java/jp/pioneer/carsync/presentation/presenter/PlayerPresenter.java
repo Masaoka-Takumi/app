@@ -287,6 +287,7 @@ public class PlayerPresenter<T> extends Presenter<T> {
         }else {
             mFxCase.setSuperTodoroki(nextItem.superTodorokiSetting);
         }
+        mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.fxSelect);
     }
 
     /**
@@ -323,6 +324,7 @@ public class PlayerPresenter<T> extends Presenter<T> {
             }
             mFxCase.setEqualizer(mEqArray.get(index));
         }
+        mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.eqSelect);
     }
 
     /**

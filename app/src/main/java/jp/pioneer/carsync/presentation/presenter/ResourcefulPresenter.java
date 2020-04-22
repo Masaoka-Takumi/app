@@ -527,12 +527,32 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
             AppStatus appStatus = mStatusHolder.getAppStatus();
             if(mPreference.isDisplaySmartPhoneControlCommand()) {
                 String commandText = mContext.getString(ev.command.label) + " ";
-                if (ev.command.commandStatusCode == 0x01) {
+                if (ev.command.isLongPress()) {
                     commandText += mContext.getString(R.string.control_command_long);
                 } else {
                     commandText += mContext.getString(R.string.control_command_short);
                 }
                 view.showShortToast(commandText);
+            }
+            //SPH車載機キー操作情報送信
+            if(mStatusHolder.getProtocolSpec().isSphCarDevice()){
+                switch (ev.command){
+                    case NAVI:
+                        mAnalytics.sendSPHKeyActionEvent(Analytics.AnalyticsSPHKeyAction.navi);
+                        break;
+                    case PHONE:
+                        mAnalytics.sendSPHKeyActionEvent(Analytics.AnalyticsSPHKeyAction.phoneShort);
+                        break;
+                    case DIRECT_CALL:
+                        mAnalytics.sendSPHKeyActionEvent(Analytics.AnalyticsSPHKeyAction.phoneLong);
+                        break;
+                    case MAIL:
+                        mAnalytics.sendSPHKeyActionEvent(Analytics.AnalyticsSPHKeyAction.message);
+                        break;
+                    case VR:
+                        mAnalytics.sendSPHKeyActionEvent(Analytics.AnalyticsSPHKeyAction.vr);
+                        break;
+                }
             }
             if(appStatus.isTransitionedHomeScreen && AppUtil.isScreenOn(mContext)) {
                 switch (ev.command) {

@@ -10,8 +10,8 @@ import com.flurry.android.FlurryAgent;
  */
 public class FlurryAnalyticsToolStrategy implements AnalyticsToolStrategy{
     /** FlurryのAPI. */
-    private static final String FLURRY_API = "92XY6QSWZJ6BBJ52XC9X";//Pioneer
-    //private static final String FLURRY_API = "QC5CGWCTJZHDPSG27Q69";//NSWサンプル
+    //private static final String FLURRY_API = "92XY6QSWZJ6BBJ52XC9X";//Pioneer
+    private static final String FLURRY_API = "QC5CGWCTJZHDPSG27Q69";//NSWサンプル
     private static final boolean DBG = false;
     private final static String TAG = FlurryAnalyticsToolStrategy.class.getSimpleName();
 

@@ -4,15 +4,20 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.google.gson.Gson;
+
 import jp.pioneer.carsync.domain.model.AlexaLanguageType;
 import jp.pioneer.carsync.domain.model.LiveSimulationSetting;
+import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.SmallCarTaSettingType;
 import jp.pioneer.carsync.domain.model.SoundEffectSettingType;
 import jp.pioneer.carsync.domain.model.SoundEffectType;
 import jp.pioneer.carsync.domain.model.SoundFieldControlSettingType;
 import jp.pioneer.carsync.domain.model.SoundFxSettingEqualizerType;
 import jp.pioneer.carsync.domain.model.SuperTodorokiSetting;
+import jp.pioneer.carsync.domain.model.ThemeType;
 import jp.pioneer.carsync.domain.model.TimeAlignmentSettingMode;
+import jp.pioneer.carsync.presentation.model.CustomKey;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -31,6 +36,7 @@ public class AnalyticsSharedPreference {
         KEY_ALEXA_USE("key_alexa_use"),
         KEY_ALEXA_USE_LAST_SENT_DATE("key_alexa_use_last_sent_date"),
         KEY_ALEXA_LANGUAGE_SENT("key_alexa_language_sent"),
+        KEY_ALEXA_LANGUAGE_LAST_SENT_DATE("key_alexa_language_last_sent_date"),
         KEY_SETTING_FX_EQUALIZER_SENT("key_setting_fx_equalizer_sent"),
         KEY_SETTING_FX_EQUALIZER_LAST_SENT_DATE("key_setting_fx_equalizer_last_sent_date"),
         KEY_SETTING_FX_LIVE_SIMULATION_SFC_SENT("key_setting_fx_live_simulation_sfc_sent"),
@@ -42,6 +48,14 @@ public class AnalyticsSharedPreference {
         KEY_SETTING_FX_EASY_SOUND_FIT_LAST_SENT_DATE("key_setting_fx_easy_sound_fit_last_sent_date"),
         KEY_SETTING_FX_TIME_ALIGNMENT_SENT("key_setting_fx_time_alignment_sent"),
         KEY_SETTING_FX_TIME_ALIGNMENT_LAST_SENT_DATE("key_setting_fx_time_alignment_last_sent_date"),
+        KEY_SETTING_WALLPAPER_SENT("key_setting_wallpaper_sent"),
+        KEY_SETTING_WALLPAPER_LAST_SENT_DATE("key_setting_wallpaper_last_sent_date"),
+        KEY_SETTING_CUSTOM_KEY_TYPE_SENT("key_setting_custom_key_type_sent"),
+        KEY_SETTING_CUSTOM_KEY_DIRECT_SOURCE_SENT("key_setting_custom_key_direct_source_sent"),
+        KEY_SETTING_CUSTOM_KEY_MUSIC_APP_SENT("key_setting_custom_key_music_app_sent"),
+        KEY_SETTING_CUSTOM_KEY_LAST_SENT_DATE("key_setting_custom_key_last_sent_date"),
+        KEY_SETTING_ADAS_SENT("key_setting_adas_sent"),
+        KEY_SETTING_ADAS_LAST_SENT_DATE("key_setting_adas_last_sent_date"),
         ;
 
         /**/
@@ -68,6 +82,8 @@ public class AnalyticsSharedPreference {
     private static final String DEFAULT_SETTING_FX_SUPER_TODOROKI_SENT = null;
     private static final String DEFAULT_SETTING_FX_EASY_SOUND_FIT_SENT = null;
     private static final String DEFAULT_SETTING_FX_TIME_ALIGNMENT_SENT = null;
+    private static final String DEFAULT_SETTING_NULL = null;
+    private static final boolean DEFAULT_ADAS_SETTING = false;
     private final SharedPreferences mPreferences;
 
     /**
@@ -310,7 +326,7 @@ public class AnalyticsSharedPreference {
      * @return long 日時
      */
     long getAlexaLanguageLastSentDate() {
-        return load(KeyConst.KEY_ALEXA_USE_LAST_SENT_DATE, DEFAULT_LAST_SENT_DATE);
+        return load(KeyConst.KEY_ALEXA_LANGUAGE_LAST_SENT_DATE, DEFAULT_LAST_SENT_DATE);
     }
 
     /**
@@ -319,7 +335,7 @@ public class AnalyticsSharedPreference {
      * @param value 日時
      */
     void setAlexaLanguageLastSentDate(long value) {
-        save(KeyConst.KEY_ALEXA_USE_LAST_SENT_DATE, value);
+        save(KeyConst.KEY_ALEXA_LANGUAGE_LAST_SENT_DATE, value);
     }
 
     /**
@@ -536,6 +552,176 @@ public class AnalyticsSharedPreference {
      */
     void setFxTimeAlignmentLastSentDate(long value) {
         save(KeyConst.KEY_SETTING_FX_TIME_ALIGNMENT_LAST_SENT_DATE, value);
+    }
+
+    /**
+     * 壁紙設定前回送信値取得.
+     *
+     * @return ThemeType 設定
+     */
+    @Nullable
+    ThemeType getWallpaperSent() {
+        String name = load(KeyConst.KEY_SETTING_WALLPAPER_SENT, DEFAULT_SETTING_NULL);
+        if (name == null) {
+            return null;
+        } else {
+            return ThemeType.valueOf(name);
+        }
+    }
+
+    /**
+     * 壁紙設定前回送信値設定.
+     *
+     * @param value 設定
+     */
+    void setWallpaperSent(ThemeType value) {
+        save(KeyConst.KEY_SETTING_WALLPAPER_SENT, value.name());
+    }
+
+    /**
+     * 壁紙設定最終送信日時取得.
+     *
+     * @return long 日時
+     */
+    long getWallpaperLastSentDate() {
+        return load(KeyConst.KEY_SETTING_WALLPAPER_LAST_SENT_DATE, DEFAULT_LAST_SENT_DATE);
+    }
+
+    /**
+     * 壁紙設定最終送信日時設定.
+     *
+     * @param value 日時
+     */
+    void setWallpaperLastSentDate(long value) {
+        save(KeyConst.KEY_SETTING_WALLPAPER_LAST_SENT_DATE, value);
+    }
+
+    /**
+     * カスタムキー種別設定前回送信値取得.
+     *
+     * @return ThemeType 設定
+     */
+    @Nullable
+    CustomKey getCustomKeyTypeSent() {
+        String name = load(KeyConst.KEY_SETTING_CUSTOM_KEY_TYPE_SENT, DEFAULT_SETTING_NULL);
+        if (name == null) {
+            return null;
+        } else {
+            return CustomKey.valueOf(name);
+        }
+    }
+
+    /**
+     * カスタムキー種別設定前回送信値設定.
+     *
+     * @param value 設定
+     */
+    void setCustomKeyTypeSent(CustomKey value) {
+        save(KeyConst.KEY_SETTING_CUSTOM_KEY_TYPE_SENT, value.name());
+    }
+
+    /**
+     * カスタムキー ダイレクトソース切替の対象ソース設定前回送信値取得.
+     *
+     * @return ThemeType 設定
+     */
+    @Nullable
+    MediaSourceType getCustomKeyDirectSourceSent() {
+        String name = load(KeyConst.KEY_SETTING_CUSTOM_KEY_DIRECT_SOURCE_SENT, DEFAULT_SETTING_NULL);
+        if (name == null) {
+            return null;
+        } else {
+            return MediaSourceType.valueOf(name);
+        }
+    }
+
+    /**
+     * カスタムキー ダイレクトソース切替の対象ソース設定前回送信値設定.
+     *
+     * @param value 設定
+     */
+    void setCustomKeyDirectSourceSent(MediaSourceType value) {
+        save(KeyConst.KEY_SETTING_CUSTOM_KEY_DIRECT_SOURCE_SENT, value.name());
+    }
+
+    /**
+     * カスタムキー 3rdApp切替の該当アプリ前回送信値取得.
+     *
+     * @return ThemeType 設定
+     */
+    @Nullable
+    AppSharedPreference.Application getCustomKeyMusicAppSent() {
+        String name = load(KeyConst.KEY_SETTING_CUSTOM_KEY_MUSIC_APP_SENT, DEFAULT_SETTING_NULL);
+        if (name == null) {
+            return null;
+        } else {
+            return new Gson().fromJson(name, AppSharedPreference.Application.class);
+        }
+    }
+
+    /**
+     * カスタムキー 3rdApp切替の該当アプリ前回送信値設定.
+     *
+     * @param value 設定
+     */
+    void setCustomKeyMusicAppSent(AppSharedPreference.Application value) {
+        save(KeyConst.KEY_SETTING_CUSTOM_KEY_MUSIC_APP_SENT, new Gson().toJson(value));
+    }
+
+
+
+    /**
+     * カスタムキー設定最終送信日時取得.
+     *
+     * @return long 日時
+     */
+    long getCustomKeyLastSentDate() {
+        return load(KeyConst.KEY_SETTING_CUSTOM_KEY_LAST_SENT_DATE, DEFAULT_LAST_SENT_DATE);
+    }
+
+    /**
+     * カスタムキー設定最終送信日時設定.
+     *
+     * @param value 日時
+     */
+    void setCustomKeyLastSentDate(long value) {
+        save(KeyConst.KEY_SETTING_CUSTOM_KEY_LAST_SENT_DATE, value);
+    }
+
+    /**
+     * ADAS設定前回送信値取得.
+     *
+     * @return boolean 設定
+     */
+    boolean getAdasSettingSent() {
+        return load(KeyConst.KEY_SETTING_ADAS_SENT, DEFAULT_ADAS_SETTING);
+    }
+
+    /**
+     * ADAS設定前回送信値設定.
+     *
+     * @param value 設定
+     */
+    void setAdasSettingSent(boolean value) {
+        save(KeyConst.KEY_SETTING_ADAS_SENT, value);
+    }
+
+    /**
+     * ADAS設定最終送信日時取得.
+     *
+     * @return long 日時
+     */
+    long getAdasSettingSentDate() {
+        return load(KeyConst.KEY_SETTING_ADAS_LAST_SENT_DATE, DEFAULT_LAST_SENT_DATE);
+    }
+
+    /**
+     * ADAS設定最終送信日時設定.
+     *
+     * @param value 日時
+     */
+    void setAdasSettingLastSentDate(long value) {
+        save(KeyConst.KEY_SETTING_ADAS_LAST_SENT_DATE, value);
     }
 
     /**
