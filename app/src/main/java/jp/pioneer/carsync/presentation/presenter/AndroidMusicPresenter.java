@@ -387,7 +387,7 @@ public class AndroidMusicPresenter extends PlayerPresenter<AndroidMusicView> {
         }else {
             mFxCase.setSuperTodoroki(nextItem.superTodorokiSetting);
         }
-        mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.fxSelect);
+        mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.fxSelect, Analytics.AnalyticsActiveScreen.av_screen);
     }
 
     /**
@@ -424,7 +424,7 @@ public class AndroidMusicPresenter extends PlayerPresenter<AndroidMusicView> {
             }
             mFxCase.setEqualizer(mEqArray.get(index));
         }
-        mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.eqSelect);
+        mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.eqSelect, Analytics.AnalyticsActiveScreen.av_screen);
     }
 
     private SoundFxSetting getFxSetting() {

@@ -321,12 +321,6 @@ public class Analytics {
                 .submit();
     }
 
-    void logShortcutActionEvent(AnalyticsShortcutAction action) {
-        createEventSubmitterWithCommonEventParam(AnalyticsEvent.shortcutAction)
-                .with(AnalyticsParam.action, action.value)
-                .submit();
-    }
-
     void logThirdAppStartUpEvent(AnalyticsThirdAppStartUp startUp) {
         createEventSubmitterWithCommonEventParam(AnalyticsEvent.thirdAppStartUp)
                 .with(AnalyticsParam.trigger, startUp.value)

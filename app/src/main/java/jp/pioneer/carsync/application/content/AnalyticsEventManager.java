@@ -175,13 +175,6 @@ public class AnalyticsEventManager {
     }
 
     /**
-     * ショートカット操作情報イベント送信(操作画面なし)
-     */
-    public void sendShortCutActionEvent(Analytics.AnalyticsShortcutAction action) {
-        sAnalytics.logShortcutActionEvent(action);
-    }
-
-    /**
      * 3rd App起動トリガーイベント送信
      */
     public void sendThirdAppStartUpEvent(Analytics.AnalyticsThirdAppStartUp startUp) {
