@@ -231,7 +231,7 @@ public class MainFragmentController {
                 showCarDeviceErrorDialog(args, MainPresenter.TAG_DIALOG_SXM_SUBSCRIPTION_UPDATE);
                 return true;
             case USB_ERROR:
-                showUsbError(args, MainPresenter.TAG_DIALOG_SXM_SUBSCRIPTION_UPDATE);
+                showUsbError(args, MainPresenter.TAG_DIALOG_ERROR);
                 return true;
             case MAIN_STATUS_DIALOG:
                 showCarDeviceErrorDialog(args, TAG_DIALOG_NORMAL);
@@ -305,10 +305,12 @@ public class MainFragmentController {
      * @param args Bundle 引き継ぎ情報
      */
     public void showCaution(Bundle args) {
+        if(isShowAppConnectMethodDialog()){
+            dismissAppConnectMethodDialog();
+        }
         if(isShowSessionStopped()){
             dismissSessionStopped();
         }
-
         createCautionDialogFragment(args).show(mFragmentManager, TAG_DIALOG_CAUTION);
         mFragmentManager.executePendingTransactions();
     }
@@ -627,11 +629,14 @@ public class MainFragmentController {
     }
 
     /**
-     * CarDeviceErrorDialog表示
+     * 車載器連携エラー（USB接続）表示
      *
      * @param args Bundle 引き継ぎ情報
      */
     public void showUsbError(Bundle args, String tag) {
+        if(isShowAppConnectMethodDialog()){
+            dismissAppConnectMethodDialog();
+        }
         if(isShowSessionStopped()){
             dismissSessionStopped();
         }
