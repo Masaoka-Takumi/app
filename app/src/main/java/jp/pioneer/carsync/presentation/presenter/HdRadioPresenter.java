@@ -36,6 +36,7 @@ import jp.pioneer.carsync.domain.model.HdRadioInfo;
 import jp.pioneer.carsync.domain.model.HdRadioStationStatus;
 import jp.pioneer.carsync.domain.model.ListType;
 import jp.pioneer.carsync.domain.model.MediaSourceType;
+import jp.pioneer.carsync.domain.model.ProtocolVersion;
 import jp.pioneer.carsync.domain.model.StatusHolder;
 import jp.pioneer.carsync.domain.model.TunerFrequencyUnit;
 import jp.pioneer.carsync.domain.model.TunerStatus;
@@ -545,7 +546,10 @@ public class HdRadioPresenter extends PlayerPresenter<HdRadioView> implements Lo
      * PCH登録
      */
     public void onRegisterPresetChannel(int presetNumber) {
-        //車載器にプリセット登録
-        mControlCase.registerPreset(mBandIndex* RadioPresetFragment.PAGE_PRESET_ITEMS + presetNumber);
+        //通信プロトコル4.1以上で通信している場合、車載器にプリセット登録
+        ProtocolVersion version = mStatusHolder.execute().getProtocolSpec().getConnectingProtocolVersion();
+        if(version.isGreaterThanOrEqual(ProtocolVersion.V4_1)) {
+            mControlCase.registerPreset(mBandIndex* RadioPresetFragment.PAGE_PRESET_ITEMS + presetNumber);
+        }
     }
 }

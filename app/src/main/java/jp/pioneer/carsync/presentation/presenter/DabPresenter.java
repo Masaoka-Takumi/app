@@ -37,6 +37,7 @@ import jp.pioneer.carsync.domain.model.DabInfo;
 import jp.pioneer.carsync.domain.model.ListType;
 import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.PlaybackMode;
+import jp.pioneer.carsync.domain.model.ProtocolVersion;
 import jp.pioneer.carsync.domain.model.RadioBandType;
 import jp.pioneer.carsync.domain.model.RadioInfo;
 import jp.pioneer.carsync.domain.model.StatusHolder;
@@ -533,9 +534,11 @@ public class DabPresenter extends PlayerPresenter<DabView> implements LoaderMana
         if(!mCurrDab.isErrorStatus()&&!mCurrDab.isSearchStatus()&&isSphCarDevice()) {
             mTunerCase.registerFavorite(TunerContract.FavoriteContract.UpdateParamsBuilder.createDabPreset(mCurrDab, presetNumber, mContext));
         }
-        //車載器にプリセット登録
-        mControlCase.registerPreset(presetNumber);
-
+        //通信プロトコル4.1以上で通信している場合、車載器にプリセット登録
+        ProtocolVersion version = mStatusHolder.execute().getProtocolSpec().getConnectingProtocolVersion();
+        if(version.isGreaterThanOrEqual(ProtocolVersion.V4_1)) {
+            mControlCase.registerPreset(presetNumber);
+        }
 /*        if(presetNumber==1) {
             deleteUserPresetCurrentBand(mDabBand);
         }*/

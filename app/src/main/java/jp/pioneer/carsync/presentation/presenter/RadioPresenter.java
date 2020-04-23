@@ -40,6 +40,7 @@ import jp.pioneer.carsync.domain.model.CarDeviceDestinationInfo;
 import jp.pioneer.carsync.domain.model.CarDeviceStatus;
 import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.PCHManualSetting;
+import jp.pioneer.carsync.domain.model.ProtocolVersion;
 import jp.pioneer.carsync.domain.model.PtySearchSetting;
 import jp.pioneer.carsync.domain.model.RadioBandType;
 import jp.pioneer.carsync.domain.model.RadioInfo;
@@ -609,8 +610,11 @@ public class RadioPresenter extends PlayerPresenter<RadioView> implements Loader
             mTunerCase.registerFavorite(TunerContract.FavoriteContract.UpdateParamsBuilder.createRadioPreset(mCurrRadio, presetNumber, status.seekStep, mContext,psInfoText));
             saveLastAmStepSetting();
         }
-        //車載器にプリセット登録
-        mControlCase.registerPreset(mBandIndex*RadioPresetFragment.PAGE_PRESET_ITEMS + presetNumber);
+        //通信プロトコル4.1以上で通信している場合、車載器にプリセット登録
+        ProtocolVersion version = mStatusHolder.execute().getProtocolSpec().getConnectingProtocolVersion();
+        if(version.isGreaterThanOrEqual(ProtocolVersion.V4_1)) {
+            mControlCase.registerPreset(mBandIndex * RadioPresetFragment.PAGE_PRESET_ITEMS + presetNumber);
+        }
     }
 
     /**
