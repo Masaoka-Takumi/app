@@ -76,32 +76,24 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
     CustomVoiceChromeView mVoiceChrome;
     @BindView(R.id.close_button)
     ImageView mCloseBtn;
+    @BindView(R.id.main_Title)
+    TextView mMainTitle;
+    @BindView(R.id.skill_icon)
+    ImageView mSkillIcon;
     @BindView(R.id.body_template2)
     ConstraintLayout mBodyTemplate2;
-    @BindView(R.id.body_main_Title)
-    TextView mBodyMainTitle;
     @BindView(R.id.body_sub_Title)
     TextView mBodySubTitle;
-    @BindView(R.id.text_field)
-    TextView mTextField;
     @BindView(R.id.image)
     ImageView mImage;
-    @BindView(R.id.body_skill_icon)
-    ImageView mBodySkillIcon;
     @BindView(R.id.list_template1)
     ConstraintLayout mListTemplate1;
-    @BindView(R.id.list_main_Title)
-    TextView mListMainTitle;
     @BindView(R.id.list_sub_Title)
     TextView mListSubTitle;
     @BindView(R.id.list_view)
     ListView mListView;
-    @BindView(R.id.list_skill_icon)
-    ImageView mListSkillIcon;
     @BindView(R.id.weather_template)
     ConstraintLayout mWeatherTemplate;
-    @BindView(R.id.weather_main_Title)
-    TextView mWeatherMainTitle;
     @BindView(R.id.weather_sub_Title)
     TextView mWeatherSubTitle;
     @BindView(R.id.current_weather_icon)
@@ -119,6 +111,7 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
     @BindView(R.id.weather_forecast)
     LinearLayout mWeatherForecastLayout;
     private Unbinder mUnbinder;
+    private int mOrientation;
     /**
      * Alexaマネージャ.
      */
@@ -191,8 +184,9 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
         }
         AlexaDisplayCardFragment.this.dismiss();
     }
+
     @Override
-    public void closeDialogWithAnimation(){
+    public void closeDialogWithAnimation() {
         AlphaAnimation animation = new AlphaAnimation(1, 0);
         animation.setDuration(500);
         animation.setAnimationListener(new Animation.AnimationListener() {
@@ -218,12 +212,14 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_alexa_display_card, container, false);
         mUnbinder = ButterKnife.bind(this, view);
+        Configuration config = getResources().getConfiguration();
+        mOrientation = config.orientation;
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 //画面タッチで保持する
                 mHandler.removeCallbacks(mRunnable);
-                mHandler.postDelayed(mRunnable,IDLE_TIME);
+                mHandler.postDelayed(mRunnable, IDLE_TIME);
                 return false;
             }
         });
@@ -276,11 +272,15 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
         if (AmazonAlexaManager.isAlexaUnavailable) {
             //Alexa Service Unavailable
             mVoiceChrome.setVoiceChromeType(CustomVoiceChromeView.VoiceChromeType.SYSTEM_ERROR);
+            //無操作2秒で閉じる
+            mHandler.postDelayed(mRunnable, IDLE_TIME);
             return;
         }
         if (!AmazonAlexaManager.mIsAlexaConnection) {
             //システムエラー(Alexaに接続されていない)
             mVoiceChrome.setVoiceChromeType(CustomVoiceChromeView.VoiceChromeType.SYSTEM_ERROR);
+            //無操作2秒で閉じる
+            mHandler.postDelayed(mRunnable, IDLE_TIME);
             return;
         }
         getPresenter().startAlexa();
@@ -295,7 +295,11 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
 
     @Override
     public void setTemplate(final RenderTemplateItem renderTemplateItem) {
-        if (renderTemplateItem == null) return;
+        if (renderTemplateItem == null) {
+            Timber.d("setTemplate:renderTemplateItem is null ");
+            callbackClose();
+            return;
+        }
         Timber.d("setTemplate:type=" + renderTemplateItem.type);
         AlexaSpeakManager alexaSpeakManager = AlexaSpeakManager.getInstance();
         SpeakItem currentItem = alexaSpeakManager.getCurrentItem();
@@ -314,6 +318,23 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
             return;
         }
 
+        mMainTitle.setText(renderTemplateItem.title.mainTitle);
+        if (renderTemplateItem.skillIcon != null) {
+            AlexaIfDirectiveItem.ImageStructure imageStructure = renderTemplateItem.skillIcon;
+            AlexaIfDirectiveItem.Source source = getSourceImage(imageStructure);
+            String imageUrl = null;
+            if (source != null) {
+                imageUrl = source.getUrl();
+            }
+            if (mSkillIcon != null) {
+                if (imageUrl != null) {
+                    setImageNoBox(mSkillIcon, Uri.parse(imageUrl));
+                } else {
+                    //setImage(mSkillIcon, null);
+                    setImageNoBox(mSkillIcon, null);
+                }
+            }
+        }
         switch (renderTemplateItem.type) {
             case Constant.TEMPLATE_TYPE_BODY_TEMPLATE2:
                 setBodyTemplate2(renderTemplateItem);
@@ -335,9 +356,7 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
         mBodyTemplate2.setVisibility(View.VISIBLE);
         mListTemplate1.setVisibility(View.GONE);
         mWeatherTemplate.setVisibility(View.GONE);
-        mBodyMainTitle.setText(renderTemplateItem.title.mainTitle);
         mBodySubTitle.setText(renderTemplateItem.title.subTitle);
-        mTextField.setText(renderTemplateItem.textField);
         if (renderTemplateItem.image != null) {
             AlexaIfDirectiveItem.ImageStructure imageStructure = renderTemplateItem.image;
             AlexaIfDirectiveItem.Source source = getSourceImage(imageStructure);
@@ -353,67 +372,36 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
                 }
             }
         }
-        if (renderTemplateItem.skillIcon != null) {
-            AlexaIfDirectiveItem.ImageStructure imageStructure = renderTemplateItem.skillIcon;
-            AlexaIfDirectiveItem.Source source = getSourceImage(imageStructure);
-            String imageUrl = null;
-            if (source != null) {
-                imageUrl = source.getUrl();
-            }
-            if (mBodySkillIcon != null) {
-                if (imageUrl != null) {
-                    setImageNoBox(mBodySkillIcon, Uri.parse(imageUrl));
-                } else {
-                    setImageNoBox(mBodySkillIcon, null);
-                }
-            }
-        }
     }
 
     private void setListTemplate1(final RenderTemplateItem renderTemplateItem) {
         mBodyTemplate2.setVisibility(View.GONE);
         mListTemplate1.setVisibility(View.VISIBLE);
         mWeatherTemplate.setVisibility(View.GONE);
-        mListMainTitle.setText(renderTemplateItem.title.mainTitle);
         mListSubTitle.setText(renderTemplateItem.title.subTitle);
         mAdapter = new AlexaListTemplateAdapter(getContext(), renderTemplateItem.type);
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         mListView.setAdapter(mAdapter);
+        mListView.setDivider(null);
         mAdapter.clear();
         mAdapter.addAll(renderTemplateItem.listItems);
-        if (renderTemplateItem.skillIcon != null) {
-            AlexaIfDirectiveItem.ImageStructure imageStructure = renderTemplateItem.skillIcon;
-            AlexaIfDirectiveItem.Source source = getSourceImage(imageStructure);
-            String imageUrl = null;
-            if (source != null) {
-                imageUrl = source.getUrl();
-            }
-            if (mListSkillIcon != null) {
-                if (imageUrl != null) {
-                    setImageNoBox(mListSkillIcon, Uri.parse(imageUrl));
-                } else {
-                    setImageNoBox(mListSkillIcon, null);
+        if (renderTemplateItem.type.equals(Constant.TEMPLATE_TYPE_LOCAL_SEARCH_LIST_TEMPLATE1)) {
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    AlexaIfDirectiveItem.ListItem item = mAdapter.getItem(position);
+                    if (item != null) {
+                        mAmazonAlexaManager.onPost(item.getSetDestinationItem());
+                    }
                 }
-            }
+            });
         }
-      if(renderTemplateItem.type.equals(Constant.TEMPLATE_TYPE_LOCAL_SEARCH_LIST_TEMPLATE1)) {
-          mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-              @Override
-              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                  AlexaIfDirectiveItem.ListItem item = mAdapter.getItem(position);
-                  if(item!=null) {
-                      mAmazonAlexaManager.onPost(item.getSetDestinationItem());
-                  }
-              }
-          });
-      }
     }
 
     private void setWeatherTemplate(final RenderTemplateItem renderTemplateItem) {
         mBodyTemplate2.setVisibility(View.GONE);
         mListTemplate1.setVisibility(View.GONE);
         mWeatherTemplate.setVisibility(View.VISIBLE);
-        mWeatherMainTitle.setText(renderTemplateItem.title.mainTitle);
         mWeatherSubTitle.setText(renderTemplateItem.title.subTitle);
         mCurrentWeatherText.setText(renderTemplateItem.currentWeather);
 
@@ -493,7 +481,11 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
                 highTemperature.setText(weatherForecast.getHighTemperature());
                 lowTemperature.setText(weatherForecast.getLowTemperature());
                 i++;
-                if (i >= 5) break;
+                if (mOrientation == Configuration.ORIENTATION_PORTRAIT) {
+                    if (i >= 4) break;
+                } else {
+                    if (i >= 5) break;
+                }
             }
         }
     }
@@ -799,7 +791,7 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if(mVoiceChrome!=null) {
+                    if (mVoiceChrome != null) {
                         mVoiceChrome.setVisibility(View.VISIBLE);
                     }
                 }

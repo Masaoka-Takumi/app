@@ -2,24 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:autofit="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/custom_key_setting_height"
+    android:layout_height="@dimen/alexa_display_card_list_template_item_height"
     android:layoutDirection="ltr"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="@dimen/custom_key_setting_item_left_margin"
+        android:layout_marginLeft="@dimen/alexa_display_card_list_template_item_margin"
         android:layout_weight="1"
         android:layoutDirection="ltr"
         android:orientation="horizontal">
 
         <me.grantland.widget.AutofitTextView
             android:id="@+id/text_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:gravity="right|center_vertical"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="1."
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/alexa_display_card_list_template_item_text_size" />
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/text_right"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/custom_key_setting_text_left_margin"
-            android:layout_marginRight="@dimen/custom_key_setting_text_right_margin"
+            android:layout_marginLeft="@dimen/alexa_display_card_list_template_item_right_text_left_margin"
+            android:layout_marginRight="@dimen/alexa_display_card_list_template_item_margin"
             android:layout_weight="1"
 
             android:ellipsize="end"
@@ -27,38 +40,12 @@
             android:gravity="left|center_vertical"
             android:maxLines="1"
             android:singleLine="true"
+            android:text="test"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@android:color/white"
-
-            android:textSize="@dimen/custom_key_setting_text_size_portrait"
-            android:visibility="visible" />
-
-        <me.grantland.widget.AutofitTextView
-            android:id="@+id/text_right"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:layout_marginLeft="@dimen/custom_key_setting_text_left_margin"
-            android:layout_marginRight="@dimen/custom_key_setting_text_right_margin"
-
-            android:ellipsize="end"
-            android:fontFamily="sans-serif-light"
-            android:gravity="left|center_vertical"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@android:color/white"
-
-            android:textSize="@dimen/custom_key_setting_text_size_portrait"
+            android:textSize="@dimen/alexa_display_card_list_template_item_text_size"
             android:visibility="visible"
             autofit:minTextSize="@dimen/min_text_size_16" />
     </LinearLayout>
-
-    <View
-        android:id="@+id/separator_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#40FFFFFF"
-        android:visibility="visible" />
 
 </LinearLayout>

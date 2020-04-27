@@ -1,13 +1,18 @@
 package jp.pioneer.carsync.presentation.view.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.annotation.Nonnull;
 
@@ -23,12 +28,34 @@ public class AlexaListTemplateAdapter extends ArrayAdapter<AlexaIfDirectiveItem.
     private LayoutInflater mInflater;
     private Context mContext;
     private String mTemplateType;
+    private float mLeftTextFieldLength;
 
     public AlexaListTemplateAdapter(Context context, String type) {
         super(context, 0);
         mInflater = LayoutInflater.from(context);
         mContext = context;
         mTemplateType = type;
+    }
+
+    @Override
+    public void addAll(@NonNull Collection<? extends AlexaIfDirectiveItem.ListItem> collection) {
+        super.addAll(collection);
+        mLeftTextFieldLength = 0;
+        ViewGroup parent = new LinearLayout(mContext);
+        View view = mInflater.inflate(R.layout.element_item_list_template, parent, false);
+        TextView textview = view.findViewById(R.id.text_left);
+        for (AlexaIfDirectiveItem.ListItem item : collection) {
+            String leftTextField = item.getLeftTextField();
+            textview.setText(leftTextField);
+            mLeftTextFieldLength = Math.max(calculateTextLen(textview), mLeftTextFieldLength);
+        }
+    }
+
+    private float calculateTextLen(TextView view) {
+        TextPaint tp = view.getPaint();
+        String strTxt = view.getText().toString();
+        float mt = tp.measureText(strTxt);
+        return mt;
     }
 
     @Nonnull
@@ -47,7 +74,11 @@ public class AlexaListTemplateAdapter extends ArrayAdapter<AlexaIfDirectiveItem.
                 } else {
                     holder = (ListViewHolder) convertView.getTag();
                 }
+
                 if (item != null) {
+                    holder.leftTextField.setLayoutParams(new LinearLayout.LayoutParams(
+                            (int) Math.ceil(mLeftTextFieldLength),
+                            LinearLayout.LayoutParams.MATCH_PARENT));
                     holder.leftTextField.setText(item.getLeftTextField());
                     holder.rightTextField.setText(item.getRightTextField());
                 }
@@ -62,7 +93,9 @@ public class AlexaListTemplateAdapter extends ArrayAdapter<AlexaIfDirectiveItem.
                     searchViewHolder = (LocalSearchViewHolder) convertView.getTag();
                 }
                 if (item != null) {
-                    searchViewHolder.leftTextField.setText(item.getLeftTextField());
+                    String number = String.valueOf(position + 1) + ".";
+                    searchViewHolder.leftTextField.setText(number);
+                    searchViewHolder.distanceTextField.setText(item.getLeftTextField());
                     searchViewHolder.rightPrimaryTextField.setText(item.getRightPrimaryTextField());
                     searchViewHolder.rightSecondaryTextField.setText(item.getRightSecondaryTextField());
                 }
@@ -77,8 +110,6 @@ public class AlexaListTemplateAdapter extends ArrayAdapter<AlexaIfDirectiveItem.
         TextView leftTextField;
         @BindView(R.id.text_right)
         TextView rightTextField;
-        @BindView(R.id.separator_bottom)
-        View separator_bottom;
 
         ListViewHolder(View itemView) {
             ButterKnife.bind(this, itemView);
@@ -90,6 +121,8 @@ public class AlexaListTemplateAdapter extends ArrayAdapter<AlexaIfDirectiveItem.
         TextView leftTextField;
         @BindView(R.id.right_primary_text)
         TextView rightPrimaryTextField;
+        @BindView(R.id.distance_text)
+        TextView distanceTextField;
         @BindView(R.id.right_secondary_text)
         TextView rightSecondaryTextField;
         @BindView(R.id.separator_bottom)

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/weather_sub_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/alexa_display_card_main_title_margin_left_portrait"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="15dp"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-light"
+        android:includeFontPadding="false"
+        android:gravity="left|center_vertical"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/alexa_display_card_subtitle"
+        android:textSize="@dimen/alexa_display_card_sub_title_text_size"
+        app:layout_constraintLeft_toRightOf="@+id/current_weather_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/temperature"
+        app:layout_constraintVertical_bias="0.9"/>
+
+    <ImageView
+        android:id="@+id/current_weather_icon"
+        android:layout_width="@dimen/alexa_display_card_weather_main_icon_width"
+        android:layout_height="@dimen/alexa_display_card_weather_main_icon_height"
+        android:layout_marginLeft="@dimen/alexa_display_card_weather_main_icon_margin_left_landscape"
+        android:layout_marginTop="14dp"
+        android:scaleType="fitCenter"
+        android:src="@android:color/darker_gray"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/weather_forecast"
+        app:layout_constraintVertical_bias="0.4"
+        />
+
+    <TextView
+        android:id="@+id/current_weather_text"
+        android:layout_width="@dimen/alexa_display_card_weather_main_temperature_width"
+        android:layout_height="@dimen/alexa_display_card_weather_main_temperature_text_size"
+        android:layout_marginLeft="@dimen/alexa_display_card_weather_main_icon_margin_left"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:text="20℃"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/alexa_display_card_weather_main_temperature_text_size_landscape"
+        app:layout_constraintBottom_toBottomOf="@+id/current_weather_icon"
+        app:layout_constraintLeft_toRightOf="@+id/current_weather_icon" />
+
+    <RelativeLayout
+        android:id="@+id/temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/alexa_display_card_weather_temperature_height_landscape"
+        app:layout_constraintBottom_toBottomOf="@+id/current_weather_text"
+        app:layout_constraintLeft_toRightOf="@+id/current_weather_text"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/current_weather_text">
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="@dimen/alexa_display_card_weather_temperature_height_landscape"
+            android:layout_alignParentLeft="true"
+            android:background="#66FFFFFF" />
+
+        <ImageView
+            android:id="@+id/high_arrow"
+
+            android:layout_width="@dimen/alexa_display_card_weather_temperature_arrow_width"
+            android:layout_height="@dimen/alexa_display_card_weather_temperature_arrow_width"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="14dp"
+            android:layout_marginBottom="@dimen/alexa_display_card_weather_temperature_margin_bottom_landscape"
+            android:scaleType="fitCenter"
+            android:src="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/high_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/high_arrow"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@+id/high_arrow"
+            android:fontFamily="sans-serif-light"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="22℃"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/alexa_display_card_weather_temperature_text_size" />
+
+        <ImageView
+            android:id="@+id/low_arrow"
+            android:layout_width="@dimen/alexa_display_card_weather_temperature_arrow_width"
+            android:layout_height="@dimen/alexa_display_card_weather_temperature_arrow_width"
+            android:layout_alignBottom="@+id/high_arrow"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@+id/high_temperature"
+            android:alpha="0.5"
+            android:scaleType="fitCenter"
+            android:src="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/low_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/high_arrow"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@+id/low_arrow"
+            android:alpha="0.5"
+            android:fontFamily="sans-serif-light"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:text="22℃"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/alexa_display_card_weather_temperature_text_size" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/alexa_display_card_weather_forecast_landscape_margin_horizontal"
+        android:background="#66FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/weather_forecast"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/weather_forecast"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/alexa_display_card_weather_forecast_landscape_height"
+        android:layout_marginHorizontal="@dimen/alexa_display_card_weather_forecast_landscape_margin_horizontal"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <include
+            layout="@layout/element_weather_forecast"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <include
+            layout="@layout/element_weather_forecast"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <include
+            layout="@layout/element_weather_forecast"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <include
+            layout="@layout/element_weather_forecast"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <include
+            layout="@layout/element_weather_forecast"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

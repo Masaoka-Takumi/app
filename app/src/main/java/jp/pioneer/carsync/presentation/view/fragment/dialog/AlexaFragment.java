@@ -152,9 +152,9 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
         mOrientation = config.orientation;
         if(getActivity()!=null) {
             if (((MainActivity) getActivity()).isShowAlexaDisplayCardDialog()) {
-                view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.setting_container_background_color_50));
+                view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.setting_container_background_color_60));
             } else {
-                view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.setting_container_background_color_95));
+                view.setBackgroundColor(ContextCompat.getColor(getActivity(), android.R.color.black));
             }
         }
         return view;
