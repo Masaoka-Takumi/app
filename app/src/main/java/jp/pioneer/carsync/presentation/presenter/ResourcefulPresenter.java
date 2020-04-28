@@ -119,6 +119,7 @@ import jp.pioneer.carsync.presentation.view.ResourcefulView;
 import jp.pioneer.carsync.presentation.view.service.ForegroundReason;
 import jp.pioneer.carsync.presentation.view.service.InitializeState;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
+import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderTemplateItem;
 import jp.pioneer.mbg.alexa.AmazonAlexaManager;
 import jp.pioneer.mbg.alexa.manager.AlexaAudioManager;
 import jp.pioneer.mbg.alexa.manager.AlexaQueueManager;
@@ -496,7 +497,7 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
                             Timber.d("addAlexaCallback");
                             mAmazonAlexaManager.addAlexaCallback(mAlexaCallback);
                         }
-                        if(appStatus.isShowAlexaDialog){
+                        if(appStatus.isShowAlexaDialog&&!appStatus.isShowAlexaDisplayCardDialog){
                             mEventBus.post(new AlexaVoiceRecognizeEvent());
                         } else if (mStatusHolder.getAppStatus().isAlexaAvailableCountry||mPreference.getLastConnectedCarDeviceAndroidVr() || mPreference.isVoiceRecognitionEnabled()) {
                             // Alexa機能が利用可能なら音声認識は利用可能
@@ -1378,6 +1379,11 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
             appStatus.playerInfoItem = playerInfoItem;
             mControlCase.sendMusicInfo();
             mEventBus.post(new AlexaRenderPlayerInfoUpdateEvent());
+        }
+
+        @Override
+        public void onReceiveRenderTemplate(RenderTemplateItem templateItem) {
+
         }
 
         @Override

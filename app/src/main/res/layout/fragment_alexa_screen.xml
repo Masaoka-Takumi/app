@@ -4,17 +4,16 @@
     xmlns:autofit="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/setting_container_background_color_95">
-
+    android:background="@android:color/black">
 
     <me.grantland.widget.AutofitTextView
         android:id="@+id/state_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="@dimen/navigate_bar_back_button_width"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="4dp"
         android:alpha="0.75"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
@@ -23,11 +22,10 @@
         android:text=""
         android:textColor="@color/text_color_state"
         android:textSize="@dimen/alexa_screen_state_text_size"
-        app:layout_constraintBottom_toTopOf="@+id/alexa_voice_chrome_large"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintRight_toLeftOf="@+id/alexa_start_button_group"
+        app:layout_constraintTop_toBottomOf="@+id/alexa_voice_chrome_large"
         autofit:minTextSize="@dimen/min_text_size_12" />
 
     <jp.pioneer.mbg.alexa.CustomVoiceChromeView
@@ -70,10 +68,12 @@
         android:id="@+id/close_button"
         android:layout_width="@dimen/navigate_bar_back_button_width"
         android:layout_height="@dimen/navigate_bar_back_button_width"
+        android:layout_marginRight="9dp"
         android:scaleType="fitCenter"
         android:src="@drawable/p0001_closebtn_1nrm"
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/alexa_voice_chrome_large"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </android.support.constraint.ConstraintLayout>

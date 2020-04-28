@@ -346,6 +346,19 @@ public interface MainView {
      * @return 表示中か否か
      */
     boolean isShowAlexaDialog();
+
+    /**
+     * AlexaDisplayCardダイアログ非表示
+     */
+    void dismissAlexaDisplayCardDialog();
+
+    /**
+     * AlexaDisplayCardダイアログ表示中か
+     *
+     * @return 表示中か否か
+     */
+    boolean isShowAlexaDisplayCardDialog();
+
     /**
      * 車載器エラーダイアログ/SubscriptionUpdateダイアログ表示
      *

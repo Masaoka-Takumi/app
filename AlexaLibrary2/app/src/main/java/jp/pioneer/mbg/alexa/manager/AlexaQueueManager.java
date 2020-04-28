@@ -458,7 +458,8 @@ public class AlexaQueueManager {
                     // キャンセルしたRecognizeイベントのdialogRequestIdと一致
                     // -> キャンセルしたイベントのレスポンスのため、破棄。
                 }
-                else if (id == null) {
+                else if (id == null||item instanceof RenderTemplateItem) {
+                    //通常系ディスプレイカードの通知は発話終了を待たない
                     if (DBG) android.util.Log.d(TAG, " - post(), Add unBlockAbleList. item = " + item);
                     unBlockAbleList.add((AlexaIfDirectiveItem) item);
                 } else {
@@ -980,6 +981,9 @@ public class AlexaQueueManager {
         }
         else if (item instanceof RenderTemplateItem) {
             // 通常系ディスプレイカード
+            if (mAlexaQueueCallback != null) {
+                mAlexaQueueCallback.onPost((RenderTemplateItem) item);
+            }
         }
         else if (item instanceof SetDestinationItem) {
             // ナビ目的地設定

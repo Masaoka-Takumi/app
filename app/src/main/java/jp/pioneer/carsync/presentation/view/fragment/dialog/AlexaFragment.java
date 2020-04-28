@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.PermissionChecker;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -32,13 +33,16 @@ import jp.pioneer.carsync.R;
 import jp.pioneer.carsync.application.di.component.FragmentComponent;
 import jp.pioneer.carsync.presentation.presenter.AlexaPresenter;
 import jp.pioneer.carsync.presentation.view.AlexaView;
+import jp.pioneer.carsync.presentation.view.activity.MainActivity;
 import jp.pioneer.mbg.alexa.AlexaInterface.AlexaIfDirectiveItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.SpeechSynthesizer.SpeakItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
+import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderTemplateItem;
 import jp.pioneer.mbg.alexa.AmazonAlexaManager;
 import jp.pioneer.mbg.alexa.CustomVoiceChromeView;
 import jp.pioneer.mbg.alexa.manager.AlexaQueueManager;
 import jp.pioneer.mbg.alexa.manager.AlexaSpeakManager;
+import jp.pioneer.mbg.alexa.util.Constant;
 import timber.log.Timber;
 
 /**
@@ -89,6 +93,7 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
     public static AlexaFragment newInstance(android.support.v4.app.Fragment target, Bundle args) {
         AlexaFragment fragment = new AlexaFragment();
         fragment.setTargetFragment(target, 0);
+        fragment.setCancelable(false);
         fragment.setArguments(args);
         return fragment;
     }
@@ -97,18 +102,6 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = new Dialog(getActivity(), R.style.BehindScreenStyle);
-        dialog.setCancelable(false);
-        dialog.setOnKeyListener((dialog1, keyCode, event) -> {
-            if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-                if (getCallback() != null) {
-                    getCallback().onClose(this);
-                } else {
-                    this.dismiss();
-                }
-                return true;
-            }
-            return false;
-        });
         return dialog;
     }
 
@@ -157,6 +150,13 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
         mUnbinder = ButterKnife.bind(this, view);
         Configuration config = getResources().getConfiguration();
         mOrientation = config.orientation;
+        if(getActivity()!=null) {
+            if (((MainActivity) getActivity()).isShowAlexaDisplayCardDialog()) {
+                view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.setting_container_background_color_60));
+            } else {
+                view.setBackgroundColor(ContextCompat.getColor(getActivity(), android.R.color.black));
+            }
+        }
         return view;
     }
 
@@ -440,6 +440,15 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
             mCommunicationLayoutHandler.defaultVoiceChromeStatus();
             getPresenter().setPlayInfo(playerInfoItem);
             isAudioPlay = true;
+        }
+
+        @Override
+        public void onReceiveRenderTemplate(RenderTemplateItem templateItem) {
+            Timber.d("onReceiveRenderTemplate");
+            if(templateItem.type.equals(Constant.TEMPLATE_TYPE_BODY_TEMPLATE2)||templateItem.type.equals(Constant.TEMPLATE_TYPE_LIST_TEMPLATE1)
+            ||templateItem.type.equals(Constant.TEMPLATE_TYPE_LOCAL_SEARCH_LIST_TEMPLATE1)||templateItem.type.equals(Constant.TEMPLATE_TYPE_WEATHER_TEMPLATE)) {
+                getPresenter().showDisplayCard(templateItem);
+            }
         }
 
         @Override

@@ -734,7 +734,7 @@
     <dimen name="alexa_tutorial_circle_page_indicator_height">42dp</dimen>
 
     <!-- Alexa Screen -->
-    <dimen name="alexa_screen_state_text_size">40dp</dimen>
+    <dimen name="alexa_screen_state_text_size">21dp</dimen>
     <dimen name="alexa_screen_voice_chrome_height">5dp</dimen>
     <dimen name="alexa_screen_start_button_group_width">64dp</dimen>
     <dimen name="alexa_screen_start_button_width">57dp</dimen>

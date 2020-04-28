@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/alexa_display_card_local_search_template_item_height"
+    android:layoutDirection="ltr"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/alexa_display_card_list_template_item_margin"
+        android:layout_weight="1"
+        android:layoutDirection="ltr"
+        android:orientation="horizontal">
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/text_left"
+            android:layout_width="@dimen/alexa_display_card_list_template_item_text_left_width"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:gravity="right"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="1."
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/alexa_display_card_local_search_template_item_primary_text_size" />
+
+        <RelativeLayout
+            android:id="@+id/right_group"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/alexa_display_card_list_template_item_right_text_left_margin"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="@dimen/alexa_display_card_list_template_item_margin"
+            android:layout_marginBottom="4dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/right_primary_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/distance_text"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="ローソン南平台店yy"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/alexa_display_card_local_search_template_item_primary_text_size" />
+
+            <TextView
+                android:id="@+id/distance_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/right_primary_text"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="@dimen/alexa_display_card_list_template_item_right_text_left_margin"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="0.1 km"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/alexa_display_card_local_search_template_item_primary_text_size" />
+
+            <TextView
+                android:id="@+id/right_secondary_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-light"
+                android:gravity="left"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="150-0036 東京都渋谷区南平台町 ３－７yy"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/alexa_display_card_local_search_template_item_secondary_text_size" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/separator_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#28FFFFFF"
+        android:visibility="visible" />
+
+</LinearLayout>

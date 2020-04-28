@@ -108,6 +108,10 @@ public class Constant {
     public static final String DIRECTIVE_REPORT_SOFTWARE_INFO = "ReportSoftwareInfo";
     public static final String DIRECTIVE_SET_DESTINATION = "SetDestination";
 
+    public static final String TEMPLATE_TYPE_BODY_TEMPLATE2 = "BodyTemplate2";
+    public static final String TEMPLATE_TYPE_LIST_TEMPLATE1 = "ListTemplate1";
+    public static final String TEMPLATE_TYPE_LOCAL_SEARCH_LIST_TEMPLATE1 = "LocalSearchListTemplate1";
+    public static final String TEMPLATE_TYPE_WEATHER_TEMPLATE = "WeatherTemplate";
 
     public static final String EVENT_RECOGNIZE = "Recognize";
     public static final String EVENT_PLAYBACK_STARTED = "PlaybackStarted";

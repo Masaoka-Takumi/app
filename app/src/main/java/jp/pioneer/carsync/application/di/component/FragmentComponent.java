@@ -4,6 +4,7 @@ import dagger.Subcomponent;
 import jp.pioneer.carsync.application.di.FragmentLifeCycle;
 import jp.pioneer.carsync.application.di.module.FragmentModule;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.AppConnectMethodDialogFragment;
+import jp.pioneer.carsync.presentation.view.fragment.dialog.AlexaDisplayCardFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.CustomKeySettingDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.VoiceRecognizeTypeSelectDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.YouTubeLinkCautionFragment;
@@ -298,6 +299,7 @@ public interface FragmentComponent {
     void inject(IncomingMessageColorFragment fragment);
     void inject(ParkingSensorFragment fragment);
     void inject(AlexaFragment fragment);
+    void inject(AlexaDisplayCardFragment fragment);
     void inject(AlexaSettingFragment fragment);
     void inject(AlexaSplashFragment fragment);
     void inject(AlexaExampleUsageFragment fragment);
