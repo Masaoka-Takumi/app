@@ -62,6 +62,8 @@ public class UnconnectedContainerPresenter extends Presenter<UnconnectedContaine
                             // TODO #5244 非同期だけどいいの？
                             // デバッグ設定でAlexa SIM判定 OFFにできるため、設定画面の画面回転のたびに実行されてしまう
                             view.showAlexaAvailableConfirmDialog();
+                        }else{
+                            showAppConnectMethodDialog();
                         }
                     }
                 });
@@ -78,6 +80,14 @@ public class UnconnectedContainerPresenter extends Presenter<UnconnectedContaine
      */
     private boolean isAlexaAvailableConfirmNeeded() {
         return mStatusCase.execute().getAppStatus().isAlexaAvailableCountry && !mPreference.isAlexaAvailableConfirmShowed();
+    }
+
+    public void showAppConnectMethodDialog(){
+        Optional.ofNullable(getView()).ifPresent(view -> {
+            if (!mPreference.isAppConnectMethodNoDisplayAgain()) {
+                view.showAppConnectMethodDialog();
+            }
+        });
     }
 
 }

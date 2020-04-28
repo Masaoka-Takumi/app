@@ -6,11 +6,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.ToggleButton;
 
 import javax.inject.Inject;
 
@@ -30,14 +29,12 @@ public class AppConnectMethodDialogFragment
 
     @Inject
     AppConnectMethodDialogPresenter mPresenter;
-    @BindView(R.id.checkbox_on)
-    ImageView mCheckBoxOn;
-    @BindView(R.id.checkbox_off)
-    ImageView mCheckBoxOff;
+    @BindView(R.id.checkbox)
+    ToggleButton mCheckBox;
     @BindView(R.id.checkbox_text)
     AutofitTextView mCheckBoxText;
-    @BindView(R.id.no_display_again_touch_area)
-    View mCheckBoxTouchArea;
+    @BindView(R.id.reshow_check)
+    RelativeLayout mCheckBoxArea;
     private Unbinder mUnbinder;
 
     public AppConnectMethodDialogFragment() {
@@ -59,7 +56,7 @@ public class AppConnectMethodDialogFragment
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = new Dialog(getActivity(), R.style.BehindScreenStyle);
+        Dialog dialog = new Dialog(getActivity(), R.style.CustomKeySettingBehindScreenStyle);
         setCancelable(false);
         return dialog;
     }
@@ -69,27 +66,6 @@ public class AppConnectMethodDialogFragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dialog_app_connect_method, container, false);
         mUnbinder = ButterKnife.bind(this, view);
-        // チェックボックスタッチエリアのリスナ設定
-        // タッチ中はアルファを0.5に、タッチを解除したら元に戻す(Textはdefaultが0.75)
-        mCheckBoxTouchArea.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        mCheckBoxOn.setAlpha(0.5f);
-                        mCheckBoxOff.setAlpha(0.5f);
-                        mCheckBoxText.setAlpha(0.5f);
-                        break;
-                    case MotionEvent.ACTION_CANCEL:
-                    case MotionEvent.ACTION_UP:
-                        mCheckBoxOn.setAlpha(1f);
-                        mCheckBoxOff.setAlpha(1f);
-                        mCheckBoxText.setAlpha(0.75f);
-                        break;
-                }
-                return false;
-            }
-        });
         return view;
     }
 
@@ -125,33 +101,24 @@ public class AppConnectMethodDialogFragment
 
     @Override
     public void setCheckBox(boolean isChecked) {
-        if (isChecked) {
-            // チェックONにする
-            mCheckBoxOn.setVisibility(View.VISIBLE);
-            mCheckBoxOff.setVisibility(View.GONE);
-        } else {
-            // チェックOFFにする
-            mCheckBoxOn.setVisibility(View.GONE);
-            mCheckBoxOff.setVisibility(View.VISIBLE);
-        }
+        mCheckBox.setChecked(isChecked);
     }
 
     /**
      * NoDisplayAgainのチェック状態切り替え動作とPreference保存
      */
-    @OnClick(R.id.no_display_again_touch_area)
+    @OnClick(R.id.reshow_check)
     public void onClickNoDisplayAgain() {
+        mCheckBox.setChecked(!mCheckBox.isChecked());
         // 表示したいチェック状態
-        boolean isChecked = !(mCheckBoxOn.getVisibility() == View.VISIBLE);
-        setCheckBox(isChecked);
-        mPresenter.saveNoDisplayAgainStatus(isChecked);
+        mPresenter.saveNoDisplayAgainStatus(mCheckBox.isChecked());
     }
 
     /**
-     * OKボタンタップ時の動作セット
+     * Closeボタンタップ時の動作セット
      */
-    @OnClick(R.id.confirm_button)
-    public void onClickConfirmButton() {
+    @OnClick(R.id.close_button)
+    public void onClickCloseButton() {
         callbackClose();
     }
 }

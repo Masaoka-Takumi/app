@@ -1042,15 +1042,15 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                 }
             }
 
-            if(!view.isShowSessionStopped()) {
-                view.showSessionStopped(Bundle.EMPTY);
-            }
-
-/*            if(!mPreference.isAppConnectMethodNoDisplayAgain()) {
+            if(!mPreference.isAppConnectMethodNoDisplayAgain()) {
                 if (!view.isShowAppConnectMethodDialog()) {
                     view.showAppConnectMethodDialog(Bundle.EMPTY);
                 }
-            }*/
+            }else{
+                if(!view.isShowSessionStopped()) {
+                    view.showSessionStopped(Bundle.EMPTY);
+                }
+            }
 
             if(!mIsAdasBillingSessionStop) {
                 mEventBus.post(new NavigateEvent(ScreenId.UNCONNECTED_CONTAINER, Bundle.EMPTY));
@@ -1258,6 +1258,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
         mStatusCase.execute().getAppStatus().deviceConnectionSuppress = false;
         mEventBus.post(new DeviceConnectionSuppressEvent());
+        showAppConnectMethodDialog();
     }
 
     public void suppressDeviceConnection(ScreenId screenId){
@@ -2730,5 +2731,14 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
         });
     }
 
+    private void showAppConnectMethodDialog(){
+        Optional.ofNullable(getView()).ifPresent(view -> {
+            if (!mPreference.isAppConnectMethodNoDisplayAgain()) {
+                if (!view.isShowAppConnectMethodDialog()) {
+                    view.showAppConnectMethodDialog(Bundle.EMPTY);
+                }
+            }
+        });
+    }
 
 }
