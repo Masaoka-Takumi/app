@@ -1041,18 +1041,17 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                     }
                 }
             }
-
-            if(!mPreference.isAppConnectMethodNoDisplayAgain()) {
-                if (!view.isShowAppConnectMethodDialog()) {
-                    view.showAppConnectMethodDialog(Bundle.EMPTY);
-                }
-            }else{
-                if(!view.isShowSessionStopped()) {
-                    view.showSessionStopped(Bundle.EMPTY);
-                }
-            }
-
+            //連携切断でAdas課金画面に遷移する場合はApp連携方法ダイアログか切断ダイアログを表示しない
             if(!mIsAdasBillingSessionStop) {
+                if(!mPreference.isAppConnectMethodNoDisplayAgain()) {
+                    if (!view.isShowAppConnectMethodDialog()) {
+                        view.showAppConnectMethodDialog(Bundle.EMPTY);
+                    }
+                }else{
+                    if(!view.isShowSessionStopped()) {
+                        view.showSessionStopped(Bundle.EMPTY);
+                    }
+                }
                 mEventBus.post(new NavigateEvent(ScreenId.UNCONNECTED_CONTAINER, Bundle.EMPTY));
             }
         });
