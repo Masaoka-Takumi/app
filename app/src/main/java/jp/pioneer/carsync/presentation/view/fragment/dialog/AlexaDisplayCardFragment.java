@@ -13,6 +13,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.PermissionChecker;
+import android.text.TextPaint;
+import android.util.SparseArray;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -27,8 +29,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.annimon.stream.Optional;
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -44,6 +48,7 @@ import jp.pioneer.carsync.presentation.view.AlexaDisplayCardView;
 
 import jp.pioneer.carsync.presentation.view.activity.MainActivity;
 import jp.pioneer.carsync.presentation.view.adapter.AlexaListTemplateAdapter;
+import jp.pioneer.carsync.presentation.view.widget.CustomGestureLayout;
 import jp.pioneer.mbg.alexa.AlexaInterface.AlexaIfDirectiveItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.Navigation.SetDestinationItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.SpeechSynthesizer.SpeakItem;
@@ -219,9 +224,18 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
             public boolean onTouch(View v, MotionEvent event) {
                 //画面タッチで保持する
                 Timber.d("view onTouch");
-                mHandler.removeCallbacks(mRunnable);
-                mHandler.postDelayed(mRunnable, IDLE_TIME);
-                return false;
+                if(!isSpeaking) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            mHandler.removeCallbacks(mRunnable);
+                            break;
+                        case MotionEvent.ACTION_UP:
+                        case MotionEvent.ACTION_CANCEL:
+                            mHandler.postDelayed(mRunnable, IDLE_TIME);
+                            break;
+                    }
+                }
+                return true;
             }
         });
         return view;
@@ -401,9 +415,20 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Timber.d("listView onTouch");
-                mHandler.removeCallbacks(mRunnable);
-                mHandler.postDelayed(mRunnable, IDLE_TIME);
-                return false;
+                if(!isSpeaking) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            mHandler.removeCallbacks(mRunnable);
+                            return true;
+                        case MotionEvent.ACTION_UP:
+                        case MotionEvent.ACTION_CANCEL:
+                            mHandler.postDelayed(mRunnable, IDLE_TIME);
+                            return false;
+                    }
+                }else{
+                    return false;
+                }
+                return true;
             }
         });
     }
@@ -464,6 +489,7 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
             }
             mLowTemperature.setText(temperature.value);
         }
+        float dayLength = getResources().getDimension(R.dimen.alexa_display_card_weather_forecast_text_width);
         if (renderTemplateItem.weatherForecast != null) {
             List<AlexaIfDirectiveItem.WeatherForecast> weatherForecastList = renderTemplateItem.weatherForecast;
             int i = 0;
@@ -492,21 +518,52 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
                 lowTemperature.setText(weatherForecast.getLowTemperature());
                 i++;
                 if (mOrientation == Configuration.ORIENTATION_PORTRAIT) {
+                    dayLength = Math.max(calculateTextLen(day), dayLength);
                     if (i >= 4) break;
                 } else {
                     if (i >= 5) break;
                 }
             }
+            //縦画面のdayの横幅調整
+            if (mOrientation == Configuration.ORIENTATION_PORTRAIT) {
+                for (int h = 0; h < 4; h++) {
+                    ConstraintLayout layout = (ConstraintLayout) mWeatherForecastLayout.getChildAt(h);
+                    TextView day = layout.findViewById(R.id.day);
+                    ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) day.getLayoutParams();
+                    layoutParams.width = (int) Math.ceil(dayLength);
+                    day.setLayoutParams(layoutParams);
+                }
+            }
         }
     }
 
+    private float calculateTextLen(TextView view) {
+        TextPaint tp = view.getPaint();
+        String strTxt = view.getText().toString();
+        float mt = tp.measureText(strTxt);
+        return mt;
+    }
+
     private AlexaIfDirectiveItem.Source getSourceImage(AlexaIfDirectiveItem.ImageStructure imageStructure) {
+        final String[] IMAGE_SIZE = new String[]{"LARGE","X-LARGE","MEDIUM","SMALL","X-SMALL"};
         AlexaIfDirectiveItem.Source source = null;
         List<AlexaIfDirectiveItem.Source> sources = imageStructure.getSources();
-        if (sources != null && sources.size() > 0) {
-            //small→...→x-largeと仮定して、Listの最後の画像(Large)を取得
-            int logoSize = sources.size() - 1;
-            source = sources.get(logoSize);
+        SparseArray<AlexaIfDirectiveItem.Source> priorityList = new SparseArray<>();
+        //IMAGE_SIZEの優先度で画像を採用する
+        if(sources!=null) {
+            for (AlexaIfDirectiveItem.Source source1 : sources) {
+                for (int i = 0; i < IMAGE_SIZE.length; i++) {
+                    if (source1.size.equals(IMAGE_SIZE[i])) {
+                        priorityList.put(i, source1);
+                    }
+                }
+            }
+            for (int i = 0; i < IMAGE_SIZE.length; i++) {
+                if (priorityList.get(i) != null) {
+                    source = priorityList.get(i);
+                    break;
+                }
+            }
         }
         return source;
     }

@@ -1,6 +1,7 @@
 package jp.pioneer.carsync.presentation.view.adapter;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
@@ -29,12 +30,15 @@ public class AlexaListTemplateAdapter extends ArrayAdapter<AlexaIfDirectiveItem.
     private Context mContext;
     private String mTemplateType;
     private float mLeftTextFieldLength;
+    private int mOrientation;
 
     public AlexaListTemplateAdapter(Context context, String type) {
         super(context, 0);
         mInflater = LayoutInflater.from(context);
         mContext = context;
         mTemplateType = type;
+        Configuration config = mContext.getResources().getConfiguration();
+        mOrientation = config.orientation;
     }
 
     @Override
@@ -74,11 +78,16 @@ public class AlexaListTemplateAdapter extends ArrayAdapter<AlexaIfDirectiveItem.
                 } else {
                     holder = (ListViewHolder) convertView.getTag();
                 }
-
+                ViewGroup.LayoutParams lp = holder.leftTextField.getLayoutParams();
+                lp.width = (int) Math.ceil(mLeftTextFieldLength);
+                ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) lp;
+                if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    mlp.setMargins((int) mContext.getResources().getDimension(R.dimen.alexa_display_card_main_title_margin_left_portrait), mlp.topMargin, mlp.rightMargin, mlp.bottomMargin);
+                } else {
+                    mlp.setMargins((int) mContext.getResources().getDimension(R.dimen.alexa_display_card_list_template_item_margin), mlp.topMargin, mlp.rightMargin, mlp.bottomMargin);
+                }
+                holder.leftTextField.setLayoutParams(mlp);
                 if (item != null) {
-                    holder.leftTextField.setLayoutParams(new LinearLayout.LayoutParams(
-                            (int) Math.ceil(mLeftTextFieldLength),
-                            LinearLayout.LayoutParams.MATCH_PARENT));
                     holder.leftTextField.setText(item.getLeftTextField());
                     holder.rightTextField.setText(item.getRightTextField());
                 }
@@ -92,6 +101,15 @@ public class AlexaListTemplateAdapter extends ArrayAdapter<AlexaIfDirectiveItem.
                 } else {
                     searchViewHolder = (LocalSearchViewHolder) convertView.getTag();
                 }
+                ViewGroup.LayoutParams lp1 = searchViewHolder.leftTextField.getLayoutParams();
+                ViewGroup.MarginLayoutParams mlp1 = (ViewGroup.MarginLayoutParams) lp1;
+                if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    mlp1.setMargins((int) mContext.getResources().getDimension(R.dimen.alexa_display_card_main_title_margin_left_portrait), mlp1.topMargin, mlp1.rightMargin, mlp1.bottomMargin);
+                    searchViewHolder.separator_bottom.setLayoutParams(mlp1);
+                } else {
+                    mlp1.setMargins((int) mContext.getResources().getDimension(R.dimen.alexa_display_card_list_template_item_margin), mlp1.topMargin, mlp1.rightMargin, mlp1.bottomMargin);
+                }
+                searchViewHolder.leftTextField.setLayoutParams(mlp1);
                 if (item != null) {
                     String number = String.valueOf(position + 1) + ".";
                     searchViewHolder.leftTextField.setText(number);

@@ -17,7 +17,7 @@
 
     <TextView
         android:id="@+id/day"
-        android:layout_width="@dimen/alexa_display_card_weather_forecast_text_width"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
