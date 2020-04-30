@@ -27,8 +27,6 @@ public class AlexaDisplayCardPresenter extends Presenter<AlexaDisplayCardView> {
     @Inject
     GetStatusHolder mGetCase;
     @Inject
-    EventBus mEventBus;
-    @Inject
     ActionSoftwareShortcutKey mShortcutCase;
 
     @Inject
@@ -44,20 +42,6 @@ public class AlexaDisplayCardPresenter extends Presenter<AlexaDisplayCardView> {
         Optional.ofNullable(getView()).ifPresent(view -> {
             view.setTemplate(item);
         });
-    }
-
-    @Override
-    void onResume() {
-        Timber.d("onResume");
-        if (!mEventBus.isRegistered(this)) {
-            mEventBus.register(this);
-        }
-    }
-
-    @Override
-    void onPause() {
-        Timber.d("onPause");
-        mEventBus.unregister(this);
     }
 
     @Override
@@ -78,18 +62,4 @@ public class AlexaDisplayCardPresenter extends Presenter<AlexaDisplayCardView> {
         Optional.ofNullable(getView()).ifPresent(AlexaDisplayCardView::closeDialogWithAnimation);
     }
 
-    /**
-     * MediaSourceTypeChangeEvent
-     *
-     * @param event MediaSourceTypeChangeEvent
-     */
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMediaSourceTypeChangeEvent(MediaSourceTypeChangeEvent event) {
-
-        MediaSourceType currentSourceType = mGetCase.execute().getCarDeviceStatus().sourceType;
-        Timber.d("onMediaSourceTypeChangeEvent:currentSourceType="+currentSourceType);
-        if (currentSourceType != MediaSourceType.APP_MUSIC) {
-            Optional.ofNullable(getView()).ifPresent(AlexaDisplayCardView::callbackClose);
-        }
-    }
 }

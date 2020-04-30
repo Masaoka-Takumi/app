@@ -180,11 +180,13 @@
             android:id="@+id/close_button"
             android:layout_width="@dimen/navigate_bar_back_button_width"
             android:layout_height="@dimen/navigate_bar_back_button_width"
+            android:layout_marginRight="9dp"
             android:clickable="true"
             android:focusable="true"
             android:scaleType="fitCenter"
             android:src="@drawable/p0001_closebtn_1nrm"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/alexa_voice_chrome_large" />
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

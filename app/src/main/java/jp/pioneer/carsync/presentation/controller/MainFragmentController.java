@@ -355,8 +355,9 @@ public class MainFragmentController {
      */
     public void dismissAlexaDialog() {
         Fragment dialog = mFragmentManager.findFragmentByTag(TAG_DIALOG_ALEXA);
+        //終了処理をして閉じる。
         if (dialog instanceof AlexaFragment) {
-            ((AlexaFragment) dialog).callbackClose();
+            ((AlexaFragment) dialog).onClickDismissBtn();
         }
     }
     /**

@@ -1613,11 +1613,17 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                             @Override
                             public void run() {
                                 mEventBus.post(new NavigateEvent(ScreenId.ALEXA, Bundle.EMPTY));
+                                if(holder.getCarDeviceStatus().sourceType != MediaSourceType.APP_MUSIC){
+                                    holder.getAppStatus().alexaPreviousSourceType = holder.getCarDeviceStatus().sourceType;
+                                    mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.alexaStart));
+                                    mControlSource.selectSource(MediaSourceType.APP_MUSIC);
+                                }
                             }
                         }, 500);
                     }else{
                         holder.getAppStatus().alexaPreviousSourceType = holder.getCarDeviceStatus().sourceType;
                         mEventBus.post(new NavigateEvent(ScreenId.ALEXA, Bundle.EMPTY));
+                        //音声認識ボタン押下直後はソース変更できない
                         if(holder.getCarDeviceStatus().sourceType != MediaSourceType.APP_MUSIC) {
                             mHandler.postDelayed(new Runnable() {
                                 @Override

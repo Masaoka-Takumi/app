@@ -218,6 +218,7 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 //画面タッチで保持する
+                Timber.d("view onTouch");
                 mHandler.removeCallbacks(mRunnable);
                 mHandler.postDelayed(mRunnable, IDLE_TIME);
                 return false;
@@ -385,17 +386,26 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
         mListView.setDivider(null);
         mAdapter.clear();
         mAdapter.addAll(renderTemplateItem.listItems);
-        if (renderTemplateItem.type.equals(Constant.TEMPLATE_TYPE_LOCAL_SEARCH_LIST_TEMPLATE1)) {
-            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (renderTemplateItem.type.equals(Constant.TEMPLATE_TYPE_LOCAL_SEARCH_LIST_TEMPLATE1)) {
                     AlexaIfDirectiveItem.ListItem item = mAdapter.getItem(position);
                     if (item != null) {
                         mAmazonAlexaManager.onPost(item.getSetDestinationItem());
                     }
                 }
-            });
-        }
+            }
+        });
+        mListView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Timber.d("listView onTouch");
+                mHandler.removeCallbacks(mRunnable);
+                mHandler.postDelayed(mRunnable, IDLE_TIME);
+                return false;
+            }
+        });
     }
 
     private void setWeatherTemplate(final RenderTemplateItem renderTemplateItem) {
