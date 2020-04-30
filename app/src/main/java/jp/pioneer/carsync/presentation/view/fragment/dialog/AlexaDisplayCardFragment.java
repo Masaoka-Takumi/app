@@ -260,6 +260,7 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
             mAmazonAlexaManager.isShowAlexaDisplayCardDialog = true;
             mAmazonAlexaManager.addAlexaDisplayCallback(mAlexaDisplayCallback);
         }
+        mAlexaBtnGroup.setVisibility(View.VISIBLE);
         mVoiceChrome.setVisibility(View.VISIBLE);
         if (AlexaSpeakManager.getInstance().getAlexaPlayer() != null) {
             if (AlexaSpeakManager.getInstance().getAlexaPlayer().isPlaying()) {
@@ -688,6 +689,8 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
         @Override
         public void onRecordingStart() {
             Timber.d("onRecordingStart");
+            mVoiceChrome.setVisibility(View.VISIBLE);
+            mAlexaBtnGroup.setVisibility(View.INVISIBLE);
         }
 
         @Override
@@ -697,7 +700,8 @@ public class AlexaDisplayCardFragment extends AbstractDialogFragment<AlexaDispla
 
         @Override
         public void onRecordingStop(boolean isCancel) {
-
+            Timber.d("onRecordingStop");
+            mAlexaBtnGroup.setVisibility(View.VISIBLE);
         }
 
         @Override
