@@ -41,29 +41,29 @@
 
             <TextView
                 android:id="@+id/right_primary_text"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_toLeftOf="@+id/distance_text"
+                android:layout_marginRight="@dimen/alexa_display_card_local_search_template_item_primary_text_right_margin"
                 android:ellipsize="end"
                 android:fontFamily="sans-serif-light"
                 android:gravity="left"
                 android:includeFontPadding="false"
                 android:maxLines="1"
-                android:text="ローソン南平台店yy"
+                android:text="ローソン南平yyyyyyyy"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/alexa_display_card_local_search_template_item_primary_text_size" />
 
-            <TextView
+            <me.grantland.widget.AutofitTextView
                 android:id="@+id/distance_text"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/alexa_display_card_local_search_template_item_distance_text_width"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/right_primary_text"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="@dimen/alexa_display_card_list_template_item_right_text_left_margin"
+                android:layout_toRightOf="@+id/right_primary_text"
+                android:layout_marginLeft="@dimen/alexa_display_card_local_search_template_item_distance_text_minus_left_margin"
                 android:ellipsize="end"
                 android:fontFamily="sans-serif-light"
-                android:gravity="left"
+                android:gravity="left|center_vertical"
                 android:includeFontPadding="false"
                 android:maxLines="1"
                 android:text="0.1 km"

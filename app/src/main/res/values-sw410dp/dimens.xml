@@ -756,7 +756,10 @@
     <dimen name="alexa_display_card_list_template_item_margin">11.3dp</dimen>
     <dimen name="alexa_display_card_list_template_item_right_text_left_margin">15.8dp</dimen>
     <dimen name="alexa_display_card_local_search_template_item_height">72.3dp</dimen>
-    <dimen name="alexa_display_card_local_search_template_item_primary_text_size">32.2dp</dimen>
+    <dimen name="alexa_display_card_local_search_template_item_primary_text_size">31.6dp</dimen>
+    <dimen name="alexa_display_card_local_search_template_item_primary_text_right_margin">140.1dp</dimen>
+    <dimen name="alexa_display_card_local_search_template_item_distance_text_width">124.3dp</dimen>
+    <dimen name="alexa_display_card_local_search_template_item_distance_text_minus_left_margin">-124.3dp</dimen>
     <dimen name="alexa_display_card_local_search_template_item_secondary_text_size">19.2dp</dimen>
     <dimen name="alexa_display_card_weather_main_icon_width">135.6dp</dimen>
     <dimen name="alexa_display_card_weather_main_icon_height">131.1dp</dimen>
