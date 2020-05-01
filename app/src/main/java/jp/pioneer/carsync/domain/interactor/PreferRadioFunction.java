@@ -10,6 +10,7 @@ import jp.pioneer.carsync.application.di.ForInfrastructure;
 import jp.pioneer.carsync.domain.component.RadioFunctionSettingUpdater;
 import jp.pioneer.carsync.domain.model.LocalSetting;
 import jp.pioneer.carsync.domain.model.StatusHolder;
+import jp.pioneer.carsync.domain.model.TASetting;
 import timber.log.Timber;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -96,6 +97,27 @@ public class PreferRadioFunction {
      * @param setting 設定内容
      */
     public void setTa(boolean setting) {
+        mHandler.post(() -> {
+            if (!mStatusHolder.getTunerFunctionSettingStatus().taSettingEnabled) {
+                Timber.w("setTa() Disabled.");
+                return;
+            }
+
+            mUpdater.setTa(setting);
+        });
+    }
+
+    /**
+     * TA設定(DABモデル).
+     * <p>
+     * TAを設定する。
+     * TA設定が無効な場合、何もしない。
+     *
+     * @param setting 設定内容
+     */
+    public void setTa(@NonNull TASetting setting) {
+        checkNotNull(setting);
+
         mHandler.post(() -> {
             if (!mStatusHolder.getTunerFunctionSettingStatus().taSettingEnabled) {
                 Timber.w("setTa() Disabled.");

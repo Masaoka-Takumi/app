@@ -10,4 +10,5 @@ public interface UnconnectedContainerView extends OnNavigateListener {
     void setBillingHelper();
     void showAlexaAvailableConfirmDialog();
     ScreenId getScreenIdInContainer();
+    void showAppConnectMethodDialog();
 }

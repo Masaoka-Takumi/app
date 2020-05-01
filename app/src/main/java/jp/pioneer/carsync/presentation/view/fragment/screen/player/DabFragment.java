@@ -628,6 +628,7 @@ public class DabFragment extends AbstractRadioFragment<DabPresenter, DabView> im
                 }
                 @Override
                 protected void onLongClickPreset(BandType bandType, int presetNum) {
+                    getPresenter().onRegisterPresetChannel(presetNum);
                 }
             };
             mViewPager.setAdapter(mAdapter);

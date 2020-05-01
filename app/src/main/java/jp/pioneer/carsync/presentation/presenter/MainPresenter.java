@@ -143,7 +143,7 @@ import static jp.pioneer.carsync.domain.interactor.JudgeVoiceCommand.JudgeResult
 public class MainPresenter extends Presenter<MainView> implements AppSharedPreference.OnAppSharedPreferenceChangeListener, TextToSpeechController.Callback, RecognitionListener {
     private static final int RECOGNIZER_RESTART_REMIT = 2;
     private static final int RE_CALIBRATION_SESSION_COUNT_MAX = 15;//15回連携
-    public static final int EULA_PRIVACY_NEW_VERSION = 5;//利用規約最新バージョン
+
     private static final int VERSION_CODE_1_5 = 8;//v1.5バージョンコード
     public static final int ALEXA_CAPABILITIES_NEW_VERSION = 5;//機能API最新バージョン
     public static final String TAG_DIALOG_ERROR = "error";
@@ -612,15 +612,8 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
      */
     public void onReadingMessageAction(Bundle args) {
         Optional.ofNullable(getView()).ifPresent(view -> {
-            if (view.isShowSpeechRecognizerDialog()) {
-                closeSpeechRecognizer(false);
-            }
-            if (view.isShowSearchContainer()) {
-                view.dismissSearchContainer();
-            }
-            if (view.isShowContactContainer()) {
-                view.dismissContactContainer();
-            }
+            if(view.isShowReadMessageDialog())return;
+            closeLowPriorityDialog();
             if (!view.isShowReadMessageDialog()) {
                 //view.showReadMessageDialog(args);
                 view.navigate(ScreenId.READING_MESSAGE, args);
@@ -639,18 +632,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
      */
     public void onShowAccidentDetectAction(Bundle args) {
         Optional.ofNullable(getView()).ifPresent(view -> {
-            if (view.isShowSpeechRecognizerDialog()) {
-                closeSpeechRecognizer(false);
-            }
-            if (view.isShowReadMessageDialog()) {
-                view.dismissReadMessageDialog();
-            }
-            if (view.isShowSearchContainer()) {
-                view.dismissSearchContainer();
-            }
-            if (view.isShowContactContainer()) {
-                view.dismissContactContainer();
-            }
+            closeLowPriorityDialog();
             //画面回転で何度も呼ばれるのを回避、タイマー終了後は新規表示
             if(!mIsAccidentDetectShow) {
                 if (view.isShowAccidentDetect()){
@@ -685,19 +667,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
      */
     public void onShowParkingSensorAction(Bundle args) {
         Optional.ofNullable(getView()).ifPresent(view -> {
-            if (view.isShowSpeechRecognizerDialog()) {
-                closeSpeechRecognizer(false);
-            }
-            if (view.isShowReadMessageDialog()) {
-                view.dismissReadMessageDialog();
-                finishReadingMessage();
-            }
-            if (view.isShowSearchContainer()) {
-                view.dismissSearchContainer();
-            }
-            if (view.isShowContactContainer()) {
-                view.dismissContactContainer();
-            }
+            closeLowPriorityDialog();
             if (view.isShowAccidentDetect()) {
                 view.dismissAccidentDetect();
                 mIsAccidentDetectShow = true;
@@ -755,6 +725,30 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
         });
     }
 
+    private void closeLowPriorityDialog(){
+        Optional.ofNullable(getView()).ifPresent(view -> {
+            if (view.isShowReadMessageDialog()) {
+                view.dismissReadMessageDialog();
+                finishReadingMessage();
+            }
+            if (view.isShowSpeechRecognizerDialog()) {
+                closeSpeechRecognizer(false);
+            }
+            if (view.isShowAlexaDialog()) {
+                view.dismissAlexaDialog();
+            }
+            if (view.isShowAlexaDisplayCardDialog()) {
+                view.dismissAlexaDisplayCardDialog();
+            }
+            if (view.isShowSearchContainer()) {
+                view.dismissSearchContainer();
+            }
+            if (view.isShowContactContainer()) {
+                view.dismissContactContainer();
+            }
+        });
+    }
+
     public String getStackPopUp() {
         if(mStackPopUp.size()>0) {
             return mStackPopUp.get(mStackPopUp.size() - 1);
@@ -777,19 +771,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
      */
     public void onShowCarDeviceErrorAction(Bundle args) {
         Optional.ofNullable(getView()).ifPresent(view -> {
-            if (view.isShowSpeechRecognizerDialog()) {
-                closeSpeechRecognizer(false);
-            }
-            if (view.isShowReadMessageDialog()) {
-                view.dismissReadMessageDialog();
-                finishReadingMessage();
-            }
-            if (view.isShowSearchContainer()) {
-                view.dismissSearchContainer();
-            }
-            if (view.isShowContactContainer()) {
-                view.dismissContactContainer();
-            }
+            closeLowPriorityDialog();
             String errorTag = args.getString("errorTag");
             String errorTitle = args.getString("errorTitle");
             String errorText = args.getString("errorText");
@@ -814,19 +796,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
         Optional.ofNullable(getView()).ifPresent(view -> {
             SxmMediaInfo currSxm = mStatusCase.execute().getCarDeviceMediaInfoHolder().sxmMediaInfo;
             if (currSxm.subscriptionUpdatingShowing) {
-                if (view.isShowSpeechRecognizerDialog()) {
-                    closeSpeechRecognizer(false);
-                }
-                if (view.isShowReadMessageDialog()) {
-                    view.dismissReadMessageDialog();
-                    finishReadingMessage();
-                }
-                if (view.isShowSearchContainer()) {
-                    view.dismissSearchContainer();
-                }
-                if (view.isShowContactContainer()) {
-                    view.dismissContactContainer();
-                }
+                closeLowPriorityDialog();
                 if (!view.isShowCarDeviceErrorDialog(TAG_DIALOG_SXM_SUBSCRIPTION_UPDATE)) {
                     Bundle bundle = new Bundle();
                     bundle.putString(StatusPopupDialogFragment.TAG, TAG_DIALOG_SXM_SUBSCRIPTION_UPDATE);
@@ -1024,13 +994,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
             if (view.isShowCarDeviceErrorDialog()) {
                 view.dismissCarDeviceErrorDialog();
             }
-            if (view.isShowReadMessageDialog()) {
-                view.dismissReadMessageDialog();
-                finishReadingMessage();
-            }
-            if (view.isShowSpeechRecognizerDialog()) {
-                closeSpeechRecognizer(false);
-            }
+            closeLowPriorityDialog();
             view.stopAdas();
             mAdas.releaseWarning();
 
@@ -1041,10 +1005,17 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                     }
                 }
             }
-            if(!view.isShowSessionStopped()) {
-                view.showSessionStopped(Bundle.EMPTY);
-            }
+            //連携切断でAdas課金画面に遷移する場合はApp連携方法ダイアログか切断ダイアログを表示しない
             if(!mIsAdasBillingSessionStop) {
+                if(!mPreference.isAppConnectMethodNoDisplayAgain()) {
+                    if (!view.isShowAppConnectMethodDialog()) {
+                        view.showAppConnectMethodDialog(Bundle.EMPTY);
+                    }
+                }else{
+                    if(!view.isShowSessionStopped()) {
+                        view.showSessionStopped(Bundle.EMPTY);
+                    }
+                }
                 mEventBus.post(new NavigateEvent(ScreenId.UNCONNECTED_CONTAINER, Bundle.EMPTY));
             }
         });
@@ -1250,6 +1221,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
         mStatusCase.execute().getAppStatus().deviceConnectionSuppress = false;
         mEventBus.post(new DeviceConnectionSuppressEvent());
+        showAppConnectMethodDialog();
     }
 
     public void suppressDeviceConnection(ScreenId screenId){
@@ -1633,18 +1605,34 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                 }else{
                     SettingsUpdatedUtil.setLocale(mContext.getString(mPreference.getAlexaLanguage().locale));
                     mIsAlexaStart = true;
-                    holder.getAppStatus().alexaPreviousSourceType = holder.getCarDeviceStatus().sourceType;
-                    if(holder.getCarDeviceStatus().sourceType == MediaSourceType.APP_MUSIC) {
-                        mEventBus.post(new NavigateEvent(ScreenId.ALEXA, Bundle.EMPTY));
-                    }else{
-                        mEventBus.post(new NavigateEvent(ScreenId.ALEXA, Bundle.EMPTY));
+                    Timber.d("Alexa:isShowAlexaDisplayCardDialog=" + holder.getAppStatus().isShowAlexaDisplayCardDialog + ", sourceType=" + holder.getCarDeviceStatus().sourceType);
+                    if(holder.getAppStatus().isShowAlexaDisplayCardDialog&&holder.getCarDeviceStatus().sourceType==MediaSourceType.APP_MUSIC){
+                        //発話中のAlexa画面を閉じてダイアログチャンネルの非アクティブ通知が来るまでタイムラグがあり、
+                        // 新しく起動したAlexa画面で前の発話の終了を拾って閉じてしまうことがあるため、0.5秒遅延してAlaxa画面を表示する。
                         mHandler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.alexaStart));
-                                mControlSource.selectSource(MediaSourceType.APP_MUSIC);
+                                mEventBus.post(new NavigateEvent(ScreenId.ALEXA, Bundle.EMPTY));
+                                if(holder.getCarDeviceStatus().sourceType != MediaSourceType.APP_MUSIC){
+                                    holder.getAppStatus().alexaPreviousSourceType = holder.getCarDeviceStatus().sourceType;
+                                    mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.alexaStart));
+                                    mControlSource.selectSource(MediaSourceType.APP_MUSIC);
+                                }
                             }
-                        }, 1000);
+                        }, 500);
+                    }else{
+                        holder.getAppStatus().alexaPreviousSourceType = holder.getCarDeviceStatus().sourceType;
+                        mEventBus.post(new NavigateEvent(ScreenId.ALEXA, Bundle.EMPTY));
+                        //音声認識ボタン押下直後はソース変更できない
+                        if(holder.getCarDeviceStatus().sourceType != MediaSourceType.APP_MUSIC) {
+                            mHandler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.alexaStart));
+                                    mControlSource.selectSource(MediaSourceType.APP_MUSIC);
+                                }
+                            }, 1000);
+                        }
                     }
                 }
             }else {
@@ -2654,10 +2642,10 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
 
     public void setAlexaAvailable(SimCountryIso simCountryIso){
         AppStatus appStatus = mStatusCase.execute().getAppStatus();
-
+        
         // デバッグ版ではデバッグ設定のSIM判定がONなら、その結果を採用する
         // SIM判定がOFFの場合は常にAlexa利用可能とする(SIM判定 DefaultはON)
-        List countryList = Arrays.asList(SimCountryIso.US);
+        List countryList = Arrays.asList(SimCountryIso.US, SimCountryIso.JP, SimCountryIso.IN, SimCountryIso.GB);
         boolean available = countryList.contains(simCountryIso);
         if(mPreference.isAlexaRequiredSimCheck()) {
             appStatus.isAlexaAvailableCountry = available;
@@ -2722,5 +2710,14 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
         });
     }
 
+    private void showAppConnectMethodDialog(){
+        Optional.ofNullable(getView()).ifPresent(view -> {
+            if (!mPreference.isAppConnectMethodNoDisplayAgain()) {
+                if (!view.isShowAppConnectMethodDialog()) {
+                    view.showAppConnectMethodDialog(Bundle.EMPTY);
+                }
+            }
+        });
+    }
 
 }

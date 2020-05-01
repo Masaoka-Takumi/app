@@ -21,7 +21,6 @@ public class ListInfo extends SerialVersion {
     /** トランザクション情報. */
     public final TransactionInfo transactionInfo = new TransactionInfo();
 
-
     /**
      * コンストラクタ.
      */

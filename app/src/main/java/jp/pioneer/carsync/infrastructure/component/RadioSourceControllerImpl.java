@@ -66,6 +66,18 @@ public class RadioSourceControllerImpl extends SourceControllerImpl implements R
      * {@inheritDoc}
      */
     @Override
+    public void registerPreset(@IntRange(from = 1) int listIndex){
+        checkArgument(listIndex >= 1);
+        Timber.i("registerPreset() presetIndex = %d", listIndex);
+
+        OutgoingPacket packet = mPacketBuilder.createTunerListRegisterPresetNotification(listIndex);
+        mCarDeviceConnection.sendPacket(packet);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void selectFavorite(int index, @NonNull RadioBandType bandType, int pi) {
         checkNotNull(bandType);
         Timber.i("selectFavorite() index = %d, bandType = %s, pi = %d", index, bandType, pi);

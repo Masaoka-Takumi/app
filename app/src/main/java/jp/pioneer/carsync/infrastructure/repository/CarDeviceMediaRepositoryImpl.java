@@ -27,8 +27,8 @@ import javax.inject.Provider;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import jp.pioneer.carsync.application.di.ForInfrastructure;
 import jp.pioneer.carsync.domain.content.TunerContract.ListItemContract.Dab;
-import jp.pioneer.carsync.domain.content.TunerContract.ListItemContract.Radio;
 import jp.pioneer.carsync.domain.content.TunerContract.ListItemContract.HdRadio;
+import jp.pioneer.carsync.domain.content.TunerContract.ListItemContract.Radio;
 import jp.pioneer.carsync.domain.content.TunerContract.ListItemContract.SiriusXm;
 import jp.pioneer.carsync.domain.content.UsbListContract;
 import jp.pioneer.carsync.domain.event.DabInfoChangeEvent;
@@ -167,6 +167,15 @@ public class CarDeviceMediaRepositoryImpl implements CarDeviceMediaRepository {
         Timber.i("getDabList()");
 
         return createCarDeviceMediaCursorLoader(checkNotNull(mContext), this, MediaSourceType.DAB, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void restartGetDabList(){
+        Timber.i("restartGetDabList()");
+        startTask();
     }
 
     /**
@@ -482,7 +491,12 @@ public class CarDeviceMediaRepositoryImpl implements CarDeviceMediaRepository {
                 mIsDirtyCarDeviceMediaList = true;
                 stopTask();
                 resetUsbList();
-            } else if (mCurrentSourceType == MediaSourceType.DAB && (mCurrentListType == SERVICE_LIST || mCurrentListType == ABC_SEARCH_LIST)) {
+            } else if (mCurrentSourceType == MediaSourceType.DAB &&
+                    (mCurrentListType == ListType.SERVICE_LIST
+                            || mCurrentListType == ListType.PTY_NEWS_INFO_LIST|| mCurrentListType == ListType.PTY_POPULER_LIST
+                            || mCurrentListType == ListType.PTY_CLASSICS_LIST|| mCurrentListType == ListType.PTY_OTHERS_LIST
+                            || mCurrentListType == ListType.ENSEMBLE_CATEGORY|| mCurrentListType == ListType.ENSEMBLE_LIST)) {
+                mDabListItems = new SparseArrayCompat<>();
                 startTask();
             }
         }
@@ -531,7 +545,13 @@ public class CarDeviceMediaRepositoryImpl implements CarDeviceMediaRepository {
                 task = mMediaListTaskProvider.get().setParams(mCurrentSourceType, PCH_LIST, mMediaListCallback);
                 break;
             case DAB:
-                task = mMediaListTaskProvider.get().setParams(mCurrentSourceType, SERVICE_LIST, mMediaListCallback);
+                if(mCurrentListType == ABC_SEARCH_LIST){
+                    return;
+                }else if(mCurrentListType == SERVICE_LIST) {
+                    task = mMediaListTaskProvider.get().setParams(mCurrentSourceType, SERVICE_LIST, mMediaListCallback);
+                }else{
+                    task = mMediaListTaskProvider.get().setParams(mCurrentSourceType, mCurrentListType, mMediaListCallback);
+                }
                 break;
             case USB:
                 task = mUsbListTaskProvider.get().setParams(mUsbListCallback, UsbListRequestTask.RequestType.ITEM_INFO);

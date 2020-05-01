@@ -127,6 +127,10 @@ public class InitialSettingPresenter extends Presenter<InitialSettingView> {
                     spec.rearOutputSettingSupported,
                     initialSettingEnabled && status.rearOutputSettingEnabled,
                     setting.rearOutputSetting);
+            view.setAntennaPowerSetting(
+                    spec.dabAntennaPowerSupported,
+                    initialSettingEnabled && status.dabAntennaPowerEnabled,
+                    setting.dabAntennaPowerSetting);
         });
     }
 
@@ -163,5 +167,12 @@ public class InitialSettingPresenter extends Presenter<InitialSettingView> {
      */
     public void onSelectRearOutput() {
         mPreferCase.toggleRearOutput();
+    }
+
+    /**
+     * DAB Antenna Powerの設定.
+     */
+    public void onAntennaPowerSettingChange(boolean isEnabled) {
+        mPreferCase.setDabAntennaPowerEnabled(isEnabled);
     }
 }

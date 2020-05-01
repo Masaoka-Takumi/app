@@ -1,6 +1,5 @@
 package jp.pioneer.carsync.presentation.view;
 
-import android.database.Cursor;
 import android.support.annotation.ColorRes;
 
 import java.util.ArrayList;
@@ -34,11 +33,4 @@ public interface RadioPresetView {
      */
     void setSelectedPosition(int position);
 
-    /**
-     * アダプター設定
-     *
-     * @param cursor カーソル
-     */
-    void setCursor(Cursor cursor);
-    void setSelectedPositionNotScroll(int position);
 }

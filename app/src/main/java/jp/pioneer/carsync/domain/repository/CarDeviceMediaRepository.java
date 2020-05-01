@@ -41,6 +41,13 @@ public interface CarDeviceMediaRepository {
     CursorLoader getDabList();
 
     /**
+     * DABリスト再取得.
+     *
+     * @return CursorLoader
+     */
+    void restartGetDabList();
+
+    /**
      * リスト項目取得.
      *
      * @param sourceType ソース種別

@@ -34,6 +34,9 @@ public enum ScreenId {
     RADIO_PRESET_LIST(VoiceRecognitionSearchType.GLOBAL),                           // Preset list
     RADIO_FAVORITE_LIST(VoiceRecognitionSearchType.GLOBAL),                         // Favorite list
     DAB(VoiceRecognitionSearchType.GLOBAL),                                         // DAB
+    DAB_SERVICE_LIST(VoiceRecognitionSearchType.GLOBAL),                            // DAB Service list
+    DAB_PTY_LIST(VoiceRecognitionSearchType.GLOBAL),                                  // DAB Pty list
+    DAB_ENSEMBLE_LIST(VoiceRecognitionSearchType.GLOBAL),                           // DAB Ensemble list
     HD_RADIO(VoiceRecognitionSearchType.GLOBAL),                                    // HD Radio
     SIRIUS_XM(VoiceRecognitionSearchType.GLOBAL),                                   // Sirius XM
     USB(VoiceRecognitionSearchType.GLOBAL),                                         // USB
@@ -127,6 +130,7 @@ public enum ScreenId {
     FUNCTION_SETTING(VoiceRecognitionSearchType.GLOBAL),                            // FunctionSetting
     PARKING_SENSOR_SETTING(VoiceRecognitionSearchType.GLOBAL),                      // Parking Sensor Setting
     ALEXA(VoiceRecognitionSearchType.GLOBAL),                                       // Alexa
+    ALEXA_DISPLAY_CARD(VoiceRecognitionSearchType.GLOBAL),                          // Alexa Display Card
     ALEXA_SETTING(VoiceRecognitionSearchType.GLOBAL),                               // Alexa Setting
     ALEXA_SPLASH(VoiceRecognitionSearchType.GLOBAL),                               	// Alexa Splash
     ALEXA_EXAMPLE_USAGE(VoiceRecognitionSearchType.GLOBAL),                         // Alexa Example Usage
@@ -279,6 +283,7 @@ public enum ScreenId {
             case ADAS_WARNING_SETTING:
             case RE_CALIBRATION_NOTIFICATION:
             case ALEXA:
+            case ALEXA_DISPLAY_CARD:
                 return true;
             default:
                 return false;

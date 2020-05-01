@@ -110,7 +110,10 @@ public class InitialSettingsRequestTask extends SendTask {
         if (initialSettingStatus.menuDisplayLanguageSettingEnabled) {
             request(packetBuilder.createMenuDisplayLanguageSettingInfoRequest(), initialSetting, Tag.MENU_DISPLAY_LANGUAGE);
         }
-        
+        // DAB ANT PW設定情報要求
+        if (initialSettingStatus.dabAntennaPowerEnabled) {
+            request(packetBuilder.createDabAntennaPowerSettingInfoRequest(), initialSetting, Tag.DAB_ANTENNA_POWER);
+        }
         if (initialSetting.requestStatus == RequestStatus.SENDING) {
             if(initialSetting.isAllSettingAcquisition(Tag.getAllTags())) {
                 initialSetting.requestStatus = RequestStatus.SENT_COMPLETE;

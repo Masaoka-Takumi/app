@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import jp.pioneer.carsync.domain.model.FMTunerSetting;
 import jp.pioneer.carsync.domain.model.LocalSetting;
 import jp.pioneer.carsync.domain.model.PCHManualSetting;
+import jp.pioneer.carsync.domain.model.TASetting;
 
 /**
  * RadioFunction設定画面の抽象クラス.
@@ -54,6 +55,8 @@ public interface RadioFunctionSettingView {
     void setTaSetting(boolean isSupported,
                       boolean isEnabled,
                       boolean setting);
+
+    void setTaDabSetting(boolean isSupported, boolean isEnabled, TASetting setting);
 
     /**
      * AF設定.

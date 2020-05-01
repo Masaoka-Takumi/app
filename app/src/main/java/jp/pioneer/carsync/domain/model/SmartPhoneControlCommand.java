@@ -57,6 +57,9 @@ public enum SmartPhoneControlCommand {
         this.label = label;
     }
 
+    public boolean isLongPress(){
+        return commandStatusCode == 0x01;
+    }
     /**
      * プロトコルでの定義値から取得.
      *

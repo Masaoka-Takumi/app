@@ -33,7 +33,10 @@ public class Analytics {
         fxSuperTodoroki("EventUser_FXSuperTodoroki"),
         fxTimeAlignment("EventUser_FXTimeAlignment"),
         appleMusicUse("EventUser_AppleMusic"),
-
+        wallpaper("EventUser_Wallpaper"),
+        customKey("EventUser_CustomKey"),
+        sphKeyAction("EventUser_SPHKeyAction"),
+        adas("EventUser_ADAS"),
         ;
         public final String name;
 
@@ -101,6 +104,8 @@ public class Analytics {
         phoneLong("Phone(長押し)"),
         voiceLong("Voice(長押し)"),
         alexaLong("Alexa(長押し)"),
+        eqSelect("EQ選択"),
+        fxSelect("FX選択"),
         ;
         public final String value;
 
@@ -203,6 +208,32 @@ public class Analytics {
         public final String value;
 
         AnalyticsAlexaUse(String value) {
+            this.value = value;
+        }
+
+    }
+
+    public enum AnalyticsSPHKeyAction {
+        vr("VR"),
+        navi("ナビ"),
+        message("メッセージ"),
+        phoneShort("PHONE(短押し)"),
+        phoneLong("PHONE(長押し)"),
+        ;
+        public final String value;
+
+        AnalyticsSPHKeyAction(String value) {
+            this.value = value;
+        }
+    }
+
+    public enum AnalyticsAdasSetting {
+        off("OFF"),
+        on("ON"),
+        ;
+        public final String value;
+
+        AnalyticsAdasSetting(String value) {
             this.value = value;
         }
 
@@ -374,6 +405,37 @@ public class Analytics {
         createEventSubmitterWithCommonEventParam(AnalyticsEvent.fxTimeAlignment)
                 .with(AnalyticsParam.pref1, pref1)
                 .with(AnalyticsParam.pref2, pref2)
+                .submit();
+    }
+
+    void logWallpaperEvent(String pref1) {
+        createEventSubmitterWithCommonEventParam(AnalyticsEvent.wallpaper)
+                .with(AnalyticsParam.pref1, pref1)
+                .submit();
+    }
+
+    void logCustomKeyEvent(String pref1) {
+        createEventSubmitterWithCommonEventParam(AnalyticsEvent.customKey)
+                .with(AnalyticsParam.pref1, pref1)
+                .submit();
+    }
+
+    void logCustomKeyEvent(String pref1, String pref2) {
+        createEventSubmitterWithCommonEventParam(AnalyticsEvent.customKey)
+                .with(AnalyticsParam.pref1, pref1)
+                .with(AnalyticsParam.pref2, pref2)
+                .submit();
+    }
+
+    void logSPHKeyActionEvent(AnalyticsSPHKeyAction action) {
+        createEventSubmitterWithCommonEventParam(AnalyticsEvent.sphKeyAction)
+                .with(AnalyticsParam.action, action.value)
+                .submit();
+    }
+
+    void logAdasSettingEvent(AnalyticsAdasSetting pref1) {
+        createEventSubmitterWithCommonEventParam(AnalyticsEvent.adas)
+                .with(AnalyticsParam.pref1, pref1.value)
                 .submit();
     }
 }

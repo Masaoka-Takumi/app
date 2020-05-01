@@ -919,11 +919,13 @@ public class ExoAlexaPlayer implements IAlexaPlayer {
      * @return
      */
     public synchronized int getCurrentPosition() {
-            if (mMediaPlayer != null) {
-                return (int) mMediaPlayer.getCurrentPosition();
-            } else {
-                return 0;
+        if (mMediaPlayer != null) {
+            int position = (int) mMediaPlayer.getCurrentPosition();
+            if (0 <= position) {
+                return position;
             }
+        }
+        return 0;
     }
 
     /**

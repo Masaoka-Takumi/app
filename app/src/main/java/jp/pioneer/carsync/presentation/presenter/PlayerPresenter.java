@@ -224,7 +224,24 @@ public class PlayerPresenter<T> extends Presenter<T> {
             }
         } else if (status.sourceType.isListSupported()) {
             if(status.sourceType == MediaSourceType.DAB){
-                mMediaCase.enterList(ListType.SERVICE_LIST);
+                if(mStatusHolder.execute().getProtocolSpec().isSphCarDevice()) {
+                    RadioTabContainerPresenter.RadioTabType tab = mPreference.getDabSphListTabSelected();
+                    switch (tab) {
+                        case DAB_ENSEMBLE:
+                            mMediaCase.enterList(ListType.ENSEMBLE_CATEGORY);
+                            break;
+                        case DAB_PTY:
+                        case DAB_PRESET:
+                            onShowList();
+                            break;
+                        case DAB_STATION:
+                        default:
+                            mMediaCase.enterList(ListType.SERVICE_LIST);
+                            break;
+                    }
+                }else{
+                    mMediaCase.enterList(ListType.SERVICE_LIST);
+                }
             } else if(status.listType.canEnter()) {
                 mMediaCase.enterList(ListType.LIST);
             } else {
@@ -270,6 +287,7 @@ public class PlayerPresenter<T> extends Presenter<T> {
         }else {
             mFxCase.setSuperTodoroki(nextItem.superTodorokiSetting);
         }
+        mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.fxSelect, Analytics.AnalyticsActiveScreen.av_screen);
     }
 
     /**
@@ -306,6 +324,7 @@ public class PlayerPresenter<T> extends Presenter<T> {
             }
             mFxCase.setEqualizer(mEqArray.get(index));
         }
+        mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.eqSelect, Analytics.AnalyticsActiveScreen.av_screen);
     }
 
     /**

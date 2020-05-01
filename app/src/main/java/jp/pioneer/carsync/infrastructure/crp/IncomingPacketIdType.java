@@ -9,6 +9,7 @@ import jp.pioneer.carsync.infrastructure.crp.handler.ResponsePacketHandler;
 import jp.pioneer.carsync.infrastructure.crp.handler.SimpleResponsePacketHandler;
 import jp.pioneer.carsync.infrastructure.crp.handler.auth.ClassIdRequestResponsePacketHandler;
 import jp.pioneer.carsync.infrastructure.crp.handler.auth.ProtocolVersionResponsePacketHandler;
+import jp.pioneer.carsync.infrastructure.crp.handler.controlcommand.DabAbcSearchExecuteResponsePacketHandler;
 import jp.pioneer.carsync.infrastructure.crp.handler.controlcommand.DisconnectNotificationPacketHandler;
 import jp.pioneer.carsync.infrastructure.crp.handler.controlcommand.ExitMenuNotificationPacketHandler;
 import jp.pioneer.carsync.infrastructure.crp.handler.controlcommand.FinishVoiceRecognitionNotificationPacketHandler;
@@ -145,6 +146,8 @@ import jp.pioneer.carsync.infrastructure.crp.handler.setting.illumi.SphBtPhoneCo
 import jp.pioneer.carsync.infrastructure.crp.handler.setting.illumi.SphBtPhoneColorSettingInfoResponsePacketHandler;
 import jp.pioneer.carsync.infrastructure.crp.handler.setting.initial.AmStepSettingInfoNotificationPacketHandler;
 import jp.pioneer.carsync.infrastructure.crp.handler.setting.initial.AmStepSettingInfoResponsePacketHandler;
+import jp.pioneer.carsync.infrastructure.crp.handler.setting.initial.DabAntennaPowerSettingInfoNotificationPacketHandler;
+import jp.pioneer.carsync.infrastructure.crp.handler.setting.initial.DabAntennaPowerSettingInfoResponsePacketHandler;
 import jp.pioneer.carsync.infrastructure.crp.handler.setting.initial.FmStepSettingInfoNotificationPacketHandler;
 import jp.pioneer.carsync.infrastructure.crp.handler.setting.initial.FmStepSettingInfoResponsePacketHandler;
 import jp.pioneer.carsync.infrastructure.crp.handler.setting.initial.MenuDisplayLanguageSettingInfoNotificationPacketHandler;
@@ -385,6 +388,8 @@ public enum IncomingPacketIdType {
     LIST_FOCUS_POSITION_NOTIFICATION(0x21, 0x03, 0x00, ListFocusPositionNotificationPacketHandler.class, V2),
     /** フォーカス位置変更応答. */
     LIST_FOCUS_POSITION_CHANGE_RESPONSE(0x21, 0x03, 0xE0, ListFocusPositionChangeResponsePacketHandler.class, V2),
+    /** DAB ABCサーチ実行応答. */
+    DAB_ABC_SEARCH_EXECUTE_RESPONSE(0x21, 0x03, 0xE1, DabAbcSearchExecuteResponsePacketHandler.class, V4),
     /** リスト情報更新通知. */
     LIST_UPDATE_NOTIFICATION(0x21, 0x03, 0x01, ListUpdateNotificationPacketHandler.class, V2),
     /** 設定リスト情報更新通知. */
@@ -693,6 +698,10 @@ public enum IncomingPacketIdType {
     MENU_DISPLAY_LANGUAGE_SETTING_INFO_NOTIFICATION(0x35, 0x07, 0x04, MenuDisplayLanguageSettingInfoNotificationPacketHandler.class, V4),
     /** MENU表示言語設定応答. */
     MENU_DISPLAY_LANGUAGE_SETTING_INFO_RESPONSE(0x35, 0x07, 0xE4, MenuDisplayLanguageSettingInfoResponsePacketHandler.class, V4),
+    /** DAB ANT PW設定情報通知. */
+    DAB_ANTENNA_POWER_SETTING_INFO_NOTIFICATION(0x35, 0x07, 0x05, DabAntennaPowerSettingInfoNotificationPacketHandler.class, V4),
+    /** DAB ANT PW設定応答. */
+    DAB_ANTENNA_POWER_SETTING_INFO_RESPONSE(0x35, 0x07, 0xE5, DabAntennaPowerSettingInfoResponsePacketHandler.class, V4),
     /** AUTO ANSWER設定情報通知. */
     AUTO_ANSWER_SETTING_INFO_NOTIFICATION(0x35, 0x08, 0x00, AutoAnswerSettingInfoNotificationPacketHandler.class, V4),
     /** AUTO ANSWER設定応答. */

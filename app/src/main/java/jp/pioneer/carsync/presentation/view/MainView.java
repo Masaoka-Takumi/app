@@ -222,6 +222,20 @@ public interface MainView {
      */
     boolean isShowSessionStopped();
 
+    /**
+     * App連携方法ダイアログ表示.
+     *
+     * @param args Bundle
+     */
+    void showAppConnectMethodDialog(Bundle args);
+
+    /**
+     * App連携方法ダイアログが表示されているか否か.
+     *
+     * @return boolean
+     */
+    boolean isShowAppConnectMethodDialog();
+
     // MARK - 音声認識
 
     /**
@@ -332,6 +346,19 @@ public interface MainView {
      * @return 表示中か否か
      */
     boolean isShowAlexaDialog();
+
+    /**
+     * AlexaDisplayCardダイアログ非表示
+     */
+    void dismissAlexaDisplayCardDialog();
+
+    /**
+     * AlexaDisplayCardダイアログ表示中か
+     *
+     * @return 表示中か否か
+     */
+    boolean isShowAlexaDisplayCardDialog();
+
     /**
      * 車載器エラーダイアログ/SubscriptionUpdateダイアログ表示
      *

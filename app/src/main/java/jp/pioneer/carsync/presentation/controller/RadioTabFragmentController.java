@@ -14,6 +14,9 @@ import jp.pioneer.carsync.presentation.view.fragment.OnGoBackListener;
 import jp.pioneer.carsync.presentation.view.fragment.OnNavigateListener;
 import jp.pioneer.carsync.presentation.view.fragment.Screen;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
+import jp.pioneer.carsync.presentation.view.fragment.screen.player.list.DabEnsembleListFragment;
+import jp.pioneer.carsync.presentation.view.fragment.screen.player.list.DabPtyListFragment;
+import jp.pioneer.carsync.presentation.view.fragment.screen.player.list.DabServiceListFragment;
 import jp.pioneer.carsync.presentation.view.fragment.screen.player.list.RadioFavoriteFragment;
 import jp.pioneer.carsync.presentation.view.fragment.screen.player.list.RadioPresetFragment;
 
@@ -86,6 +89,22 @@ public class RadioTabFragmentController {
                 clearBackStack();
                 replaceFragment(createRadioFavoriteFragment(args), false);
                 return true;
+            case DAB_SERVICE_LIST:
+                if(args.getBoolean("stack")) {
+                    replaceFragment(createDabServiceFragment(args), true);
+                }else{
+                    clearBackStack();
+                    replaceFragment(createDabServiceFragment(args), false);
+                }
+                return true;
+            case DAB_PTY_LIST:
+                clearBackStack();
+                replaceFragment(createDabPtyListFragment(args), false);
+                return true;
+            case DAB_ENSEMBLE_LIST:
+                clearBackStack();
+                replaceFragment(createDabEnsembleListFragment(args), false);
+                return true;
             case RADIO_LIST_CONTAINER:
                 return true;
         }
@@ -139,4 +158,18 @@ public class RadioTabFragmentController {
         return RadioFavoriteFragment.newInstance(args);
     }
 
+    @VisibleForTesting
+    Fragment createDabServiceFragment(Bundle args) {
+        return DabServiceListFragment.newInstance(args);
+    }
+
+    @VisibleForTesting
+    Fragment createDabPtyListFragment(Bundle args) {
+        return DabPtyListFragment.newInstance(args);
+    }
+
+    @VisibleForTesting
+    Fragment createDabEnsembleListFragment(Bundle args) {
+        return DabEnsembleListFragment.newInstance(args);
+    }
 }

@@ -15,6 +15,7 @@ import jp.pioneer.carsync.application.di.component.FragmentComponent;
 import jp.pioneer.carsync.domain.model.FMTunerSetting;
 import jp.pioneer.carsync.domain.model.LocalSetting;
 import jp.pioneer.carsync.domain.model.PCHManualSetting;
+import jp.pioneer.carsync.domain.model.TASetting;
 import jp.pioneer.carsync.presentation.presenter.RadioFunctionSettingPresenter;
 import jp.pioneer.carsync.presentation.view.RadioFunctionSettingView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
@@ -29,6 +30,7 @@ public class RadioFunctionSettingFragment extends AbstractPreferenceFragment<Rad
     private SwitchPreferenceCompat mRegion;
     private Preference mLocal;
     private SwitchPreferenceCompat mTa;
+    private Preference mTaDab;
     private SwitchPreferenceCompat mAf;
     private SwitchPreferenceCompat mNews;
     private SwitchPreferenceCompat mAlarm;
@@ -80,6 +82,12 @@ public class RadioFunctionSettingFragment extends AbstractPreferenceFragment<Rad
         mTa = (SwitchPreferenceCompat) findPreference(getString(R.string.key_radio_ta));
         mTa.setOnPreferenceChangeListener((preference, newValue) -> {
             getPresenter().onSelectTaSettingAction((boolean) newValue);
+            return true;
+        });
+
+        mTaDab = findPreference(getString(R.string.key_radio_ta_dab));
+        mTaDab.setOnPreferenceClickListener((preference) -> {
+            getPresenter().onSelectTaSettingAction();
             return true;
         });
 
@@ -161,6 +169,25 @@ public class RadioFunctionSettingFragment extends AbstractPreferenceFragment<Rad
         mTa.setVisible(isSupported);
         mTa.setEnabled(isEnabled);
         mTa.setChecked(setting);
+    }
+
+    @Override
+    public void setTaDabSetting(boolean isSupported, boolean isEnabled, TASetting setting) {
+        mTaDab.setVisible(isSupported);
+        mTaDab.setEnabled(isEnabled);
+        switch (setting) {
+            case DAB_RDS_TA_ON:
+                mTaDab.setSummary(getString(R.string.set_351));
+                break;
+            case RDS_TA_ON:
+                mTaDab.setSummary(getString(R.string.set_352));
+                break;
+            case OFF:
+                mTaDab.setSummary(getString(R.string.set_353));
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

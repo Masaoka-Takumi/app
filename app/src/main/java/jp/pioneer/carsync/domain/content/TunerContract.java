@@ -103,13 +103,48 @@ public class TunerContract {
                 return new QueryParams(
                     Favorite.CONTENT_URI,
                     Dab.PROJECTION,
-                    "(" + Favorite.SOURCE_ID + " = ?)",
+                    "(" + Favorite.SOURCE_ID + " = ? "
+                            + " AND " + Favorite.TUNER_CHANNEL_KEY2 + " IS NULL)",
                     new String[]{String.valueOf(MediaSourceType.DAB.code)},
                     Dab.SORT_ORDER,
                     null
                 );
             }
-
+            /**
+             * DABのユーザーPreset情報を取得する {@link QueryParams} 生成.
+             *
+             * @return DABのユーザーPreset情報を取得するクエリーパラメータ
+             */
+            @NonNull
+            public static QueryParams createDabPreset(DabBandType dabBandType) {
+                return new QueryParams(
+                        Favorite.CONTENT_URI,
+                        Dab.PROJECTION,
+                        "(" + Favorite.SOURCE_ID + " = ? "
+                                + " AND " + Favorite.TUNER_BAND + " = ?"
+                                + " AND " + Favorite.TUNER_CHANNEL_KEY2 + " IS NOT NULL)",
+                        new String[]{String.valueOf(MediaSourceType.DAB.code),String.valueOf(dabBandType.code)},
+                        Dab.SORT_ORDER,
+                        null
+                );
+            }
+            /**
+             * DABの全バンドユーザーPreset情報を取得する {@link QueryParams} 生成.
+             *
+             * @return DABの全バンドユーザーPreset情報を取得するクエリーパラメータ
+             */
+            @NonNull
+            public static QueryParams createDabPreset() {
+                return new QueryParams(
+                        Favorite.CONTENT_URI,
+                        Dab.PROJECTION,
+                        "(" + Favorite.SOURCE_ID + " = ? "
+                                + " AND " + Favorite.TUNER_CHANNEL_KEY2 + " IS NOT NULL)",
+                        new String[]{String.valueOf(MediaSourceType.DAB.code)},
+                        Dab.SORT_ORDER,
+                        null
+                );
+            }
             /**
              * Sirius XMのお気に入り情報を取得する {@link QueryParams} 生成.
              *
@@ -340,7 +375,63 @@ public class TunerContract {
                     selectionArgs
                 );
             }
+            /**
+             * DAB情報のユーザー登録PCH情報を登録・更新する {@link UpdateParams} 生成.
+             *
+             * @param info     DAB情報
+             * @param context  コンテキスト
+             * @return 引数の情報からお気に入り情報に登録又は更新する更新パラメータ
+             * @throws NullPointerException     {@code info}がnull
+             * @throws NullPointerException     {@code context}がnull
+             * @throws IllegalArgumentException {@code info.frequencyUnit}がnull
+             * @throws IllegalArgumentException {@code info.currentFrequency}が0以下の値
+             */
+            @NonNull
+            public static UpdateParams createDabPreset(@NonNull DabInfo info, int presetNumber, @NonNull Context context) {
+                checkNotNull(info);
+                checkNotNull(context);
+                if (info.frequencyUnit == null) {
+                    throw new IllegalArgumentException("invalid frequencyUnit");
+                }
+                if (info.currentFrequency == 0) {
+                    throw new IllegalArgumentException("invalid currentFrequency:" + info.currentFrequency);
+                }
 
+                float value = info.currentFrequency / ((float) info.frequencyUnit.divide);
+                String format = "%." + info.frequencyUnit.fraction + "f%s";
+                String frequency = String.format(Locale.ENGLISH, format, value, context.getString(info.frequencyUnit.label));
+                String description = String.format(Locale.ENGLISH, "%s %s", context.getString(info.band.label), frequency);
+
+                ContentValues values = new ContentValues();
+                values.put(Favorite.SOURCE_ID, MediaSourceType.DAB.code);
+                values.put(Favorite.NAME, TextUtils.isEmpty(info.serviceComponentLabel) ? "" : info.serviceComponentLabel);
+                values.put(Favorite.DESCRIPTION, description);
+                values.put(Favorite.TUNER_CHANNEL_KEY1, info.currentFrequency);
+                values.put(Favorite.TUNER_CHANNEL_KEY2, presetNumber);
+                values.put(Favorite.TUNER_FREQUENCY_INDEX, info.index);
+                values.put(Favorite.TUNER_BAND, info.getBand().code);
+                values.put(Favorite.TUNER_PARAM1, info.eid);
+                values.put(Favorite.TUNER_PARAM2, info.sid);
+                values.put(Favorite.TUNER_PARAM3, info.scids);
+                values.put(Favorite.CREATE_DATE, System.currentTimeMillis());
+
+                String selection = Favorite.SOURCE_ID + " = ?"
+                        + " AND " + Favorite.TUNER_BAND + " = ?"
+                        + " AND " + Favorite.TUNER_CHANNEL_KEY2 + " = ?"
+                        ;
+                String[] selectionArgs = new String[]{
+                        String.valueOf(MediaSourceType.DAB.code),
+                        String.valueOf(info.getBand().code),
+                        String.valueOf(presetNumber)
+                };
+
+                return new UpdateParams(
+                        Favorite.CONTENT_URI,
+                        values,
+                        selection,
+                        selectionArgs
+                );
+            }
             /**
              * Sirius XM情報のお気に入り情報を登録・更新する {@link UpdateParams} 生成.
              *
@@ -496,6 +587,29 @@ public class TunerContract {
                         new String[]{
                                 String.valueOf(MediaSourceType.RADIO.code),
                                 String.valueOf(RadioBandType.AM.code),
+                        }
+                );
+            }
+
+            /**
+             * DABの該当バンドのP.CH登録データを全て削除する。 {@link DeleteParams} 生成.
+             *
+             * @param bandType バンド
+             * @return 該当バンドのP.CH登録データを削除する削除パラメータ
+             * @throws NullPointerException {@code cursor}がnull
+             */
+            @NonNull
+            public static DeleteParams createParamsDabPreset(@NonNull DabBandType bandType) {
+                checkNotNull(bandType);
+
+                return new DeleteParams(
+                        Favorite.CONTENT_URI,
+                        "(" + Favorite.SOURCE_ID + " = ?"
+                                + " AND " + Favorite.TUNER_BAND + " = ?"
+                                + " AND " + Favorite.TUNER_CHANNEL_KEY2 + " IS NOT NULL)",
+                        new String[]{
+                                String.valueOf(MediaSourceType.DAB.code),
+                                String.valueOf(bandType.code),
                         }
                 );
             }
@@ -676,6 +790,7 @@ public class TunerContract {
                 Favorite.NAME,
                 Favorite.DESCRIPTION,
                 Favorite.TUNER_CHANNEL_KEY1,
+                Favorite.TUNER_CHANNEL_KEY2,
                 Favorite.TUNER_FREQUENCY_INDEX,
                 Favorite.TUNER_BAND,
                 Favorite.TUNER_PARAM1,
@@ -736,6 +851,19 @@ public class TunerContract {
                 checkNotNull(cursor);
 
                 return cursor.getLong(cursor.getColumnIndexOrThrow(Favorite.TUNER_CHANNEL_KEY1));
+            }
+
+            /**
+             * DAB情報 {@code cursor} からPchNumberを取得する.
+             *
+             * @param cursor DAB情報
+             * @return 周波数
+             * @throws NullPointerException {@code cursor}がnull
+             */
+            public static int getPresetNumber(@NonNull Cursor cursor) {
+                checkNotNull(cursor);
+
+                return cursor.getInt(cursor.getColumnIndexOrThrow(Favorite.TUNER_CHANNEL_KEY2));
             }
 
             /**

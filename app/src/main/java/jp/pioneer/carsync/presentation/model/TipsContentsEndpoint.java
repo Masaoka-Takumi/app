@@ -9,14 +9,14 @@ import jp.pioneer.carsync.R;
  */
 public enum TipsContentsEndpoint {
     /** production. */
-    PRODUCTION("https://d2svjshr486bve.cloudfront.net/list/", R.string.dbg_026) {
+    PRODUCTION("https://d2kvcvflyxd4o0.cloudfront.net/list/", R.string.dbg_026) {
         @Override
         public TipsContentsEndpoint toggle() {
             return STAGING;
         }
     },
     /** staging. */
-    STAGING("https://d13xrvdgmwkyo4.cloudfront.net/list/", R.string.dbg_027) {
+    STAGING("https://ddnmjukt704ly.cloudfront.net/list/", R.string.dbg_027) {
         @Override
         public TipsContentsEndpoint toggle() {
             return PRODUCTION;

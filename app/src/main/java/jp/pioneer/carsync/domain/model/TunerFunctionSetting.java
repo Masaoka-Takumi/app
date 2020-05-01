@@ -18,6 +18,8 @@ public class TunerFunctionSetting extends Setting {
     public boolean regSetting;
     /** TA設定 */
     public boolean taSetting;
+    /** TA設定（DABモデル） */
+    public TASetting taDabSetting;
     /** AF設定ON. */
     public boolean afSetting;
     /** NEWS設定ON. */
@@ -44,6 +46,7 @@ public class TunerFunctionSetting extends Setting {
         fmTunerSetting = FMTunerSetting.STANDARD;
         regSetting = false;
         taSetting = false;
+        taDabSetting = TASetting.OFF;
         afSetting = false;
         newsSetting = false;
         alarmSetting = false;
@@ -64,6 +67,7 @@ public class TunerFunctionSetting extends Setting {
                 .add("fmTunerSetting", fmTunerSetting)
                 .add("regSetting", regSetting)
                 .add("taSetting", taSetting)
+                .add("taDabSetting", taDabSetting)
                 .add("afSetting", afSetting)
                 .add("newsSetting", newsSetting)
                 .add("alarmSetting", alarmSetting)

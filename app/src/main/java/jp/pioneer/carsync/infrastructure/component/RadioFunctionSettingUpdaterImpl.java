@@ -5,10 +5,12 @@ import android.support.annotation.NonNull;
 import javax.inject.Inject;
 
 import jp.pioneer.carsync.domain.component.RadioFunctionSettingUpdater;
+import jp.pioneer.carsync.domain.model.DabFunctionType;
 import jp.pioneer.carsync.domain.model.FMTunerSetting;
 import jp.pioneer.carsync.domain.model.LocalSetting;
 import jp.pioneer.carsync.domain.model.MediaSourceType;
 import jp.pioneer.carsync.domain.model.PCHManualSetting;
+import jp.pioneer.carsync.domain.model.TASetting;
 import jp.pioneer.carsync.domain.model.TunerFunctionType;
 import jp.pioneer.carsync.infrastructure.crp.CarDeviceConnection;
 import jp.pioneer.carsync.infrastructure.crp.OutgoingPacket;
@@ -86,6 +88,21 @@ public class RadioFunctionSettingUpdaterImpl implements RadioFunctionSettingUpda
                 MediaSourceType.RADIO,
                 TunerFunctionType.TA.code,
                 setting ? 0x01 : 0x00);
+        mCarDeviceConnection.sendPacket(packet);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setTa(@NonNull TASetting setting) {
+        Timber.i("setTa() setting = %s", setting);
+        checkNotNull(setting);
+
+        OutgoingPacket packet = mPacketBuilder.createFunctionSettingNotification(
+                MediaSourceType.RADIO,
+                TunerFunctionType.TA.code,
+                setting.code);
         mCarDeviceConnection.sendPacket(packet);
     }
 

@@ -25,7 +25,9 @@ import jp.pioneer.carsync.presentation.view.fragment.Screen;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.AccidentDetectDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.AdasWarningDialogFragment;
+import jp.pioneer.carsync.presentation.view.fragment.dialog.AlexaDisplayCardFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.AlexaFragment;
+import jp.pioneer.carsync.presentation.view.fragment.dialog.AppConnectMethodDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.CautionDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.CustomKeySettingDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.ParkingSensorDialogFragment;
@@ -61,6 +63,7 @@ public class MainFragmentController {
     private static final String TAG_DIALOG_CAUTION = "caution";
     private static final String TAG_DIALOG_ACCIDENT_DETECTION = "accident_detect";
     private static final String TAG_DIALOG_ALEXA = "alexa";
+    private static final String TAG_DIALOG_ALEXA_DISPLAY_CARD = "alexa_display_card";
     private static final String TAG_DIALOG_SPEECH_RECOGNIZER = "speech_recognizer";
     private static final String TAG_DIALOG_SEARCH_CONTAINER = "search_container";
     private static final String TAG_DIALOG_CONTACT_CONTAINER = "contact_container";
@@ -74,13 +77,13 @@ public class MainFragmentController {
     private static final String TAG_DIALOG_YOUTUBE_LINK_CONTAINER = "youtube_link_container";
     private static final String TAG_DIALOG_YOUTUBE_LINK_SEARCH_ITEM = "youtube_link_search_item";
     private static final String TAG_DIALOG_VOICE_RECOGNIZE_TYPE_SELECT = "tag_dialog_voice_recognize_type_select";
+    private static final String TAG_DIALOG_APP_CONNECT_METHOD = "app_connect_method";
     private static final String[] KEY_DEVICE_ERROR_DIALOGS = new String[]{
         MainPresenter.TAG_DIALOG_SXM_SUBSCRIPTION_UPDATE, CarDeviceErrorType.AMP_ERROR.toString(), CarDeviceErrorType.CHECK_USB.toString(), CarDeviceErrorType.CHECK_TUNER.toString(), CarDeviceErrorType.CHECK_ANTENNA.toString()
     };
     private static final String TAG_DIALOG_NORMAL = "dialog_normal";
     private static final String[] KEY_DIALOGS = new String[]{
-            TAG_DIALOG_NORMAL, TAG_DIALOG_ALEXA, TAG_DIALOG_CUSTOM_KEY_SETTING,TAG_DIALOG_YOUTUBE_LINK_SEARCH_ITEM,TAG_DIALOG_VOICE_RECOGNIZE_TYPE_SELECT
-    };
+            TAG_DIALOG_NORMAL, TAG_DIALOG_CUSTOM_KEY_SETTING,TAG_DIALOG_YOUTUBE_LINK_SEARCH_ITEM,TAG_DIALOG_VOICE_RECOGNIZE_TYPE_SELECT    };
     @Inject FragmentManager mFragmentManager;
     @IdRes private int mContainerViewId;
     private Handler handler = new Handler(Looper.getMainLooper());
@@ -229,7 +232,7 @@ public class MainFragmentController {
                 showCarDeviceErrorDialog(args, MainPresenter.TAG_DIALOG_SXM_SUBSCRIPTION_UPDATE);
                 return true;
             case USB_ERROR:
-                showUsbError(args, MainPresenter.TAG_DIALOG_SXM_SUBSCRIPTION_UPDATE);
+                showUsbError(args, MainPresenter.TAG_DIALOG_ERROR);
                 return true;
             case MAIN_STATUS_DIALOG:
                 showCarDeviceErrorDialog(args, TAG_DIALOG_NORMAL);
@@ -242,6 +245,12 @@ public class MainFragmentController {
                 return true;
             case ALEXA:
                 showAlexaDialog(args);
+                return true;
+            case ALEXA_DISPLAY_CARD:
+                if(isShowAlexaDisplayCardDialog()) {
+                    dismissAlexaDisplayCardDialog();
+                }
+                showAlexaDisplayCardDialog(args);
                 return true;
             case SELECT_DIALOG:
                 showSelectDialog(fragment,args);
@@ -303,10 +312,12 @@ public class MainFragmentController {
      * @param args Bundle 引き継ぎ情報
      */
     public void showCaution(Bundle args) {
+        if(isShowAppConnectMethodDialog()){
+            dismissAppConnectMethodDialog();
+        }
         if(isShowSessionStopped()){
             dismissSessionStopped();
         }
-
         createCautionDialogFragment(args).show(mFragmentManager, TAG_DIALOG_CAUTION);
         mFragmentManager.executePendingTransactions();
     }
@@ -335,14 +346,8 @@ public class MainFragmentController {
      *
      * @param args Bundle 引き継ぎ情報
      */
-    public void showAlexaDialog(Bundle args) {
-        //createSpeechRecognizerDialogFragment(args).show(mFragmentManager, TAG_DIALOG_SPEECH_RECOGNIZER);
-        //mFragmentManager.executePendingTransactions();
-        //画面OFF時のIllegalStateException回避
-        DialogFragment dialog = createAlexaFragment(args);
-        FragmentTransaction ft = mFragmentManager.beginTransaction();
-        ft.add(dialog, TAG_DIALOG_ALEXA);
-        ft.commitAllowingStateLoss();
+    private void showAlexaDialog(Bundle args) {
+        createAlexaFragment(args).show(mFragmentManager, TAG_DIALOG_ALEXA);
     }
 
     /**
@@ -350,17 +355,45 @@ public class MainFragmentController {
      */
     public void dismissAlexaDialog() {
         Fragment dialog = mFragmentManager.findFragmentByTag(TAG_DIALOG_ALEXA);
-        if (dialog instanceof DialogFragment) {
-            ((DialogFragment) dialog).dismiss();
+        //終了処理をして閉じる。
+        if (dialog instanceof AlexaFragment) {
+            ((AlexaFragment) dialog).onClickDismissBtn();
         }
     }
     /**
      * Alexaダイアログ表示確認
      *
-     * @return 音声認識結果が表示されているか否か
+     * @return Alexaダイアログが表示されているか否か
      */
     public boolean isShowAlexaDialog() {
         return (mFragmentManager.findFragmentByTag(TAG_DIALOG_ALEXA) != null);
+    }
+
+    /**
+     * Alexa Display Cardダイアログ表示
+     *
+     * @param args Bundle 引き継ぎ情報
+     */
+    private void showAlexaDisplayCardDialog(Bundle args) {
+        createAlexaDisplayCardFragment(args).show(mFragmentManager, TAG_DIALOG_ALEXA_DISPLAY_CARD);
+    }
+
+    /**
+     * Alexa Display Cardダイアログ閉幕
+     */
+    public void dismissAlexaDisplayCardDialog() {
+        Fragment dialog = mFragmentManager.findFragmentByTag(TAG_DIALOG_ALEXA_DISPLAY_CARD);
+        if (dialog instanceof AlexaDisplayCardFragment) {
+            ((AlexaDisplayCardFragment) dialog).callbackClose();
+        }
+    }
+    /**
+     * Alexa Display Cardダイアログ表示確認
+     *
+     * @return  Alexa Display Cardダイアログが表示されているか否か
+     */
+    public boolean isShowAlexaDisplayCardDialog() {
+        return (mFragmentManager.findFragmentByTag(TAG_DIALOG_ALEXA_DISPLAY_CARD) != null);
     }
 
     /**
@@ -625,11 +658,14 @@ public class MainFragmentController {
     }
 
     /**
-     * CarDeviceErrorDialog表示
+     * 車載器連携エラー（USB接続）表示
      *
      * @param args Bundle 引き継ぎ情報
      */
     public void showUsbError(Bundle args, String tag) {
+        if(isShowAppConnectMethodDialog()){
+            dismissAppConnectMethodDialog();
+        }
         if(isShowSessionStopped()){
             dismissSessionStopped();
         }
@@ -800,6 +836,35 @@ public class MainFragmentController {
         }
     }
 
+    /**
+     * App連携方法ダイアログ表示.
+     *
+     * @param args Bundle 引き継ぎ情報
+     */
+    public void showAppConnectMethodDialog(Bundle args) {
+        createAppConnectMethodDialogFragment(args).show(mFragmentManager, TAG_DIALOG_APP_CONNECT_METHOD);
+        mFragmentManager.executePendingTransactions();
+    }
+
+    /**
+     * App連携方法ダイアログ確認.
+     *
+     * @return App連携方法ダイアログが表示されているか否か
+     */
+    public boolean isShowAppConnectMethodDialog() {
+        return (mFragmentManager.findFragmentByTag(TAG_DIALOG_APP_CONNECT_METHOD) != null);
+    }
+
+    /**
+     * App連携方法ダイアログ閉幕
+     */
+    public void dismissAppConnectMethodDialog() {
+        Fragment dialog = mFragmentManager.findFragmentByTag(TAG_DIALOG_APP_CONNECT_METHOD);
+        if (dialog instanceof DialogFragment) {
+            ((DialogFragment) dialog).dismiss();
+        }
+    }
+
     private void replaceFragment(Fragment fragment, boolean isAddToBackStack) {
         FragmentTransaction tr = mFragmentManager.beginTransaction();
         tr.replace(mContainerViewId, fragment);
@@ -892,6 +957,11 @@ public class MainFragmentController {
     }
 
     @VisibleForTesting
+    DialogFragment createAppConnectMethodDialogFragment(Bundle args) {
+        return AppConnectMethodDialogFragment.newInstance(null, args);
+    }
+
+    @VisibleForTesting
     DialogFragment createSpeechRecognizerDialogFragment(Bundle args) {
         return SpeechRecognizerDialogFragment.newInstance(null, args);
     }
@@ -958,6 +1028,11 @@ public class MainFragmentController {
     @VisibleForTesting
     DialogFragment createAlexaFragment(Bundle args) {
         return AlexaFragment.newInstance(null, args);
+    }
+
+    @VisibleForTesting
+    DialogFragment createAlexaDisplayCardFragment(Bundle args) {
+        return AlexaDisplayCardFragment.newInstance(null, args);
     }
 
     @VisibleForTesting

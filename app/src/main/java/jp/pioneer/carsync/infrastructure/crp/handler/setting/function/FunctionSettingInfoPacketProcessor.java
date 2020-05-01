@@ -91,6 +91,12 @@ public class FunctionSettingInfoPacketProcessor {
         setting.regSetting = (ubyteToInt(data[5]) == 0x01);
         // D6:TA設定
         setting.taSetting = (ubyteToInt(data[6]) == 0x01);
+        if(mStatusHolder.getCarDeviceSpec().dabFunctionSettingSpec.taSettingSupported) {
+            setting.taDabSetting = TASetting.valueOf(data[6]);
+            //RadioソースでTA設定値が変更されたら、DABソースのTA設定値も変更
+            DabFunctionSetting dabSetting = mStatusHolder.getDabFunctionSetting();
+            dabSetting.taSetting = TASetting.valueOf(data[6]);
+        }
         // D7:AF設定
         setting.afSetting = (ubyteToInt(data[7]) == 0x01);
         // D8:NEWS設定
@@ -110,6 +116,11 @@ public class FunctionSettingInfoPacketProcessor {
         DabFunctionSetting setting = mStatusHolder.getDabFunctionSetting();
         // D2:TA設定
         setting.taSetting = TASetting.valueOf(data[2]);
+        if(mStatusHolder.getCarDeviceSpec().tunerFunctionSettingSpec.taSettingSupported) {
+            //DABソースでTA設定値が変更されたら、RadioソースのTA設定値も変更
+            TunerFunctionSetting tunerSetting = mStatusHolder.getTunerFunctionSetting();
+            tunerSetting.taDabSetting = TASetting.valueOf(data[2]);
+        }
         // D3:SERVICE FOLLOW ON/OFF設定
         setting.serviceFollowSetting = (ubyteToInt(data[3]) == 0x01);
         // D4:SOFTLINK設定

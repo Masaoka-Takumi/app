@@ -43,6 +43,7 @@ import jp.pioneer.carsync.presentation.model.ImpactNotificationMethod;
 import jp.pioneer.carsync.presentation.model.TipsContentsEndpoint;
 import jp.pioneer.carsync.presentation.model.UiColor;
 import jp.pioneer.carsync.presentation.model.YouTubeLinkSearchItem;
+import jp.pioneer.carsync.presentation.presenter.RadioTabContainerPresenter;
 import jp.pioneer.carsync.presentation.util.YouTubeLinkActionHandler;
 import jp.pioneer.carsync.presentation.view.adapter.YouTubeLinkSearchItemAdapter;
 
@@ -824,6 +825,24 @@ public class AppSharedPreference {
      * @see #setDisplaySmartPhoneControlCommand(boolean)
      */
     public static final String KEY_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND = "is_display_smart_phone_control_command";
+    /**
+     * Preferenceキー:専用機DABList画面の選択タブ
+     * <p>
+     * 既定値:{@link #DEFAULT_DAB_SPH_LIST_TAB_SELECTED}
+     *
+     * @see #getDabSphListTabSelected()
+     * @see #setDabSphListTabSelected(RadioTabContainerPresenter.RadioTabType)
+     */
+    public static final String KEY_DAB_SPH_LIST_TAB_SELECTED = "dab_sph_list_tab_selected";
+    /**
+     * Preferenceキー:App連携方法ダイアログの次回以降非表示設定
+     * <p>
+     * 既定値:{@link #DEFAULT_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN}
+     *
+     * @see #isAppConnectMethodNoDisplayAgain()
+     * @see #setAppConnectMethodNoDisplayAgain(boolean)
+     */
+    public static final String KEY_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN = "app_connect_method_no_display_again";
 
     private static final boolean DEFAULT_LOG_ENABLED = false;
     private static final int DEFAULT_APP_VERSION_CODE = 1;
@@ -904,6 +923,8 @@ public class AppSharedPreference {
     private static final boolean DEFAULT_IS_ALEXA_REQUIRED_SIM_CHECK = true;
     private static final boolean DEFAULT_YOUTUBE_LINK_SEARCH_ITEM_SETTING = true;
     private static final boolean DEFAULT_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND = false;
+    private static final String DEFAULT_DAB_SPH_LIST_TAB_SELECTED = RadioTabContainerPresenter.RadioTabType.DAB_STATION.name();
+    private static final boolean DEFAULT_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN = false;
 
     private final SharedPreferences mPreferences;
     private final Object mContent = new Object();
@@ -1153,6 +1174,40 @@ public class AppSharedPreference {
     }
 
     /**
+     * 利用規約バージョン取得(各言語分).
+     *
+     * @param language 言語
+     * @return バージョンコード
+     * @see #setEulaPrivacyVersionCode(String,int)
+     * @see #KEY_EULA_PRIVACY_VERSION_CODE
+     */
+    public int getEulaPrivacyVersionCode(String language) {
+        if (mPreferences.contains(KEY_EULA_PRIVACY_VERSION_CODE + "_" + language)) {
+            return mPreferences.getInt(KEY_EULA_PRIVACY_VERSION_CODE + "_" + language, getEulaPrivacyVersionCode());
+        } else {
+            setEulaPrivacyVersionCode(language, getEulaPrivacyVersionCode());
+            return getEulaPrivacyVersionCode();
+        }
+    }
+
+    /**
+     * 利用規約バージョン設定(各言語分).
+     *
+     * @param language 言語
+     * @param versionCode バージョンコード
+     * @return 本オブジェクト
+     * @see #getEulaPrivacyVersionCode(String)
+     * @see #KEY_EULA_PRIVACY_VERSION_CODE
+     */
+    @NonNull
+    public AppSharedPreference setEulaPrivacyVersionCode(String language, int versionCode) {
+        mPreferences.edit()
+                .putInt(KEY_EULA_PRIVACY_VERSION_CODE + "_" + language, versionCode)
+                .apply();
+        return this;
+    }
+
+    /**
      * 利用規約を同意したか否か取得.
      *
      * @return {@code true}:同意した。{@code false}:同意していない。
@@ -1194,7 +1249,7 @@ public class AppSharedPreference {
         if (mPreferences.contains(KEY_ALEXA_CAPABILITIES_VERSION_CODE)) {
             return mPreferences.getInt(KEY_ALEXA_CAPABILITIES_VERSION_CODE, DEFAULT_ALEXA_CAPABILITIES_VERSION_CODE);
         } else {
-            setEulaPrivacyVersionCode(DEFAULT_ALEXA_CAPABILITIES_VERSION_CODE);
+            setAlexaCapabilitiesVersionCode(DEFAULT_ALEXA_CAPABILITIES_VERSION_CODE);
             return DEFAULT_ALEXA_CAPABILITIES_VERSION_CODE;
         }
     }
@@ -3581,6 +3636,42 @@ public class AppSharedPreference {
                 .apply();
         return this;
     }
+    /**
+     * 専用機DABList画面の選択タブ取得.
+     *
+     * @return RadioTabContainerPresenter.RadioTabType
+     * @see #setDabSphListTabSelected(RadioTabContainerPresenter.RadioTabType)
+     * @see #KEY_DAB_SPH_LIST_TAB_SELECTED
+     */
+    @NonNull
+    public RadioTabContainerPresenter.RadioTabType getDabSphListTabSelected() {
+        if (mPreferences.contains(KEY_DAB_SPH_LIST_TAB_SELECTED)) {
+            String value = mPreferences.getString(KEY_DAB_SPH_LIST_TAB_SELECTED, DEFAULT_DAB_SPH_LIST_TAB_SELECTED);
+            return RadioTabContainerPresenter.RadioTabType.valueOf(value);
+        } else {
+            RadioTabContainerPresenter.RadioTabType type = RadioTabContainerPresenter.RadioTabType.valueOf(DEFAULT_DAB_SPH_LIST_TAB_SELECTED);
+            setDabSphListTabSelected(type);
+            return type;
+        }
+    }
+
+    /**
+     * 専用機DABList画面の選択タブ設定.
+     *
+     * @param type RadioTabContainerPresenter.RadioTabType
+     * @return 本オブジェクト
+     * @see #getDabSphListTabSelected()
+     * @see #KEY_DAB_SPH_LIST_TAB_SELECTED
+     */
+    @NonNull
+    public AppSharedPreference setDabSphListTabSelected(@NonNull RadioTabContainerPresenter.RadioTabType type) {
+        checkNotNull(type);
+
+        mPreferences.edit()
+                .putString(KEY_DAB_SPH_LIST_TAB_SELECTED, type.name())
+                .apply();
+        return this;
+    }
 
     /**
      * Alexa機能利用可能ダイアログを表示したかどうかのフラグ取得
@@ -3701,6 +3792,37 @@ public class AppSharedPreference {
     public AppSharedPreference setDisplaySmartPhoneControlCommand(boolean enabled){
         mPreferences.edit()
                 .putBoolean(KEY_IS_DISPLAY_SMART_PHONE_CONTROL_COMMAND, enabled)
+                .apply();
+        return this;
+    }
+
+    /**
+     * App連携方法ダイアログの次回以降非表示設定の取得
+     *
+     * @return {@code true}:非表示　{@code false}:表示
+     * @see #setAppConnectMethodNoDisplayAgain(boolean)
+     * @see #KEY_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN
+     */
+    public boolean isAppConnectMethodNoDisplayAgain(){
+        if(mPreferences.contains(KEY_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN)){
+            return mPreferences.getBoolean(KEY_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN, DEFAULT_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN);
+        }
+        else {
+            setAppConnectMethodNoDisplayAgain(DEFAULT_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN);
+            return DEFAULT_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN;
+        }
+    }
+
+    /**
+     * App連携方法ダイアログの次回以降非表示の設定
+     * @param isNoDisplayAgain {@code true}:非表示　{@code false}:表示
+     * @return 本オブジェクト
+     * @see #isAppConnectMethodNoDisplayAgain()
+     * @see #KEY_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN
+     */
+    public AppSharedPreference setAppConnectMethodNoDisplayAgain(boolean isNoDisplayAgain){
+        mPreferences.edit()
+                .putBoolean(KEY_APP_CONNECT_METHOD_NO_DISPLAY_AGAIN, isNoDisplayAgain)
                 .apply();
         return this;
     }

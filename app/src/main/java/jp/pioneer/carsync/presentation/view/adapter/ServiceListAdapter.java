@@ -36,9 +36,6 @@ public class ServiceListAdapter extends AbstractCursorAdapter{
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         View view = mLayoutInflater.inflate(R.layout.element_list_item_usb, parent, false);
         ViewHolder holder = new ViewHolder(view);
-        if(mOrientation == Configuration.ORIENTATION_LANDSCAPE){
-            view.setPadding((int)mContext.getResources().getDimension(R.dimen.music_list_landscape_let_padding),0,0,0);
-        }
         if(mIsSphCarDevice) {
             view.setBackground(ContextCompat.getDrawable(mContext, R.drawable.list_item_background_selector_music_no_focus));
         }

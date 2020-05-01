@@ -63,6 +63,16 @@ public interface DabSourceController extends SourceController {
     void callPreset(@IntRange(from = 1, to = 6) int presetNo);
 
     /**
+     * プリセット登録.
+     * <p>
+     * 引数のプリセットリストインデックスを登録する。
+     *
+     * @param listIndex プリセットリストインデックス.
+     * @throws IllegalArgumentException {@code listIndex} の値が不正.
+     */
+    void registerPreset(@IntRange(from = 1) int listIndex);
+
+    /**
      * リスト更新
      */
     void updateList();
@@ -78,6 +88,13 @@ public interface DabSourceController extends SourceController {
      * @throws NullPointerException {@code bandType} がnull.
      */
     void selectFavorite(int index, @NonNull DabBandType bandType, int eid, long sid, int scids);
+
+    /**
+     * ABCサーチ実行
+     *
+     * @param word サーチ文字
+     */
+    void executeAbcSearch(@NonNull String word);
 
     /**
      * ボリュームアップ.

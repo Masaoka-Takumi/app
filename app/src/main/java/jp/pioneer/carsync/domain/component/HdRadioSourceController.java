@@ -26,6 +26,16 @@ public interface HdRadioSourceController extends SourceController {
     void callPreset(@IntRange(from = 1, to = 6) int presetNo);
 
     /**
+     * プリセット登録.
+     * <p>
+     * 引数のプリセットリストインデックスを登録する。
+     *
+     * @param listIndex プリセットリストインデックス.
+     * @throws IllegalArgumentException {@code listIndex} の値が不正.
+     */
+    void registerPreset(@IntRange(from = 1) int listIndex);
+
+    /**
      * お気に入り選択.
      *
      * @param index 周波数インデックス

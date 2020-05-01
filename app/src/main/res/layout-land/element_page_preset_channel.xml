@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:paddingTop="8dp"
     android:paddingLeft="14dp"
-    android:paddingRight="14dp"
+    android:paddingRight="2dp"
     android:clipChildren="false"
     android:clipToPadding="false">
 
@@ -102,7 +102,7 @@
                     android:gravity="left|top"
                     android:lines="1"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/radio_preset_title_text_size" />
+                    android:textSize="@dimen/radio_preset_sub_title_text_size" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -190,7 +190,7 @@
                     android:gravity="left|top"
                     android:lines="1"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/radio_preset_title_text_size" />
+                    android:textSize="@dimen/radio_preset_sub_title_text_size" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
@@ -288,7 +288,7 @@
                     android:gravity="left|top"
                     android:lines="1"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/radio_preset_title_text_size" />
+                    android:textSize="@dimen/radio_preset_sub_title_text_size" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -376,7 +376,7 @@
                     android:gravity="left|top"
                     android:lines="1"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/radio_preset_title_text_size" />
+                    android:textSize="@dimen/radio_preset_sub_title_text_size" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
@@ -474,7 +474,7 @@
                     android:gravity="left|top"
                     android:lines="1"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/radio_preset_title_text_size" />
+                    android:textSize="@dimen/radio_preset_sub_title_text_size" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -562,7 +562,7 @@
                     android:gravity="left|top"
                     android:lines="1"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/radio_preset_title_text_size" />
+                    android:textSize="@dimen/radio_preset_sub_title_text_size" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

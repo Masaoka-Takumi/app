@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
 import jp.pioneer.carsync.R;
@@ -22,6 +24,7 @@ import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.SingleChoiceDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.StatusPopupDialogFragment;
 
+
 /**
  * AlexaExampleUsagePresenter
  */
@@ -33,7 +36,6 @@ public class AlexaExampleUsagePresenter  extends Presenter<AlexaExampleUsageView
     @Inject Context mContext;
     @Inject EventBus mEventBus;
     @Inject AppSharedPreference mPreference;
-
     @Inject
     public AlexaExampleUsagePresenter() {
     }
@@ -62,13 +64,16 @@ public class AlexaExampleUsagePresenter  extends Presenter<AlexaExampleUsageView
     public void showLanguageSelectDialog(){
         Bundle bundle = new Bundle();
         bundle.putString(SingleChoiceDialogFragment.TITLE, mContext.getResources().getString(R.string.set_307));
-        bundle.putStringArray(SingleChoiceDialogFragment.DATA, mContext.getResources().getStringArray(R.array.alexa_language));     // Require ArrayList
-        bundle.putInt(SingleChoiceDialogFragment.SELECTED, mPreference.getAlexaLanguage().code);
+        String[] strArray = new String[AlexaLanguageType.getValues().size()];
+        for (int i = 0; i < strArray.length; i++) {
+            strArray[i] = mContext.getString(AlexaLanguageType.getValues().get(i).label);
+        }
+        bundle.putStringArray(SingleChoiceDialogFragment.DATA, strArray);     // Require ArrayList
         mEventBus.post(new NavigateEvent(ScreenId.SELECT_DIALOG, bundle));
     }
 
     public void setAlexaLanguage(int position){
-        AlexaLanguageType type = AlexaLanguageType.valueOf((byte)position);
+        AlexaLanguageType type = AlexaLanguageType.getValues().get(position);
         mPreference.setAlexaLanguage(type);
         mEventBus.post(new NavigateEvent(ScreenId.ALEXA_SETTING, createSettingsParams(mContext.getString(R.string.set_302))));
     }

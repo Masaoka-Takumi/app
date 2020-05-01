@@ -1466,6 +1466,7 @@ public class AlexaAudioManager implements IAlexaPlayer.PlaybackCallback {
             long progressReportIntervalInMilliseconds = 0;
 
             String token = null;
+            long offsetTime = 0;
 
             int position = mPlayer.getCurrentPosition();
             if (position == 0){
@@ -1483,11 +1484,16 @@ public class AlexaAudioManager implements IAlexaPlayer.PlaybackCallback {
                 if (stream != null) {
                     progressReport = stream.progressReport;
                     token = stream.token;
+                    offsetTime = stream.offsetInMilliseconds.longValue();
                 }
                 if (progressReport != null) {
                     if (progressReport.progressReportDelayInMilliseconds != null) {
                         progressReportDelayInMilliseconds = progressReport.progressReportDelayInMilliseconds.longValue();
-                        isRDM = true;
+                        // offsetTimeがprogressReportDelayInMillisecondsより大きい場合は
+                        // ProgressReportDelayElapsedイベントを送る必要なし
+                        if (offsetTime <= progressReportDelayInMilliseconds) {
+                            isRDM = true;
+                        }
                     }
                     if (progressReport.progressReportIntervalInMilliseconds != null) {
                         progressReportIntervalInMilliseconds = progressReport.progressReportIntervalInMilliseconds.longValue();

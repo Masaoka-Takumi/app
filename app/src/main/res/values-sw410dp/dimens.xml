@@ -289,6 +289,16 @@
     <dimen name="radio_preset_button_width">113dp</dimen>
     <dimen name="radio_preset_button_margin">-6.8dp</dimen>
     <dimen name="radio_preset_title_text_size">30.5dp</dimen>
+    <dimen name="radio_preset_sub_title_text_size">27.3dp</dimen>
+
+    <!-- DAB Service List -->
+    <dimen name="dab_abc_search_bar_width">65.5dp</dimen>
+    <dimen name="dab_abc_search_bar_portrait_height">575.2dp</dimen>
+    <dimen name="dab_abc_search_bar_landscape_height">346.9dp</dimen>
+    <dimen name="dab_abc_search_bar_portrait_margin">29.9dp</dimen>
+    <dimen name="dab_abc_search_bar_landscape_margin">22.6dp</dimen>
+    <dimen name="dab_abc_search_popup_width">178.5dp</dimen>
+    <dimen name="dab_abc_search_popup_text_size">108.5dp</dimen>
 
     <!-- Player List -->
     <dimen name="player_list_item_album_art_width_portrait">135.6dp</dimen>
@@ -725,10 +735,55 @@
     <dimen name="alexa_tutorial_circle_page_indicator_height">47.5dp</dimen>
 
     <!-- Alexa Screen -->
-    <dimen name="alexa_screen_state_text_size">45.2dp</dimen>
+    <dimen name="alexa_screen_state_text_size">23.7dp</dimen>
     <dimen name="alexa_screen_voice_chrome_height">5.7dp</dimen>
     <dimen name="alexa_screen_start_button_group_width">72.3dp</dimen>
     <dimen name="alexa_screen_start_button_width">64.4dp</dimen>
+
+    <!-- Alexa Display Card -->
+    <dimen name="alexa_display_card_main_title_margin_left_portrait">79.1dp</dimen>
+    <dimen name="alexa_display_card_main_title_margin_left_landscape">83.6dp</dimen>
+    <dimen name="alexa_display_card_skill_icon_width">32.8dp</dimen>
+    <dimen name="alexa_display_card_skill_icon_margin_right">17dp</dimen>
+    <dimen name="alexa_display_card_sub_title_text_size">23.7dp</dimen>
+    <dimen name="alexa_display_card_body_template_image_max_width">324.3dp</dimen>
+    <dimen name="alexa_display_card_body_template_image_max_height">217dp</dimen>
+    <dimen name="alexa_display_card_body_template_image_margin">10.8dp</dimen>
+    <dimen name="alexa_display_card_list_template_item_height">48.6dp</dimen>
+    <dimen name="alexa_display_card_list_template_item_text_size">36.2dp</dimen>
+    <dimen name="alexa_display_card_list_template_item_text_left_width">49.7dp</dimen>
+    <dimen name="alexa_display_card_list_template_item_date_text_left_width">135.6dp</dimen>
+    <dimen name="alexa_display_card_list_template_item_margin">11.3dp</dimen>
+    <dimen name="alexa_display_card_list_template_item_right_text_left_margin">15.8dp</dimen>
+    <dimen name="alexa_display_card_local_search_template_item_height">72.3dp</dimen>
+    <dimen name="alexa_display_card_local_search_template_separator_left_margin_landscape">61dp</dimen>
+    <dimen name="alexa_display_card_local_search_template_item_primary_text_size">31.6dp</dimen>
+    <dimen name="alexa_display_card_local_search_template_item_primary_text_right_margin">140.1dp</dimen>
+    <dimen name="alexa_display_card_local_search_template_item_distance_text_width">124.3dp</dimen>
+    <dimen name="alexa_display_card_local_search_template_item_distance_text_minus_left_margin">-124.3dp</dimen>
+    <dimen name="alexa_display_card_local_search_template_item_secondary_text_size">19.2dp</dimen>
+    <dimen name="alexa_display_card_weather_main_icon_width">135.6dp</dimen>
+    <dimen name="alexa_display_card_weather_main_icon_height">131.1dp</dimen>
+    <dimen name="alexa_display_card_weather_main_icon_margin_left">33.9dp</dimen>
+    <dimen name="alexa_display_card_weather_main_icon_margin_left_landscape">61dp</dimen>
+    <dimen name="alexa_display_card_weather_main_temperature_width">195.5dp</dimen>
+    <dimen name="alexa_display_card_weather_main_temperature_text_size">87dp</dimen>
+    <dimen name="alexa_display_card_weather_main_temperature_text_size_landscape">65.5dp</dimen>
+    <dimen name="alexa_display_card_weather_temperature_width">146.9dp</dimen>
+    <dimen name="alexa_display_card_weather_temperature_height">74.6dp</dimen>
+    <dimen name="alexa_display_card_weather_temperature_margin_bottom_landscape">14.7dp</dimen>
+    <dimen name="alexa_display_card_weather_temperature_height_landscape">88.1dp</dimen>
+    <dimen name="alexa_display_card_weather_temperature_arrow_width">30.5dp</dimen>
+    <dimen name="alexa_display_card_weather_temperature_text_size">31.6dp</dimen>
+    <dimen name="alexa_display_card_weather_forecast_landscape_margin_horizontal">18.6dp</dimen>
+    <dimen name="alexa_display_card_weather_forecast_portrait_height">63.3dp</dimen>
+    <dimen name="alexa_display_card_weather_forecast_landscape_height">116.4dp</dimen>
+    <dimen name="alexa_display_card_weather_forecast_text_size">19.2dp</dimen>
+    <dimen name="alexa_display_card_weather_forecast_text_width">42.9dp</dimen>
+    <dimen name="alexa_display_card_weather_forecast_icon_width">46.3dp</dimen>
+    <dimen name="alexa_display_card_weather_forecast_icon_height">42.9dp</dimen>
+    <dimen name="alexa_display_card_weather_forecast_margin">19.2dp</dimen>
+    <dimen name="alexa_display_card_weather_forecast_icon_margin_right_portrait">37.3dp</dimen>
 
     <!-- Prompt Authority Dialog -->
     <dimen name="prompt_authority_dialog_button_width">385.3dp</dimen>
@@ -796,5 +851,14 @@
     <dimen name="youtube_link_caution_confirm_button_width">385.3dp</dimen>
     <dimen name="youtube_link_caution_confirm_button_height">57.6dp</dimen>
     <dimen name="youtube_link_caution_confirm_button_bottom_margin">23.7dp</dimen>
+
+    <!--App連携方法ダイアログ-->
+    <dimen name="app_connect_method_background_height">504dp</dimen>
+    <dimen name="app_connect_method_close_button_width">32.8dp</dimen>
+    <dimen name="app_connect_method_title_text_size">19.2dp</dimen>
+    <dimen name="app_connect_method_subscription_text_size">15.8dp</dimen>
+    <dimen name="app_connect_method_connect_illust_width">238.4dp</dimen>
+    <dimen name="app_connect_method_connect_illust_height">259.9dp</dimen>
+    <dimen name="app_connect_method_checkbox_width">42.9dp</dimen>
 
 </resources>

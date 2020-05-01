@@ -2,6 +2,7 @@ package jp.pioneer.carsync.domain.interactor;
 
 import android.os.Handler;
 import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
@@ -179,6 +180,24 @@ public class ControlDabSource {
     }
 
     /**
+     * プリセット登録.
+     *
+     * @param listIndex プリセットリストインデックス.
+     * @throws IllegalArgumentException {@code presetNo} の値が不正.
+     */
+    public void registerPreset(@IntRange(from = 1) int listIndex) {
+        checkArgument(listIndex >= 1);
+
+        mHandler.post(() -> {
+            if (mSourceController.isActive()) {
+                mSourceController.registerPreset(listIndex);
+            } else {
+                Timber.w("registerPreset() not active.");
+            }
+        });
+    }
+
+    /**
      * リスト更新
      */
     public void updateList() {
@@ -189,6 +208,22 @@ public class ControlDabSource {
             }
 
             mSourceController.updateList();
+        });
+    }
+
+    /**
+     * ABCサーチ実行
+     *
+     * @param word サーチ文字
+     */
+    public void executeAbsSearch(@NonNull String word) {
+        mHandler.post(() -> {
+            if (!mSourceController.isActive()) {
+                Timber.w("executeAbsSearch() not active.");
+                return;
+            }
+
+            mSourceController.executeAbcSearch(word);
         });
     }
 

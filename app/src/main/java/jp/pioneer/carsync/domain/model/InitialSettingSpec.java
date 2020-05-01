@@ -21,6 +21,8 @@ public class InitialSettingSpec {
     public boolean fmStepSettingSupported;
     /** サポートMENU表示言語群. */
     public Set<MenuDisplayLanguageType> supportedMenuDisplayLanguages;
+    /** DAB ANT PW設定.*/
+    public boolean dabAntennaPowerSupported;
 
     /**
      * コンストラクタ.
@@ -39,6 +41,7 @@ public class InitialSettingSpec {
         amStepSettingSupported = false;
         fmStepSettingSupported = false;
         supportedMenuDisplayLanguages = EnumSet.noneOf(MenuDisplayLanguageType.class);
+        dabAntennaPowerSupported = false;
     }
 
     /**
@@ -53,6 +56,7 @@ public class InitialSettingSpec {
                 .add("amStepSettingSupported", amStepSettingSupported)
                 .add("fmStepSettingSupported", fmStepSettingSupported)
                 .add("supportedMenuDisplayLanguages", supportedMenuDisplayLanguages)
+                .add("dabAntennaPowerSupported", dabAntennaPowerSupported)
                 .toString();
     }
 }

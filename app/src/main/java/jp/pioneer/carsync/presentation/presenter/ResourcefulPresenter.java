@@ -119,6 +119,7 @@ import jp.pioneer.carsync.presentation.view.ResourcefulView;
 import jp.pioneer.carsync.presentation.view.service.ForegroundReason;
 import jp.pioneer.carsync.presentation.view.service.InitializeState;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
+import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderTemplateItem;
 import jp.pioneer.mbg.alexa.AmazonAlexaManager;
 import jp.pioneer.mbg.alexa.manager.AlexaAudioManager;
 import jp.pioneer.mbg.alexa.manager.AlexaQueueManager;
@@ -496,7 +497,7 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
                             Timber.d("addAlexaCallback");
                             mAmazonAlexaManager.addAlexaCallback(mAlexaCallback);
                         }
-                        if(appStatus.isShowAlexaDialog){
+                        if(appStatus.isShowAlexaDialog&&!appStatus.isShowAlexaDisplayCardDialog){
                             mEventBus.post(new AlexaVoiceRecognizeEvent());
                         } else if (mStatusHolder.getAppStatus().isAlexaAvailableCountry||mPreference.getLastConnectedCarDeviceAndroidVr() || mPreference.isVoiceRecognitionEnabled()) {
                             // Alexa機能が利用可能なら音声認識は利用可能
@@ -527,12 +528,32 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
             AppStatus appStatus = mStatusHolder.getAppStatus();
             if(mPreference.isDisplaySmartPhoneControlCommand()) {
                 String commandText = mContext.getString(ev.command.label) + " ";
-                if (ev.command.commandStatusCode == 0x01) {
+                if (ev.command.isLongPress()) {
                     commandText += mContext.getString(R.string.control_command_long);
                 } else {
                     commandText += mContext.getString(R.string.control_command_short);
                 }
                 view.showShortToast(commandText);
+            }
+            //SPH車載機キー操作情報送信
+            if(mStatusHolder.getProtocolSpec().isSphCarDevice()){
+                switch (ev.command){
+                    case NAVI:
+                        mAnalytics.sendSPHKeyActionEvent(Analytics.AnalyticsSPHKeyAction.navi);
+                        break;
+                    case PHONE:
+                        mAnalytics.sendSPHKeyActionEvent(Analytics.AnalyticsSPHKeyAction.phoneShort);
+                        break;
+                    case DIRECT_CALL:
+                        mAnalytics.sendSPHKeyActionEvent(Analytics.AnalyticsSPHKeyAction.phoneLong);
+                        break;
+                    case MAIL:
+                        mAnalytics.sendSPHKeyActionEvent(Analytics.AnalyticsSPHKeyAction.message);
+                        break;
+                    case VR:
+                        mAnalytics.sendSPHKeyActionEvent(Analytics.AnalyticsSPHKeyAction.vr);
+                        break;
+                }
             }
             if(appStatus.isTransitionedHomeScreen && AppUtil.isScreenOn(mContext)) {
                 switch (ev.command) {
@@ -752,9 +773,13 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
     public void onListTypeChangeEvent(ListTypeChangeEvent event) {
         ListType type = mStatusHolder.getCarDeviceStatus().listType;
         if(mCurrentListType == null || mCurrentListType == ListType.NOT_LIST) {
-            if (type == ListType.PCH_LIST || type == ListType.LIST || type == ListType.ABC_SEARCH_LIST||type == ListType.SERVICE_LIST) {
+            if (type == ListType.PCH_LIST || type == ListType.LIST || type == ListType.ABC_SEARCH_LIST
+                    ||type == ListType.SERVICE_LIST || type == ListType.PTY_NEWS_INFO_LIST || type == ListType.PTY_POPULER_LIST
+                    || type == ListType.PTY_CLASSICS_LIST || type == ListType.PTY_OTHERS_LIST
+                    || type == ListType.ENSEMBLE_CATEGORY || type == ListType.ENSEMBLE_LIST) {
                 Optional.ofNullable(getView()).ifPresent(view -> {
-                    if (AppUtil.isScreenOn(mContext)) {
+                    //List表示中にdispatchEnterListが走るとListTypeを変更できない
+                    if (AppUtil.isScreenOn(mContext)&&!mStatusHolder.getAppStatus().isShowRadioTabContainer) {
                         view.dispatchEnterList();
                     }
                 });
@@ -1354,6 +1379,11 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
             appStatus.playerInfoItem = playerInfoItem;
             mControlCase.sendMusicInfo();
             mEventBus.post(new AlexaRenderPlayerInfoUpdateEvent());
+        }
+
+        @Override
+        public void onReceiveRenderTemplate(RenderTemplateItem templateItem) {
+
         }
 
         @Override

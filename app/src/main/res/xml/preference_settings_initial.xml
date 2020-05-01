@@ -31,4 +31,10 @@
         android:order="50"
         android:title="@string/set_182" />
 
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/key_initial_antenna_power"
+        android:layout="@layout/element_preference_switch"
+        android:persistent="false"
+        android:order="60"
+        android:title="@string/set_402" />
 </PreferenceScreen>

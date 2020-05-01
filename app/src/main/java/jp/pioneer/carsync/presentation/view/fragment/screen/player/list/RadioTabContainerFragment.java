@@ -45,10 +45,15 @@ public class RadioTabContainerFragment extends AbstractDialogFragment<RadioTabCo
     @BindView(R.id.path_text) TextView mTitle;
     @BindView(R.id.bsm_button) RelativeLayout mBsm;
     @BindView(R.id.tab_layout) LinearLayout mTabLayout;
+    @BindView(R.id.tab_layout_dab) LinearLayout mTabLayoutDab;
     @BindView(R.id.separator) View mSeparater;
     @BindView(R.id.update_button) RelativeLayout mUpdateBtn;
     @BindView(R.id.preset_button) RelativeLayout mPresetTab;
     @BindView(R.id.favorite_button) RelativeLayout mFavoriteTab;
+    @BindView(R.id.tab_station) RelativeLayout mStationTab;
+    @BindView(R.id.tab_pty) RelativeLayout mPtyTab;
+    @BindView(R.id.tab_ensemble) RelativeLayout mEnsembleTab;
+    @BindView(R.id.tab_preset) RelativeLayout mDabPresetTab;
     @BindView(R.id.status_view_back) View mStatusViewBack;
     @BindView(R.id.status_view) LinearLayout mStatusView;
     @BindView(R.id.bsm_icon) ImageView mBsmIcon;
@@ -57,7 +62,7 @@ public class RadioTabContainerFragment extends AbstractDialogFragment<RadioTabCo
     @BindView(R.id.close_button) ImageView mCloseButton;
     @BindView(R.id.dialog_close_button) ImageView mDialogCloseButton;
     private Unbinder mUnbinder;
-
+    private MediaSourceType mSourceType;
     /**
      * コンストラクタ
      */
@@ -83,7 +88,7 @@ public class RadioTabContainerFragment extends AbstractDialogFragment<RadioTabCo
         setCancelable(false);
         dialog.setOnKeyListener((dialog1, keyCode, event) -> {
             if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-                getPresenter().onCloseAction();
+                getPresenter().onBackAction();
                 return true;
             }
             return false;
@@ -126,18 +131,16 @@ public class RadioTabContainerFragment extends AbstractDialogFragment<RadioTabCo
     }
 
     @Override
-    public void setTabVisible(boolean isVisible){
-        if(isVisible) {
-            mTabLayout.setVisibility(View.VISIBLE);
-            mSeparater.setVisibility(View.VISIBLE);
-        }else{
+    public void setTabLayout(MediaSourceType type,boolean isSph) {
+        mSourceType = type;
+        if(type == MediaSourceType.RADIO&&isSph){
             mTabLayout.setVisibility(View.GONE);
+            mTabLayoutDab.setVisibility(View.GONE);
             mSeparater.setVisibility(View.GONE);
+            return;
+        }else{
+            mSeparater.setVisibility(View.VISIBLE);
         }
-    }
-
-    @Override
-    public void setTabLayout(MediaSourceType type) {
         mTabLayout.removeAllViews();
         if (type == MediaSourceType.RADIO) {
             mTabLayout.addView(mFavoriteTab);
@@ -145,6 +148,13 @@ public class RadioTabContainerFragment extends AbstractDialogFragment<RadioTabCo
         }else{
             mTabLayout.addView(mPresetTab);
             mTabLayout.addView(mFavoriteTab);
+        }
+        if(type == MediaSourceType.DAB&&isSph){
+            mTabLayout.setVisibility(View.GONE);
+            mTabLayoutDab.setVisibility(View.VISIBLE);
+        }else{
+            mTabLayout.setVisibility(View.VISIBLE);
+            mTabLayoutDab.setVisibility(View.GONE);
         }
     }
 
@@ -176,8 +186,13 @@ public class RadioTabContainerFragment extends AbstractDialogFragment<RadioTabCo
         if(isVisible) {
             mCloseButton.setVisibility(View.VISIBLE);
         }else{
-            // BSM ボタンの位置はキープしたいのでINVISIBLE
-            mCloseButton.setVisibility(View.INVISIBLE);
+            if(mSourceType==MediaSourceType.DAB){
+                // ListUpdateButtonは右に寄せる
+                mCloseButton.setVisibility(View.GONE);
+            }else {
+                // BSM ボタンの位置はキープしたいのでINVISIBLE
+                mCloseButton.setVisibility(View.INVISIBLE);
+            }
         }
     }
     @Override
@@ -220,20 +235,57 @@ public class RadioTabContainerFragment extends AbstractDialogFragment<RadioTabCo
      */
     @Override
     public void setTab(RadioTabContainerPresenter.RadioTabType tab) {
-        if(tab==RadioTabContainerPresenter.RadioTabType.PRESET) {
-            mPresetTab.getChildAt(0).setVisibility(View.VISIBLE);
-            mFavoriteTab.getChildAt(0).setVisibility(View.INVISIBLE);
-            mPresetTab.getChildAt(1).setAlpha(1.0f);
-            mFavoriteTab.getChildAt(1).setAlpha(0.35f);
-            mPresetTab.setEnabled(false);
-            mFavoriteTab.setEnabled(true);
-        }else{
-            mPresetTab.getChildAt(0).setVisibility(View.INVISIBLE);
-            mFavoriteTab.getChildAt(0).setVisibility(View.VISIBLE);
-            mPresetTab.getChildAt(1).setAlpha(0.35f);
-            mFavoriteTab.getChildAt(1).setAlpha(1.0f);
-            mPresetTab.setEnabled(true);
-            mFavoriteTab.setEnabled(false);
+        mPresetTab.getChildAt(0).setVisibility(View.INVISIBLE);
+        mFavoriteTab.getChildAt(0).setVisibility(View.INVISIBLE);
+        mPresetTab.getChildAt(1).setAlpha(0.35f);
+        mFavoriteTab.getChildAt(1).setAlpha(0.35f);
+        mPresetTab.setEnabled(true);
+        mFavoriteTab.setEnabled(true);
+        mStationTab.getChildAt(0).setVisibility(View.INVISIBLE);
+        mPtyTab.getChildAt(0).setVisibility(View.INVISIBLE);
+        mEnsembleTab.getChildAt(0).setVisibility(View.INVISIBLE);
+        mDabPresetTab.getChildAt(0).setVisibility(View.INVISIBLE);
+        mStationTab.getChildAt(1).setAlpha(0.35f);
+        mPtyTab.getChildAt(1).setAlpha(0.35f);
+        mEnsembleTab.getChildAt(1).setAlpha(0.35f);
+        mDabPresetTab.getChildAt(1).setAlpha(0.35f);
+        mStationTab.setEnabled(true);
+        mPtyTab.setEnabled(true);
+        mEnsembleTab.setEnabled(true);
+        mDabPresetTab.setEnabled(true);
+        switch (tab){
+            case PRESET:
+                mPresetTab.getChildAt(0).setVisibility(View.VISIBLE);
+                mPresetTab.getChildAt(1).setAlpha(1.0f);
+                mPresetTab.setEnabled(false);
+                break;
+            case FAVORITE:
+                mFavoriteTab.getChildAt(0).setVisibility(View.VISIBLE);
+                mFavoriteTab.getChildAt(1).setAlpha(1.0f);
+                mFavoriteTab.setEnabled(false);
+                break;
+            case DAB_STATION:
+                mStationTab.getChildAt(0).setVisibility(View.VISIBLE);
+                mStationTab.getChildAt(1).setAlpha(1.0f);
+                mStationTab.setEnabled(false);
+                break;
+            case DAB_PTY:
+                mPtyTab.getChildAt(0).setVisibility(View.VISIBLE);
+                mPtyTab.getChildAt(1).setAlpha(1.0f);
+                mPtyTab.setEnabled(false);
+                break;
+            case DAB_ENSEMBLE:
+                mEnsembleTab.getChildAt(0).setVisibility(View.VISIBLE);
+                mEnsembleTab.getChildAt(1).setAlpha(1.0f);
+                mEnsembleTab.setEnabled(false);
+                break;
+            case DAB_PRESET:
+                mDabPresetTab.getChildAt(0).setVisibility(View.VISIBLE);
+                mDabPresetTab.getChildAt(1).setAlpha(1.0f);
+                mDabPresetTab.setEnabled(false);
+                break;
+            default:
+                break;
         }
     }
 
@@ -263,8 +315,16 @@ public class RadioTabContainerFragment extends AbstractDialogFragment<RadioTabCo
     /**
      * 戻るボタン押下イベント
      */
-    @OnClick({R.id.back_button, R.id.close_button})
+    @OnClick(R.id.back_button)
     public void onClickBackButton() {
+        getPresenter().onBackAction();
+    }
+
+    /**
+     * 閉じるボタン押下イベント
+     */
+    @OnClick( R.id.close_button)
+    public void onClickCloseButton() {
         getPresenter().onCloseAction();
     }
 
@@ -282,6 +342,38 @@ public class RadioTabContainerFragment extends AbstractDialogFragment<RadioTabCo
     @OnClick(R.id.preset_button)
     public void onClickPresetButton() {
         getPresenter().onPresetAction();
+    }
+
+    /**
+     * Stationタブ押下イベント
+     */
+    @OnClick(R.id.tab_station)
+    public void onClickStationTab() {
+        getPresenter().onDabStationAction();
+    }
+
+    /**
+     * PTYタブ押下イベント
+     */
+    @OnClick(R.id.tab_pty)
+    public void onClickPtyTab() {
+        getPresenter().onDabPtyAction();
+    }
+
+    /**
+     * Ensembleタブ押下イベント
+     */
+    @OnClick(R.id.tab_ensemble)
+    public void onClickEnsembleTab() {
+        getPresenter().onDabEnsembleAction();
+    }
+
+    /**
+     * DAB Presetタブ押下イベント
+     */
+    @OnClick(R.id.tab_preset)
+    public void onClickDabPresetTab() {
+        getPresenter().onDabPresetAction();
     }
 
     /**
@@ -361,4 +453,8 @@ public class RadioTabContainerFragment extends AbstractDialogFragment<RadioTabCo
         getPresenter().onStatusCloseAction();
     }
 
+    @Override
+    public void closeDialog(){
+        this.dismiss();
+    }
 }

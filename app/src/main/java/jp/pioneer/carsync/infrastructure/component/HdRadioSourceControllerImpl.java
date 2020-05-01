@@ -1,5 +1,6 @@
 package jp.pioneer.carsync.infrastructure.component;
 
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
@@ -57,6 +58,18 @@ public class HdRadioSourceControllerImpl extends SourceControllerImpl implements
             return;
         }
         OutgoingPacket packet = mPacketBuilder.createDeviceControlCommand(command);
+        mCarDeviceConnection.sendPacket(packet);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void registerPreset(@IntRange(from = 1) int listIndex){
+        checkArgument(listIndex >= 1);
+        Timber.i("registerPreset() presetIndex = %d", listIndex);
+
+        OutgoingPacket packet = mPacketBuilder.createTunerListRegisterPresetNotification(listIndex);
         mCarDeviceConnection.sendPacket(packet);
     }
 

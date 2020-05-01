@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -40,22 +41,22 @@
 
         <RelativeLayout
             android:id="@+id/bsm_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/navigate_bar_bsm_button_width"
+            android:layout_height="@dimen/navigate_bar_bsm_button_height"
             android:layout_marginRight="@dimen/navigate_bar_bsm_button_margin_right_land"
             android:visibility="gone">
             <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true">
                 <View
-                    android:layout_width="@dimen/navigate_bar_bsm_button_width"
-                    android:layout_height="@dimen/navigate_bar_bsm_button_height"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:alpha="0.4"
                     android:background="@drawable/p0026_chamferbtn_1nrm" />
             </FrameLayout>
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:layout_centerInParent="true"
@@ -66,26 +67,26 @@
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/update_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/navigate_bar_bsm_button_width"
+            android:layout_height="@dimen/navigate_bar_bsm_button_height"
             android:layout_marginRight="@dimen/navigate_bar_bsm_button_margin_right_portrait"
             android:visibility="gone">
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignLeft="@+id/update_text"
                 android:layout_alignRight="@+id/update_text"
                 android:layout_centerInParent="true">
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/navigate_bar_bsm_button_height"
+                    android:layout_height="match_parent"
                     android:alpha="0.4"
                     android:background="@drawable/p0026_chamferbtn_1nrm" />
             </FrameLayout>
-            <TextView
+            <me.grantland.widget.AutofitTextView
                 android:id="@+id/update_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:gravity="center"
                 android:paddingLeft="6dp"
                 android:paddingRight="6dp"
@@ -168,7 +169,10 @@
             </RelativeLayout>
 
         </LinearLayout>
-
+        <include
+            layout="@layout/element_tab_layout_dab"
+            android:id="@+id/tab_layout_dab"
+            android:visibility="visible"/>
         <View
             android:id="@+id/separator"
             android:layout_width="1.5dp"

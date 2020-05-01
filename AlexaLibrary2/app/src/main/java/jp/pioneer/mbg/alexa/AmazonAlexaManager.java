@@ -44,6 +44,7 @@ import jp.pioneer.mbg.alexa.AlexaInterface.directive.SpeechRecognizer.StopCaptur
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.SpeechSynthesizer.SpeakItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.System.ReportSoftwareInfoItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
+import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderTemplateItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.event.System.SoftwareInfoItem;
 import jp.pioneer.mbg.alexa.AlexaInterface.event.System.UserInactivityReportItem;
 import jp.pioneer.mbg.alexa.connection.ConnectionReceiver;
@@ -83,6 +84,7 @@ public class AmazonAlexaManager implements AlexaQueueManager.AlexaQueueCallback,
     private AudioFocusRequest mAudioFocusRequest = null;
     private boolean mHasAudioFocus = false;
     public boolean isShowAlexaDialog = false;
+    public boolean isShowAlexaDisplayCardDialog = false;
     /**
      * 音声入力ON時 効果音プレーヤー
      */
@@ -120,6 +122,11 @@ public class AmazonAlexaManager implements AlexaQueueManager.AlexaQueueCallback,
      * AlexaLoginManager -> AmazonAlexaManagerのコールバックインスタンス
      */
     private AlexaLoginCallback mLoginCallback = null;
+
+    /**
+     * 表示カード用のコールバックインスタンス
+     */
+    private IAlexaDisplayCallback mAlexaDisplayCallback = null;
 
     /**
      * Pingを送信するタイマー
@@ -234,6 +241,13 @@ public class AmazonAlexaManager implements AlexaQueueManager.AlexaQueueCallback,
     }
 
     /**
+     * Alexa表示カード用コールバックインタフェース(AmazonAlexaManager -> AlexaDisplayCardFragment)
+     */
+    public interface IAlexaDisplayCallback {
+        void onExpectSpeech();
+    }
+
+    /**
      * Alexaコールバックインタフェース(AmazonAlexaManager -> Activity)
      */
     public interface IAlexaCallback {
@@ -332,6 +346,11 @@ public class AmazonAlexaManager implements AlexaQueueManager.AlexaQueueCallback,
          * 音楽のTemplateを受信した際にコールバック.
          */
         public void onReceiveRenderPlayerInfo(RenderPlayerInfoItem playerInfoItem);
+
+        /**
+         * RenderTemplateを受信した際にコールバック.
+         */
+        public void onReceiveRenderTemplate(RenderTemplateItem templateItem);
 
         /**
          * 音楽再生準備開始
@@ -641,6 +660,16 @@ public class AmazonAlexaManager implements AlexaQueueManager.AlexaQueueCallback,
             return;
         }
         mAlexaCallbackList.remove(callback);
+    }
+
+    public void addAlexaDisplayCallback(IAlexaDisplayCallback callback) {
+        if (DBG) android.util.Log.d(TAG, "addAlexaDisplayCallback(), callback = " + callback);
+        mAlexaDisplayCallback = callback;
+    }
+
+    public void removeAlexaDisplayCallback() {
+        if (DBG) android.util.Log.d(TAG, "removeAlexaDisplayCallback()" );
+        mAlexaDisplayCallback = null;
     }
 
     /**
@@ -1320,12 +1349,20 @@ public class AmazonAlexaManager implements AlexaQueueManager.AlexaQueueCallback,
         }
         else if (directive instanceof ExpectSpeechItem) {
             // 追加対話 -> 再度、マイクをONにする
-            if(!isShowAlexaDialog){
+            //Alexa画面もDisplayCardも表示していなかったら中断
+            if(!isShowAlexaDialog&&!isShowAlexaDisplayCardDialog){
                 AlexaSpeakManager speakManager = AlexaSpeakManager.getInstance();
                 if (speakManager != null) {
                     speakManager.stopExpectSpeech();
                 }
                 return;
+            }
+            //DisplayCard表示中はAlexa発話呼び出し
+            if(isShowAlexaDisplayCardDialog)
+            {
+                if(mAlexaDisplayCallback!=null) {
+                    mAlexaDisplayCallback.onExpectSpeech();
+                }
             }
             final Initiator initiator = ((ExpectSpeechItem) directive).initiator;
 
@@ -1380,6 +1417,23 @@ public class AmazonAlexaManager implements AlexaQueueManager.AlexaQueueCallback,
                         if (mAlexaCallbackList != null) {
                             for (int i = 0; i < mAlexaCallbackList.size(); ++i) {
                                 mAlexaCallbackList.get(i).onSetNaviDestination(setDestinationItem.latitude, setDestinationItem.longitude, setDestinationItem.destinationName);
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        else if(directive instanceof RenderTemplateItem){
+            // 通常系ディスプレイカード
+            final RenderTemplateItem renderTemplateItem = (RenderTemplateItem) directive;
+            if (DBG) android.util.Log.d(TAG, "RenderTemplateItem()");
+            if(mHandler != null){
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mAlexaCallbackList != null) {
+                            for (int i = 0; i < mAlexaCallbackList.size(); ++i) {
+                                mAlexaCallbackList.get(i).onReceiveRenderTemplate(renderTemplateItem);
                             }
                         }
                     }

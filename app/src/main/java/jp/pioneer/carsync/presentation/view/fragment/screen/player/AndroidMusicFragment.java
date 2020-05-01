@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.ViewPager;
+import android.util.SparseArray;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -817,6 +818,7 @@ public class AndroidMusicFragment extends AbstractMusicPlayerFragment<AndroidMus
         mSourceBtnIcon.setImageResource(R.drawable.p1620_amzn_music_exit);
         mLogoImage.setVisibility(View.GONE);
         mWebView.setVisibility(View.GONE);
+
         setListEnabled(false);
         setGestureLayout();
 
@@ -844,19 +846,32 @@ public class AndroidMusicFragment extends AbstractMusicPlayerFragment<AndroidMus
             }
         }
         isSetMetaData = true;
+
         if (renderPlayerInfoItem.content != null) {
             AlexaIfDirectiveItem.Content content = renderPlayerInfoItem.content;
+
+            if (content.mediaLengthInMilliseconds <= 0 || content.provider.name.equals("Kindle Books")) {
+                mProgressAlexa.setVisibility(View.INVISIBLE);
+                if(mCurrentTimeView!=null) {
+                    mCurrentTimeView.setVisibility(View.INVISIBLE);
+                }
+                if(mRemainingTimeView!=null) {
+                    mRemainingTimeView.setVisibility(View.INVISIBLE);
+                }
+            } else {
+                mProgressAlexa.setVisibility(View.VISIBLE);
+                if(mCurrentTimeView!=null) {
+                    mCurrentTimeView.setVisibility(View.VISIBLE);
+                }
+                if(mRemainingTimeView!=null) {
+                    mRemainingTimeView.setVisibility(View.VISIBLE);
+                }
+            }
+
             AlexaIfDirectiveItem.Source source = null;
             {
                 AlexaIfDirectiveItem.ImageStructure art = content.getArt();
-                if (art != null) {
-                    List<AlexaIfDirectiveItem.Source> sources = art.getSources();
-                    if (sources != null && sources.size() > 0) {
-                        //small→...→x-largeと仮定して、Listの最後の画像(Large)を取得
-                        int logoSize = sources.size() - 1;
-                        source = sources.get(logoSize);
-                    }
-                }
+                source = getSourceImage(art);
             }
             AlexaIfDirectiveItem.Source provider = null;
             {
@@ -960,6 +975,32 @@ public class AndroidMusicFragment extends AbstractMusicPlayerFragment<AndroidMus
             }
         }
     }
+
+
+    private AlexaIfDirectiveItem.Source getSourceImage(AlexaIfDirectiveItem.ImageStructure imageStructure) {
+        final String[] IMAGE_SIZE = new String[]{"LARGE","X-LARGE","MEDIUM","SMALL","X-SMALL"};
+        AlexaIfDirectiveItem.Source source = null;
+        List<AlexaIfDirectiveItem.Source> sources = imageStructure.getSources();
+        SparseArray<AlexaIfDirectiveItem.Source> priorityList = new SparseArray<>();
+        //IMAGE_SIZEの優先度で画像を採用する
+        if(sources!=null) {
+            for (AlexaIfDirectiveItem.Source source1 : sources) {
+                for (int i = 0; i < IMAGE_SIZE.length; i++) {
+                    if (source1.size.equals(IMAGE_SIZE[i])) {
+                        priorityList.put(i, source1);
+                    }
+                }
+            }
+            for (int i = 0; i < IMAGE_SIZE.length; i++) {
+                if (priorityList.get(i) != null) {
+                    source = priorityList.get(i);
+                    break;
+                }
+            }
+        }
+        return source;
+    }
+
     @Override
     public void setControlEnable(boolean isEnable){
         mPlayPauseEnable = isEnable;

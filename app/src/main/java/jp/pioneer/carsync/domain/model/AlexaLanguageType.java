@@ -2,6 +2,8 @@ package jp.pioneer.carsync.domain.model;
 
 import android.support.annotation.StringRes;
 
+import java.util.ArrayList;
+
 import jp.pioneer.carsync.R;
 
 import static jp.pioneer.carsync.infrastructure.crp.util.PacketUtil.ubyteToInt;
@@ -34,6 +36,14 @@ public enum AlexaLanguageType {
     @StringRes public final int locale;
     /** Analytics用文字列. */
     public final String strValue;
+    private static final ArrayList<AlexaLanguageType> ALEXA_LANGUAGE_TYPE_LIST = new ArrayList<AlexaLanguageType>(){
+        {
+            add(AlexaLanguageType.ENGLISH_US);
+            add(AlexaLanguageType.ENGLISH_UK);
+            add(AlexaLanguageType.ENGLISH_INDIA);
+            add(AlexaLanguageType.JAPANESE);
+        }
+    };
     /**
      * コンストラクタ.
      *
@@ -46,6 +56,10 @@ public enum AlexaLanguageType {
         this.locale = locale;
         this.strValue = strValue;
     }
+
+    public static ArrayList<AlexaLanguageType> getValues(){
+        return ALEXA_LANGUAGE_TYPE_LIST;
+    };
 
     /**
      * プロトコルでの定義値から取得.

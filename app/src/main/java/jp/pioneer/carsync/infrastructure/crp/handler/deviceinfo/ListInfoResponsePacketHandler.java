@@ -68,6 +68,13 @@ public class ListInfoResponsePacketHandler extends DataResponsePacketHandler {
             }
             // D3-D4:リストインデックス
             int listIndex = PacketUtil.ushortToInt(data, 3);
+
+            //リストインデックスが不正なら捨てる
+            if (listIndex < 1 || listIndex > info.total) {
+                Timber.w("listIndex invalid. listIndex = %d,",listIndex);
+                return;
+            }
+
             // D5-DN:リスト情報
             switch (info.sourceType) {
                 case RADIO:

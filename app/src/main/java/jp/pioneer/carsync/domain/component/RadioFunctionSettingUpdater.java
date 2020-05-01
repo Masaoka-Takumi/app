@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import jp.pioneer.carsync.domain.model.FMTunerSetting;
 import jp.pioneer.carsync.domain.model.LocalSetting;
 import jp.pioneer.carsync.domain.model.PCHManualSetting;
+import jp.pioneer.carsync.domain.model.TASetting;
 
 /**
  * Radio Function設定更新者.
@@ -40,6 +41,14 @@ public interface RadioFunctionSettingUpdater {
      * @param setting 設定内容
      */
     void setTa(boolean setting);
+
+    /**
+     * TA設定(DAB対応モデル).
+     *
+     * @param setting 設定内容
+     * @throws NullPointerException {@code setting} がnull
+     */
+    void setTa(@NonNull TASetting setting);
 
     /**
      * AF設定.

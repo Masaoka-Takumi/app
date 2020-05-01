@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.preference.Preference;
+import android.support.v7.preference.SwitchPreferenceCompat;
 
 import com.annimon.stream.Optional;
 
@@ -32,6 +33,7 @@ public class InitialSettingFragment extends AbstractPreferenceFragment<InitialSe
     private Preference mAmStep;
     private Preference mRearOutputPreoutOutput;
     private Preference mRearOutput;
+    private SwitchPreferenceCompat mAntennaPower;
 
     /**
      * コンストラクタ
@@ -82,6 +84,15 @@ public class InitialSettingFragment extends AbstractPreferenceFragment<InitialSe
         mRearOutput.setOnPreferenceClickListener((preference) -> {
             getPresenter().onSelectRearOutput();
             return true;
+        });
+
+        mAntennaPower = (SwitchPreferenceCompat)findPreference(getString(R.string.key_initial_antenna_power));
+        mAntennaPower.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                getPresenter().onAntennaPowerSettingChange((boolean) (newValue));
+                return true;
+            }
         });
     }
 
@@ -166,5 +177,15 @@ public class InitialSettingFragment extends AbstractPreferenceFragment<InitialSe
         mRearOutput.setEnabled(isEnabled);
         Optional.ofNullable(setting).
                 ifPresent(output -> mRearOutput.setSummary(getString(output.label)));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setAntennaPowerSetting(boolean isSupported, boolean isEnabled, boolean setting) {
+        mAntennaPower.setVisible(isSupported);
+        mAntennaPower.setEnabled(isEnabled);
+        Optional.ofNullable(setting).
+                ifPresent(output -> mAntennaPower.setChecked(setting));
     }
 }

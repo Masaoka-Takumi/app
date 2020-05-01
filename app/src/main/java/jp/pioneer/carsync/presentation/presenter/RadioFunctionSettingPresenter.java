@@ -17,9 +17,14 @@ import jp.pioneer.carsync.domain.event.CarDeviceStatusChangeEvent;
 import jp.pioneer.carsync.domain.event.RadioFunctionSettingChangeEvent;
 import jp.pioneer.carsync.domain.event.RadioFunctionSettingStatusChangeEvent;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
+import jp.pioneer.carsync.domain.interactor.PreferDabFunction;
 import jp.pioneer.carsync.domain.interactor.PreferRadioFunction;
+import jp.pioneer.carsync.domain.model.DabFunctionSetting;
+import jp.pioneer.carsync.domain.model.DabFunctionSettingSpec;
+import jp.pioneer.carsync.domain.model.DabFunctionSettingStatus;
 import jp.pioneer.carsync.domain.model.RadioInfo;
 import jp.pioneer.carsync.domain.model.StatusHolder;
+import jp.pioneer.carsync.domain.model.TASetting;
 import jp.pioneer.carsync.domain.model.TunerFunctionSetting;
 import jp.pioneer.carsync.domain.model.TunerFunctionSettingSpec;
 import jp.pioneer.carsync.domain.model.TunerFunctionSettingStatus;
@@ -35,6 +40,8 @@ public class RadioFunctionSettingPresenter extends Presenter<RadioFunctionSettin
     @Inject GetStatusHolder mGetCase;
     @Inject EventBus mEventBus;
     @Inject PreferRadioFunction mPreferCase;
+    @Inject
+    PreferDabFunction mPreferCaseDab;
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
     /**
@@ -126,10 +133,20 @@ public class RadioFunctionSettingPresenter extends Presenter<RadioFunctionSettin
                     status.localSettingEnabled && isRadioSettingEnabled && info.getBand() != null,
                     setting.localSetting
             );
+            boolean isDabSettingEnabled = holder.getCarDeviceStatus().dabFunctionSettingEnabled &&
+                    holder.getCarDeviceSpec().dabFunctionSettingSupported;
+            DabFunctionSettingSpec dabSpec = holder.getCarDeviceSpec().dabFunctionSettingSpec;
+            DabFunctionSettingStatus dabStatus = holder.getDabFunctionSettingStatus();
+            DabFunctionSetting dabSetting = holder.getDabFunctionSetting();
             view.setTaSetting(
-                    spec.taSettingSupported,
+                    spec.taSettingSupported&&!dabSpec.taSettingSupported,
                     status.taSettingEnabled && isRadioSettingEnabled,
                     setting.taSetting
+            );
+            view.setTaDabSetting(
+                    dabSpec.taSettingSupported,
+                    status.taSettingEnabled && isRadioSettingEnabled,
+                    setting.taDabSetting
             );
             view.setAfSetting(
                     spec.afSettingSupported,
@@ -186,6 +203,16 @@ public class RadioFunctionSettingPresenter extends Presenter<RadioFunctionSettin
      */
     public void onSelectTaSettingAction(boolean setting) {
         mPreferCase.setTa(setting);
+    }
+
+    /**
+     * TA設定選択処理.
+     */
+    public void onSelectTaSettingAction() {
+        StatusHolder holder = mGetCase.execute();
+        TunerFunctionSetting setting = holder.getTunerFunctionSetting();
+        TASetting taSetting = setting.taDabSetting;
+        mPreferCase.setTa(taSetting.toggle());
     }
 
     /**

@@ -77,7 +77,11 @@ public class UnconnectedContainerFragment extends AbstractScreenFragment<Unconne
                 return true;
             }
         }
-        return mFragmentController.goBack();
+        boolean result = mFragmentController.goBack();
+        if (mFragmentController.getScreenIdInContainer() == ScreenId.TIPS) {
+            getPresenter().showAppConnectMethodDialog();
+        }
+        return result;
     }
 
     @Override
@@ -104,5 +108,15 @@ public class UnconnectedContainerFragment extends AbstractScreenFragment<Unconne
     @Override
     public ScreenId getScreenIdInContainer() {
         return mFragmentController.getScreenIdInContainer();
+    }
+
+    @Override
+    public void showAppConnectMethodDialog() {
+        if(getActivity() != null) {
+            MainActivity mainActivity = ((MainActivity) getActivity());
+            if(!mainActivity.isShowAppConnectMethodDialog()) {
+                mainActivity.showAppConnectMethodDialog(Bundle.EMPTY);
+            }
+        }
     }
 }

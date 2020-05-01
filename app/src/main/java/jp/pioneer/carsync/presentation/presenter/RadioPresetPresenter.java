@@ -14,21 +14,26 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.content.TunerContract;
+import jp.pioneer.carsync.domain.event.DabInfoChangeEvent;
 import jp.pioneer.carsync.domain.event.ListInfoChangeEvent;
 import jp.pioneer.carsync.domain.event.LocationMeshCodeChangeEvent;
+import jp.pioneer.carsync.domain.interactor.ControlDabSource;
 import jp.pioneer.carsync.domain.interactor.ControlMediaList;
 import jp.pioneer.carsync.domain.interactor.ControlRadioSource;
 import jp.pioneer.carsync.domain.interactor.GetStatusHolder;
 import jp.pioneer.carsync.domain.interactor.QueryTunerItem;
+import jp.pioneer.carsync.domain.interactor.SelectDabFavorite;
 import jp.pioneer.carsync.domain.interactor.SelectRadioFavorite;
 import jp.pioneer.carsync.domain.model.CarDeviceDestinationInfo;
 import jp.pioneer.carsync.domain.model.DabBandType;
+import jp.pioneer.carsync.domain.model.DabInfo;
 import jp.pioneer.carsync.domain.model.HdRadioBandType;
 import jp.pioneer.carsync.domain.model.HdRadioInfo;
 import jp.pioneer.carsync.domain.model.HdRadioPresetItem;
@@ -41,8 +46,11 @@ import jp.pioneer.carsync.domain.model.SxmBandType;
 import jp.pioneer.carsync.domain.model.SxmMediaInfo;
 import jp.pioneer.carsync.domain.model.TunerFrequencyUnit;
 import jp.pioneer.carsync.domain.repository.CarDeviceMediaRepository;
+import jp.pioneer.carsync.domain.util.PresetChannelDictionary;
 import jp.pioneer.carsync.infrastructure.crp.event.CrpListUpdateEvent;
+import jp.pioneer.carsync.presentation.event.GoBackEvent;
 import jp.pioneer.carsync.presentation.model.AbstractPresetItem;
+import jp.pioneer.carsync.presentation.model.DabPresetItem;
 import jp.pioneer.carsync.presentation.model.RadioPresetItem;
 import jp.pioneer.carsync.presentation.model.SxmPresetItem;
 import jp.pioneer.carsync.presentation.util.FrequencyUtil;
@@ -68,6 +76,7 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
     @Inject AppSharedPreference mPreference;
     @Inject CarDeviceMediaRepository mCarDeviceMediaRepository;
     @Inject SelectRadioFavorite mRadioCase;
+    @Inject SelectDabFavorite mDabCase;
     private MediaSourceType mSourceType;
     private RadioBandType mRadioBand;
     private SxmBandType mSxmBand;
@@ -77,22 +86,12 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
     private ArrayList<AbstractPresetItem> mUserPreset = new ArrayList<>();
     private Cursor mUserPresetCursor=null;
     private ArrayList<AbstractPresetItem> mRadioPresetList = new ArrayList<>();
-    /** 仮想的に作成するDBのカラム名 */
-/*    private static final String[] FROM = {
-            TunerContract.ListItemContract.ListItemBaseColumns._ID,
-            TunerContract.ListItemContract.ListItemBaseColumns.LIST_INDEX,
-            TunerContract.ListItemContract.ListItemBaseColumns.TEXT,
-    };
-    private MatrixCursor mCursor = new MatrixCursor(FROM);*/
+
     /**
      * コンストラクタ
      */
     @Inject
     public RadioPresetPresenter() {
-/*        mCursor.addRow(new String[]{"1", "1", "satousan"});
-        mCursor.addRow(new String[]{"2", "2", "suzukisan"});
-        mCursor.addRow(new String[]{"3", "3", "tanakasan"});
-        mCursor.moveToFirst();*/
     }
 
     @Override
@@ -145,13 +144,15 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
                 return mTunerCase.getPresetList(MediaSourceType.RADIO, null);
             } else if (mSourceType == MediaSourceType.SIRIUS_XM) {
                 return mTunerCase.getPresetList(MediaSourceType.SIRIUS_XM, null);
-            } else if (mSourceType == MediaSourceType.DAB) {
-                return mCarDeviceMediaRepository.getDabList();
             } else if (mSourceType == MediaSourceType.HD_RADIO) {
                 return mTunerCase.getPresetList(MediaSourceType.HD_RADIO, null);
             }
         } else if(id == LOADER_ID_USER_PRESET){
-            return mTunerCase.getFavoriteList(TunerContract.FavoriteContract.QueryParamsBuilder.createRadioPreset());
+            if (mSourceType == MediaSourceType.RADIO) {
+                return mTunerCase.getFavoriteList(TunerContract.FavoriteContract.QueryParamsBuilder.createRadioPreset());
+            }else if (mSourceType == MediaSourceType.DAB) {
+                return mTunerCase.getFavoriteList(TunerContract.FavoriteContract.QueryParamsBuilder.createDabPreset(mDabBand));
+            }
         }
         return null;
     }
@@ -163,10 +164,6 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
             if (mSourceType == MediaSourceType.RADIO || mSourceType == MediaSourceType.SIRIUS_XM || mSourceType == MediaSourceType.HD_RADIO) {
                 Optional.ofNullable(getView()).ifPresent(view -> view.setPresetList(createPresetList(data)));
                 updateSelected();
-            } else if (mSourceType == MediaSourceType.DAB) {
-                Optional.ofNullable(getView()).ifPresent(view -> view.setCursor(data));
-                //onLoadFinishedが何度も呼ばれてsetCursorするとFocus表示が消えるため。
-                updateFocus();
             }
         }else if(id == LOADER_ID_USER_PRESET){
             mUserPresetCursor = data;
@@ -175,7 +172,6 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
     }
 
     private ArrayList<AbstractPresetItem> createPresetList(Cursor data) {
-        //SparseArray<String> preset = new SparseArray<>();
         StatusHolder holder = mStatusHolder.execute();
         ArrayList<AbstractPresetItem> presetList = new ArrayList<>();
         boolean isEof = data.moveToFirst();
@@ -275,7 +271,9 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
     public void onSelectPresetNumber(int number) {
         if(isSphCarDevice()&&mSourceType==MediaSourceType.RADIO){
             onSelectPreset(number);
-        }else {
+        }else if(mSourceType==MediaSourceType.DAB){
+            onSelectPresetDab(number);
+        } else {
             mMediaCase.selectListItem(number);
         }
     }
@@ -312,9 +310,7 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
                 args.putByte(KEY_BAND_TYPE, (byte) (mSxmBand.getCode() & 0xFF));
             }
         }else if (mSourceType == MediaSourceType.DAB) {
-            if (mDabBand != null) {
-                args.putByte(KEY_BAND_TYPE, (byte) (mDabBand.getCode() & 0xFF));
-            }
+            return;
         }else if (mSourceType == MediaSourceType.HD_RADIO) {
             if (mHdRadioBand != null) {
                 args.putByte(KEY_BAND_TYPE, (byte) (mHdRadioBand.getCode() & 0xFF));
@@ -332,8 +328,6 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
     public synchronized void OnListInfoChangeEvent(ListInfoChangeEvent ev) {
         if (mSourceType == MediaSourceType.RADIO||mSourceType == MediaSourceType.SIRIUS_XM||mSourceType == MediaSourceType.HD_RADIO) {
             updateSelected();
-        }else if(mSourceType == MediaSourceType.DAB) {
-            updateFocus();
         }
     }
 
@@ -352,6 +346,19 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
         mMediaCase.selectListItem(listIndex);
     }
 
+    /** DAB情報変更通知イベントハンドラ
+     *
+     * @param event DAB情報変更通知イベント
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onDabInfoChangeEvent(DabInfoChangeEvent event) {
+        StatusHolder holder = mStatusHolder.execute();
+        if(holder.getCarDeviceMediaInfoHolder().dabInfo.band!=mDabBand){
+            mDabBand =holder.getCarDeviceMediaInfoHolder().dabInfo.band;
+            getUserPresetList();
+        }
+    }
+
     private void updateSelected(){
         StatusHolder holder = mStatusHolder.execute();
         ListInfo info = holder.getListInfo();
@@ -366,27 +373,23 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
         }
     }
 
-    private void updateFocus(){
-        StatusHolder holder = mStatusHolder.execute();
-        ListInfo info = holder.getListInfo();
-        int position = info.focusListIndex - 1;
-        Optional.ofNullable(getView()).ifPresent(view -> {
-            if (position >= 0) {
-                view.setSelectedPositionNotScroll(position);
-            }
-        });
-    }
-
     /**
      * ユーザー登録PCHリスト取得
      */
     private void getUserPresetList(){
+        StatusHolder holder = mStatusHolder.execute();
         if(isSphCarDevice()&&mSourceType==MediaSourceType.RADIO) {
-            StatusHolder holder = mStatusHolder.execute();
             mRadioBand = holder.getCarDeviceMediaInfoHolder().radioInfo.band;
             if (mRadioBand != null && mLoaderManager != null) {
                 Bundle args = new Bundle();
                 args.putByte(KEY_BAND_TYPE, (byte) (mRadioBand.getCode() & 0xFF));
+                mLoaderManager.restartLoader(LOADER_ID_USER_PRESET, args, this);
+            }
+        }else if(isSphCarDevice()&&mSourceType==MediaSourceType.DAB){
+            mDabBand = holder.getCarDeviceMediaInfoHolder().dabInfo.band;
+            if (mDabBand != null && mLoaderManager != null) {
+                Bundle args = new Bundle();
+                args.putByte(KEY_BAND_TYPE, (byte) (mDabBand.getCode() & 0xFF));
                 mLoaderManager.restartLoader(LOADER_ID_USER_PRESET, args, this);
             }
         }
@@ -402,30 +405,91 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
     private void createUserPresetList(Cursor data) {
         mUserPreset.clear();
         data.moveToPosition(-1);
-        while (data.moveToNext()) {
-            long frequency = TunerContract.FavoriteContract.Radio.getFrequency(data);
-            int presetNumber =TunerContract.FavoriteContract.Radio.getPresetNumber(data);
-            RadioBandType band = TunerContract.FavoriteContract.Radio.getBandType(data);
-            String description = TunerContract.FavoriteContract.Radio.getDescription(data);
-            String freqFormat;
-            try {
-                String[] data1 = description.split(" ");
-                freqFormat = data1[1].substring(0, data1[1].length() - 3) + " " + data1[1].substring(data1[1].length() - 3);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                freqFormat = description;
+        if(mSourceType==MediaSourceType.RADIO) {
+            while (data.moveToNext()) {
+                long frequency = TunerContract.FavoriteContract.Radio.getFrequency(data);
+                int presetNumber = TunerContract.FavoriteContract.Radio.getPresetNumber(data);
+                RadioBandType band = TunerContract.FavoriteContract.Radio.getBandType(data);
+                String description = TunerContract.FavoriteContract.Radio.getDescription(data);
+                String freqFormat;
+                try {
+                    String[] data1 = description.split(" ");
+                    freqFormat = data1[1];
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    freqFormat = description;
+                }
+                String name = TunerContract.FavoriteContract.Radio.getName(data);
+                RadioPresetItem preset = new RadioPresetItem(band, presetNumber, name, freqFormat, false);
+                //mUserPresetには生Bandが入る
+                mUserPreset.add(preset);
             }
-            String name = TunerContract.FavoriteContract.Radio.getName(data);
-            RadioPresetItem preset = new RadioPresetItem(band, presetNumber, name, freqFormat, false);
-            //mUserPresetには生Bandが入る
-            mUserPreset.add(preset);
+            updatePresetList();
+        }else if(mSourceType==MediaSourceType.DAB){
+            while (data.moveToNext()) {
+                long frequency = TunerContract.FavoriteContract.Dab.getFrequency(data);
+                int presetNumber = TunerContract.FavoriteContract.Dab.getPresetNumber(data);
+                DabBandType band = TunerContract.FavoriteContract.Dab.getBandType(data);
+                String description = TunerContract.FavoriteContract.Dab.getDescription(data);
+                String freqFormat;
+                try {
+                    String[] data1 = description.split(" ");
+                    freqFormat = data1[1];
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    freqFormat = description;
+                }
+                String name = TunerContract.FavoriteContract.Dab.getName(data);
+                DabPresetItem preset = new DabPresetItem(band, presetNumber, name, freqFormat, false);
+                //mUserPresetには生Bandが入る
+                mUserPreset.add(preset);
+            }
+            updateDabPresetList();
         }
-        updatePresetList();
+    }
+
+    /**
+     * DAB PCHリスト作成
+     */
+    private void updateDabPresetList(){
+        ArrayList<AbstractPresetItem> presetList = new ArrayList<>();
+        //初期PCHリスト取得
+        Map<PresetChannelDictionary.PresetKey, Integer> initialPreset = mStatusHolder.execute().getPresetChannelDictionary().getInitialPresetInfo();
+        for (PresetChannelDictionary.PresetKey key : initialPreset.keySet()) {
+            //現Bandのみのリスト
+            if(DabBandType.valueOf((byte)key.band) == mDabBand) {
+                int number = 0;
+                Integer numberInteger;
+                numberInteger = initialPreset.get(key);
+                if (numberInteger != null) {
+                    number = numberInteger;
+                }
+                DabInfo currDab = mStatusHolder.execute().getCarDeviceMediaInfoHolder().dabInfo;
+                String freqName = FrequencyUtil.toString(mContext, key.frequency, currDab.frequencyUnit);
+                DabPresetItem preset = new DabPresetItem(DabBandType.valueOf((byte) key.band), number, "", freqName, false);
+
+                //ユーザー登録Presetがあれば差し替え
+                boolean isUserPreset = false;
+                for (int i = 0; i < mUserPreset.size(); i++) {
+                    DabPresetItem userPreset = (DabPresetItem) mUserPreset.get(i);
+                    DabBandType presetBand = userPreset.bandType;
+                    if (presetBand == DabBandType.valueOf((byte) key.band) && userPreset.presetNumber == number) {
+                        presetList.add(userPreset);
+                        isUserPreset = true;
+                        break;
+                    }
+                }
+                if (!isUserPreset) {
+                    presetList.add(preset);
+                }
+            }
+        }
+        Optional.ofNullable(getView()).ifPresent(view -> view.setPresetList(presetList));
+        updateSelected();
     }
 
     /**
      * PCH選局
      */
-    public void onSelectPreset(int presetIndex){
+    private void onSelectPreset(int presetIndex){
         boolean isExist = false;
         if(mUserPresetCursor!=null) {
             mUserPresetCursor.moveToPosition(-1);
@@ -456,4 +520,48 @@ public class RadioPresetPresenter extends Presenter<RadioPresetView> implements 
         }
     }
 
+    /**
+     * PCH選局(KM997のDAB用)
+     */
+    private void onSelectPresetDab(int presetIndex){
+        if (isSphCarDevice() && presetIndex >= 1 && presetIndex <= 6) {
+            boolean isExist = false;
+            if (mUserPresetCursor != null) {
+                mUserPresetCursor.moveToPosition(-1);
+                while (mUserPresetCursor.moveToNext()) {
+                    DabBandType band = TunerContract.FavoriteContract.Dab.getBandType(mUserPresetCursor);
+                    int presetNumber = TunerContract.FavoriteContract.Dab.getPresetNumber(mUserPresetCursor);
+                    //ユーザー登録PCHリストのBandとPresetNumberが一致すればユーザー登録PCHが存在する
+                    if ((mDabBand == band) && (presetIndex == presetNumber)) {
+                        isExist = true;
+                        break;
+                    }
+                }
+            }
+            //専用機で登録PCHがあればお気に入り選局
+            if (isExist) {
+                mDabCase.selectFavorite(
+                        TunerContract.FavoriteContract.Dab.getIndex(mUserPresetCursor),
+                        TunerContract.FavoriteContract.Dab.getBandType(mUserPresetCursor),
+                        TunerContract.FavoriteContract.Dab.getEid(mUserPresetCursor),
+                        TunerContract.FavoriteContract.Dab.getSid(mUserPresetCursor),
+                        TunerContract.FavoriteContract.Dab.getScids(mUserPresetCursor));
+            } else {
+                //初期PCHリストで選局
+                PresetChannelDictionary.PresetKey presetKey = mStatusHolder.execute().getPresetChannelDictionary().getInitialPresetInfo(
+                        MediaSourceType.DAB,
+                        mDabBand.code,
+                        presetIndex);
+                if (presetKey != null) {
+                    mDabCase.selectFavorite(
+                            presetKey.index,
+                            mDabBand,
+                            presetKey.eid,
+                            presetKey.sid,
+                            presetKey.scids);
+                }
+            }
+            mEventBus.post(new GoBackEvent());
+        }
+    }
 }

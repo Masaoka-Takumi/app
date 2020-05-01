@@ -101,4 +101,17 @@ public class InitialSettingUpdaterImpl implements InitialSettingUpdater {
         );
         mCarDeviceConnection.sendPacket(packet);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setDabAntennaPower(boolean isOn) {
+        Timber.i("setDabAntennaPower() type = %s", isOn);
+
+        OutgoingPacket packet = mPacketBuilder.createDabAntennaPowerSettingNotification(
+                isOn
+        );
+        mCarDeviceConnection.sendPacket(packet);
+    }
 }

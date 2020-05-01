@@ -16,6 +16,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import jp.pioneer.carsync.application.content.Analytics;
 import jp.pioneer.carsync.application.content.AppSharedPreference;
 import jp.pioneer.carsync.application.di.PresenterLifeCycle;
 import jp.pioneer.carsync.domain.event.AdasErrorEvent;
@@ -59,6 +60,7 @@ import jp.pioneer.carsync.presentation.util.ShortCutKeyEnabledStatus;
 import jp.pioneer.carsync.presentation.view.AndroidMusicView;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderPlayerInfoItem;
+import jp.pioneer.mbg.alexa.AlexaInterface.directive.TemplateRuntime.RenderTemplateItem;
 import jp.pioneer.mbg.alexa.AmazonAlexaManager;
 import jp.pioneer.mbg.alexa.manager.AlexaAudioManager;
 import jp.pioneer.mbg.alexa.manager.AlexaQueueManager;
@@ -344,6 +346,7 @@ public class AndroidMusicPresenter extends PlayerPresenter<AndroidMusicView> {
     /**
      * SoundFx切り換えアクション
      */
+    @Override
     public void onSelectFxAction() {
         SoundFxSetting fxSetting = getFxSetting();
 
@@ -385,11 +388,13 @@ public class AndroidMusicPresenter extends PlayerPresenter<AndroidMusicView> {
         }else {
             mFxCase.setSuperTodoroki(nextItem.superTodorokiSetting);
         }
+        mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.fxSelect, Analytics.AnalyticsActiveScreen.av_screen);
     }
 
     /**
      * EQ切り換えアクション
      */
+    @Override
     public void onSelectVisualAction() {
         mExitMenu.execute();
 
@@ -420,6 +425,7 @@ public class AndroidMusicPresenter extends PlayerPresenter<AndroidMusicView> {
             }
             mFxCase.setEqualizer(mEqArray.get(index));
         }
+        mAnalytics.sendShortCutActionEvent(Analytics.AnalyticsShortcutAction.eqSelect, Analytics.AnalyticsActiveScreen.av_screen);
     }
 
     private SoundFxSetting getFxSetting() {
@@ -769,6 +775,11 @@ public class AndroidMusicPresenter extends PlayerPresenter<AndroidMusicView> {
                     view.setAmazonMusicInfo(playerInfoItem);
                 });
             }
+        }
+
+        @Override
+        public void onReceiveRenderTemplate(RenderTemplateItem templateItem) {
+
         }
 
         @Override
