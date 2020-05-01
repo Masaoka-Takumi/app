@@ -101,15 +101,19 @@ public class AlexaListTemplateAdapter extends ArrayAdapter<AlexaIfDirectiveItem.
                 } else {
                     searchViewHolder = (LocalSearchViewHolder) convertView.getTag();
                 }
-                ViewGroup.LayoutParams lp1 = searchViewHolder.leftTextField.getLayoutParams();
+                ViewGroup.LayoutParams lp1 = searchViewHolder.listItem.getLayoutParams();
                 ViewGroup.MarginLayoutParams mlp1 = (ViewGroup.MarginLayoutParams) lp1;
+                ViewGroup.LayoutParams lp2 = searchViewHolder.separator_bottom.getLayoutParams();
+                ViewGroup.MarginLayoutParams mlp2 = (ViewGroup.MarginLayoutParams) lp2;
                 if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                     mlp1.setMargins((int) mContext.getResources().getDimension(R.dimen.alexa_display_card_main_title_margin_left_portrait), mlp1.topMargin, mlp1.rightMargin, mlp1.bottomMargin);
-                    searchViewHolder.separator_bottom.setLayoutParams(mlp1);
+                    mlp2.setMargins((int) mContext.getResources().getDimension(R.dimen.alexa_display_card_local_search_template_separator_left_margin_landscape), mlp2.topMargin, mlp2.rightMargin, mlp2.bottomMargin);
+
                 } else {
                     mlp1.setMargins((int) mContext.getResources().getDimension(R.dimen.alexa_display_card_list_template_item_margin), mlp1.topMargin, mlp1.rightMargin, mlp1.bottomMargin);
                 }
-                searchViewHolder.leftTextField.setLayoutParams(mlp1);
+                searchViewHolder.listItem.setLayoutParams(mlp1);
+                searchViewHolder.separator_bottom.setLayoutParams(mlp2);
                 if (item != null) {
                     String number = String.valueOf(position + 1) + ".";
                     searchViewHolder.leftTextField.setText(number);
@@ -135,6 +139,8 @@ public class AlexaListTemplateAdapter extends ArrayAdapter<AlexaIfDirectiveItem.
     }
 
     static class LocalSearchViewHolder {
+        @BindView(R.id.list_item)
+        LinearLayout listItem;
         @BindView(R.id.text_left)
         TextView leftTextField;
         @BindView(R.id.right_primary_text)

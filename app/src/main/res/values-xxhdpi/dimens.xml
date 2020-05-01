@@ -755,6 +755,7 @@
     <dimen name="alexa_display_card_list_template_item_margin">10dp</dimen>
     <dimen name="alexa_display_card_list_template_item_right_text_left_margin">14dp</dimen>
     <dimen name="alexa_display_card_local_search_template_item_height">64dp</dimen>
+    <dimen name="alexa_display_card_local_search_template_separator_left_margin_landscape">54dp</dimen>
     <dimen name="alexa_display_card_local_search_template_item_primary_text_size">28dp</dimen>
     <dimen name="alexa_display_card_local_search_template_item_primary_text_right_margin">124dp</dimen>
     <dimen name="alexa_display_card_local_search_template_item_distance_text_width">110dp</dimen>
