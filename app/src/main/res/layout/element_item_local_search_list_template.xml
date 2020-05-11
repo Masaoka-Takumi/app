@@ -15,7 +15,7 @@
         android:layoutDirection="ltr"
         android:orientation="horizontal">
 
-        <me.grantland.widget.AutofitTextView
+        <TextView
             android:id="@+id/text_left"
             android:layout_width="@dimen/alexa_display_card_list_template_item_text_left_width"
             android:layout_height="wrap_content"
