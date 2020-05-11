@@ -766,6 +766,7 @@
     <dimen name="alexa_display_card_weather_main_icon_height">131.1dp</dimen>
     <dimen name="alexa_display_card_weather_main_icon_margin_left">33.9dp</dimen>
     <dimen name="alexa_display_card_weather_main_icon_margin_left_landscape">61dp</dimen>
+    <dimen name="alexa_display_card_weather_main_temperature_left_margin">45.2dp</dimen>
     <dimen name="alexa_display_card_weather_main_temperature_width">195.5dp</dimen>
     <dimen name="alexa_display_card_weather_main_temperature_text_size">87dp</dimen>
     <dimen name="alexa_display_card_weather_main_temperature_text_size_landscape">65.5dp</dimen>

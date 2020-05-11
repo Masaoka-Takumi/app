@@ -497,7 +497,7 @@ public class ResourcefulPresenter extends Presenter<ResourcefulView>
                             Timber.d("addAlexaCallback");
                             mAmazonAlexaManager.addAlexaCallback(mAlexaCallback);
                         }
-                        if(appStatus.isShowAlexaDialog&&!appStatus.isShowAlexaDisplayCardDialog){
+                        if(appStatus.isShowAlexaDialog){
                             mEventBus.post(new AlexaVoiceRecognizeEvent());
                         } else if (mStatusHolder.getAppStatus().isAlexaAvailableCountry||mPreference.getLastConnectedCarDeviceAndroidVr() || mPreference.isVoiceRecognitionEnabled()) {
                             // Alexa機能が利用可能なら音声認識は利用可能

@@ -84,7 +84,6 @@ public class AmazonAlexaManager implements AlexaQueueManager.AlexaQueueCallback,
     private AudioFocusRequest mAudioFocusRequest = null;
     private boolean mHasAudioFocus = false;
     public boolean isShowAlexaDialog = false;
-    public boolean isShowAlexaDisplayCardDialog = false;
     /**
      * 音声入力ON時 効果音プレーヤー
      */
@@ -122,11 +121,6 @@ public class AmazonAlexaManager implements AlexaQueueManager.AlexaQueueCallback,
      * AlexaLoginManager -> AmazonAlexaManagerのコールバックインスタンス
      */
     private AlexaLoginCallback mLoginCallback = null;
-
-    /**
-     * 表示カード用のコールバックインスタンス
-     */
-    private IAlexaDisplayCallback mAlexaDisplayCallback = null;
 
     /**
      * Pingを送信するタイマー
@@ -238,13 +232,6 @@ public class AmazonAlexaManager implements AlexaQueueManager.AlexaQueueCallback,
                 mAlexaCallbackList.get(i).onNetworkDisconnect();
             }
         }
-    }
-
-    /**
-     * Alexa表示カード用コールバックインタフェース(AmazonAlexaManager -> AlexaDisplayCardFragment)
-     */
-    public interface IAlexaDisplayCallback {
-        void onExpectSpeech();
     }
 
     /**
@@ -660,16 +647,6 @@ public class AmazonAlexaManager implements AlexaQueueManager.AlexaQueueCallback,
             return;
         }
         mAlexaCallbackList.remove(callback);
-    }
-
-    public void addAlexaDisplayCallback(IAlexaDisplayCallback callback) {
-        if (DBG) android.util.Log.d(TAG, "addAlexaDisplayCallback(), callback = " + callback);
-        mAlexaDisplayCallback = callback;
-    }
-
-    public void removeAlexaDisplayCallback() {
-        if (DBG) android.util.Log.d(TAG, "removeAlexaDisplayCallback()" );
-        mAlexaDisplayCallback = null;
     }
 
     /**
@@ -1350,20 +1327,14 @@ public class AmazonAlexaManager implements AlexaQueueManager.AlexaQueueCallback,
         else if (directive instanceof ExpectSpeechItem) {
             // 追加対話 -> 再度、マイクをONにする
             //Alexa画面もDisplayCardも表示していなかったら中断
-            if(!isShowAlexaDialog&&!isShowAlexaDisplayCardDialog){
+            if(!isShowAlexaDialog){
                 AlexaSpeakManager speakManager = AlexaSpeakManager.getInstance();
                 if (speakManager != null) {
                     speakManager.stopExpectSpeech();
                 }
                 return;
             }
-            //DisplayCard表示中はAlexa発話呼び出し
-            if(isShowAlexaDisplayCardDialog)
-            {
-                if(mAlexaDisplayCallback!=null) {
-                    mAlexaDisplayCallback.onExpectSpeech();
-                }
-            }
+
             final Initiator initiator = ((ExpectSpeechItem) directive).initiator;
 
             if(mHandler != null){

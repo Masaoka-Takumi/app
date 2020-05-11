@@ -4,7 +4,6 @@ import dagger.Subcomponent;
 import jp.pioneer.carsync.application.di.FragmentLifeCycle;
 import jp.pioneer.carsync.application.di.module.FragmentModule;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.AppConnectMethodDialogFragment;
-import jp.pioneer.carsync.presentation.view.fragment.dialog.AlexaDisplayCardFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.CustomKeySettingDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.VoiceRecognizeTypeSelectDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.YouTubeLinkCautionFragment;
@@ -17,7 +16,6 @@ import jp.pioneer.carsync.presentation.view.fragment.dialog.AdasWarningDialogFra
 import jp.pioneer.carsync.presentation.view.fragment.dialog.AlexaFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.BackgroundImagePreviewFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.CautionDialogFragment;
-import jp.pioneer.carsync.presentation.view.fragment.dialog.CustomKeySettingDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.GuidanceVolumeDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.LocalDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.LoudnessDialogFragment;
@@ -31,9 +29,6 @@ import jp.pioneer.carsync.presentation.view.fragment.dialog.SingleChoiceDialogFr
 import jp.pioneer.carsync.presentation.view.fragment.dialog.SpeechRecognizerDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.StatusPopupDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.VideoPlayerDialogFragment;
-import jp.pioneer.carsync.presentation.view.fragment.dialog.YouTubeLinkCautionFragment;
-import jp.pioneer.carsync.presentation.view.fragment.dialog.YouTubeLinkContainerFragment;
-import jp.pioneer.carsync.presentation.view.fragment.dialog.YouTubeLinkWebViewFragment;
 import jp.pioneer.carsync.presentation.view.fragment.preference.AdasCameraPositionSettingFragment;
 import jp.pioneer.carsync.presentation.view.fragment.preference.AdasSettingFragment;
 import jp.pioneer.carsync.presentation.view.fragment.preference.AdasWarningSettingFragment;
@@ -44,7 +39,6 @@ import jp.pioneer.carsync.presentation.view.fragment.preference.DabSettingFragme
 import jp.pioneer.carsync.presentation.view.fragment.preference.DebugSettingFragment;
 import jp.pioneer.carsync.presentation.view.fragment.preference.EulaFragment;
 import jp.pioneer.carsync.presentation.view.fragment.preference.FxFragment;
-import jp.pioneer.carsync.presentation.view.fragment.preference.HdRadioSettingFragment;
 import jp.pioneer.carsync.presentation.view.fragment.preference.ImpactDetectionSettingsFragment;
 import jp.pioneer.carsync.presentation.view.fragment.preference.InformationFragment;
 import jp.pioneer.carsync.presentation.view.fragment.preference.InitialSettingFragment;
@@ -299,7 +293,6 @@ public interface FragmentComponent {
     void inject(IncomingMessageColorFragment fragment);
     void inject(ParkingSensorFragment fragment);
     void inject(AlexaFragment fragment);
-    void inject(AlexaDisplayCardFragment fragment);
     void inject(AlexaSettingFragment fragment);
     void inject(AlexaSplashFragment fragment);
     void inject(AlexaExampleUsageFragment fragment);

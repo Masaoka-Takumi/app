@@ -737,9 +737,6 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
             if (view.isShowAlexaDialog()) {
                 view.dismissAlexaDialog();
             }
-            if (view.isShowAlexaDisplayCardDialog()) {
-                view.dismissAlexaDisplayCardDialog();
-            }
             if (view.isShowSearchContainer()) {
                 view.dismissSearchContainer();
             }
@@ -1605,34 +1602,17 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                 }else{
                     SettingsUpdatedUtil.setLocale(mContext.getString(mPreference.getAlexaLanguage().locale));
                     mIsAlexaStart = true;
-                    Timber.d("Alexa:isShowAlexaDisplayCardDialog=" + holder.getAppStatus().isShowAlexaDisplayCardDialog + ", sourceType=" + holder.getCarDeviceStatus().sourceType);
-                    if(holder.getAppStatus().isShowAlexaDisplayCardDialog&&holder.getCarDeviceStatus().sourceType==MediaSourceType.APP_MUSIC){
-                        //発話中のAlexa画面を閉じてダイアログチャンネルの非アクティブ通知が来るまでタイムラグがあり、
-                        // 新しく起動したAlexa画面で前の発話の終了を拾って閉じてしまうことがあるため、0.5秒遅延してAlaxa画面を表示する。
+                    holder.getAppStatus().alexaPreviousSourceType = holder.getCarDeviceStatus().sourceType;
+                    mEventBus.post(new NavigateEvent(ScreenId.ALEXA, Bundle.EMPTY));
+                    //音声認識ボタン押下直後はソース変更できない
+                    if (holder.getCarDeviceStatus().sourceType != MediaSourceType.APP_MUSIC) {
                         mHandler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                mEventBus.post(new NavigateEvent(ScreenId.ALEXA, Bundle.EMPTY));
-                                if(holder.getCarDeviceStatus().sourceType != MediaSourceType.APP_MUSIC){
-                                    holder.getAppStatus().alexaPreviousSourceType = holder.getCarDeviceStatus().sourceType;
-                                    mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.alexaStart));
-                                    mControlSource.selectSource(MediaSourceType.APP_MUSIC);
-                                }
+                                mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.alexaStart));
+                                mControlSource.selectSource(MediaSourceType.APP_MUSIC);
                             }
-                        }, 500);
-                    }else{
-                        holder.getAppStatus().alexaPreviousSourceType = holder.getCarDeviceStatus().sourceType;
-                        mEventBus.post(new NavigateEvent(ScreenId.ALEXA, Bundle.EMPTY));
-                        //音声認識ボタン押下直後はソース変更できない
-                        if(holder.getCarDeviceStatus().sourceType != MediaSourceType.APP_MUSIC) {
-                            mHandler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    mEventBus.post(new SourceChangeReasonEvent(Analytics.SourceChangeReason.alexaStart));
-                                    mControlSource.selectSource(MediaSourceType.APP_MUSIC);
-                                }
-                            }, 1000);
-                        }
+                        }, 1000);
                     }
                 }
             }else {

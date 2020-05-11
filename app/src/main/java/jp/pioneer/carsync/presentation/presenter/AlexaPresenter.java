@@ -82,13 +82,6 @@ public class AlexaPresenter extends Presenter<AlexaView> {
         appStatus.playerInfoItem = playerInfoItem;
     }
 
-    public void showDisplayCard(RenderTemplateItem item){
-        Timber.d("showDisplayCard");
-        AppStatus appStatus = mGetCase.execute().getAppStatus();
-        appStatus.renderTemplateItem = item;
-        mEventBus.post(new NavigateEvent(ScreenId.ALEXA_DISPLAY_CARD, Bundle.EMPTY));
-    }
-
     public void changePreviousSource(){
         AppStatus appStatus = mGetCase.execute().getAppStatus();
        if(appStatus.alexaPreviousSourceType != MediaSourceType.APP_MUSIC){
