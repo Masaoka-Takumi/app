@@ -62,6 +62,8 @@ public class UnconnectedContainerPresenter extends Presenter<UnconnectedContaine
                             // TODO #5244 非同期だけどいいの？
                             // デバッグ設定でAlexa SIM判定 OFFにできるため、設定画面の画面回転のたびに実行されてしまう
                             view.showAlexaAvailableConfirmDialog();
+                        }else if(view.getScreenIdInContainer() == ScreenId.TIPS){
+                            showAppConnectMethodDialog();
                         }else{
                             showAppConnectMethodDialog();
                         }
