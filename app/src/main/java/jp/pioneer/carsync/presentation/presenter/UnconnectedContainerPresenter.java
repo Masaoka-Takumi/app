@@ -64,8 +64,6 @@ public class UnconnectedContainerPresenter extends Presenter<UnconnectedContaine
                             view.showAlexaAvailableConfirmDialog();
                         }else if(view.getScreenIdInContainer() == ScreenId.TIPS){
                             showAppConnectMethodDialog();
-                        }else{
-                            showAppConnectMethodDialog();
                         }
                     }
                 });
