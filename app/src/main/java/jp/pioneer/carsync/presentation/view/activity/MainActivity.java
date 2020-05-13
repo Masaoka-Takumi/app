@@ -549,7 +549,7 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
             //上位のダイアログ表示中は無効
             if (!isShowCaution() && !isShowAccidentDetect() && !isShowParkingSensor() && !isShowSpeechRecognizerDialog()
                     && !isShowCarDeviceErrorDialog()&&!isShowReadMessageDialog()
-                    &&!isShowAlexaDialog()&&!mFragmentController.isShowAlexaDisplayCardDialog()) {
+                    &&!isShowAlexaDialog()) {
                 getPresenter().onPhoneCommandAction();
             }
         }
@@ -1219,16 +1219,6 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
     }
 
     @Override
-    public void dismissAlexaDisplayCardDialog() {
-        mFragmentController.dismissAlexaDisplayCardDialog();
-    }
-
-    @Override
-    public boolean isShowAlexaDisplayCardDialog() {
-        return mFragmentController.isShowAlexaDisplayCardDialog();
-    }
-
-    @Override
     public void showCarDeviceErrorDialog(Bundle args, String tag) {
         mFragmentController.showCarDeviceErrorDialog(args,tag);
         mFragmentController.hideCarDeviceErrorDialog(tag);
@@ -1361,9 +1351,6 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
 
     @Override
     public void onClose(AbstractDialogFragment fragment) {
-        //Alexa画面表示中であれば画面回転設定を戻さない
-        if(isShowAlexaDialog())return;
-
         getPresenter().onCloseDialogAction();
         //Containerダイアログが表示中であれば再度背景ぼかしを行う
         mHandler.post(() -> {
@@ -1385,8 +1372,6 @@ public class MainActivity extends AbstractActivity<MainPresenter, MainView>
 
     @Override
     public void onClose(AlexaFragment fragment) {
-        //AlexaDisplayCard画面表示中であれば画面回転設定を戻さない
-        if(isShowAlexaDisplayCardDialog())return;
         ScreenId screenId = mFragmentController.getScreenIdInContainer();
         if(screenId!=null) {
             setOrientation(screenId);

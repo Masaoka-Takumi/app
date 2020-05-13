@@ -986,7 +986,7 @@ public class AndroidMusicFragment extends AbstractMusicPlayerFragment<AndroidMus
         if(sources!=null) {
             for (AlexaIfDirectiveItem.Source source1 : sources) {
                 for (int i = 0; i < IMAGE_SIZE.length; i++) {
-                    if (source1.size.equals(IMAGE_SIZE[i])) {
+                    if (source1.size!=null&&source1.size.toUpperCase().equals(IMAGE_SIZE[i])) {
                         priorityList.put(i, source1);
                     }
                 }
@@ -995,6 +995,14 @@ public class AndroidMusicFragment extends AbstractMusicPlayerFragment<AndroidMus
                 if (priorityList.get(i) != null) {
                     source = priorityList.get(i);
                     break;
+                }
+            }
+            //sizeを取得できなかったら
+            if(source==null){
+                if (sources.size() > 0) {
+                    //small→...→x-largeと仮定して、Listの最後の画像(Large)を取得
+                    int logoSize = sources.size() - 1;
+                    source = sources.get(logoSize);
                 }
             }
         }

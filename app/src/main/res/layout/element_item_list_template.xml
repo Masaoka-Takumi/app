@@ -14,7 +14,7 @@
         android:layoutDirection="ltr"
         android:orientation="horizontal">
 
-        <me.grantland.widget.AutofitTextView
+        <TextView
             android:id="@+id/text_left"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -27,7 +27,7 @@
             android:textColor="@android:color/white"
             android:textSize="@dimen/alexa_display_card_list_template_item_text_size" />
 
-        <me.grantland.widget.AutofitTextView
+        <TextView
             android:id="@+id/text_right"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -44,8 +44,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@android:color/white"
             android:textSize="@dimen/alexa_display_card_list_template_item_text_size"
-            android:visibility="visible"
-            autofit:minTextSize="@dimen/min_text_size_16" />
+            android:visibility="visible" />
     </LinearLayout>
 
 </LinearLayout>

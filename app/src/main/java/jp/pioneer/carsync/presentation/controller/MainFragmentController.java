@@ -25,7 +25,6 @@ import jp.pioneer.carsync.presentation.view.fragment.Screen;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.AccidentDetectDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.AdasWarningDialogFragment;
-import jp.pioneer.carsync.presentation.view.fragment.dialog.AlexaDisplayCardFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.AlexaFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.AppConnectMethodDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.CautionDialogFragment;
@@ -63,7 +62,6 @@ public class MainFragmentController {
     private static final String TAG_DIALOG_CAUTION = "caution";
     private static final String TAG_DIALOG_ACCIDENT_DETECTION = "accident_detect";
     private static final String TAG_DIALOG_ALEXA = "alexa";
-    private static final String TAG_DIALOG_ALEXA_DISPLAY_CARD = "alexa_display_card";
     private static final String TAG_DIALOG_SPEECH_RECOGNIZER = "speech_recognizer";
     private static final String TAG_DIALOG_SEARCH_CONTAINER = "search_container";
     private static final String TAG_DIALOG_CONTACT_CONTAINER = "contact_container";
@@ -246,12 +244,6 @@ public class MainFragmentController {
             case ALEXA:
                 showAlexaDialog(args);
                 return true;
-            case ALEXA_DISPLAY_CARD:
-                if(isShowAlexaDisplayCardDialog()) {
-                    dismissAlexaDisplayCardDialog();
-                }
-                showAlexaDisplayCardDialog(args);
-                return true;
             case SELECT_DIALOG:
                 showSelectDialog(fragment,args);
                 return true;
@@ -367,33 +359,6 @@ public class MainFragmentController {
      */
     public boolean isShowAlexaDialog() {
         return (mFragmentManager.findFragmentByTag(TAG_DIALOG_ALEXA) != null);
-    }
-
-    /**
-     * Alexa Display Cardダイアログ表示
-     *
-     * @param args Bundle 引き継ぎ情報
-     */
-    private void showAlexaDisplayCardDialog(Bundle args) {
-        createAlexaDisplayCardFragment(args).show(mFragmentManager, TAG_DIALOG_ALEXA_DISPLAY_CARD);
-    }
-
-    /**
-     * Alexa Display Cardダイアログ閉幕
-     */
-    public void dismissAlexaDisplayCardDialog() {
-        Fragment dialog = mFragmentManager.findFragmentByTag(TAG_DIALOG_ALEXA_DISPLAY_CARD);
-        if (dialog instanceof AlexaDisplayCardFragment) {
-            ((AlexaDisplayCardFragment) dialog).callbackClose();
-        }
-    }
-    /**
-     * Alexa Display Cardダイアログ表示確認
-     *
-     * @return  Alexa Display Cardダイアログが表示されているか否か
-     */
-    public boolean isShowAlexaDisplayCardDialog() {
-        return (mFragmentManager.findFragmentByTag(TAG_DIALOG_ALEXA_DISPLAY_CARD) != null);
     }
 
     /**
@@ -1028,11 +993,6 @@ public class MainFragmentController {
     @VisibleForTesting
     DialogFragment createAlexaFragment(Bundle args) {
         return AlexaFragment.newInstance(null, args);
-    }
-
-    @VisibleForTesting
-    DialogFragment createAlexaDisplayCardFragment(Bundle args) {
-        return AlexaDisplayCardFragment.newInstance(null, args);
     }
 
     @VisibleForTesting

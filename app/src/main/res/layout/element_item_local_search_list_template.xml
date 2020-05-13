@@ -15,7 +15,7 @@
         android:layoutDirection="ltr"
         android:orientation="horizontal">
 
-        <me.grantland.widget.AutofitTextView
+        <TextView
             android:id="@+id/text_left"
             android:layout_width="@dimen/alexa_display_card_list_template_item_text_left_width"
             android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/alexa_display_card_local_search_template_item_primary_text_size" />
 
-            <me.grantland.widget.AutofitTextView
+            <TextView
                 android:id="@+id/distance_text"
                 android:layout_width="@dimen/alexa_display_card_local_search_template_item_distance_text_width"
                 android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
                 android:gravity="left|center_vertical"
                 android:includeFontPadding="false"
                 android:maxLines="1"
-                android:text="0.1 km"
+                android:text="0.1 mile"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/alexa_display_card_local_search_template_item_primary_text_size" />
 
