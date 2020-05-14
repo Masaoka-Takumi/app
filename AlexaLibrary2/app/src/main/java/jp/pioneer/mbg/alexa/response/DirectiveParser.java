@@ -543,14 +543,14 @@ public class DirectiveParser {
                         }
                         AlexaIfDirectiveItem.ImageStructure skillIcon = new AlexaIfDirectiveItem.ImageStructure();
                         if (payload != null && payload.has("skillIcon")) {
-                            JSONObject titleObject = payload.getJSONObject("skillIcon");
+                            JSONObject skillIconObject = payload.getJSONObject("skillIcon");
                             String contentDescription = null;
-                            if (titleObject.has("contentDescription")) {
-                                contentDescription = titleObject.getString("contentDescription");
+                            if (skillIconObject.has("contentDescription")) {
+                                contentDescription = skillIconObject.getString("contentDescription");
                             }
                             List<AlexaIfDirectiveItem.Source> sources = new ArrayList<>();
-                            if (payload != null && payload.has("sources")) {
-                                JSONArray sourceArray = payload.getJSONArray("sources");
+                            if (skillIconObject != null && skillIconObject.has("sources")) {
+                                JSONArray sourceArray = skillIconObject.getJSONArray("sources");
                                 for (int index = 0; index < sourceArray.length(); index++) {
                                     JSONObject sourceObject = sourceArray.getJSONObject(index);
                                     String url = null;
