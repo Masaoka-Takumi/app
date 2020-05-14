@@ -91,6 +91,7 @@ public class AlexaListTemplateAdapter extends ArrayAdapter<AlexaIfDirectiveItem.
                     holder.leftTextField.setText(item.getLeftTextField());
                     holder.rightTextField.setText(item.getRightTextField());
                 }
+                convertView.setEnabled(false);
                 break;
             case "LocalSearchListTemplate1":
                 LocalSearchViewHolder searchViewHolder;
@@ -115,7 +116,7 @@ public class AlexaListTemplateAdapter extends ArrayAdapter<AlexaIfDirectiveItem.
                 searchViewHolder.listItem.setLayoutParams(mlp1);
                 searchViewHolder.separator_bottom.setLayoutParams(mlp2);
                 if (item != null) {
-                    String number = String.valueOf(position + 1) + ".";
+                    String number = String.valueOf(position + 1) ;
                     searchViewHolder.leftTextField.setText(number);
                     searchViewHolder.distanceTextField.setText(item.getLeftTextField());
                     searchViewHolder.rightPrimaryTextField.setText(item.getRightPrimaryTextField());
