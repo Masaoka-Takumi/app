@@ -123,6 +123,7 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
     private boolean isPersistIndicator = false;
     private boolean isSpeaking = false;
     private boolean isAudioPlay = false;
+    private boolean isDisplayCardTouch = false;
     /** Alexaマネージャ. */
     AmazonAlexaManager mAmazonAlexaManager;
     /** 音声入力画面制御. */
@@ -220,17 +221,19 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
                 //表示カード表示中、画面タッチで保持する
                 if(mDisplayCardLayout.getVisibility()==View.VISIBLE) {
                     Timber.d("view onTouch");
-                    if (!isSpeaking) {
                         switch (event.getAction()) {
                             case MotionEvent.ACTION_DOWN:
+                                isDisplayCardTouch = true;
                                 mHandler.removeCallbacks(mRunnable);
                                 break;
                             case MotionEvent.ACTION_UP:
                             case MotionEvent.ACTION_CANCEL:
-                                mHandler.postDelayed(mRunnable, IDLE_TIME_2);
+                                isDisplayCardTouch = false;
+                                if (!isSpeaking) {
+                                    mHandler.postDelayed(mRunnable, IDLE_TIME_2);
+                                }
                                 break;
                         }
-                    }
                 }
                 return true;
             }
@@ -746,7 +749,9 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
                 // Dialogチャネルが非アクティブ
                 mCommunicationLayoutHandler.stopDialogChannel();
                 if(mDisplayCardLayout.getVisibility()==View.VISIBLE){
-                    mHandler.postDelayed(mRunnable, IDLE_TIME_2);
+                    if(!isDisplayCardTouch) {
+                        mHandler.postDelayed(mRunnable, IDLE_TIME_2);
+                    }
                 }else {
                     mHandler.postDelayed(mRunnable, IDLE_TIME);
                 }
@@ -1169,20 +1174,20 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Timber.d("listView onTouch");
-                if(!isSpeaking) {
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
+                            isDisplayCardTouch = true;
                             mHandler.removeCallbacks(mRunnable);
                             return true;
                         case MotionEvent.ACTION_UP:
                         case MotionEvent.ACTION_CANCEL:
-                            mHandler.postDelayed(mRunnable, IDLE_TIME_2);
+                            isDisplayCardTouch = false;
+                            if(!isSpeaking) {
+                                mHandler.postDelayed(mRunnable, IDLE_TIME_2);
+                            }
                             return false;
                     }
-                }else{
-                    return false;
-                }
-                return true;
+                return false;
             }
         });
     }
