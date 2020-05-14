@@ -90,6 +90,10 @@ public class UnconnectedContainerFragment extends AbstractScreenFragment<Unconne
 
         result =  mFragmentController.navigate(screenId, args);
         ((MainActivity)getActivity()).setOrientation(screenId);
+        //設定画面などのXボタンで遷移した時もApp連携方法ダイアログを表示
+        if(result&&screenId==ScreenId.UNCONNECTED_CONTAINER){
+            getPresenter().showAppConnectMethodDialog();
+        }
         return result;
     }
 
