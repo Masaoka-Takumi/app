@@ -102,9 +102,9 @@
             android:layout_alignBottom="@+id/high_arrow"
             android:layout_marginLeft="14dp"
             android:layout_toRightOf="@+id/high_temperature"
-            android:alpha="0.5"
             android:scaleType="fitCenter"
-            android:src="@android:color/darker_gray" />
+            android:src="@android:color/darker_gray"
+            android:tint="@color/alexa_display_card_subtitle"/>
 
         <TextView
             android:id="@+id/low_temperature"
@@ -113,12 +113,11 @@
             android:layout_alignBottom="@+id/high_arrow"
             android:layout_marginLeft="14dp"
             android:layout_toRightOf="@+id/low_arrow"
-            android:alpha="0.5"
             android:fontFamily="sans-serif-light"
             android:includeFontPadding="false"
             android:maxLines="1"
             android:text="22℃"
-            android:textColor="@android:color/white"
+            android:textColor="@color/alexa_display_card_subtitle"
             android:textSize="@dimen/alexa_display_card_weather_temperature_text_size" />
     </RelativeLayout>
 

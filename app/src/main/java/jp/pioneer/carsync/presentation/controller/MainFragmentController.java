@@ -808,7 +808,6 @@ public class MainFragmentController {
      */
     public void showAppConnectMethodDialog(Bundle args) {
         createAppConnectMethodDialogFragment(args).show(mFragmentManager, TAG_DIALOG_APP_CONNECT_METHOD);
-        mFragmentManager.executePendingTransactions();
     }
 
     /**
