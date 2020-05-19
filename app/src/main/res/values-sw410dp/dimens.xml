@@ -739,6 +739,7 @@
     <dimen name="alexa_screen_voice_chrome_height">5.7dp</dimen>
     <dimen name="alexa_screen_start_button_group_width">72.3dp</dimen>
     <dimen name="alexa_screen_start_button_width">64.4dp</dimen>
+    <dimen name="alexa_screen_state_text_width">118.7dp</dimen>
 
     <!-- Alexa Display Card -->
     <dimen name="alexa_display_card_main_title_margin_left_portrait">79.1dp</dimen>
