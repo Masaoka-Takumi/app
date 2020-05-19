@@ -196,6 +196,13 @@ public class AlexaFragment extends AbstractDialogFragment<AlexaPresenter, AlexaV
         this.dismiss();
     }
 
+    public void callbackCloseNotChangeSource() {
+        if (getCallback() != null) {
+            getCallback().onClose(this);
+        }
+        this.dismiss();
+    }
+
     /**
      * ダイアログ終了通知interface
      */

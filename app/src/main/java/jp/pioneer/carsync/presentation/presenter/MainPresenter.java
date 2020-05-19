@@ -719,6 +719,11 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                 //view.dismissContactContainer();
                 return;
             }
+
+            if (view.isShowAlexaDialog()) {
+                view.dismissAlexaDialog();
+            }
+
             if (!view.isShowAdasWarning()) {
                 view.navigate(ScreenId.ADAS_WARNING, args);
             }
