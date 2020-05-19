@@ -50,6 +50,9 @@
     <string name="ply_097">电台列表</string>
     <string name="ply_098">列表更新</string>
     <string name="ply_099">天线错误</string>
+    <string name="ply_100">电台</string>
+    <string name="ply_101">电台类型</string>
+    <string name="ply_102">电台群组</string>
     <string name="ply_103">News&amp;Info</string>
     <string name="ply_104">Popular</string>
     <string name="ply_105">Classics</string>
@@ -263,6 +266,7 @@
     <string name="set_313">法语</string>
     <string name="set_314">Amazon Alexa</string>
     <string name="set_315">您的设备包含对 Alexa 的访问权限。\n连接您的 Amazon 帐户即可访问个性化功能。</string>
+    <string name="set_316">利用Amazon Alexa语言操作，可收听音乐，了解体育比赛分数，天气情报等情报。操作只要和Alexa通过语言操作即可。</string>
     <string name="set_317">使用 Amazon 登录</string>
     <string name="set_318">可尝试的事</string>
     <string name="set_319">天气如何？\n播放我的 Flash 简报\n珠穆朗玛峰有多高？\n今天会下雨吗？</string>
@@ -329,7 +333,24 @@
     <string name="set_389">功能键设定</string>
     <string name="set_393">蓝牙自动接续等候中</string>
     <string name="set_394">当设定为OFF时，汽车音响的自动接续将不会自动执行。</string>
+    <string name="set_395">车辆发生碰撞时，PSS APP将会自动发送短信息至预先设定的紧急联络电话，请预先设定好紧急联络电话。</string>
+    <string name="set_396">PSS APP是利用手机麦克风进行相关功能服务。请将手机放置于安全及可完整收银位置。</string>
+    <string name="set_397">检索对象</string>
+    <string name="set_398">艺人名</string>
+    <string name="set_399">歌曲名</string>
     <string name="set_402">天线电源</string>
+    <string name="set_403">设置导向</string>
+    <string name="set_404">请先设置智能手机</string>
+    <string name="set_405">为了可以安全体验Amazon Alexa，请将手机放置于可触碰且可稳定放置的手机架上。</string>
+    <string name="set_406">Alexa使用方法</string>
+    <string name="set_407">使用技巧</string>
+    <string name="set_408">点击Alexa按键可呼叫唤醒Alexa语音服务功能。</string>
+    <string name="set_409">比如，地图APP可以显示目的地。</string>
+    <string name="set_410">长按按钮，回到PSS APP画面。</string>
+    <string name="set_411">让我们开始使用吧。</string>
+    <string name="set_412">使用方法</string>
+    <string name="set_413">软件版本</string>
+    <string name="set_415">Google助手</string>
     <string name="sta_004">警告：</string>
     <string name="sta_005">同意</string>
     <string name="sta_008">功能只有在您的位置安全且合法时才能使用，请注意道路和周边环境，并遵守所有交通规则。\n\n使用智能手机操作的这个功能仅仅是驾驶员可操作的办法。 \n在任何情况下，驾驶员都应安全和明智地驾驶车辆</string>
@@ -338,6 +359,7 @@
     <string name="sta_011">车辆行驶中影片观赏存在安全隐患，请在车辆停妥后继续观赏。</string>
     <string name="sta_012">此讯息，将不再显示。</string>
     <string name="sta_013">行驶中，影像输出将被关闭。</string>
+    <string name="sta_014">可使用Amazon Alexa功能</string>
     <string name="hom_006">系统</string>
     <string name="hom_008">音效设置</string>
     <string name="hom_012">信息</string>
@@ -433,6 +455,7 @@
     <string name="err_035">未选择 Marine app</string>
     <string name="err_036">・此功能仅支持横向显示模式，请侧向放置设备。</string>
     <string name="err_037">此机能并未获得权限许可。请在权限许可后，再重新操作。</string>
+    <string name="err_038">使用本功能时，请确认保证手机已经连接到蓝牙。</string>
     <string name="tip_001">贴士</string>
     <string name="tip_006">请确保产品的应用程序连接设置为蓝牙连接。</string>
     <string name="tip_007">按下“搜索设备”按钮后，从对话框中选择名称即可轻松连接产品。</string>
@@ -445,6 +468,8 @@
     <string name="tip_023">重试</string>
     <string name="tip_024">无法找回购买信息。</string>
     <string name="tip_025">购买功能将关闭。</string>
+    <string name="tip_026">从车载机器的连接方法</string>
+    <string name="tip_027">请长按此按钮。\n*蓝牙或者USB连接已经完毕</string>
     <string name="pas_001">倒车雷达</string>
     <string name="pas_004">传感器错误</string>
     <string name="pas_009">确定</string>

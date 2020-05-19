@@ -468,6 +468,8 @@
     <string name="tip_023">Réessayez</string>
     <string name="tip_024">Impossible de récupérer les informations d\'achat.</string>
     <string name="tip_025">La fonction d\'achat sera désactivée.</string>
+    <string name="tip_026">Si vous êtes déconnecté de l\'autoradio.</string>
+    <string name="tip_027">En appuyant sur le bouton correspondant et en le maintenant enfoncé, vous pouvez facilement reconnecter l\'application à l\'autoradio.\n※ Le smartphone et l\'autoradio doivent déjà avoir été jumelés ou connectés via BT ou USB.</string>
     <string name="pas_001">Capteur aide au stationnement</string>
     <string name="pas_004">ERREUR DU CAPTEUR</string>
     <string name="pas_009">OK</string>

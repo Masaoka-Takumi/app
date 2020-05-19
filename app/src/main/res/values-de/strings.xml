@@ -467,6 +467,8 @@
     <string name="tip_023">Noch einmal versuchen.</string>
     <string name="tip_024">Kaufinformationen konnten nicht ermittelt werden.</string>
     <string name="tip_025">Kauf-Funktion wird AUS-geschaltet.</string>
+    <string name="tip_026">Wenn die Verbindung zum Autoradio unterbrochen wurde</string>
+    <string name="tip_027">Durch Drücken und Halten der entsprechenden Taste können Sie die Verbindung problemlos wiederherstellen. \n※ Das Smartphone und das Autoradio müssen bereits über BT oder USB gekoppelt oder verbunden sein.</string>
     <string name="pas_001">Parksensor</string>
     <string name="pas_004">SENSORFEHLER</string>
     <string name="pas_009">OK</string>
