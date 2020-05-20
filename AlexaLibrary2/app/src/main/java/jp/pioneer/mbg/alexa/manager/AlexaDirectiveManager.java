@@ -505,8 +505,9 @@ public class AlexaDirectiveManager {
                     // 成功
                     if (DBG) android.util.Log.d(TAG, " - SynchronizeStateEvent onResponse(), Success");
                     // SettingsUpdatedイベント送信
-                    sendSettingsUpdated(context);
-                    sendCapabilitiesAPI(context);
+                    sendSettingsUpdatedSync(context);
+                    //機能APIは、ダウンチャンネル確立前に呼び出している。AVSに再接続するたびに呼び出すことを極力避ける
+                    //sendCapabilitiesAPI(context);
                 }
                 else {
                     // 失敗
@@ -527,10 +528,10 @@ public class AlexaDirectiveManager {
     }
 
     /**
-     * SettingsUpdatedイベント送信
+     * SettingsUpdatedイベント送信（同期時）
      * @param context
      */
-    public synchronized static void sendSettingsUpdated(final Context context) {
+    public synchronized static void sendSettingsUpdatedSync(final Context context) {
         ArrayList<AlexaIfEventItem.Setting> settings = new ArrayList<AlexaIfEventItem.Setting>();
         {
             String locale = SettingsUpdatedUtil.getLocaleSetting(context);
@@ -577,6 +578,48 @@ public class AlexaDirectiveManager {
                         //     callback.completeInitializeConnection();
                     }
                 }
+            }
+
+            @Override
+            public void onParsedResponse(ArrayList<AlexaIfDirectiveItem> itemList) {
+                if (DBG) android.util.Log.w(TAG, "SettingsUpdated onParsedResponse(), itemList = " + itemList);
+            }
+        });
+    }
+
+    /**
+     * SettingsUpdatedイベント送信
+     * @param context
+     */
+    public synchronized static void sendSettingsUpdated(final Context context) {
+        ArrayList<AlexaIfEventItem.Setting> settings = new ArrayList<AlexaIfEventItem.Setting>();
+        {
+            String locale = SettingsUpdatedUtil.getLocaleSetting(context);
+            AlexaIfEventItem.Setting setting = new AlexaIfEventItem.Setting("locale", locale);
+            settings.add(setting);
+        }
+        SettingsUpdatedItem settingsUpdatedItem = new SettingsUpdatedItem(settings);
+        AlexaEventManager.sendEvent(TokenManager.getToken(), settingsUpdatedItem, context, new AlexaEventManager.AlexaCallback() {
+            @Override
+            public void onExecute(Call call) {
+                if (DBG) android.util.Log.d(TAG, "SettingsUpdated onExecute()");
+            }
+
+            @Override
+            public void onResponse(Call call, int httpCode) {
+                if (DBG) android.util.Log.d(TAG, "SettingsUpdated onResponse()");
+                if (200 <= httpCode && httpCode < 300) {
+                    if (DBG) android.util.Log.d(TAG, " - SettingsUpdated onResponse(), Success ");
+                }
+                else {
+                    // 失敗
+                    if (DBG) android.util.Log.w(TAG, " - SettingsUpdated onResponse(), Error ");
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                if (DBG) android.util.Log.w(TAG, "SettingsUpdated onFailure(), e = " + e);
             }
 
             @Override
