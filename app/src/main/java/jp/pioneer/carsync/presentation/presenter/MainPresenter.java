@@ -1595,10 +1595,8 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                     bundle.putString(StatusPopupDialogFragment.MESSAGE, title);
                     bundle.putBoolean(StatusPopupDialogFragment.POSITIVE, true);
                     mEventBus.post(new NavigateEvent(ScreenId.MAIN_STATUS_DIALOG, bundle));
-                    //ダウンチャネルストリームの確立後、同期完了までは新しい接続を開始しない
-                    if(!AmazonAlexaManager.mIsDownChannelOpened) {
-                        manager.openDownChannel();
-                    }
+                    SettingsUpdatedUtil.setLocale(mContext.getString(mPreference.getAlexaLanguage().locale));
+                    manager.openDownChannel();
                 }else if (state!= PermissionChecker.PERMISSION_GRANTED) {
                     // マイクのパーミッションが無い場合
                     title = mContext.getString(R.string.err_032);
@@ -1607,6 +1605,7 @@ public class MainPresenter extends Presenter<MainView> implements AppSharedPrefe
                     bundle.putBoolean(StatusPopupDialogFragment.POSITIVE, true);
                     mEventBus.post(new NavigateEvent(ScreenId.MAIN_STATUS_DIALOG, bundle));
                 }else{
+                    SettingsUpdatedUtil.setLocale(mContext.getString(mPreference.getAlexaLanguage().locale));
                     mIsAlexaStart = true;
                     holder.getAppStatus().alexaPreviousSourceType = holder.getCarDeviceStatus().sourceType;
                     mEventBus.post(new NavigateEvent(ScreenId.ALEXA, Bundle.EMPTY));

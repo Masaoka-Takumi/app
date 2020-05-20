@@ -77,6 +77,8 @@ public class AlexaExampleUsagePresenter  extends Presenter<AlexaExampleUsageView
     public void setAlexaLanguage(int position){
         AlexaLanguageType type = AlexaLanguageType.getValues().get(position);
         mPreference.setAlexaLanguage(type);
+        SettingsUpdatedUtil.setLocale(mContext.getString(mPreference.getAlexaLanguage().locale));
+        AlexaDirectiveManager.sendSettingsUpdated(mContext);
         mEventBus.post(new NavigateEvent(ScreenId.ALEXA_SETTING, createSettingsParams(mContext.getString(R.string.set_302))));
     }
 
