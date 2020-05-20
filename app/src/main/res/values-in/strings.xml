@@ -467,6 +467,8 @@
     <string name="tip_023">mencoba kembali</string>
     <string name="tip_024">tidak dapat mengambil informasi pembelian</string>
     <string name="tip_025">fitur pembelian akan di matikan.</string>
+    <string name="tip_026">Jika terputus dengan penerima stereo</string>
+    <string name="tip_027">Dengan menekan dan menahan tombol yang berlaku, Anda dapat menghubungkan kembali aplikasi ke penerima stereo.※ Ponsel cerdas dan penerima stereo harus sudah dipasangkan atau terhubung melalui BT atau USB.</string>
     <string name="pas_001">Sensor Parkir</string>
     <string name="pas_004">KESALAHAN SENSOR</string>
     <string name="pas_009">OKE</string>

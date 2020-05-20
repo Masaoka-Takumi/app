@@ -346,7 +346,7 @@
     <string name="set_402">עצמת אנטנה</string>
     <string name="set_403">הנחית מיקום </string>
     <string name="set_404">נתחיל בהגדרת הטלפון שלך</string>
-    <string name="set_405">למען ביטחונך ולחווית אופטימאלית של Amazon Alexa, אנו ממליצים להשתמש מעמד לטלפון הסלולרי כך שהוא יהיה בהישג יד .</string>
+    <string name="set_405">למען ביטחונך ולחוויה אופטימאלית של Amazon Alexa, אנו ממליצים להשתמש בעמד לטלפון הסלולרי כך שהוא יהיה בהישג יד .</string>
     <string name="set_406">כיצד להשתמש ב- Alexa</string>
     <string name="set_407">טיפים</string>
     <string name="set_408">שאל את Alexa על ידי לחיצה על כפתור Alexa</string>
@@ -473,6 +473,8 @@
     <string name="tip_023">נסה שנית</string>
     <string name="tip_024">לא ניתן לאחזר את פרטי הרכישה.</string>
     <string name="tip_025">פעולת הרכישה תופסק</string>
+    <string name="tip_026">אם תתנתק ממקלט הסטריאו</string>
+    <string name="tip_027">על ידי לחיצה ארוכה על הכפתור הרלוונטי, תוכל לחבר מחדש את היישום למקלט הסטריאו בקלות.\nMust הטלפון החכם והמקלט הסטריאו כבר חייבים להיות מותאמים או מחוברים באמצעות BT או USB. </string>
     <string name="pas_001">חיישן חניה</string>
     <string name="pas_004">שגיאת חיישן</string>
     <string name="pas_009">אישור</string>

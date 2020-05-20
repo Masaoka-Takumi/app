@@ -267,6 +267,7 @@
     <string name="set_313">Francés</string>
     <string name="set_314">Amazon Alexa</string>
     <string name="set_315">Tu dispositivo incluye acceso a Alexa.\nConecta tu cuenta de Amazon para obtener acceso a funciones personalizadas.</string>
+    <string name="set_316">Alexa le permite usar tu voz para reproducir música, obtener noticias, resultados deportivos, verificar el clima y más. Todo lo que tienes que hacer es preguntarle a Alexa.</string>
     <string name="set_317">Iniciar sesión con Amazon</string>
     <string name="set_318">Cosas para probar</string>
     <string name="set_319">¿Cómo esta el clima?\nReproduce mi flash briefing\n¿Cuánto mide el Everest?\n¿ Hoy va a llover?</string>
@@ -333,7 +334,24 @@
     <string name="set_389">Configuración de botones personalizada</string>
     <string name="set_393">Esperando para conexión automatica</string>
     <string name="set_394">Desactivar esta configuración impedirá que el receptor se conecte automáticamente</string>
+    <string name="set_395">Cuando se detecta una colisión, se puede enviar un SMS o notificación telefónica a un contacto.\nLe recomendamos que agregue este contacto anticipadamente.</string>
+    <string name="set_396">Pioneer Smart Sync utiliza el micrófono de tu dispositivo móvil.</string>
+    <string name="set_397">Buscar Objetivo</string>
+    <string name="set_398">Artista</string>
+    <string name="set_399">Títulos Musical</string>
     <string name="set_402">Alimentación de antena</string>
+    <string name="set_403">Guia de Colocación</string>
+    <string name="set_404">Comencemos por configurar tu teléfono.</string>
+    <string name="set_405">Para tu seguridad y una experiencia óptima de Amazon Alexa, te sugerimos usar un soporte como base para asegurar que tu teléfono esté al alcance de la mano.</string>
+    <string name="set_406">Como usar Alexa</string>
+    <string name="set_407">Consejos</string>
+    <string name="set_408">Pregúntale a Alexa tocando el botón de Alexa.</string>
+    <string name="set_409">Usar por ejemplo la App Map para mostras donde ir</string>
+    <string name="set_410">Mantenga presionado el dial giratorio para regresar fácilmente a PSS</string>
+    <string name="set_411">Empecemos</string>
+    <string name="set_412">Como usar</string>
+    <string name="set_413">Version de Firmware</string>
+    <string name="set_415">Google Assistant</string>
     <string name="sta_004">PRECAUCIÓN: </string>
     <string name="sta_005">Aceptar</string>
     <string name="sta_008">Usa las funciónes solo si es seguro y legal en tu ubicación, presta atención al camino y tu entorno, y acata las normas de tráfico.\n\nLas funciones operables mediante smartphone son herramientas disponibles para el conductor. \nEl conductor deberá manejar siempre de forma segura y sensata.</string>
@@ -342,6 +360,7 @@
     <string name="sta_011">Es peligroso ver videos mientras conduce. Por favor, ver solo cuando está estacionado.</string>
     <string name="sta_012">No se mostrará desde la próxima vez</string>
     <string name="sta_013">Debido a que el vehiculo se encuentra en movimiento, Se apagara la visualización de video.</string>
+    <string name="sta_014">Ahora puedes usar Alexa</string>
     <string name="hom_006">Sistema</string>
     <string name="hom_008">Audio</string>
     <string name="hom_012">Información</string>
@@ -437,6 +456,7 @@
     <string name="err_035">Aplicación Marine no seleccionada</string>
     <string name="err_036">・Esta función solo permite presentación horizontal, Gira el dispositivo.</string>
     <string name="err_037">No tiene los permisos necesarios establecidos para usar esta función. Establezca los permisos e intente nuevamente.</string>
+    <string name="err_038">Para utilizar esta función, se requiere una conexión Bluetotth a este dispositivo.</string>
     <string name="tip_001">Sugerencias</string>
     <string name="tip_006">Por favor confirme que la configuracion de conexicion del producto sea BT</string>
     <string name="tip_007">Seleccionando el nombre del dispositivo en la funcion \"busqueda de dispositivo\" puedes conectarte facilmente.</string>
@@ -449,6 +469,8 @@
     <string name="tip_023">Reintentalo</string>
     <string name="tip_024">No se puede confirmar la información de compra</string>
     <string name="tip_025">Función de compra se deshabilitara</string>
+    <string name="tip_026">Si te desconectas con el autoestéreo</string>
+    <string name="tip_027">Al mantener presionado el botón correspondiente, puede volver a conectar fácilmente la aplicación al autoestéreo * El Smartphone y el autoestéreo ya debe de estar vinculados mediante BT o USB </string>
     <string name="pas_001">Sensor de aparcamiento</string>
     <string name="pas_004">ERROR DE SENSOR</string>
     <string name="pas_009">OK</string>

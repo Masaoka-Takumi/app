@@ -35,7 +35,7 @@
 
         <me.grantland.widget.AutofitTextView
             android:id="@+id/state_text_view"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/alexa_screen_state_text_width"
             android:layout_height="wrap_content"
             android:layout_marginLeft="18dp"
             android:layout_marginTop="4dp"
@@ -48,11 +48,12 @@
             android:text=""
             android:textColor="@color/text_color_state"
             android:textSize="@dimen/alexa_screen_state_text_size"
+            android:layoutDirection="ltr"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/alexa_start_button_group"
-            app:layout_constraintTop_toBottomOf="@+id/alexa_voice_chrome_large"
-            autofit:minTextSize="@dimen/min_text_size_12" />
+            app:layout_constraintTop_toBottomOf="@+id/alexa_voice_chrome_large" />
 
         <jp.pioneer.mbg.alexa.CustomVoiceChromeView
             android:id="@+id/alexa_voice_chrome_large"
