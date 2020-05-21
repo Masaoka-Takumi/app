@@ -24,7 +24,7 @@ import timber.log.Timber;
  */
 @PresenterLifeCycle
 public class UnconnectedContainerPresenter extends Presenter<UnconnectedContainerView> {
-
+    private boolean mIsAppConnectShow = false;
     @Inject EventBus mEventBus;
     @Inject Context mContext;
     @Inject AppSharedPreference mPreference;
@@ -36,6 +36,7 @@ public class UnconnectedContainerPresenter extends Presenter<UnconnectedContaine
     @Override
     void onInitialize() {
         Optional.ofNullable(getView()).ifPresent(view -> view.onNavigate(ScreenId.TIPS, Bundle.EMPTY));
+        mIsAppConnectShow = false;
     }
 
     @Override
@@ -63,7 +64,11 @@ public class UnconnectedContainerPresenter extends Presenter<UnconnectedContaine
                             // デバッグ設定でAlexa SIM判定 OFFにできるため、設定画面の画面回転のたびに実行されてしまう
                             view.showAlexaAvailableConfirmDialog();
                         }else if(view.getScreenIdInContainer() == ScreenId.TIPS){
-                            showAppConnectMethodDialog();
+                            //横向きからの画面回転で2回連続で呼ばれるため、1回目のみ実行
+                            if(!mIsAppConnectShow) {
+                                showAppConnectMethodDialog();
+                                mIsAppConnectShow = true;
+                            }
                         }
                     }
                 });
