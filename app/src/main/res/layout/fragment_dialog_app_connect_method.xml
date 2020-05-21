@@ -57,8 +57,8 @@
             android:layout_marginRight="29dp"
             android:ellipsize="end"
             android:fontFamily="sans-serif"
-            android:gravity="top|left"
-            android:maxLines="3"
+            android:gravity="top|start"
+            android:maxLines="5"
             android:text="@string/tip_027"
             android:textColor="@android:color/black"
             android:textSize="@dimen/app_connect_method_subscription_text_size"
@@ -68,10 +68,12 @@
             autofit:minTextSize="@dimen/min_text_size_12" />
 
         <ImageView
-            android:layout_width="@dimen/app_connect_method_connect_illust_width"
-            android:layout_height="@dimen/app_connect_method_connect_illust_height"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:scaleType="fitCenter"
             android:src="@drawable/p2064_connect_illust"
+            app:layout_constraintWidth_max="@dimen/app_connect_method_connect_illust_width"
+            app:layout_constraintHeight_max="@dimen/app_connect_method_connect_illust_height"
             app:layout_constraintBottom_toTopOf="@+id/reshow_check"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
