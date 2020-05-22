@@ -806,7 +806,7 @@ public class MainFragmentController {
      * @param args Bundle 引き継ぎ情報
      */
     public void showAppConnectMethodDialog(Bundle args) {
-        createAppConnectMethodDialogFragment(args).show(mFragmentManager, TAG_DIALOG_APP_CONNECT_METHOD);
+        createAppConnectMethodDialogFragment(args).showNow(mFragmentManager, TAG_DIALOG_APP_CONNECT_METHOD);
     }
 
     /**

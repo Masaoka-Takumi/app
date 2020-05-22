@@ -24,7 +24,6 @@ import timber.log.Timber;
  */
 @PresenterLifeCycle
 public class UnconnectedContainerPresenter extends Presenter<UnconnectedContainerView> {
-
     @Inject EventBus mEventBus;
     @Inject Context mContext;
     @Inject AppSharedPreference mPreference;

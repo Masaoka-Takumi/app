@@ -23,9 +23,6 @@ import jp.pioneer.carsync.presentation.view.argument.SettingsParams;
 import jp.pioneer.carsync.presentation.view.fragment.ScreenId;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.SingleChoiceDialogFragment;
 import jp.pioneer.carsync.presentation.view.fragment.dialog.StatusPopupDialogFragment;
-import jp.pioneer.mbg.alexa.manager.AlexaDirectiveManager;
-import jp.pioneer.mbg.alexa.util.SettingsUpdatedUtil;
-
 
 /**
  * AlexaExampleUsagePresenter
@@ -77,8 +74,6 @@ public class AlexaExampleUsagePresenter  extends Presenter<AlexaExampleUsageView
     public void setAlexaLanguage(int position){
         AlexaLanguageType type = AlexaLanguageType.getValues().get(position);
         mPreference.setAlexaLanguage(type);
-        SettingsUpdatedUtil.setLocale(mContext.getString(mPreference.getAlexaLanguage().locale));
-        AlexaDirectiveManager.sendSettingsUpdated(mContext);
         mEventBus.post(new NavigateEvent(ScreenId.ALEXA_SETTING, createSettingsParams(mContext.getString(R.string.set_302))));
     }
 
