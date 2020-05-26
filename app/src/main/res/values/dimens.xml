@@ -854,11 +854,12 @@
     <dimen name="youtube_link_caution_confirm_button_bottom_margin">21dp</dimen>
 
     <!--App連携方法ダイアログ-->
-    <dimen name="app_connect_method_background_height">446dp</dimen>
+    <dimen name="app_connect_method_background_height">464dp</dimen>
     <dimen name="app_connect_method_close_button_width">29dp</dimen>
     <dimen name="app_connect_method_title_text_size">17dp</dimen>
     <dimen name="app_connect_method_subscription_text_size">14dp</dimen>
-    <dimen name="app_connect_method_connect_illust_width">211dp</dimen>
-    <dimen name="app_connect_method_connect_illust_height">230dp</dimen>
+    <dimen name="app_connect_method_connect_illust_width">192dp</dimen>
+    <dimen name="app_connect_method_connect_illust_height">216dp</dimen>
     <dimen name="app_connect_method_checkbox_width">38dp</dimen>
+    <dimen name="app_connect_method_separator_margin_top">55dp</dimen>
 </resources>
